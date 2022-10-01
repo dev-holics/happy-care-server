@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  postgres_db:
+    container_name: my_postgres
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - app-network
+  app:
+    build: .
+    container_name: happy-care_auth_server
+    hostname: happy-care
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    env_file:
+      - .docker.env
+    environment:
+      - DATABASE_HOST=mongodb://localhost:27017
+      - DATABASE_NAME=happy-care-auth
+      - DATABASE_USER=ductruong
+      - DATABASE_PASSWORD=ductruong
+      - DATABASE_DEBUG=false
+      - DATABASE_OPTIONS=''
+    restart: unless-stopped
+    depends_on:
+      - postgres_db
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
