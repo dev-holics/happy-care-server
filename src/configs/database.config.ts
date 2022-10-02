@@ -4,7 +4,9 @@ export default registerAs(
 	'database',
 	(): Record<string, any> => ({
 		type: process.env.DATABASE_TYPE || 'postgres',
-		url: process.env.DATABASE_URL || 'postgresql://derek:123456@localhost:5432',
+		url:
+			process.env.DATABASE_URL ||
+			'postgresql://derek:123456@localhost:5432/happy-care-db',
 		host: process.env.DATABASE_HOST || 'localhost',
 		port: Number(process.env.DATABASE_PORT) || 5432,
 		name: process.env.DATABASE_NAME || 'happy-care-db',

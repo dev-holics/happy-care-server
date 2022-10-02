@@ -12,6 +12,7 @@ import {
 import { IsPasswordStrong } from 'src/common/request/validations/request.is-password-strong.validation';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { IUserCreate } from 'src/modules/user/interfaces/user.api.interface';
+import { RoleEntity } from 'src/modules/role/entities/role.entity';
 
 export class UserCreateDto implements IUserCreate {
 	@ApiProperty({
@@ -66,4 +67,11 @@ export class UserCreateDto implements IUserCreate {
 	@IsOptional()
 	@Type(() => String)
 	readonly gender?: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: true,
+	})
+	@IsNotEmpty()
+	readonly role: RoleEntity;
 }
