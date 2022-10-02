@@ -6,12 +6,8 @@ import { RedisService } from 'src/common/redis/services/redis.service';
 @Global()
 @Module({
 	controllers: [],
-	providers: [
-		RedisService,
-	],
-	exports: [
-		RedisService,
-	],
+	providers: [RedisService],
+	exports: [RedisService],
 	imports: [
 		CacheModule.registerAsync({
 			inject: [ConfigService],

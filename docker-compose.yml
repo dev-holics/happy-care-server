@@ -2,16 +2,22 @@ version: '3.8'
 services:
   postgres_db:
     container_name: my_postgres
-    image: postgres
-    env_file:
-      - .env
+    image: postgres:14.4-alpine
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - app-network
   app:
-    build: .
+    build:
+      dockerfile: docker/app/Dockerfile.local
+      context: .
+      args:
+        NODE_IMAGE: ${NODE_IMAGE}
+        APP_PORT: ${APP_PORT}
     container_name: happy-care_auth_server
     hostname: happy-care
     ports:
@@ -19,17 +25,25 @@ services:
     networks:
       - app-network
     env_file:
-      - .docker.env
-    environment:
-      - DATABASE_HOST=mongodb://localhost:27017
-      - DATABASE_NAME=happy-care-auth
-      - DATABASE_USER=ductruong
-      - DATABASE_PASSWORD=ductruong
-      - DATABASE_DEBUG=false
-      - DATABASE_OPTIONS=''
-    restart: unless-stopped
+      - .env
+    command: sh -c "yarn start:dev"
+    volumes:
+      - ./:/home/app
+      - ./node_modules:/home/app/node_modules
     depends_on:
       - postgres_db
+      - redis
+  redis:
+    container_name: hc_redis
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - app-network
 networks:
   app-network:
     name: app-network

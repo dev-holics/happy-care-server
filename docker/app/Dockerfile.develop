@@ -1,0 +1,24 @@
+ARG NODE_IMAGE=node:16.16.0-alpine
+ARG APP_PORT=3000
+
+# ======================================
+# ======= DOCKERFILE FOR DEVELOPMENT ===
+# ======================================
+FROM ${NODE_IMAGE} as builder
+
+WORKDIR /home/app
+
+COPY . .
+COPY package.json yarn.lock ./
+
+RUN yarn build
+
+FROM ${NODE_IMAGE}
+
+COPY --from=builder /home/app/node_modules ./node_modules
+COPY --from=builder /home/app/dist ./dist
+COPY --from=builder /home/app/package.json ./
+
+CMD "yarn start:prod"
+
+EXPOSE $APP_PORT
