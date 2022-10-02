@@ -8,22 +8,21 @@ import { IResponse } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('enum.message')
 @Controller({
-    version: VERSION_NEUTRAL,
-    path: '/message',
+	version: VERSION_NEUTRAL,
+	path: '/message',
 })
 export class MessageEnumController {
-    constructor(private readonly messageEnumService: MessageEnumService) {}
+	constructor(private readonly messageEnumService: MessageEnumService) {}
 
-    @Response('message.languages', {
-        classSerialization: MessageLanguageSerialization,
-    })
-    @RequestExcludeTimestamp()
-    @Get('/languages')
-    async languages(): Promise<IResponse> {
-        const languages: string[] =
-            await this.messageEnumService.getLanguages();
-        return {
-            languages,
-        };
-    }
+	@Response('message.languages', {
+		classSerialization: MessageLanguageSerialization,
+	})
+	@RequestExcludeTimestamp()
+	@Get('/languages')
+	async languages(): Promise<IResponse> {
+		const languages: string[] = await this.messageEnumService.getLanguages();
+		return {
+			languages,
+		};
+	}
 }

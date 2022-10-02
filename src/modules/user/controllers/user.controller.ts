@@ -36,8 +36,8 @@ export class UserController {
 	@Response('user.profile', {
 		classSerialization: UserProfileSerialization,
 	})
-	@UserProfileGuard()
 	@AuthJwtGuard()
+	@UserProfileGuard()
 	@AuthApiKeyGuard()
 	@Get('/profile')
 	async profile(@GetUser() user: IUserEntity): Promise<IResponse> {

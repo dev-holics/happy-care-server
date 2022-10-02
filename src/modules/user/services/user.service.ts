@@ -1,9 +1,17 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+	BadRequestException,
+	ForbiddenException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import { IUserCheckExist } from 'src/modules/user/interfaces/user.interface';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { UserLoginDto } from 'src/modules/user/dtos/user.login.dto';
-import { ENUM_USER_STATUS_CODE_ERROR, ENUM_USER_STATUS_CODE_SUCCESS } from 'src/modules/user/constants';
+import {
+	ENUM_USER_STATUS_CODE_ERROR,
+	ENUM_USER_STATUS_CODE_SUCCESS,
+} from 'src/modules/user/constants';
 import { AuthService } from 'src/common/auth/services/auth.service';
 import { UserPayloadSerialization } from 'src/modules/user/serializations/user.payload.serialization';
 import { plainToInstance } from 'class-transformer';
@@ -13,13 +21,12 @@ export class UserService {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly userRepository: UserRepository,
-	) { }
+	) {}
 
 	async login(loginData: UserLoginDto) {
 		const user: UserEntity = await this.userRepository.findOneByQuery({
 			phoneNumber: loginData.phoneNumber,
 		});
-
 
 		if (!user) {
 			throw new NotFoundException({
@@ -35,7 +42,8 @@ export class UserService {
 
 		if (!authValidation) {
 			throw new BadRequestException({
-				statusCode: ENUM_USER_STATUS_CODE_ERROR.USER_OR_PASSWORD_NOT_MATCH_ERROR,
+				statusCode:
+					ENUM_USER_STATUS_CODE_ERROR.USER_OR_PASSWORD_NOT_MATCH_ERROR,
 				message: 'user.error.userOrPasswordNotMatch',
 			});
 		} else if (!user.isActive) {
@@ -45,26 +53,20 @@ export class UserService {
 			});
 		}
 
-		const payload: UserPayloadSerialization =
-			await this.payloadSerialization(user);
+		const payload: UserPayloadSerialization = await this.payloadSerialization(
+			user,
+		);
 		const tokenType: string = await this.authService.getTokenType();
 		const expiresIn: number =
 			await this.authService.getAccessTokenExpirationTime();
 		const rememberMe = !!loginData.rememberMe;
 
 		const payloadAccessToken: Record<string, any> =
-			await this.authService.createPayloadAccessToken(
-				payload,
-				rememberMe,
-			);
+			await this.authService.createPayloadAccessToken(payload, rememberMe);
 		const payloadRefreshToken: Record<string, any> =
-			await this.authService.createPayloadRefreshToken(
-				payload.id,
-				rememberMe,
-				{
-					loginDate: payloadAccessToken.loginDate,
-				}
-			);
+			await this.authService.createPayloadRefreshToken(payload.id, rememberMe, {
+				loginDate: payloadAccessToken.loginDate,
+			});
 
 		const accessToken: string = await this.authService.createAccessToken(
 			user.id,
@@ -90,7 +92,7 @@ export class UserService {
 
 	async refresh(refreshData: Record<string, any>, refreshToken: string) {
 		const user: UserEntity = await this.userRepository.findOneByQuery({
-			id: refreshData.id
+			id: refreshData.id,
 		});
 
 		if (!user) {
@@ -105,8 +107,9 @@ export class UserService {
 			});
 		}
 
-		const payload: UserPayloadSerialization =
-			await this.payloadSerialization(user);
+		const payload: UserPayloadSerialization = await this.payloadSerialization(
+			user,
+		);
 		const tokenType: string = await this.authService.getTokenType();
 		const expiresIn: number =
 			await this.authService.getAccessTokenExpirationTime();
@@ -133,9 +136,7 @@ export class UserService {
 		};
 	}
 
-	async checkExist(
-		phoneNumber: string,
-	): Promise<IUserCheckExist> {
+	async checkExist(phoneNumber: string): Promise<IUserCheckExist> {
 		const existUser: UserEntity = await this.userRepository.findOneByQuery({
 			phoneNumber,
 		});

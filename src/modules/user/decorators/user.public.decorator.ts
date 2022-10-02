@@ -3,7 +3,7 @@ import { UserPayloadPutToRequestGuard } from 'src/modules/user/guards/payload/us
 import { UserNotFoundGuard } from 'src/modules/user/guards/user.not-found.guard';
 
 export function UserProfileGuard(): any {
-    return applyDecorators(
-        UseGuards(UserPayloadPutToRequestGuard, UserNotFoundGuard)
-    );
+	return applyDecorators(
+		UseGuards(UserPayloadPutToRequestGuard, UserNotFoundGuard),
+	);
 }

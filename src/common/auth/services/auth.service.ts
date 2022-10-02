@@ -9,13 +9,13 @@ import { IAuthService } from 'src/common/auth/interfaces/auth.service.interface'
 import {
 	IAuthPassword,
 	IAuthPayloadOptions,
-	IAuthRefreshTokenOptions
+	IAuthRefreshTokenOptions,
 } from 'src/common/auth/interfaces/auth.interface';
 import { ENUM_AUTH_TOKEN_TYPES } from 'src/common/auth/constants';
 import { RedisService } from 'src/common/redis/services/redis.service';
 
 @Injectable()
-export class AuthService implements IAuthService{
+export class AuthService implements IAuthService {
 	private readonly accessTokenSecretKey: string;
 
 	private readonly accessTokenExpirationTime: number;
@@ -78,7 +78,10 @@ export class AuthService implements IAuthService{
 		this.issuer = this.configService.get<string>('auth.jwt.issuer');
 	}
 
-	async createAccessToken(userId: string, payload: Record<string, any>): Promise<string> {
+	async createAccessToken(
+		userId: string,
+		payload: Record<string, any>,
+	): Promise<string> {
 		const accessToken = this.helperEncryptionService.jwtEncrypt(payload, {
 			secretKey: this.accessTokenSecretKey,
 			expiredIn: this.accessTokenExpirationTime,
@@ -134,8 +137,8 @@ export class AuthService implements IAuthService{
 					? this.refreshTokenExpirationTimeRememberMe
 					: this.refreshTokenExpirationTime,
 			notBefore:
-				options?.notBeforeExpirationTime
-					|| this.refreshTokenNotBeforeExpirationTime,
+				options?.notBeforeExpirationTime ||
+				this.refreshTokenNotBeforeExpirationTime,
 			audience: this.audience,
 			issuer: this.issuer,
 			subject: this.subject,

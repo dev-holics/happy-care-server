@@ -20,8 +20,6 @@ import { UserRepository } from 'src/modules/user/repositories/user.repository';
 		UserRepository,
 		UserPublicRepository,
 	],
-	imports: [
-		TypeOrmModule.forFeature([UserEntity]),
-	],
+	imports: [TypeOrmModule.forFeature([UserEntity])],
 })
 export class UserModule {}

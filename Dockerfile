@@ -1,14 +1,28 @@
-FROM node:lts-alpine
-LABEL maintainer="minhduc0589@gmail.com"
+FROM node:16.16.0-alpine As development
 
-WORKDIR /app
-EXPOSE 3000
+WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
+COPY package*.json ./
 
-RUN set -x && yarn
-RUN yarn global add @nestjs/cli
+RUN npm install --only=development
 
-COPY . /app
+COPY . .
 
-CMD [ "yarn", "start:dev" ]
+RUN yarn build
+
+FROM node:16.16.0-alpine as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN yarn add --only=production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
+CMD ["node", "dist/main"]

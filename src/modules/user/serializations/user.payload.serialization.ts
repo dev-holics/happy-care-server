@@ -4,8 +4,8 @@ import { AwsS3Serialization } from 'src/common/aws/serializations/aws.s3.seriali
 import { UserGetSerialization } from './user.get.serialization';
 
 export class UserPayloadSerialization extends OmitType(UserGetSerialization, [
-    'photo',
+	'photo',
 ] as const) {
-    @Exclude()
-    readonly photo?: AwsS3Serialization;
+	@Exclude()
+	readonly photo?: AwsS3Serialization;
 }

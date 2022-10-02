@@ -1,3 +1,3 @@
 export interface IUserCheckExist {
-    phoneNumber: boolean;
+	phoneNumber: boolean;
 }

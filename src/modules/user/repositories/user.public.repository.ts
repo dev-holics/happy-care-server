@@ -9,7 +9,7 @@ export class UserPublicRepository {
 	constructor(
 		@InjectRepository(UserEntity)
 		private userRepository: Repository<UserEntity>,
-	) { }
+	) {}
 
 	createOne(createUserDto: UserCreateDto) {
 		const createdUser = this.userRepository.create(createUserDto);

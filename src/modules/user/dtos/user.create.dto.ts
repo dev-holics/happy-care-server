@@ -6,7 +6,8 @@ import {
 	IsString,
 	IsNotEmpty,
 	MaxLength,
-	MinLength, IsOptional,
+	MinLength,
+	IsOptional,
 } from 'class-validator';
 import { IsPasswordStrong } from 'src/common/request/validations/request.is-password-strong.validation';
 import { ENUM_GENDERS } from 'src/modules/user/constants';

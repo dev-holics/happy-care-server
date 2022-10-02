@@ -8,6 +8,5 @@ export class AwsFileRepository {
 	constructor(
 		@InjectRepository(AwsFileEntity)
 		private userRepository: Repository<AwsFileEntity>,
-	) { }
-
+	) {}
 }

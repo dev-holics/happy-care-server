@@ -8,7 +8,7 @@ export class UserRepository {
 	constructor(
 		@InjectRepository(UserEntity)
 		private userRepository: Repository<UserEntity>,
-	) { }
+	) {}
 
 	findOneByQuery(where: Record<string, any>): Promise<UserEntity> {
 		return this.userRepository.findOneBy(where);

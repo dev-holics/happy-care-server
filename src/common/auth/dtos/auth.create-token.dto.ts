@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import { IsDate, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+	IsDate,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+	MinLength,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { shuffle } from 'radash';
 import { ENUM_AUTH_TOKEN_TYPES } from 'src/common/auth/constants';

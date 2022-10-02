@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+	BadRequestException,
+	Injectable,
+	InternalServerErrorException,
+} from '@nestjs/common';
 import { UserPublicRepository } from 'src/modules/user/repositories/user.public.repository';
 import { ENUM_ERROR_STATUS_CODE_ERROR } from 'src/common/error/constants';
 import { IUserCreate } from 'src/modules/user/interfaces/user.api.interface';
@@ -15,12 +19,12 @@ export class UserPublicService {
 		private readonly userService: UserService,
 		private readonly authService: AuthService,
 		private readonly databaseTransactionService: DatabaseTransactionService,
-	) { }
+	) {}
 
-	async signUpNewUser(
-		userSignUpData: IUserCreate
-	) {
-		const checkUserExist: IUserCheckExist = await this.userService.checkExist(userSignUpData.phoneNumber);
+	async signUpNewUser(userSignUpData: IUserCreate) {
+		const checkUserExist: IUserCheckExist = await this.userService.checkExist(
+			userSignUpData.phoneNumber,
+		);
 
 		if (checkUserExist.phoneNumber) {
 			throw new BadRequestException({
@@ -33,7 +37,9 @@ export class UserPublicService {
 		await queryRunner.startTransaction();
 
 		try {
-			const hashedPassword = await this.authService.createPassword(userSignUpData.password);
+			const hashedPassword = await this.authService.createPassword(
+				userSignUpData.password,
+			);
 
 			await this.userPublicRepository.createOne({
 				...userSignUpData,

@@ -40,8 +40,6 @@ export class AwsFileEntity extends DatabaseEntityAbstract {
 	})
 	mime: string;
 
-	@OneToMany(
-		() => UserEntity, (user) => user.photo
-	)
+	@OneToMany(() => UserEntity, user => user.photo)
 	users: UserEntity[];
 }
