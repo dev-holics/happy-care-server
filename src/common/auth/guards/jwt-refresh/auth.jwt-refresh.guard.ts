@@ -9,9 +9,6 @@ export class JwtRefreshGuard extends AuthGuard('jwtRefresh') {
 		user: TUser,
 		info: any,
 	): TUser {
-		console.log(err);
-		console.log(user);
-		console.log(info);
 		if (err || !user) {
 			throw new UnauthorizedException({
 				statusCode: ENUM_AUTH_STATUS_CODE_ERROR.AUTH_JWT_REFRESH_TOKEN_ERROR,
