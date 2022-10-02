@@ -1,3 +1,3 @@
 export interface IHelperService {
-    delay(ms: number): Promise<void>;
+	delay(ms: number): Promise<void>;
 }

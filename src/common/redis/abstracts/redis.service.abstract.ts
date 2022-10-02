@@ -4,9 +4,7 @@ import { IRedisServiceAbstract } from 'src/common/redis/interfaces/redis.service
 export abstract class RedisServiceAbstract implements IRedisServiceAbstract {
 	protected _cacheService: Cache;
 
-	protected constructor(
-		cacheService: Cache,
-	) {
+	protected constructor(cacheService: Cache) {
 		this._cacheService = cacheService;
 	}
 

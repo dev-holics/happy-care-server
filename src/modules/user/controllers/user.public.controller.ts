@@ -11,15 +11,11 @@ import { IResponse } from 'src/common/response/interfaces/response.interface';
 	path: '/users',
 })
 export class UserPublicController {
-	constructor(
-		private readonly userPublicService: UserPublicService,
-	) { }
+	constructor(private readonly userPublicService: UserPublicService) {}
 
 	@Response('auth.signUp', { doc: { httpStatus: HttpStatus.CREATED } })
 	@Post('/sign-up')
-	async signUp(
-		@Body() userSignUpDto: UserSignUpDto,
-	): Promise<IResponse> {
+	async signUp(@Body() userSignUpDto: UserSignUpDto): Promise<IResponse> {
 		await this.userPublicService.signUpNewUser(userSignUpDto);
 		return;
 	}

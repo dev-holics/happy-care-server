@@ -4,7 +4,7 @@ import { IMessageEnumService } from 'src/common/message/interfaces/message.enum-
 
 @Injectable()
 export class MessageEnumService implements IMessageEnumService {
-    async getLanguages(): Promise<string[]> {
-        return Object.values(ENUM_MESSAGE_LANGUAGE);
-    }
+	async getLanguages(): Promise<string[]> {
+		return Object.values(ENUM_MESSAGE_LANGUAGE);
+	}
 }

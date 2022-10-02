@@ -9,8 +9,6 @@ import { AwsFileRepository } from 'src/common/aws/repositories/aws.file.reposito
 	controllers: [],
 	providers: [AwsS3Service, AwsFileRepository],
 	exports: [AwsS3Service, AwsFileRepository],
-	imports: [
-		TypeOrmModule.forFeature([AwsFileEntity]),
-	],
+	imports: [TypeOrmModule.forFeature([AwsFileEntity])],
 })
 export class AwsModule {}

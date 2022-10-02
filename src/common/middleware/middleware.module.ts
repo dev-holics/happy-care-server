@@ -1,8 +1,4 @@
-import {
-	MiddlewareConsumer,
-	Module,
-	NestModule,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { RequestIdMiddleware } from 'src/common/middleware/request-id/request-id.middleware';
 import { TimezoneMiddleware } from 'src/common/middleware/timezone/timezone.middleware';
 import {

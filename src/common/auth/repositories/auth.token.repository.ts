@@ -9,7 +9,7 @@ export class AuthTokenRepository {
 	constructor(
 		@InjectRepository(TokenEntity)
 		private tokenRepository: Repository<TokenEntity>,
-	) { }
+	) {}
 
 	createOne(createTokenDto: AuthCreateTokenDto): Promise<TokenEntity> {
 		const createdUser = this.tokenRepository.create(createTokenDto);
