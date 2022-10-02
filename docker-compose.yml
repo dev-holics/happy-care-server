@@ -16,8 +16,7 @@ services:
       dockerfile: Dockerfile
       context: .
       target: development
-    container_name: happy-care_auth_server
-    hostname: happy-care
+    container_name: happy_care_auth_server
     ports:
       - "3000:3000"
     networks:
