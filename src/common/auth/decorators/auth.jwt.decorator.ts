@@ -1,16 +1,25 @@
-import { applyDecorators, HttpStatus, UseGuards } from '@nestjs/common';
+import {
+	applyDecorators,
+	HttpStatus,
+	SetMetadata,
+	UseGuards,
+} from '@nestjs/common';
 import {
 	ResponseDoc,
 	ResponseDocOneOf,
 } from 'src/common/response/decorators/response.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { ENUM_AUTH_STATUS_CODE_ERROR } from 'src/common/auth/constants';
+import {
+	AUTH_PERMISSION_META_KEY,
+	ENUM_AUTH_STATUS_CODE_ERROR,
+} from 'src/common/auth/constants';
 import { JwtRefreshGuard } from 'src/common/auth/guards/jwt-refresh/auth.jwt-refresh.guard';
 import { JwtGuard } from 'src/common/auth/guards/jwt/auth.jwt.guard';
 import { AuthPayloadDefaultGuard } from 'src/common/auth/guards/payload/auth.payload.default.guard';
 import { AuthPayloadPermissionGuard } from 'src/common/auth/guards/payload/auth.payload.permission.guard';
+import { IAuthPermission } from 'src/common/auth/interfaces/auth.interface';
 
-export function AuthJwtGuard(): any {
+export function AuthJwtGuard(permissions?: IAuthPermission[]): any {
 	return applyDecorators(
 		ApiBearerAuth('accessToken'),
 		ResponseDoc({
@@ -42,6 +51,7 @@ export function AuthJwtGuard(): any {
 			},
 		),
 		UseGuards(JwtGuard, AuthPayloadDefaultGuard, AuthPayloadPermissionGuard),
+		SetMetadata(AUTH_PERMISSION_META_KEY, permissions),
 	);
 }
 

@@ -8,6 +8,8 @@ import { AuthApiService } from 'src/common/auth/services/auth.api.service';
 import { AuthApiKeyRepository } from 'src/common/auth/repositories/auth.api-key.repository';
 import { ApiKeyEntity } from 'src/common/auth/entities/auth.api-key.entity';
 import { PermissionModule } from 'src/modules/permission/permission.module';
+import { JwtStrategy } from 'src/common/auth/guards/jwt/auth.jwt.strategy';
+import { ApiKeyStrategy } from 'src/common/auth/guards/api-key/auth.api-key.strategy';
 
 @Global()
 @Module({
@@ -17,7 +19,9 @@ import { PermissionModule } from 'src/modules/permission/permission.module';
 		AuthApiService,
 		AuthTokenRepository,
 		AuthApiKeyRepository,
+		JwtStrategy,
 		JwtRefreshStrategy,
+		ApiKeyStrategy,
 	],
 	exports: [AuthService, AuthTokenRepository],
 	imports: [

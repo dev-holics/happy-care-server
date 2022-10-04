@@ -24,9 +24,16 @@ export class UserService {
 	) {}
 
 	async login(loginData: UserLoginDto) {
-		const user: UserEntity = await this.userRepository.findOneByQuery({
-			phoneNumber: loginData.phoneNumber,
-		});
+		const user: UserEntity = await this.userRepository.findOneWithRelations(
+			{
+				phoneNumber: loginData.phoneNumber,
+			},
+			{
+				role: {
+					permissions: true,
+				},
+			},
+		);
 
 		if (!user) {
 			throw new NotFoundException({

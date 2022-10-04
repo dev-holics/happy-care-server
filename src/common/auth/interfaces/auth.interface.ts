@@ -23,9 +23,10 @@ export interface IAuthPayloadOptions {
 }
 
 export interface IAuthPermission {
-	code: string;
+	code: number;
 	name: string;
 	description?: string;
+	module?: string;
 	isActive?: boolean;
 }
 
