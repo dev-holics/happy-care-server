@@ -3,11 +3,15 @@ import { Injectable } from '@nestjs/common';
 import { ENUM_AUTH_ACCESS_LEVEL } from 'src/common/auth/constants';
 import { RoleRepository } from 'src/modules/role/repositories/role.repository';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
+import { PermissionEntity } from 'src/modules/permission/entities/permission.entity';
+import { PermissionRepository } from 'src/modules/permission/repositories/permission.repository';
+import { RoleEntity } from 'src/modules/role/entities/role.entity';
 
 @Injectable()
 export class RoleSeed {
 	constructor(
 		private readonly roleRepository: RoleRepository,
+		private readonly permissionRepository: PermissionRepository,
 		private readonly databaseTransactionService: DatabaseTransactionService,
 	) {}
 
@@ -20,34 +24,45 @@ export class RoleSeed {
 		await queryRunner.startTransaction();
 
 		try {
-			await Promise.all([
-				this.roleRepository.createOne({
-					name: 'Super admin',
-					description: 'Role of super admin',
-					accessLevel: ENUM_AUTH_ACCESS_LEVEL.SUPER_ADMIN,
-				}),
-				this.roleRepository.createOne({
-					name: 'Admin',
-					description: 'Role of admin',
-					accessLevel: ENUM_AUTH_ACCESS_LEVEL.ADMIN,
-				}),
-				this.roleRepository.createOne({
-					name: 'Pharmacist',
-					description: 'Role of pharmacist',
-					accessLevel: ENUM_AUTH_ACCESS_LEVEL.PHARMACIST,
-				}),
-				this.roleRepository.createOne({
-					name: 'Customer',
-					description: 'Role of customer',
-					accessLevel: ENUM_AUTH_ACCESS_LEVEL.CUSTOMER,
-				}),
-			]);
+			const permissions: PermissionEntity[] =
+				await this.permissionRepository.findAll();
+
+			for (const accessLevel of Object.values(ENUM_AUTH_ACCESS_LEVEL)) {
+				const role = new RoleEntity();
+				switch (accessLevel) {
+					case ENUM_AUTH_ACCESS_LEVEL.SUPER_ADMIN:
+						role.name = 'Super admin';
+						role.description = 'Role of super admin';
+						role.accessLevel = ENUM_AUTH_ACCESS_LEVEL.SUPER_ADMIN;
+						role.permissions = permissions;
+						break;
+					case ENUM_AUTH_ACCESS_LEVEL.ADMIN:
+						role.name = 'Admin';
+						role.description = 'Role of admin';
+						role.accessLevel = ENUM_AUTH_ACCESS_LEVEL.ADMIN;
+						break;
+					case ENUM_AUTH_ACCESS_LEVEL.PHARMACIST:
+						role.name = 'Pharmacist';
+						role.description = 'Role of pharmacist';
+						role.accessLevel = ENUM_AUTH_ACCESS_LEVEL.PHARMACIST;
+						break;
+					case ENUM_AUTH_ACCESS_LEVEL.CUSTOMER:
+						role.name = 'Customer';
+						role.description = 'Role of customer';
+						role.accessLevel = ENUM_AUTH_ACCESS_LEVEL.CUSTOMER;
+						break;
+					default:
+						break;
+				}
+
+				await role.save();
+			}
 		} catch (e) {
 			await queryRunner.rollbackTransaction();
 			throw new Error('Method not implemented.');
 		} finally {
 			await queryRunner.release();
-			console.info('DONE!!');
+			process.exit();
 		}
 
 		return;
@@ -62,13 +77,13 @@ export class RoleSeed {
 		await queryRunner.startTransaction();
 
 		try {
-			await this.roleRepository.hardDelete({});
+			await this.roleRepository.getRepository().delete({});
 		} catch (err: any) {
 			await queryRunner.rollbackTransaction();
 			throw new Error('Method not implemented.');
 		} finally {
 			await queryRunner.release();
-			console.info('DONE!!');
+			process.exit();
 		}
 
 		return;

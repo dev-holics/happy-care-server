@@ -24,6 +24,7 @@ import { GetUser } from 'src/modules/user/decorators/user.decorator';
 import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
+import { PERMISSIONS } from 'src/common/auth/constants';
 
 @ApiTags('user')
 @Controller({
@@ -36,8 +37,8 @@ export class UserController {
 	@Response('user.profile', {
 		classSerialization: UserProfileSerialization,
 	})
-	@AuthJwtGuard()
 	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.USER_GET_PROFILE])
 	@AuthApiKeyGuard()
 	@Get('/profile')
 	async profile(@GetUser() user: IUserEntity): Promise<IResponse> {

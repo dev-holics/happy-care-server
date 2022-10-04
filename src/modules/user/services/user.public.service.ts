@@ -2,6 +2,7 @@ import {
 	BadRequestException,
 	Injectable,
 	InternalServerErrorException,
+	NotFoundException,
 } from '@nestjs/common';
 import { UserPublicRepository } from 'src/modules/user/repositories/user.public.repository';
 import { ENUM_ERROR_STATUS_CODE_ERROR } from 'src/common/error/constants';
@@ -14,6 +15,7 @@ import { UserSignUpDto } from 'src/modules/user/dtos/user.sign-up.dto';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { RoleRepository } from 'src/modules/role/repositories/role.repository';
 import { ENUM_AUTH_ACCESS_LEVEL } from 'src/common/auth/constants';
+import { ENUM_ROLE_STATUS_CODE_ERROR } from 'src/modules/role/constants';
 
 @Injectable()
 export class UserPublicService {
@@ -29,6 +31,13 @@ export class UserPublicService {
 		const role: RoleEntity = await this.roleRepository.findOneByQuery({
 			accessLevel: ENUM_AUTH_ACCESS_LEVEL.CUSTOMER,
 		});
+
+		if (!role) {
+			throw new NotFoundException({
+				statusCode: ENUM_ROLE_STATUS_CODE_ERROR.ROLE_NOT_FOUND_ERROR,
+				message: 'role.error.notFound',
+			});
+		}
 
 		const checkUserExist: IUserCheckExist = await this.userService.checkExist(
 			userSignUpData.phoneNumber,

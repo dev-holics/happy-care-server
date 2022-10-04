@@ -1,11 +1,11 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { TokenEntity } from 'src/common/auth/entities/auth.token.entity';
 import { AwsFileEntity } from 'src/common/aws/entities/aws.file.entity';
-import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
-import { snakeCase } from 'change-case';
+import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 
 @Entity('users')
 export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {

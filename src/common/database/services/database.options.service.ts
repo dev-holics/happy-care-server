@@ -9,7 +9,6 @@ export class DatabaseOptionsService implements TypeOrmOptionsFactory {
 
 	createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
 		return {
-			driver: undefined,
 			type: 'postgres',
 			url: this.configService.get<string>('database.url'),
 			host: this.configService.get<string>('database.host'),

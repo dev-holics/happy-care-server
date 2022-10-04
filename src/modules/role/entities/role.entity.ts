@@ -28,7 +28,9 @@ export class RoleEntity extends DatabaseEntityAbstract implements IRoleEntity {
 	@OneToMany(() => UserEntity, user => user.role)
 	users: UserEntity[];
 
-	@ManyToMany(() => PermissionEntity, permission => permission.roles)
+	@ManyToMany(() => PermissionEntity, permission => permission.roles, {
+		cascade: true,
+	})
 	@JoinTable({
 		name: 'roles_permissions',
 		joinColumn: {

@@ -3,7 +3,8 @@ import { faker } from '@faker-js/faker';
 import { shuffle } from 'radash';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { AwsS3Serialization } from 'src/common/aws/serializations/aws.s3.serialization';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
+import { IRoleEntity } from 'src/modules/role/interfaces/role.entity.interface';
 
 export class UserGetSerialization {
 	@ApiProperty({
@@ -35,6 +36,18 @@ export class UserGetSerialization {
 		enum: ENUM_GENDERS,
 	})
 	readonly gender: string;
+
+	@Transform(({ value }) => ({
+		name: value.name,
+		permissions: value.permissions.map((val: Record<string, any>) => ({
+			name: val.name,
+			isActive: val.isActive,
+			code: val.code,
+		})),
+		accessLevel: value.accessFor,
+		isActive: value.isActive,
+	}))
+	readonly role: IRoleEntity;
 
 	@ApiProperty({
 		allOf: [{ $ref: getSchemaPath(AwsS3Serialization) }],
