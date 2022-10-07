@@ -46,8 +46,10 @@ export class ApiKeyStrategy extends PassportStrategy(Strategy, 'api-key') {
 		const key = xApiKey[0];
 		const encrypted = xApiKey[1];
 
-		const authApi: ApiKeyEntity = await this.apiKeyRepository.findOneByQuery({
-			key,
+		const authApi: ApiKeyEntity = await this.apiKeyRepository.findOne({
+			where: {
+				key,
+			},
 		});
 
 		if (!authApi) {

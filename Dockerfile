@@ -2,13 +2,13 @@ FROM node:16.16.0-alpine As development
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm install --only=development
 
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 FROM node:16.16.0-alpine as production
 
@@ -17,9 +17,9 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
 
-RUN yarn add --only=production
+RUN npm install --only=production
 
 COPY . .
 

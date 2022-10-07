@@ -30,7 +30,9 @@ export class TokenEntity
 	})
 	expiredTime: Date;
 
-	@ManyToOne(() => UserEntity, user => user.tokens)
+	@ManyToOne(() => UserEntity, user => user.tokens, {
+		onDelete: 'CASCADE',
+	})
 	@JoinColumn({ name: snakeCase('userId'), referencedColumnName: 'id' })
 	user: UserEntity;
 }

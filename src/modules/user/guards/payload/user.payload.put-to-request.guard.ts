@@ -7,16 +7,18 @@ export class UserPayloadPutToRequestGuard implements CanActivate {
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const request = context.switchToHttp().getRequest();
-		request.__user = await this.userRepository.findOneWithRelations(
-			{
+		request.__user = await this.userRepository.findOne({
+			where: {
 				id: request.user.id,
 			},
-			{
-				role: {
-					permissions: true,
+			options: {
+				relations: {
+					role: {
+						permissions: true,
+					},
 				},
 			},
-		);
+		});
 
 		return true;
 	}

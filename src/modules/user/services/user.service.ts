@@ -15,6 +15,7 @@ import {
 import { AuthService } from 'src/common/auth/services/auth.service';
 import { UserPayloadSerialization } from 'src/modules/user/serializations/user.payload.serialization';
 import { plainToInstance } from 'class-transformer';
+import { ENUM_ROLE_STATUS_CODE_ERROR } from 'src/modules/role/constants';
 
 @Injectable()
 export class UserService {
@@ -24,16 +25,18 @@ export class UserService {
 	) {}
 
 	async login(loginData: UserLoginDto) {
-		const user: UserEntity = await this.userRepository.findOneWithRelations(
-			{
+		const user: UserEntity = await this.userRepository.findOne({
+			where: {
 				phoneNumber: loginData.phoneNumber,
 			},
-			{
-				role: {
-					permissions: true,
+			options: {
+				relations: {
+					role: {
+						permissions: true,
+					},
 				},
 			},
-		);
+		});
 
 		if (!user) {
 			throw new NotFoundException({
@@ -75,16 +78,13 @@ export class UserService {
 				loginDate: payloadAccessToken.loginDate,
 			});
 
-		const accessToken: string = await this.authService.createAccessToken(
-			user.id,
-			payloadAccessToken,
-		);
-
-		const refreshToken: string = await this.authService.createRefreshToken(
-			user.id,
-			payloadRefreshToken,
-			{ rememberMe },
-		);
+		await this.authService.clearOldAuthTokens(user);
+		const [accessToken, refreshToken] = await Promise.all([
+			this.authService.createAccessToken(user, payloadAccessToken),
+			this.authService.createRefreshToken(user, payloadRefreshToken, {
+				rememberMe,
+			}),
+		]);
 
 		return {
 			metadata: {
@@ -98,8 +98,15 @@ export class UserService {
 	}
 
 	async refresh(refreshData: Record<string, any>, refreshToken: string) {
-		const user: UserEntity = await this.userRepository.findOneByQuery({
-			id: refreshData.id,
+		const user: UserEntity = await this.userRepository.findOne({
+			where: {
+				id: refreshData.id,
+			},
+			options: {
+				relations: {
+					role: true,
+				},
+			},
 		});
 
 		if (!user) {
@@ -111,6 +118,11 @@ export class UserService {
 			throw new ForbiddenException({
 				statusCode: ENUM_USER_STATUS_CODE_ERROR.USER_IS_INACTIVE_ERROR,
 				message: 'user.error.inactive',
+			});
+		} else if (!user.role.isActive) {
+			throw new ForbiddenException({
+				statusCode: ENUM_ROLE_STATUS_CODE_ERROR.ROLE_IS_INACTIVE_ERROR,
+				message: 'role.error.inactive',
 			});
 		}
 
@@ -130,6 +142,7 @@ export class UserService {
 				},
 			);
 
+		await this.authService.clearOldAuthTokens(user, true);
 		const accessToken: string = await this.authService.createAccessToken(
 			refreshData.id,
 			payloadAccessToken,
@@ -144,8 +157,10 @@ export class UserService {
 	}
 
 	async checkExist(phoneNumber: string): Promise<IUserCheckExist> {
-		const existUser: UserEntity = await this.userRepository.findOneByQuery({
-			phoneNumber,
+		const existUser: UserEntity = await this.userRepository.findOne({
+			where: {
+				phoneNumber,
+			},
 		});
 
 		return {

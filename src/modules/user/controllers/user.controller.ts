@@ -62,8 +62,7 @@ export class UserController {
 	@HttpCode(HttpStatus.OK)
 	@Post('/refresh')
 	async refresh(
-		@User()
-		{ id, rememberMe, loginDate }: Record<string, any>,
+		@User() { id, rememberMe, loginDate }: Record<string, any>,
 		@Token() refreshToken: string,
 	): Promise<IResponse> {
 		return this.userService.refresh(

@@ -20,11 +20,9 @@ export class PermissionSeed {
 		await queryRunner.startTransaction();
 
 		try {
-			await Promise.all(
-				Object.values(PERMISSIONS).map(permission => {
-					return this.permissionRepository.createOne(permission);
-				}),
-			);
+			await this.permissionRepository.createMany({
+				data: Object.values(PERMISSIONS),
+			});
 		} catch (e) {
 			await queryRunner.rollbackTransaction();
 			throw new Error('Method not implemented.');

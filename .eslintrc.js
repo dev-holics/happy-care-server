@@ -3,14 +3,18 @@ module.exports = {
 	parserOptions: {
 		project: 'tsconfig.json',
 		tsconfigRootDir: __dirname,
-		sourceType: 'module'
+		sourceType: 'module',
 	},
 	plugins: ['@typescript-eslint/eslint-plugin'],
-	extends: ['airbnb-typescript/base', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+	extends: [
+		'airbnb-typescript/base',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:prettier/recommended',
+	],
 	root: true,
 	env: {
 		node: true,
-		jest: true
+		jest: true,
 	},
 	ignorePatterns: ['.eslintrc.js'],
 	rules: {
@@ -21,8 +25,7 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 'off',
 		'@typescript-eslint/no-shadow': 'off',
 
-		'prettier/prettier': 'off',
-		'no-underscore-dangle': 'off',
+		'prettier/prettier': ['off'],
 		'padded-blocks': ['off'],
 		'prefer-object-spread': ['off'],
 		'object-curly-newline': ['off'],
@@ -35,15 +38,12 @@ module.exports = {
 		'linebreak-style': ['off'],
 		'no-use-before-define': ['off'],
 		'import/extensions': ['off'],
+		'no-underscore-dangle': ['off'],
+		'arrow-parens': ['error', 'as-needed'],
 		'prefer-destructuring': [
 			'error',
-			{
-				array: false,
-				object: true
-			},
-			{
-				enforceForRenamedProperties: false
-			}
-		]
-	}
+			{ array: false, object: true },
+			{ enforceForRenamedProperties: false },
+		],
+	},
 };

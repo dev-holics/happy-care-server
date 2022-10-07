@@ -21,6 +21,8 @@ export interface IHelperDateService {
 
 	create(options?: IHelperDateOptionsCreate): Date;
 
+	now(options?: IHelperDateOptions): Date;
+
 	timestamp(options?: IHelperDateOptionsCreate): number;
 
 	format(date: Date, options?: IHelperDateOptionsFormat): string;
