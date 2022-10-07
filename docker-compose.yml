@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres_db:
-    container_name: my_postgres
+    container_name: hc_postgres
     image: postgres:14.4-alpine
     ports:
       - "5432:5432"
@@ -21,12 +21,12 @@ services:
       - "3000:3000"
     networks:
       - app-network
+    volumes:
+      - /usr/src/app/node_modules
     env_file:
       - .env
     command: yarn start:dev
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+    restart: always
     depends_on:
       - postgres_db
       - redis
@@ -34,7 +34,7 @@ services:
     container_name: hc_redis
     image: redis:6.2-alpine
     ports:
-      - "6379:6379"
+      - "6579:6379"
     env_file:
       - .env
     environment:

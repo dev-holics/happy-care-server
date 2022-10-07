@@ -28,8 +28,10 @@ export class UserPublicService {
 	) {}
 
 	async signUpNewUser(userSignUpData: UserSignUpDto) {
-		const role: RoleEntity = await this.roleRepository.findOneByQuery({
-			accessLevel: ENUM_AUTH_ACCESS_LEVEL.CUSTOMER,
+		const role: RoleEntity = await this.roleRepository.findOne({
+			where: {
+				accessLevel: ENUM_AUTH_ACCESS_LEVEL.CUSTOMER,
+			},
 		});
 
 		if (!role) {

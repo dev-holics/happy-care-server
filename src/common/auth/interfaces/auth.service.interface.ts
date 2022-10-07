@@ -3,10 +3,11 @@ import {
 	IAuthPayloadOptions,
 	IAuthRefreshTokenOptions,
 } from 'src/common/auth/interfaces/auth.interface';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 
 export interface IAuthService {
 	createAccessToken(
-		userId: string,
+		user: UserEntity,
 		payload: Record<string, any>,
 	): Promise<string>;
 
@@ -15,7 +16,7 @@ export interface IAuthService {
 	payloadAccessToken(token: string): Promise<Record<string, any>>;
 
 	createRefreshToken(
-		userId: string,
+		user: UserEntity,
 		payload: Record<string, any>,
 		options?: IAuthRefreshTokenOptions,
 	): Promise<string>;
@@ -44,8 +45,6 @@ export interface IAuthService {
 
 	createPassword(password: string): Promise<IAuthPassword>;
 
-	checkPasswordExpired(passwordExpired: Date): Promise<boolean>;
-
 	getTokenType(): Promise<string>;
 
 	getIssuer(): Promise<string>;
@@ -53,4 +52,6 @@ export interface IAuthService {
 	getAudience(): Promise<string>;
 
 	getSubject(): Promise<string>;
+
+	clearOldAuthTokens(user: UserEntity, justAccessToken: boolean): Promise<any>;
 }
