@@ -15,6 +15,7 @@ import { RedisService } from 'src/common/redis/services/redis.service';
 			useFactory: (configService: ConfigService) => ({
 				isGlobal: true,
 				store: redisStore,
+				url: configService.get<string>('redis.url'),
 				host: configService.get<string>('redis.host'),
 				port: configService.get<number>('redis.port'),
 				ttl: configService.get<number>('redis.ttl'),

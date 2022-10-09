@@ -1,5 +1,23 @@
 version: '3.8'
 services:
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: happy_care_auth_server
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+    command: yarn start:prod
+    restart: always
+    depends_on:
+      - postgres_db
+      - redis
   postgres_db:
     container_name: hc_postgres
     image: postgres:14.4-alpine
@@ -11,25 +29,6 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - app-network
-  app:
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: development
-    container_name: happy_care_auth_server
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
-    volumes:
-      - /usr/src/app/node_modules
-    env_file:
-      - .env
-    command: yarn start:dev
-    restart: always
-    depends_on:
-      - postgres_db
-      - redis
   redis:
     container_name: hc_redis
     image: redis:6.2-alpine
