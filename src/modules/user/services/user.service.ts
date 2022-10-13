@@ -16,13 +16,14 @@ import { AuthService } from 'src/common/auth/services/auth.service';
 import { UserPayloadSerialization } from 'src/modules/user/serializations/user.payload.serialization';
 import { plainToInstance } from 'class-transformer';
 import { ENUM_ROLE_STATUS_CODE_ERROR } from 'src/modules/role/constants';
+import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
 
 @Injectable()
 export class UserService {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly userRepository: UserRepository,
-	) {}
+	) { }
 
 	async login(loginData: UserLoginDto) {
 		const user: UserEntity = await this.userRepository.findOne({
@@ -172,5 +173,15 @@ export class UserService {
 		data: UserEntity,
 	): Promise<UserPayloadSerialization> {
 		return plainToInstance(UserPayloadSerialization, data);
+	}
+
+	async updateProfile(id: string, userProfileUpdateDto: UserProfileUpdateDto) {
+		console.log('%cuser.service.ts line:179 id', 'color: #007acc;', id);
+		return this.userRepository.updateOne({
+			criteria: { id },
+			data: {
+				...userProfileUpdateDto,
+			},
+		});
 	}
 }

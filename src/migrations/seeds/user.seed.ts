@@ -59,6 +59,7 @@ export class UserSeed {
 						email: 'superadmin@gmail.com',
 						fullname: 'Duc Truong',
 						gender: ENUM_GENDERS.MALE,
+						birthday: '2001-4-10',
 						role: roleSuperAdmin || undefined,
 					},
 					options: {
@@ -72,6 +73,7 @@ export class UserSeed {
 						email: 'admin@gmail.com',
 						fullname: 'Ai Linh',
 						gender: ENUM_GENDERS.FEMALE,
+						birthday: '2001-5-10',
 						role: roleAdmin || undefined,
 					},
 					options: {
@@ -85,6 +87,7 @@ export class UserSeed {
 						email: 'pharmacist@gmail.com',
 						fullname: 'Nhu Tri',
 						gender: ENUM_GENDERS.MALE,
+						birthday: '2001-6-10',
 						role: rolePharmacist || undefined,
 					},
 					options: {
@@ -98,6 +101,7 @@ export class UserSeed {
 						email: 'customer@gmail.com',
 						fullname: 'Loc Nguyen',
 						gender: ENUM_GENDERS.MALE,
+						birthday: '2001-7-10',
 						role: roleCustomer || undefined,
 					},
 					options: {

@@ -36,6 +36,12 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	})
 	gender: string;
 
+	@Column({
+		nullable: true,
+		type: 'date',
+	})
+	birthday: Date
+
 	@OneToMany(() => TokenEntity, token => token.user)
 	tokens: TokenEntity[];
 
