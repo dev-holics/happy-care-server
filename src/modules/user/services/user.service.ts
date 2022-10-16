@@ -23,7 +23,7 @@ export class UserService {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly userRepository: UserRepository,
-	) { }
+	) {}
 
 	async login(loginData: UserLoginDto) {
 		const user: UserEntity = await this.userRepository.findOne({

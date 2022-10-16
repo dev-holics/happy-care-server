@@ -33,7 +33,7 @@ import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.
 	path: '/users',
 })
 export class UserController {
-	constructor(private readonly userService: UserService) { }
+	constructor(private readonly userService: UserService) {}
 
 	@Response('user.profile', {
 		classSerialization: UserProfileSerialization,

@@ -18,4 +18,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'user_can_update_profile',
 		module: 'users',
 	},
+	USER_CREATE_CATEGORY: {
+		code: 3,
+		name: 'user_create_category',
+		description: 'user_can_create_category',
+		module: 'users',
+	},
 });

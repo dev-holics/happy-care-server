@@ -10,10 +10,7 @@ import { ProductModule } from 'src/modules/product/product.module';
 import { CategoryController } from 'src/modules/category/controllers/category.controller';
 
 @Module({
-	controllers: [
-		CategoryController,
-		UserController,
-	],
+	controllers: [CategoryController, UserController],
 	providers: [],
 	exports: [],
 	imports: [
