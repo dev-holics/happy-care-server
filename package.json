@@ -44,9 +44,11 @@
     "migrate:role": "nestjs-command insert:role",
     "migrate:permission": "nestjs-command insert:permission",
     "migrate:user": "nestjs-command insert:user",
+    "migrate:location": "nestjs-command insert:location",
     "rollback:role": "nestjs-command remove:role",
     "rollback:permission": "nestjs-command remove:permission",
-    "rollback:user": "nestjs-command remove:user"
+    "rollback:user": "nestjs-command remove:user",
+    "rollback:location": "nestjs-command remove:location"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.171.0",

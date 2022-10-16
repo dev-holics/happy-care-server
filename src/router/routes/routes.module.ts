@@ -8,6 +8,9 @@ import { PermissionModule } from 'src/modules/permission/permission.module';
 import { CategoryModule } from 'src/modules/category/category.module';
 import { ProductModule } from 'src/modules/product/product.module';
 import { CategoryController } from 'src/modules/category/controllers/category.controller';
+import { DistrictEntity } from 'src/modules/location/entities/district.entity';
+import { CityEntity } from 'src/modules/location/entities/city.entity';
+import { LocationModule } from 'src/modules/location/location.module';
 
 @Module({
 	controllers: [CategoryController, UserController],
@@ -19,7 +22,10 @@ import { CategoryController } from 'src/modules/category/controllers/category.co
 		UserModule,
 		RoleModule,
 		PermissionModule,
+		DistrictEntity,
+		CityEntity,
 		TerminusModule,
+		LocationModule,
 		HttpModule,
 	],
 })
