@@ -13,7 +13,7 @@ export interface IUserEntity {
 
 	gender: string;
 
-	birthday: Date
+	birthday: Date;
 
 	tokens: TokenEntity[];
 

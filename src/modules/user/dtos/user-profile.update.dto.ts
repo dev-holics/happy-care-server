@@ -6,7 +6,6 @@ import {
 	IsEnum,
 	IsOptional,
 	IsString,
-	Matches,
 	MaxLength,
 	MinLength,
 } from 'class-validator';
@@ -34,10 +33,10 @@ export class UserProfileUpdateDto {
 	gender: ENUM_GENDERS;
 
 	@ApiProperty({
-		example: faker.date.between('1987-1-1', '2022-10-14')
+		example: faker.date.between('1987-1-1', '2022-10-14'),
 	})
 	@IsDate()
-    @Type(() => Date)
+	@Type(() => Date)
 	@IsOptional()
-	birthday: Date
+	birthday: Date;
 }

@@ -40,7 +40,7 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 		nullable: true,
 		type: 'date',
 	})
-	birthday: Date
+	birthday: Date;
 
 	@OneToMany(() => TokenEntity, token => token.user)
 	tokens: TokenEntity[];

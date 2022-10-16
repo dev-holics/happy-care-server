@@ -1,6 +1,7 @@
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
+import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 
 @Entity('aws_files')
 export class AwsFileEntity extends DatabaseEntityAbstract {
@@ -42,4 +43,7 @@ export class AwsFileEntity extends DatabaseEntityAbstract {
 
 	@OneToMany(() => UserEntity, user => user.photo)
 	users: UserEntity[];
+
+	@OneToMany(() => CategoryEntity, category => category.image)
+	categories: CategoryEntity[];
 }

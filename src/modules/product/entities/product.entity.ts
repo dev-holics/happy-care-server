@@ -5,9 +5,12 @@ import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { IProductEntity } from 'src/modules/product/interfaces/product.entity.interface';
 
 @Entity('products')
-export class ProductEntity extends DatabaseEntityAbstract implements IProductEntity {
+export class ProductEntity
+	extends DatabaseEntityAbstract
+	implements IProductEntity
+{
 	@Column({
-			unique: true,
+		unique: true,
 	})
 	name: string;
 
