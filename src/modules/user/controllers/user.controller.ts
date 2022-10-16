@@ -6,8 +6,8 @@ import {
 	HttpCode,
 	HttpStatus,
 	Post,
+	Put,
 } from '@nestjs/common';
-
 import { UserService } from 'src/modules/user/services/user.service';
 import { Response } from 'src/common/response/decorators/response.decorator';
 import { UserLoginSerialization } from 'src/modules/user/serializations/user.login.serialization';
@@ -25,6 +25,7 @@ import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
+import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
 
 @ApiTags('user')
 @Controller({
@@ -32,7 +33,7 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 	path: '/users',
 })
 export class UserController {
-	constructor(private readonly userService: UserService) {}
+	constructor(private readonly userService: UserService) { }
 
 	@Response('user.profile', {
 		classSerialization: UserProfileSerialization,
@@ -43,6 +44,18 @@ export class UserController {
 	@Get('/profile')
 	async profile(@GetUser() user: IUserEntity): Promise<IResponse> {
 		return user;
+	}
+
+	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.USER_UPDATE_PROFILE])
+	@AuthApiKeyGuard()
+	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@Put('/profile')
+	async updateProfile(
+		@GetUser('id') id: string,
+		@Body() userProfileUpdateDto: UserProfileUpdateDto,
+	) {
+		return this.userService.updateProfile(id, userProfileUpdateDto);
 	}
 
 	@Response('user.login', {

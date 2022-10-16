@@ -25,7 +25,7 @@ async function bootstrap() {
 	if (isEmpty(httpsOptions)) {
 		app = await NestFactory.create(AppModule);
 	}
-	if (isEmpty(httpsOptions)) {
+	if (!isEmpty(httpsOptions)) {
 		app = await NestFactory.create(AppModule, {
 			httpsOptions,
 		});

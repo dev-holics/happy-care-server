@@ -13,7 +13,7 @@ import { RoleModule } from 'src/modules/role/role.module';
 		UserService,
 		UserPublicService,
 		UserRepository,
-		UserPublicRepository,
+		UserPublicRepository
 	],
 	exports: [
 		UserService,

@@ -13,6 +13,8 @@ export interface IUserEntity {
 
 	gender: string;
 
+	birthday: Date
+
 	tokens: TokenEntity[];
 
 	photo: AwsFileEntity;
