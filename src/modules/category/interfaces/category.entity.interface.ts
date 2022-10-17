@@ -1,6 +1,6 @@
-import { AwsFileEntity } from 'src/common/aws/entities/aws.file.entity';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { CategoryEntity } from '../entities/category.entity';
+import { ImageEntity } from 'src/common/media/entities/image.entity';
 
 export interface ICategoryEntity {
 	name: string;
@@ -9,7 +9,7 @@ export interface ICategoryEntity {
 
 	order: number;
 
-	image: AwsFileEntity;
+	image: ImageEntity;
 
 	parent: CategoryEntity;
 

@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
-import { AwsFileEntity } from 'src/common/aws/entities/aws.file.entity';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { ICategoryEntity } from 'src/modules/category/interfaces/category.entity.interface';
+import { ImageEntity } from 'src/common/media/entities/image.entity';
 
 @Entity('categories')
 @Unique(['order', 'parent'])
@@ -34,11 +34,11 @@ export class CategoryEntity
 	})
 	order: number;
 
-	@ManyToOne(() => AwsFileEntity, awsFile => awsFile.categories, {
+	@ManyToOne(() => ImageEntity, image => image.categories, {
 		nullable: true,
 	})
 	@JoinColumn({ name: snakeCase('imageId'), referencedColumnName: 'id' })
-	image: AwsFileEntity;
+	image: ImageEntity;
 
 	@ManyToOne(() => CategoryEntity, parent => parent.children)
 	@JoinColumn({ name: snakeCase('parentId'), referencedColumnName: 'id' })

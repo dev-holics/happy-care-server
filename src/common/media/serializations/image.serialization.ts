@@ -2,18 +2,18 @@ import { faker } from '@faker-js/faker';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
-export class AwsS3Serialization {
+export class ImageSerialization {
 	@ApiProperty({
 		example: faker.system.directoryPath(),
 	})
 	@Type(() => String)
-	path: string;
+	url: string;
 
 	@ApiProperty({
-		example: faker.system.filePath(),
+		example: faker.datatype.uuid(),
 	})
 	@Type(() => String)
-	pathWithFilename: string;
+	publicId: string;
 
 	@ApiProperty({
 		example: faker.system.fileName(),
@@ -22,20 +22,20 @@ export class AwsS3Serialization {
 	filename: string;
 
 	@ApiProperty({
-		example: `${faker.internet.url()}/${faker.system.filePath()}`,
+		example: faker.lorem.paragraph(),
 	})
 	@Type(() => String)
-	completedUrl: string;
+	description: string;
 
 	@ApiProperty({
-		example: faker.internet.url(),
+		example: faker.datatype.number(),
 	})
-	@Type(() => String)
-	baseUrl: string;
+	@Type(() => Number)
+	width: number;
 
 	@ApiProperty({
-		example: faker.system.mimeType(),
+		example: faker.datatype.number(),
 	})
-	@Type(() => String)
-	mime: string;
+	@Type(() => Number)
+	height: number;
 }

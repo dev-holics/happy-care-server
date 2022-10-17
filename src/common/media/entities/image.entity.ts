@@ -1,21 +1,25 @@
-import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
+import { IImageEntity } from 'src/common/media/interfaces/image.entity.interface';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 
-@Entity('aws_files')
-export class AwsFileEntity extends DatabaseEntityAbstract {
+@Entity('images')
+export class ImageEntity
+	extends DatabaseEntityAbstract
+	implements IImageEntity
+{
 	@Column({
-		length: 1000,
+		length: 2000,
 		nullable: true,
 	})
-	path: string;
+	url: string;
 
 	@Column({
 		length: 1000,
 		nullable: true,
 	})
-	pathWithFileName: string;
+	publicId: string;
 
 	@Column({
 		length: 1000,
@@ -27,19 +31,19 @@ export class AwsFileEntity extends DatabaseEntityAbstract {
 		length: 1000,
 		nullable: true,
 	})
-	completedUrl: string;
+	description: string;
 
 	@Column({
-		length: 1000,
 		nullable: true,
+		unsigned: true,
 	})
-	baseUrl: string;
+	width: number;
 
 	@Column({
-		length: 1000,
 		nullable: true,
+		unsigned: true,
 	})
-	mime: string;
+	height: number;
 
 	@OneToMany(() => UserEntity, user => user.photo)
 	users: UserEntity[];
