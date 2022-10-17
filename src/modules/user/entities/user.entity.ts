@@ -3,9 +3,9 @@ import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { TokenEntity } from 'src/common/auth/entities/auth.token.entity';
-import { AwsFileEntity } from 'src/common/aws/entities/aws.file.entity';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
+import { ImageEntity } from 'src/common/media/entities/image.entity';
 
 @Entity('users')
 export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
@@ -45,9 +45,9 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	@OneToMany(() => TokenEntity, token => token.user)
 	tokens: TokenEntity[];
 
-	@ManyToOne(() => AwsFileEntity, awsFile => awsFile.users)
+	@ManyToOne(() => ImageEntity, image => image.users)
 	@JoinColumn({ name: snakeCase('photoId'), referencedColumnName: 'id' })
-	photo: AwsFileEntity;
+	photo: ImageEntity;
 
 	@ManyToOne(() => RoleEntity, role => role.users)
 	@JoinColumn({ name: snakeCase('roleId'), referencedColumnName: 'id' })

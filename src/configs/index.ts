@@ -7,7 +7,6 @@ import RequestConfig from 'src/configs/request.config';
 import DatabaseConfig from 'src/configs/database.config';
 import RedisConfig from 'src/configs/redis.config';
 import AuthConfig from 'src/configs/auth.config';
-import AwsConfig from 'src/configs/aws.config';
 
 export default [
 	AppConfig,
@@ -19,5 +18,4 @@ export default [
 	RequestConfig,
 	DatabaseConfig,
 	RedisConfig,
-	AwsConfig,
 ];
