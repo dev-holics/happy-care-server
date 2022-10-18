@@ -9,7 +9,6 @@ import {
 	MinLength,
 	ValidateIf,
 } from 'class-validator';
-import { IsPasswordStrong } from 'src/common/request/validations/request.is-password-strong.validation';
 
 export class UserLoginDto {
 	@ApiProperty({
@@ -26,11 +25,10 @@ export class UserLoginDto {
 		description: 'string password',
 		example: `${faker.random.alphaNumeric(5).toLowerCase()}${faker.random
 			.alphaNumeric(5)
-			.toUpperCase()}@@!123`,
+			.toUpperCase()}@123`,
 		required: true,
 	})
 	@IsNotEmpty()
-	@IsPasswordStrong()
 	readonly password: string;
 
 	@ApiProperty({

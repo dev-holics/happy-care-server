@@ -1,3 +1,4 @@
+import path from 'path';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
@@ -23,8 +24,12 @@ export class DatabaseOptionsService implements TypeOrmOptionsFactory {
 				this.configService.get<boolean>('database.logging') &&
 				this.configService.get<string>('app.env') !== 'production',
 			autoLoadEntities: true,
-			entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-			migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+			entities: [
+				path.join(__dirname, '..', '..', '..', '**', '*.entity.{ts,js}'),
+			],
+			migrations: [
+				path.join(__dirname, '..', '..', '..', '**', '*.migration.{ts,js}'),
+			],
 			namingStrategy: new SnakeNamingStrategy(),
 			extra: {
 				// based on https://node-postgres.com/api/pool
