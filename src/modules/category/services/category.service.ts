@@ -10,7 +10,9 @@ export class CategoryService {
 	async createCategory(createCategoryDto: CategoryCreateDto) {
 		const categories = await this.categoryRepository.findAll({
 			where: {
-				parent: createCategoryDto.parent,
+				parent: {
+					id: createCategoryDto.parent,
+				},
 				order: MoreThanOrEqual(createCategoryDto.order),
 			},
 			options: {

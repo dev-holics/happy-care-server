@@ -1,8 +1,10 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { ProductEntity } from 'src/modules/product/entities';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { IImageEntity } from 'src/common/media/interfaces/image.entity.interface';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { snakeCase } from 'change-case';
 
 @Entity('images')
 export class ImageEntity
@@ -45,9 +47,17 @@ export class ImageEntity
 	})
 	height: number;
 
-	@OneToMany(() => UserEntity, user => user.photo)
-	users: UserEntity[];
+	@ManyToOne(() => UserEntity, user => user.photos, { nullable: true })
+	@JoinColumn({ name: snakeCase('userId'), referencedColumnName: 'id' })
+	user: UserEntity;
 
-	@OneToMany(() => CategoryEntity, category => category.image)
-	categories: CategoryEntity[];
+	@ManyToOne(() => CategoryEntity, category => category.images, {
+		nullable: true,
+	})
+	@JoinColumn({ name: snakeCase('categoryId'), referencedColumnName: 'id' })
+	categorie: CategoryEntity;
+
+	@ManyToOne(() => ProductEntity, product => product.images, { nullable: true })
+	@JoinColumn({ name: snakeCase('productId'), referencedColumnName: 'id' })
+	product: ProductEntity;
 }
