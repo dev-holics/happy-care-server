@@ -6,9 +6,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Injectable()
 export class DatabaseOptionsService implements TypeOrmOptionsFactory {
-	constructor(private configService: ConfigService) {
-		console.log(this.configService.get('database.ca'));
-	}
+	constructor(private configService: ConfigService) {}
 
 	createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
 		return {
