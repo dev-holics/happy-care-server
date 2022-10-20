@@ -9,7 +9,7 @@ export interface ICategoryEntity {
 
 	order: number;
 
-	image: ImageEntity;
+	images: ImageEntity[];
 
 	parent: CategoryEntity;
 

@@ -38,11 +38,8 @@ export class CategoryEntity
 	})
 	order: number;
 
-	@ManyToOne(() => ImageEntity, image => image.categories, {
-		nullable: true,
-	})
-	@JoinColumn({ name: snakeCase('imageId'), referencedColumnName: 'id' })
-	image: ImageEntity;
+	@OneToMany(() => ImageEntity, image => image.categorie)
+	images: ImageEntity[];
 
 	@ManyToOne(() => CategoryEntity, parent => parent.children)
 	@JoinColumn({ name: snakeCase('parentId'), referencedColumnName: 'id' })

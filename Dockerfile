@@ -8,8 +8,6 @@ RUN yarn
 
 COPY . .
 
-RUN touch .env
-
 RUN yarn build
 
 EXPOSE 3000

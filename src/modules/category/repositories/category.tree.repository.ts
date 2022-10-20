@@ -13,9 +13,11 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 		super(categoryRepository);
 	}
 
-	async get(parent: CategoryEntity) {
-		const treeCategories = this.categoryRepository.findDescendantsTree(parent);
+	async findDescendantsTreeCategories(parent: CategoryEntity) {
+		return this.categoryRepository.findDescendantsTree(parent);
+	}
 
-		return treeCategories;
+	async findTreeCategories() {
+		return this.categoryRepository.findTrees();
 	}
 }

@@ -19,6 +19,7 @@ export class CategorySeed {
 		await queryRunner.startTransaction();
 
 		try {
+			// Thực phẩm chức năng, Dược mỹ phẩm, Chăm sóc cá nhân, Thiết bị y tế
 			const [cate1, cate2, cate3, cate4] = await Promise.all([
 				this.categoryRepository.createOne({
 					data: {
@@ -61,6 +62,8 @@ export class CategorySeed {
 					},
 				}),
 			]);
+
+			// Thực phẩm chức năng
 			const [
 				cate5,
 				cate6,
@@ -163,6 +166,7 @@ export class CategorySeed {
 					},
 				}),
 			]);
+			// Dược mỹ phẩm
 			const [cate14, cate15, cate16, cate17, cate18, cate19, cate20] =
 				await Promise.all([
 					this.categoryRepository.createOne({
@@ -236,6 +240,7 @@ export class CategorySeed {
 						},
 					}),
 				]);
+			// Chăm sóc cá nhân
 			const [cate21, cate22, cate23, cate24, cate25, cate26, cate27, cate28] =
 				await Promise.all([
 					this.categoryRepository.createOne({
@@ -319,6 +324,7 @@ export class CategorySeed {
 						},
 					}),
 				]);
+			// Thiết bị y tế
 			const [cate29, cate30, cate31, cate32] = await Promise.all([
 				this.categoryRepository.createOne({
 					data: {
@@ -361,6 +367,8 @@ export class CategorySeed {
 					},
 				}),
 			]);
+
+			// Thực phẩm chức năng
 			const [cate33, cate34, cate35, cate36, cate37] = await Promise.all([
 				this.categoryRepository.createOne({
 					data: {
@@ -802,6 +810,8 @@ export class CategorySeed {
 					},
 				}),
 			]);
+
+			// Dược mỹ phẩm
 			const [cate75, cate76, cate77, cate78, cate79, cate80, cate81, cate82] =
 				await Promise.all([
 					this.categoryRepository.createOne({
@@ -885,6 +895,320 @@ export class CategorySeed {
 						},
 					}),
 				]);
+			const [cate83, cate84, cate85, cate86, cate87, cate88, cate89, cate90] =
+				await Promise.all([
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Da sạm, xỉn màu',
+							order: 1,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Nám, tàn nhang, đốm nâu',
+							order: 2,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Trị sẹo, mờ vết thâm',
+							order: 3,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Da bị mụn',
+							order: 4,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Da bị khô, thiếu ẩm',
+							order: 5,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Da bị kích ứng',
+							order: 6,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Tái tạo, chống lão hóa da',
+							order: 7,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+					this.categoryRepository.createOne({
+						data: {
+							name: 'Viêm da cơ địa',
+							order: 8,
+							parent: cate15 || undefined,
+						},
+						options: {
+							transaction: true,
+						},
+					}),
+				]);
+			const [
+				cate91,
+				cate92,
+				cate93,
+				cate94,
+				cate95,
+				cate96,
+				cate97,
+				cate98,
+				cate99,
+				cate100,
+			] = await Promise.all([
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Chống nắng da mặt',
+						order: 1,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Trị mụn',
+						order: 2,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Tẩy trang',
+						order: 3,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Sữa rửa mặt (Kem, gel, sữa)',
+						order: 4,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Tẩy tế bào chết',
+						order: 5,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Toner (nước hoa hồng) / Lotion',
+						order: 6,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Mặt nạ',
+						order: 7,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Serum, Essence hoặc Ampoule',
+						order: 8,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Dưỡng da mặt',
+						order: 9,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Xịt khoáng',
+						order: 10,
+						parent: cate16 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+			]);
+			const [cate101, cate102, cate103, cate104] = await Promise.all([
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Dầu gội trị nấm',
+						order: 1,
+						parent: cate17 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Dầu gội dầu xả',
+						order: 2,
+						parent: cate17 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Dưỡng tóc, ủ tóc',
+						order: 3,
+						parent: cate17 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Đặc trị cho tóc',
+						order: 4,
+						parent: cate17 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+			]);
+			const [cate105, cate106, cate107] = await Promise.all([
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Xóa nếp nhăn vùng mắt',
+						order: 1,
+						parent: cate18 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Dưỡng da mắt',
+						order: 2,
+						parent: cate18 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Trị quầng thâm, bọng mắt',
+						order: 3,
+						parent: cate18 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+			]);
+			const [cate108, cate109] = await Promise.all([
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Trang điểm mặt',
+						order: 1,
+						parent: cate19 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Son môi',
+						order: 2,
+						parent: cate19 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+			]);
+			const [cate110, cate111] = await Promise.all([
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Tinh dầu',
+						order: 1,
+						parent: cate20 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+				this.categoryRepository.createOne({
+					data: {
+						name: 'Dầu dừa',
+						order: 2,
+						parent: cate20 || undefined,
+					},
+					options: {
+						transaction: true,
+					},
+				}),
+			]);
 		} catch (e) {
 			await queryRunner.rollbackTransaction();
 			throw new Error('Method not implemented.');

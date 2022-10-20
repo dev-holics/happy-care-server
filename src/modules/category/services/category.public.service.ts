@@ -11,14 +11,16 @@ export class CategoryPublicService {
 	) {}
 
 	async getCategories(query: CategoryInputQueryDto) {
-		const parent = await this.categoryPublicRepository.findOne({
-			where: {
-				id: query.parentId,
-			},
-		});
+		if (query.parentId) {
+			const parent = await this.categoryPublicRepository.findOne({
+				where: {
+					id: query.parentId,
+				},
+			});
 
-		const treeCategories = await this.categoryTreeRepository.get(parent);
+			return this.categoryTreeRepository.findDescendantsTreeCategories(parent);
+		}
 
-		return treeCategories;
+		return this.categoryTreeRepository.findTreeCategories();
 	}
 }
