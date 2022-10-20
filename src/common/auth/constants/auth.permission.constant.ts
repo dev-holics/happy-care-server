@@ -24,4 +24,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'user_can_create_category',
 		module: 'users',
 	},
+	USER_CREATE_PRODUCT: {
+		code: 4,
+		name: 'user_create_product',
+		description: 'user_can_create_product',
+		module: 'users',
+	},
 });
