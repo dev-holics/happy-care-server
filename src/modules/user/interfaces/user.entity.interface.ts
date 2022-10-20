@@ -17,7 +17,7 @@ export interface IUserEntity {
 
 	tokens: TokenEntity[];
 
-	photos: ImageEntity[];
+	photo: ImageEntity;
 
 	role: IRoleEntity;
 }

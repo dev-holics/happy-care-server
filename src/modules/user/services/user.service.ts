@@ -176,6 +176,7 @@ export class UserService {
 	}
 
 	async updateProfile(id: string, userProfileUpdateDto: UserProfileUpdateDto) {
+		console.log('%cuser.service.ts line:179 id', 'color: #007acc;', id);
 		return this.userRepository.updateOne({
 			criteria: { id },
 			data: {

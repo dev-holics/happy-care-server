@@ -9,7 +9,6 @@ import {
 	IsOptional,
 } from 'class-validator';
 import { ICategoryCreate } from 'src/modules/category/interfaces/category.api.interface';
-import { CategoryEntity } from '../entities/category.entity';
 
 export class CategoryCreateDto implements ICategoryCreate {
 	@ApiProperty({
@@ -44,5 +43,7 @@ export class CategoryCreateDto implements ICategoryCreate {
 		example: faker.datatype.uuid(),
 		required: false,
 	})
-	readonly parent?: CategoryEntity;
+	@IsOptional()
+	@IsString()
+	readonly parentId: string;
 }

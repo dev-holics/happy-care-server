@@ -15,8 +15,8 @@ import { CategoryCreateDto } from 'src/modules/category/dtos/category.create.dto
 export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
 
-	// @AuthJwtGuard([PERMISSIONS.USER_CREATE_CATEGORY])
-	// @AuthApiKeyGuard()
+	@AuthJwtGuard([PERMISSIONS.USER_CREATE_CATEGORY])
+	@AuthApiKeyGuard()
 	@Post('')
 	async createCategory(@Body() body: CategoryCreateDto) {
 		return this.categoryService.createCategory(body);

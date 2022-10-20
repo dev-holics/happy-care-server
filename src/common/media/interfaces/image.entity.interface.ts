@@ -1,4 +1,3 @@
-import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 
@@ -15,9 +14,7 @@ export interface IImageEntity {
 
 	height: number;
 
-	user: UserEntity;
+	users: UserEntity[];
 
-	categorie: CategoryEntity;
-
-	product: ProductEntity;
+	categories: CategoryEntity[];
 }

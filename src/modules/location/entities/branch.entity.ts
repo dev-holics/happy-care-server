@@ -1,10 +1,8 @@
-import { ProductLogEntity } from 'src/modules/product/entities/product-log.entity';
 import { DistrictEntity } from 'src/modules/location/entities/district.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { snakeCase } from 'change-case';
 import { IBranchEntity } from 'src/modules/location/interfaces';
-import { ProductDetailEntity } from 'src/modules/product/entities';
 
 @Entity('branches')
 export class BranchEntity
@@ -17,10 +15,4 @@ export class BranchEntity
 	@ManyToOne(() => DistrictEntity, district => district.branches)
 	@JoinColumn({ name: snakeCase('districtId'), referencedColumnName: 'id' })
 	district: DistrictEntity;
-
-	@OneToMany(() => ProductDetailEntity, productDetail => productDetail.branch)
-	productDetails: ProductDetailEntity[];
-
-	@OneToMany(() => ProductLogEntity, productLog => productLog.branch)
-	productLogs: ProductLogEntity[];
 }

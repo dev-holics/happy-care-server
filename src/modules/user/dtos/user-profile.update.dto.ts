@@ -11,9 +11,8 @@ import {
 } from 'class-validator';
 import { shuffle } from 'radash';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
-import { IUserUpdate } from 'src/modules/user/interfaces/user-profile.update.interface';
 
-export class UserProfileUpdateDto implements IUserUpdate {
+export class UserProfileUpdateDto {
 	@ApiProperty({
 		example: faker.name.fullName(),
 		required: true,

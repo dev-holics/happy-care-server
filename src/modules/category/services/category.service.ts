@@ -11,7 +11,7 @@ export class CategoryService {
 		const categories = await this.categoryRepository.findAll({
 			where: {
 				parent: {
-					id: createCategoryDto.parent,
+					id: createCategoryDto.parentId,
 				},
 				order: MoreThanOrEqual(createCategoryDto.order),
 			},
@@ -37,7 +37,12 @@ export class CategoryService {
 		}
 
 		return this.categoryRepository.createOne({
-			data: createCategoryDto,
+			data: {
+				...createCategoryDto,
+				parent: {
+					id: createCategoryDto.parentId,
+				},
+			},
 		});
 	}
 }
