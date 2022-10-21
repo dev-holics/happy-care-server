@@ -10,11 +10,11 @@ import {
 import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { IProductEntity } from 'src/modules/product/interfaces';
 import { TrademarkEntity } from 'src/modules/made/entities';
-import { ProductDetailEntity, ProductLogEntity } from '.';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { TagEntity } from 'src/modules/tag/entities/tag.entity';
+import { IProductEntity } from 'src/modules/product/interfaces';
+import { ProductDetailEntity, ProductLogEntity } from '.';
 
 @Entity('products')
 export class ProductEntity

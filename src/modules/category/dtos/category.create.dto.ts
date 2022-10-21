@@ -7,8 +7,10 @@ import {
 	MaxLength,
 	MinLength,
 	IsOptional,
+	IsArray,
 } from 'class-validator';
 import { ICategoryCreate } from 'src/modules/category/interfaces/category.api.interface';
+import { ImageCreateDto } from 'src/common/media/dtos';
 
 export class CategoryCreateDto implements ICategoryCreate {
 	@ApiProperty({
@@ -46,4 +48,13 @@ export class CategoryCreateDto implements ICategoryCreate {
 	@IsOptional()
 	@IsString()
 	readonly parentId: string;
+
+	@ApiProperty({
+		example: faker.image.imageUrl(),
+		required: false,
+	})
+	@IsOptional()
+	@IsArray()
+	@Type(() => ImageCreateDto)
+	readonly imageList: ImageCreateDto[];
 }

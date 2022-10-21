@@ -2,12 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { CategoryRepository } from 'src/modules/category/repositories/category.repository';
 import { CategoryCreateDto } from 'src/modules/category/dtos/category.create.dto';
 import { MoreThanOrEqual } from 'typeorm';
+import { ImageService } from 'src/common/media/services/image.service';
 
 @Injectable()
 export class CategoryService {
-	constructor(private readonly categoryRepository: CategoryRepository) {}
+	constructor(
+		private readonly categoryRepository: CategoryRepository,
+		private readonly imageService: ImageService,
+	) {}
 
 	async createCategory(createCategoryDto: CategoryCreateDto) {
+		let images;
+		if (createCategoryDto.imageList) {
+			images = await this.imageService.createImages(
+				createCategoryDto.imageList,
+			);
+		}
+
 		const categories = await this.categoryRepository.findAll({
 			where: {
 				parent: {
@@ -42,6 +53,7 @@ export class CategoryService {
 				parent: {
 					id: createCategoryDto.parentId,
 				},
+				images,
 			},
 		});
 	}
