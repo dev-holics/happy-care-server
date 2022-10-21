@@ -6,6 +6,7 @@ import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorat
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { CategoryCreateDto } from 'src/modules/category/dtos/category.create.dto';
+import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
 @ApiTags('categories')
 @Controller({
@@ -15,8 +16,9 @@ import { CategoryCreateDto } from 'src/modules/category/dtos/category.create.dto
 export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
 
-	// @AuthJwtGuard([PERMISSIONS.USER_CREATE_CATEGORY])
-	// @AuthApiKeyGuard()
+	@AuthJwtGuard([PERMISSIONS.CREATE_CATEGORY])
+	@AuthApiKeyGuard()
+	@RequestBodyDtoGuard(CategoryCreateDto)
 	@Post('')
 	async createCategory(@Body() body: CategoryCreateDto) {
 		return this.categoryService.createCategory(body);

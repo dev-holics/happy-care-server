@@ -3,10 +3,10 @@ import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorat
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
-import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { ProductService } from 'src/modules/product/services';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { Response } from 'src/common/response/decorators/response.decorator';
+import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
 @ApiTags('product')
 @Controller({
@@ -16,10 +16,10 @@ import { Response } from 'src/common/response/decorators/response.decorator';
 export class ProductController {
 	constructor(private readonly productService: ProductService) {}
 
-	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.USER_CREATE_PRODUCT])
-	@AuthApiKeyGuard()
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	@AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT])
+	@AuthApiKeyGuard()
+	@RequestBodyDtoGuard(ProductCreateDto)
 	@Post('')
 	async createProduct(@Body() productCreateDto: ProductCreateDto) {
 		return this.productService.createProduct(productCreateDto);

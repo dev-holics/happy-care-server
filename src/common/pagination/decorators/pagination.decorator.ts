@@ -1,15 +1,12 @@
 import { applyDecorators, UsePipes } from '@nestjs/common';
+import { isString, isEmpty, lowerize } from 'radash';
 import { Expose, Transform, Type } from 'class-transformer';
 import {
-	IsBoolean,
-	IsMongoId,
 	IsOptional,
 	ValidateIf,
-	IsEnum,
 	IsNotEmpty,
 	IsDate,
 	IsString,
-	IsObject,
 } from 'class-validator';
 import {
 	PAGINATION_AVAILABLE_SORT,
@@ -22,31 +19,28 @@ import {
 import { ENUM_PAGINATION_AVAILABLE_SORT_TYPE } from 'src/common/pagination/constants/pagination.enum.constant';
 import {
 	IPaginationFilterDateOptions,
-	IPaginationFilterOptions,
 	IPaginationFilterStringOptions,
 } from 'src/common/pagination/interfaces/pagination.interface';
 import { RequestAddDatePipe } from 'src/common/request/pipes/request.add-date.pipe';
 import { MinGreaterThan } from 'src/common/request/validations/request.min-greater-than.validation';
 import { Skip } from 'src/common/request/validations/request.skip.validation';
+import { ILike, In } from 'typeorm';
 
 export function PaginationSearch(availableSearch: string[]): any {
 	return applyDecorators(
 		Expose(),
 		IsOptional(),
-		IsObject(),
 		ValidateIf(e => e.search !== ''),
-		Transform(({ value }) =>
-			value
-				? {
-						$or: availableSearch.map(val => ({
-							[val]: {
-								$regex: new RegExp(value),
-								$options: 'i',
-							},
-						})),
-				  }
-				: undefined,
-		),
+		Transform(({ value }) => {
+			if (!isString(value)) return value ?? [];
+			const searchCriteria = [];
+			availableSearch.forEach(searchKey => {
+				searchCriteria.push({
+					[searchKey]: ILike(`%${value}%`),
+				});
+			});
+			return !isEmpty(searchCriteria) ? searchCriteria : [];
+		}),
 	);
 }
 
@@ -67,13 +61,13 @@ export function PaginationPage(page = PAGINATION_PAGE): any {
 	);
 }
 
-export function PaginationPerPage(perPage = PAGINATION_PER_PAGE): any {
+export function PaginationLimit(limit = PAGINATION_PER_PAGE): any {
 	return applyDecorators(
 		Expose(),
 		Type(() => Number),
 		Transform(({ value }) =>
 			!value
-				? perPage
+				? limit
 				: value > PAGINATION_MAX_PER_PAGE
 				? PAGINATION_MAX_PER_PAGE
 				: value,
@@ -88,9 +82,11 @@ export function PaginationSort(
 	return applyDecorators(
 		Expose(),
 		Transform(({ value, obj }) => {
-			const bSort = PAGINATION_SORT.split('@')[0];
+			if (value && !isString(value)) return value;
 
+			const bSort = PAGINATION_SORT.split('@')[0];
 			const rSort = value || sort;
+
 			const rAvailableSort = obj._availableSort || availableSort;
 			const field: string = rSort.split('@')[0];
 			const type: string = rSort.split('@')[1];
@@ -116,45 +112,37 @@ export function PaginationAvailableSort(
 	);
 }
 
-export function PaginationFilterBoolean(defaultValue: boolean[]): any {
+export function PaginationFilterBoolean(_defaultValue: boolean[]): any {
 	return applyDecorators(
 		Expose(),
-		IsBoolean({ each: true }),
-		Transform(({ value }) =>
-			value
-				? value.split(',').map((val: string) => val === 'true')
-				: defaultValue,
-		),
+		Transform(({ value }) => {
+			if (!isString(value)) return undefined;
+			return value === 'true';
+		}),
 	);
 }
 
-export function PaginationFilterEnum<T>(
-	defaultValue: T[],
-	defaultEnum: Record<string, any>,
-): any {
-	const cEnum = defaultEnum as unknown;
+export function PaginationFilterNumber(): any {
 	return applyDecorators(
 		Expose(),
-		IsEnum(cEnum as object, { each: true }),
-		Transform(({ value }) =>
-			value
-				? value.split(',').map((val: string) => defaultEnum[val])
-				: defaultValue,
-		),
+		Transform(({ value }) => {
+			if (!isString(value)) return undefined;
+			const formatted = value.split(',').map((val: string) => Number(val));
+			return In(formatted) || undefined;
+		}),
 	);
 }
 
-export function PaginationFilterId(
-	field: string,
-	options?: IPaginationFilterOptions,
-): any {
+export function PaginationFilterEnum<T>(defaultEnum: Record<string, any>): any {
 	return applyDecorators(
 		Expose(),
-		IsMongoId(),
-		options && options.required ? IsNotEmpty() : Skip(),
-		options && options.required
-			? Skip()
-			: ValidateIf(e => e[field] !== '' && e[field]),
+		Transform(({ value }) => {
+			if (!isString(value)) return undefined;
+			const formatted = value
+				.split(',')
+				.map((val: string) => lowerize(defaultEnum)[val.toLowerCase()]);
+			return In(formatted) || undefined;
+		}),
 	);
 }
 

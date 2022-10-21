@@ -1,3 +1,4 @@
+import { isArray, isEmpty } from 'radash';
 import {
 	DeepPartial,
 	FindManyOptions,
@@ -24,22 +25,40 @@ import { ENUM_DATABASE_STATUS_CODE_ERROR } from 'src/common/database/constants';
 export abstract class DatabaseRepositoryAbstract<E> {
 	protected _repository: Repository<E>;
 
-	protected constructor(
-		repository: Repository<E>,
-		private readonly paginationService?: PaginationService,
-	) {
+	protected _paginationService: PaginationService;
+
+	protected constructor(repository: Repository<E>) {
 		this._repository = repository;
+		this._paginationService = new PaginationService();
 	}
 
 	initGeneralQuery(
 		query: GeneralQueryType<E>,
 	): FindOneOptions<E> | FindManyOptions<E> {
-		const initWhereOptions = Object.assign(
-			{
+		const initWhereOptions = [];
+
+		if (isArray(query.where)) {
+			if (isEmpty(query.where)) {
+				initWhereOptions.push({
+					isActive: true,
+				});
+			}
+
+			query.where.forEach(whereOpt => {
+				initWhereOptions.push({
+					...whereOpt,
+					isActive: whereOpt.isActive ?? true,
+				});
+			});
+		}
+
+		if (!isArray(query.where)) {
+			const whereOpt = query?.where || {};
+			initWhereOptions.push({
 				isActive: true,
-			},
-			query?.where || {},
-		);
+				...whereOpt,
+			});
+		}
 
 		let initQuery: FindOneOptions<E> | FindManyOptions<E> = {
 			where: initWhereOptions,
@@ -54,7 +73,7 @@ export abstract class DatabaseRepositoryAbstract<E> {
 			query?.options?.hasOwnProperty('page') &&
 			query?.options?.hasOwnProperty('limit')
 		) {
-			const skip = this.paginationService.skip(
+			const skip = this._paginationService.skip(
 				(query as IDatabaseFindMany<E>).options.page,
 				(query as IDatabaseFindMany<E>).options.limit,
 			);
@@ -105,10 +124,9 @@ export abstract class DatabaseRepositoryAbstract<E> {
 	async updateOne<Y = E>(
 		updateQuery: IDatabaseUpdateOne<E>,
 	): Promise<DeepPartial<E> & E> {
-		const entityExisted =
-			(await this.findOne({
-				where: updateQuery.criteria,
-			})) || {};
+		const entityExisted = await this.findOne({
+			where: updateQuery.criteria,
+		});
 
 		if (!entityExisted) {
 			throw new BadRequestException({

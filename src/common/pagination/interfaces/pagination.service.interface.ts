@@ -1,5 +1,5 @@
 export interface IPaginationService {
-	skip(page: number, perPage: number): number;
+	skip(page: number, limit: number): number;
 
 	totalPage(totalData: number, limit: number): number;
 }

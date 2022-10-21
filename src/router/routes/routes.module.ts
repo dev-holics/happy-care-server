@@ -12,7 +12,7 @@ import { ProductController } from 'src/modules/product/controllers';
 import { DistrictEntity } from 'src/modules/location/entities/district.entity';
 import { CityEntity } from 'src/modules/location/entities/city.entity';
 import { LocationModule } from 'src/modules/location/location.module';
-import { MadeModule } from 'src/modules/made/made.module';
+import { OriginModule } from 'src/modules/origin/origin.module';
 import { TagModule } from 'src/modules/tag/tag.module';
 import { OrderModule } from 'src/modules/order/order.module';
 
@@ -30,7 +30,7 @@ import { OrderModule } from 'src/modules/order/order.module';
 		CityEntity,
 		TerminusModule,
 		LocationModule,
-		MadeModule,
+		OriginModule,
 		TagModule,
 		OrderModule,
 		HttpModule,

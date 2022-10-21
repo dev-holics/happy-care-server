@@ -1,7 +1,7 @@
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { TrademarkEntity } from '.';
-import { IOriginInterface } from 'src/modules/made/interfaces';
+import { IOriginInterface } from 'src/modules/origin/interfaces';
 
 @Entity('origins')
 export class OriginEntity
