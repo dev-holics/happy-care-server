@@ -45,9 +45,8 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	@OneToMany(() => TokenEntity, token => token.user)
 	tokens: TokenEntity[];
 
-	@ManyToOne(() => ImageEntity, image => image.users, { nullable: true })
-	@JoinColumn({ name: snakeCase('photoId'), referencedColumnName: 'id' })
-	photo: ImageEntity;
+	@OneToMany(() => ImageEntity, image => image.user)
+	photos: ImageEntity[];
 
 	@ManyToOne(() => RoleEntity, role => role.users)
 	@JoinColumn({ name: snakeCase('roleId'), referencedColumnName: 'id' })
