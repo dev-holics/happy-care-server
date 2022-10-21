@@ -1,33 +1,53 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { ENUM_PERMISSION_MODULE } from 'src/modules/permission/constants';
+
 export const PERMISSIONS = Object.freeze({
 	BASIC: {
 		code: 0,
 		name: 'basic',
 		description: 'Basic permission',
-		module: 'basic',
+		module: ENUM_PERMISSION_MODULE.BASIC,
 	},
-	USER_GET_PROFILE: {
+	READ_USER_PROFILE: {
 		code: 1,
-		name: 'user_get_profile',
-		description: 'user_can_get_profile',
-		module: 'users',
+		name: 'read_user_profile',
+		description: 'can_read_user_profile',
+		module: ENUM_PERMISSION_MODULE.USER,
 	},
-	USER_UPDATE_PROFILE: {
+	UPDATE_USER_PROFILE: {
 		code: 2,
-		name: 'user_update_profile',
-		description: 'user_can_update_profile',
-		module: 'users',
+		name: 'update_user_profile',
+		description: 'can_update_user_profile',
+		module: ENUM_PERMISSION_MODULE.USER,
 	},
-	USER_CREATE_CATEGORY: {
+	CREATE_CATEGORY: {
 		code: 3,
-		name: 'user_create_category',
-		description: 'user_can_create_category',
-		module: 'users',
+		name: 'create_category',
+		description: 'can_create_category',
+		module: ENUM_PERMISSION_MODULE.CATEGORY,
 	},
-	USER_CREATE_PRODUCT: {
+	CREATE_PRODUCT: {
 		code: 4,
-		name: 'user_create_product',
-		description: 'user_can_create_product',
-		module: 'users',
+		name: 'create_product',
+		description: 'can_create_product',
+		module: ENUM_PERMISSION_MODULE.PRODUCT,
+	},
+	CREATE_PERMISSION: {
+		code: 5,
+		name: 'create_permission',
+		description: 'can_create_permission',
+		module: ENUM_PERMISSION_MODULE.PERMISSION,
+	},
+	READ_PERMISSION: {
+		code: 6,
+		name: 'read_permission',
+		description: 'can_read_permission',
+		module: ENUM_PERMISSION_MODULE.PERMISSION,
+	},
+	UPDATE_PERMISSION: {
+		code: 7,
+		name: 'update_permission',
+		description: 'can_update_permission',
+		module: ENUM_PERMISSION_MODULE.PERMISSION,
 	},
 });

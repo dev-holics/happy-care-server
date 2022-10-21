@@ -68,5 +68,8 @@ export class UserGetSerialization {
 	readonly password: string;
 
 	@Exclude()
+	readonly deletedAt: Date;
+
+	@Exclude()
 	readonly updatedAt: Date;
 }

@@ -22,7 +22,7 @@ export interface IDatabaseFindManyOptions<Entity>
 }
 
 export interface IDatabaseFindMany<Entity> {
-	where?: Record<string, any>;
+	where?: Record<string, any> | Record<string, any>[];
 	options?: IDatabaseFindManyOptions<Entity>;
 }
 

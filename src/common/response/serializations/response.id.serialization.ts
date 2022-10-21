@@ -4,9 +4,9 @@ import { Type } from 'class-transformer';
 export class ResponseIdSerialization {
 	@ApiProperty({
 		description: 'Id that representative with your target data',
-		example: '631d9f32a65cf07250b8938c',
+		example: '2d6ea442-e932-400a-b459-5570df881399',
 		required: true,
 	})
 	@Type(() => String)
-	_id: string;
+	id: string;
 }

@@ -7,21 +7,21 @@ import {
 import { Reflector } from '@nestjs/core';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
-import { REQUEST_PARAMS_DTOS_META_KEY } from 'src/common/request/constants/request.constant';
+import { REQUEST_BODY_DTOS_META_KEY } from 'src/common/request/constants/request.constant';
 import { ENUM_REQUEST_STATUS_CODE_ERROR } from 'src/common/request/constants/request.status-code.constant';
 
 @Injectable()
-export class RequestParamRawGuard implements CanActivate {
+export class RequestBodyRawGuard implements CanActivate {
 	constructor(private readonly reflector: Reflector) {}
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
-		const { params } = context.switchToHttp().getRequest();
+		const { body } = context.switchToHttp().getRequest();
 		const classDtos: ClassConstructor<any>[] = this.reflector.get<
 			ClassConstructor<any>[]
-		>(REQUEST_PARAMS_DTOS_META_KEY, context.getHandler());
+		>(REQUEST_BODY_DTOS_META_KEY, context.getHandler());
 
 		for (const clsDto of classDtos) {
-			const request = plainToInstance(clsDto, params);
+			const request = plainToInstance(clsDto, body);
 
 			const errors: ValidationError[] = await validate(request);
 

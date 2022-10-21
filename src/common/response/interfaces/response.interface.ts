@@ -64,7 +64,7 @@ export interface IResponsePaging<T = Record<string, any>> {
 	totalData: number;
 	totalPage?: number;
 	currentPage?: number;
-	perPage?: number;
+	limit?: number;
 	availableSearch?: string[];
 	availableSort?: string[];
 	metadata?: IResponseMetadata;
