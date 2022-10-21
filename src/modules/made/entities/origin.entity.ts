@@ -1,3 +1,4 @@
+import { ProductEntity } from 'src/modules/product/entities';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { TrademarkEntity } from '.';
@@ -13,4 +14,7 @@ export class OriginEntity
 
 	@OneToMany(() => TrademarkEntity, trademark => trademark.origin)
 	trademarks: TrademarkEntity[];
+
+	@OneToMany(() => ProductEntity, product => product.origin)
+	products: ProductEntity[];
 }

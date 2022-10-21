@@ -11,10 +11,11 @@ import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { IProductEntity } from 'src/modules/product/interfaces';
-import { TrademarkEntity } from 'src/modules/made/entities';
+import { OriginEntity, TrademarkEntity } from 'src/modules/made/entities';
 import { ProductDetailEntity, ProductLogEntity } from '.';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { TagEntity } from 'src/modules/tag/entities/tag.entity';
+import { OrderDetailEntity } from 'src/modules/order/entities';
 
 @Entity('products')
 export class ProductEntity
@@ -41,11 +42,18 @@ export class ProductEntity
 	@JoinColumn({ name: snakeCase('trademarkId'), referencedColumnName: 'id' })
 	trademark: TrademarkEntity;
 
+	@ManyToOne(() => OriginEntity, origin => origin.products)
+	@JoinColumn({ name: snakeCase('originId'), referencedColumnName: 'id' })
+	origin: OriginEntity;
+
 	@OneToMany(() => ProductLogEntity, productLog => productLog.product)
 	productLogs: ProductLogEntity[];
 
 	@OneToMany(() => ImageEntity, image => image.product)
 	images: ImageEntity[];
+
+	@OneToMany(() => OrderDetailEntity, orderDetail => orderDetail.product)
+	orderDetails: OrderDetailEntity[];
 
 	@OneToMany(() => ProductDetailEntity, productDetail => productDetail.product)
 	productDetails: ProductDetailEntity[];
