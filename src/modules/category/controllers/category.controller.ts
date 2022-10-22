@@ -8,7 +8,7 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { CategoryCreateDto } from 'src/modules/category/dtos/category.create.dto';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
-@ApiTags('categories')
+@ApiTags('Categories')
 @Controller({
 	version: '1',
 	path: '/categories',

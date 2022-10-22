@@ -28,7 +28,7 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
-@ApiTags('user')
+@ApiTags('User')
 @Controller({
 	version: '1',
 	path: '/users',

@@ -17,7 +17,7 @@ export class PermissionGetSerialization {
 	readonly module: string;
 
 	@ApiProperty({
-		example: shuffle(Object.values(ENUM_PERMISSION_MODULE))[0],
+		example: faker.commerce.productDescription(),
 	})
 	readonly description: string;
 

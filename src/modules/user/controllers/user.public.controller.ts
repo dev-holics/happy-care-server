@@ -6,7 +6,7 @@ import { UserSignUpDto } from 'src/modules/user/dtos/user.sign-up.dto';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
-@ApiTags('public.user')
+@ApiTags('Public.User')
 @Controller({
 	version: '1',
 	path: '/users',

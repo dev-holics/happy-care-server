@@ -28,6 +28,7 @@ export class AuthPayloadPermissionGuard implements CanActivate {
 
 		const { user } = context.switchToHttp().getRequest<IRequestApp>();
 		const { role } = user;
+
 		if (role.accessLevel === ENUM_AUTH_ACCESS_LEVEL.SUPER_ADMIN) {
 			return true;
 		}

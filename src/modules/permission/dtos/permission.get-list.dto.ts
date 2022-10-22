@@ -48,7 +48,7 @@ export class PermissionGetListDto implements PaginationListAbstract {
 		description: 'Filter permission by codes',
 	})
 	@PaginationFilterNumber()
-	readonly code?: number;
+	readonly code?: string;
 
 	@ApiProperty({
 		example: 'user,product',

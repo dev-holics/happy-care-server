@@ -11,9 +11,9 @@ import {
 import {
 	PAGINATION_AVAILABLE_SORT,
 	PAGINATION_MAX_PAGE,
-	PAGINATION_MAX_PER_PAGE,
+	PAGINATION_MAX_LIMIT,
 	PAGINATION_PAGE,
-	PAGINATION_PER_PAGE,
+	PAGINATION_LIMIT,
 	PAGINATION_SORT,
 } from 'src/common/pagination/constants/pagination.constant';
 import { ENUM_PAGINATION_AVAILABLE_SORT_TYPE } from 'src/common/pagination/constants/pagination.enum.constant';
@@ -61,15 +61,15 @@ export function PaginationPage(page = PAGINATION_PAGE): any {
 	);
 }
 
-export function PaginationLimit(limit = PAGINATION_PER_PAGE): any {
+export function PaginationLimit(limit = PAGINATION_LIMIT): any {
 	return applyDecorators(
 		Expose(),
 		Type(() => Number),
 		Transform(({ value }) =>
 			!value
 				? limit
-				: value > PAGINATION_MAX_PER_PAGE
-				? PAGINATION_MAX_PER_PAGE
+				: value > PAGINATION_MAX_LIMIT
+				? PAGINATION_MAX_LIMIT
 				: value,
 		),
 	);

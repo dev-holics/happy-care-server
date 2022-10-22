@@ -21,11 +21,11 @@ import { OrderModule } from 'src/modules/order/order.module';
 	providers: [],
 	exports: [],
 	imports: [
-		CategoryModule,
-		ProductModule,
 		UserModule,
 		RoleModule,
 		PermissionModule,
+		CategoryModule,
+		ProductModule,
 		DistrictEntity,
 		CityEntity,
 		TerminusModule,
