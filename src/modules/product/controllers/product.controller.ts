@@ -8,7 +8,7 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { Response } from 'src/common/response/decorators/response.decorator';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
-@ApiTags('product')
+@ApiTags('Product')
 @Controller({
 	version: '1',
 	path: '/products',

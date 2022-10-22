@@ -52,4 +52,15 @@ export class RedisService
 			delete: () => this.delete(redisKey),
 		};
 	}
+
+	appRole(ttl: number = this.ttl) {
+		const redisKey = `${REDIS_KEY.APP_ROLE}`;
+		const cacheConfig = { ttl };
+
+		return {
+			get: () => this.get(redisKey),
+			set: (roles: any) => this.set(redisKey, roles, cacheConfig),
+			delete: () => this.delete(redisKey),
+		};
+	}
 }

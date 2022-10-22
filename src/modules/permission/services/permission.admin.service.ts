@@ -13,6 +13,7 @@ import { PermissionGetListDto } from 'src/modules/permission/dtos/permission.get
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { PermissionGetDto } from 'src/modules/permission/dtos/permission.get.dto';
 import { PermissionUpdateDto } from 'src/modules/permission/dtos/permission.update.dto';
+import { RedisService } from 'src/common/redis/services/redis.service';
 
 @Injectable()
 export class PermissionAdminService {
@@ -20,6 +21,7 @@ export class PermissionAdminService {
 		private readonly authService: AuthService,
 		private readonly permissionRepository: PermissionRepository,
 		private readonly paginationService: PaginationService,
+		private readonly redisService: RedisService,
 	) {}
 
 	async getListPermission(permissionGetListData: PermissionGetListDto) {
@@ -56,11 +58,23 @@ export class PermissionAdminService {
 	}
 
 	async getPermissionById(permissionGetData: PermissionGetDto) {
-		const permission = await this.permissionRepository.findOne({
-			where: {
-				id: permissionGetData.permissionId,
-			},
-		});
+		let permission;
+		const permissions = await this.redisService.appPermission().get();
+
+		if (permissions) {
+			permission = permissions.find(
+				p => p.id === permissionGetData.permissionId,
+			);
+		} else {
+			permission = await this.permissionRepository.findOne({
+				where: {
+					id: permissionGetData.permissionId,
+				},
+			});
+
+			const allPermissions = await this.permissionRepository.findAll({});
+			await this.redisService.appPermission().set(allPermissions);
+		}
 
 		if (!permission) {
 			throw new NotFoundException({
@@ -88,12 +102,15 @@ export class PermissionAdminService {
 			});
 		}
 
-		return this.permissionRepository.createOne({
-			data: {
-				...permissionData,
-				code: permissionWithLargestCode.code + 1,
-			},
-		});
+		return Promise.all([
+			this.permissionRepository.createOne({
+				data: {
+					...permissionData,
+					code: permissionWithLargestCode.code + 10,
+				},
+			}),
+			this.redisService.appPermission().delete(),
+		]);
 	}
 
 	async updatePermissionById(
@@ -117,6 +134,8 @@ export class PermissionAdminService {
 			});
 		}
 
+		await this.redisService.appPermission().delete();
+
 		return {
 			id: updatedPermission.id,
 		};
@@ -135,6 +154,8 @@ export class PermissionAdminService {
 				isActive,
 			},
 		});
+
+		await this.redisService.appPermission().delete();
 
 		return {
 			id: updatedPermission.id,

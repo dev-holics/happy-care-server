@@ -15,20 +15,20 @@ export class RouterModule {
 				exports: [],
 				imports: [
 					RoutesModule,
-					RoutesAdminModule,
 					RoutesPublicModule,
+					RoutesAdminModule,
 					NestJsRouterModule.register([
 						{
 							path: '/',
 							module: RoutesModule,
 						},
 						{
-							path: '/admin',
-							module: RoutesAdminModule,
-						},
-						{
 							path: '/public',
 							module: RoutesPublicModule,
+						},
+						{
+							path: '/admin',
+							module: RoutesAdminModule,
 						},
 					]),
 				],

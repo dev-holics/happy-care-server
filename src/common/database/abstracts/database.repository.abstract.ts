@@ -18,7 +18,7 @@ import {
 } from 'src/common/database/interfaces/database.repository.interface';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { PAGINATION_MAX_PER_PAGE } from 'src/common/pagination/constants';
+import { PAGINATION_MAX_LIMIT } from 'src/common/pagination/constants';
 import { ENUM_DATABASE_STATUS_CODE_ERROR } from 'src/common/database/constants';
 
 @Injectable()
@@ -79,7 +79,7 @@ export abstract class DatabaseRepositoryAbstract<E> {
 			);
 			const take = Math.min(
 				(query as IDatabaseFindMany<E>).options.limit,
-				PAGINATION_MAX_PER_PAGE,
+				PAGINATION_MAX_LIMIT,
 			);
 			initQuery = {
 				...initQuery,
