@@ -1,5 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { CategoryService } from 'src/modules/category/services/category.service';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';

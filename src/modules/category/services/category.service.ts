@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryRepository } from 'src/modules/category/repositories/category.repository';
+import { CategoryRepository } from 'src/modules/category/repositories';
 import { CategoryCreateDto } from 'src/modules/category/dtos/category.create.dto';
 import { MoreThanOrEqual } from 'typeorm';
 

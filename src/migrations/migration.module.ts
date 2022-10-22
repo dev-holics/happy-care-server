@@ -10,6 +10,8 @@ import { UserSeed } from 'src/migrations/seeds/user.seed';
 import { HttpModule } from '@nestjs/axios';
 import { LocationSeed } from './seeds/location.seed';
 import { LocationModule } from 'src/modules/location/location.module';
+import { CategoryModule } from 'src/modules/category/category.module';
+import { CategorySeed } from 'src/migrations/seeds/category.seed';
 
 @Module({
 	imports: [
@@ -20,8 +22,9 @@ import { LocationModule } from 'src/modules/location/location.module';
 		UserModule,
 		RoleModule,
 		PermissionModule,
+		CategoryModule,
 	],
-	providers: [RoleSeed, PermissionSeed, UserSeed, LocationSeed],
+	providers: [RoleSeed, PermissionSeed, UserSeed, LocationSeed, CategorySeed],
 	exports: [],
 })
 export class MigrationModule {}
