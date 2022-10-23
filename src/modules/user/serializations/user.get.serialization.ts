@@ -44,7 +44,7 @@ export class UserGetSerialization {
 			isActive: val.isActive,
 			code: val.code,
 		})),
-		accessLevel: value.accessFor,
+		accessLevel: value.accessLevel,
 		isActive: value.isActive,
 	}))
 	readonly role: IRoleEntity;
@@ -66,6 +66,9 @@ export class UserGetSerialization {
 
 	@Exclude()
 	readonly password: string;
+
+	@Exclude()
+	readonly deletedAt: Date;
 
 	@Exclude()
 	readonly updatedAt: Date;

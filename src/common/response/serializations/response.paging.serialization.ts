@@ -46,13 +46,13 @@ export class ResponsePagingSerialization<
 	currentPage?: number;
 
 	@ApiProperty({
-		name: 'perPage',
+		name: 'limit',
 		type: Number,
 		nullable: true,
 		description: 'return per page',
 		example: 10,
 	})
-	perPage?: number;
+	limit?: number;
 
 	@ApiProperty({
 		name: 'availableSearch',
@@ -85,10 +85,10 @@ export class ResponsePagingSerialization<
 			path: '/api/v1/test/hello',
 			version: '1',
 			repoVersion: '1.0.0',
-			nextPage: `http://217.0.0.1/__path?perPage=10&page=3&search=abc`,
-			previousPage: `http://217.0.0.1/__path?perPage=10&page=1&search=abc`,
-			firstPage: `http://217.0.0.1/__path?perPage=10&page=1&search=abc`,
-			lastPage: `http://217.0.0.1/__path?perPage=10&page=20&search=abc`,
+			nextPage: `http://217.0.0.1/__path?limit=10&page=3&search=abc`,
+			previousPage: `http://217.0.0.1/__path?limit=10&page=1&search=abc`,
+			firstPage: `http://217.0.0.1/__path?limit=10&page=1&search=abc`,
+			lastPage: `http://217.0.0.1/__path?limit=10&page=20&search=abc`,
 		},
 	})
 	readonly metadata?: IErrorHttpFilterMetadata &

@@ -9,13 +9,17 @@ import { ApiHeader } from '@nestjs/swagger';
 import { ClassConstructor } from 'class-transformer';
 import { APP_LANGUAGE } from 'src/app/constants/app.constant';
 import {
+	REQUEST_BODY_DTOS_META_KEY,
 	REQUEST_EXCLUDE_TIMESTAMP_META_KEY,
-	REQUEST_PARAM_CLASS_DTOS_META_KEY,
+	REQUEST_PARAMS_DTOS_META_KEY,
+	REQUEST_QUERY_DTOS_META_KEY,
 } from 'src/common/request/constants/request.constant';
 import { RequestParamRawGuard } from 'src/common/request/guards/request.param.guard';
 import { IRequestApp } from 'src/common/request/interfaces/request.interface';
 import { IResult } from 'ua-parser-js';
 import 'dotenv/config';
+import { RequestBodyRawGuard } from 'src/common/request/guards/request.body.guard';
+import { RequestQueryRawGuard } from 'src/common/request/guards/request.query.guard';
 
 export const RequestUserAgent = createParamDecorator(
 	(data: string, ctx: ExecutionContext): IResult => {
@@ -52,12 +56,30 @@ export const RequestCustomLang = createParamDecorator(
 	},
 );
 
-export function RequestParamGuard(
+export function RequestQueryDtoGuard(
+	...classValidation: ClassConstructor<any>[]
+): any {
+	return applyDecorators(
+		UseGuards(RequestQueryRawGuard),
+		SetMetadata(REQUEST_QUERY_DTOS_META_KEY, classValidation),
+	);
+}
+
+export function RequestBodyDtoGuard(
+	...classValidation: ClassConstructor<any>[]
+): any {
+	return applyDecorators(
+		UseGuards(RequestBodyRawGuard),
+		SetMetadata(REQUEST_BODY_DTOS_META_KEY, classValidation),
+	);
+}
+
+export function RequestParamsDtoGuard(
 	...classValidation: ClassConstructor<any>[]
 ): any {
 	return applyDecorators(
 		UseGuards(RequestParamRawGuard),
-		SetMetadata(REQUEST_PARAM_CLASS_DTOS_META_KEY, classValidation),
+		SetMetadata(REQUEST_PARAMS_DTOS_META_KEY, classValidation),
 	);
 }
 

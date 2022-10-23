@@ -1,5 +1,5 @@
-export const PAGINATION_PER_PAGE = 20;
-export const PAGINATION_MAX_PER_PAGE = 100;
+export const PAGINATION_LIMIT = 10;
+export const PAGINATION_MAX_LIMIT = 100;
 export const PAGINATION_PAGE = 1;
 export const PAGINATION_MAX_PAGE = 10000;
 export const PAGINATION_SORT = 'createdAt@asc';

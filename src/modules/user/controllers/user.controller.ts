@@ -26,8 +26,9 @@ import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decora
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
+import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
-@ApiTags('user')
+@ApiTags('User')
 @Controller({
 	version: '1',
 	path: '/users',
@@ -39,17 +40,18 @@ export class UserController {
 		classSerialization: UserProfileSerialization,
 	})
 	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.USER_GET_PROFILE])
+	@AuthJwtGuard([PERMISSIONS.READ_USER_PROFILE])
 	@AuthApiKeyGuard()
 	@Get('/profile')
 	async profile(@GetUser() user: IUserEntity): Promise<IResponse> {
 		return user;
 	}
 
-	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.USER_UPDATE_PROFILE])
-	@AuthApiKeyGuard()
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.UPDATE_USER_PROFILE])
+	@AuthApiKeyGuard()
+	@RequestBodyDtoGuard(UserProfileUpdateDto)
 	@Put('/profile')
 	async updateProfile(
 		@GetUser('id') id: string,
@@ -62,6 +64,7 @@ export class UserController {
 		classSerialization: UserLoginSerialization,
 		doc: { statusCode: ENUM_USER_STATUS_CODE_SUCCESS.USER_LOGIN_SUCCESS },
 	})
+	@RequestBodyDtoGuard(UserLoginDto)
 	@HttpCode(HttpStatus.OK)
 	@Post('/login')
 	async login(@Body() body: UserLoginDto): Promise<IResponse> {

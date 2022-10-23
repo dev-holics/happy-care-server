@@ -23,6 +23,7 @@ import {
 import { IMessage } from 'src/common/message/interfaces/message.interface';
 import { MessageService } from 'src/common/message/services/message.service';
 import { IRequestApp } from 'src/common/request/interfaces/request.interface';
+import { QueryFailedError } from 'typeorm';
 
 // If we throw error with HttpException, there will always return object
 // The exception filter only catch HttpException
@@ -139,6 +140,19 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				.setHeader('x-repo-version', __repoVersion)
 				.status(statusHttp)
 				.json(resResponse);
+		} else if (exception instanceof QueryFailedError) {
+			const { httpAdapter } = this.httpAdapterHost;
+
+			const responseBody = {
+				statusCode: HttpStatus.BAD_REQUEST,
+				message: (exception as QueryFailedError).message,
+			};
+
+			httpAdapter.reply(
+				ctx.getResponse(),
+				responseBody,
+				HttpStatus.BAD_REQUEST,
+			);
 		} else {
 			// In certain situations `httpAdapter` might not be available in the
 			// constructor method, thus we should resolve it here.

@@ -1,7 +1,7 @@
 import { TagEntity } from 'src/modules/tag/entities/tag.entity';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { TrademarkEntity } from 'src/modules/made/entities/trademark.entity';
+import { TrademarkEntity } from 'src/modules/origin/entities/trademark.entity';
 import { ProductDetailEntity } from 'src/modules/product/entities';
 
 export interface IProductEntity {
