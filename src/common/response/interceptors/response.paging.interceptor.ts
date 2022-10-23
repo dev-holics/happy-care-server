@@ -89,7 +89,7 @@ export class ResponsePagingInterceptor<T>
 						metadata,
 						totalData,
 						currentPage,
-						perPage,
+						limit,
 						data,
 						availableSort,
 						availableSearch,
@@ -127,7 +127,7 @@ export class ResponsePagingInterceptor<T>
 
 					const { path } = requestExpress;
 					const { query } = requestExpress;
-					delete query.perPage;
+					delete query.limit;
 					delete query.page;
 					const queryString = qs.stringify(query, {
 						encode: false,
@@ -136,23 +136,23 @@ export class ResponsePagingInterceptor<T>
 					const addMetadata: ResponsePagingMetadataSerialization = {
 						nextPage:
 							currentPage < totalPage
-								? `${path}?perPage=${perPage}&page=${
+								? `${path}?limit=${limit}&page=${
 										currentPage + 1
 								  }&${queryString}`
 								: undefined,
 						previousPage:
 							currentPage > 1
-								? `${path}?perPage=${perPage}&page=${
+								? `${path}?limit=${limit}&page=${
 										currentPage - 1
 								  }&${queryString}`
 								: undefined,
 						firstPage:
 							totalPage > 1
-								? `${path}?perPage=${perPage}&page=${1}&${queryString}`
+								? `${path}?limit=${limit}&page=${1}&${queryString}`
 								: undefined,
 						lastPage:
 							totalPage > 1
-								? `${path}?perPage=${perPage}&page=${totalPage}&${queryString}`
+								? `${path}?limit=${limit}&page=${totalPage}&${queryString}`
 								: undefined,
 					};
 
@@ -181,7 +181,7 @@ export class ResponsePagingInterceptor<T>
 						totalData,
 						totalPage,
 						currentPage,
-						perPage,
+						limit,
 						availableSort,
 						availableSearch,
 						metadata: {
@@ -198,7 +198,7 @@ export class ResponsePagingInterceptor<T>
 					) {
 						delete responseHttp.totalPage;
 						delete responseHttp.currentPage;
-						delete responseHttp.perPage;
+						delete responseHttp.limit;
 					}
 
 					if (type === ENUM_PAGINATION_TYPE.MINI) {

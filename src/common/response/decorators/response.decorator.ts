@@ -473,7 +473,7 @@ export function ResponsePaging<T>(
 				'Search will base on availableSearch with rule contains, and case insensitive',
 		}),
 		ApiQuery({
-			name: 'perPage',
+			name: 'limit',
 			required: true,
 			allowEmptyValue: false,
 			example: 20,

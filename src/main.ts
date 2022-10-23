@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import morgan from 'morgan';
 import { isEmpty } from 'radash';
 import { NestApplication, NestFactory } from '@nestjs/core';
-import { Logger, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from 'src/app/app.module';
@@ -50,6 +50,7 @@ async function bootstrap() {
 
 	// Global
 	app.setGlobalPrefix(globalPrefix);
+	app.useGlobalPipes(new ValidationPipe());
 	useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
 	// Morgan Http
@@ -101,6 +102,10 @@ async function bootstrap() {
 		SwaggerModule.setup(docPrefix, app, document, {
 			explorer: true,
 			customSiteTitle: docName,
+			swaggerOptions: {
+				operationsSorter: 'method',
+				docExpansion: 'list',
+			},
 		});
 	}
 

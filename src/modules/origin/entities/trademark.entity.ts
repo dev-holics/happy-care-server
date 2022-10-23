@@ -1,4 +1,4 @@
-import { ITrademarkInterface } from 'src/modules/made/interfaces/trademark.interface';
+import { ITrademarkInterface } from 'src/modules/origin/interfaces/trademark.interface';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { OriginEntity } from '.';
