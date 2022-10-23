@@ -1,2 +1,2 @@
 export * from './image.create.dto';
-export * from './image.delete.dto';
+export * from './image.update.dto';
