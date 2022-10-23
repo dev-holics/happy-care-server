@@ -26,7 +26,6 @@ export class ProductInputQueryDto {
 		required: false,
 	})
 	@IsOptional()
-	@IsOptional()
 	@IsUUID()
 	category: string;
 

@@ -15,6 +15,7 @@ import {
 	PAGINATION_PAGE,
 	PAGINATION_LIMIT,
 	PAGINATION_SORT,
+	SORT_OPTION_ENUM,
 } from 'src/common/pagination/constants/pagination.constant';
 import { ENUM_PAGINATION_AVAILABLE_SORT_TYPE } from 'src/common/pagination/constants/pagination.enum.constant';
 import {

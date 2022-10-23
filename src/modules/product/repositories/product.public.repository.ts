@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DatabaseRepositoryAbstract } from 'src/common/database/abstracts/database.repository.abstract';
 import { Repository } from 'typeorm';
 import { SORT_OPTION_ENUM } from 'src/modules/product/constants';
-import { info } from 'console';
+import { ProductGetListDto } from 'src/modules/product/dtos';
 
 @Injectable()
 export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductEntity> {
@@ -17,8 +17,8 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 		super(productPublicRepository);
 	}
 
-	async getProducts(ids: string[], query: ProductInputQueryDto, skip: number) {
-		const { trademark, origin, sortOption, limit, page } = query;
+	async getProducts(ids: string[], query: ProductGetListDto, skip: number) {
+		const { trademarkId, originId, sortOption, limit, page } = query;
 		const products = this.productPublicRepository
 			.createQueryBuilder('products')
 			.distinct(true)
@@ -33,11 +33,11 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 			.leftJoinAndSelect('products.images', 'images')
 			.leftJoinAndSelect('products.tags', 'tags')
 			.orderBy('products.id');
-		if (trademark) {
-			products.andWhere('trademark.name = :trademark');
+		if (trademarkId) {
+			products.andWhere('trademark.id = :trademarkId');
 		}
-		if (origin) {
-			products.andWhere("origin.type = 'secondary'");
+		if (originId) {
+			products.andWhere('origin.id = :originId');
 		}
 		if (sortOption) {
 			switch (sortOption) {
@@ -55,15 +55,7 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 						'products.orderCount',
 						'products.orderDetails',
 					);
-					// .addSelect(qb => {
-					// 	return qb
-					// 		.select('COUNT(orderDetails.id)', 'count')
-					// 		.from(OrderDetailEntity, 'orderDetails')
-					// 		.where('orderDetails.product.id = products.id');
-					// }, 'count')
-					// .orderBy('products.count', 'DESC');
 					break;
-
 				default:
 					break;
 			}
@@ -74,11 +66,11 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 		}
 		return products
 			.setParameters({
-				trademark,
-				origin,
+				trademarkId,
+				originId,
 				skip,
 				ids,
 			})
-			.getManyAndCount();
+			.getMany();
 	}
 }
