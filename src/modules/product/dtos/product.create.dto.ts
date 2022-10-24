@@ -53,6 +53,14 @@ export class ProductCreateDto implements IProductCreate {
 	})
 	@IsNotEmpty()
 	@IsString()
+	originId: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
 	categoryId: string;
 
 	@ApiProperty({

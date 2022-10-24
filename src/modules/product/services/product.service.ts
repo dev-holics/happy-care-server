@@ -29,12 +29,15 @@ export class ProductService {
 					category: {
 						id: productCreateDto.categoryId,
 					},
+					origin: {
+						id: productCreateDto.originId,
+					},
 					images: images,
 				},
 			});
 		} catch (e) {
 			await queryRunner.rollbackTransaction();
-			throw new Error('Http error server');
+			throw e;
 		}
 	}
 
@@ -68,6 +71,12 @@ export class ProductService {
 				},
 				data: {
 					...productUpdateDto,
+					trademark: {
+						id: productUpdateDto.trademarkId,
+					},
+					origin: {
+						id: productUpdateDto.originId,
+					},
 					category: {
 						id: productUpdateDto.categoryId,
 					},
@@ -75,7 +84,7 @@ export class ProductService {
 			});
 		} catch (e) {
 			await queryRunner.rollbackTransaction();
-			throw new Error('Http error server');
+			throw e;
 		}
 	}
 }

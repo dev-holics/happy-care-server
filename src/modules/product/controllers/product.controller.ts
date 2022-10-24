@@ -21,9 +21,9 @@ export class ProductController {
 	constructor(private readonly productService: ProductService) {}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT])
-	@AuthApiKeyGuard()
-	@RequestBodyDtoGuard(ProductCreateDto)
+	// @AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT])
+	// @AuthApiKeyGuard()
+	// @RequestBodyDtoGuard(ProductCreateDto)
 	@Post('')
 	async createProduct(@Body() productCreateDto: ProductCreateDto) {
 		return this.productService.createProduct(productCreateDto);

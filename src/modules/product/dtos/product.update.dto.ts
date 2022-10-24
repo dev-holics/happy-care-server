@@ -8,10 +8,10 @@ import {
 	IsArray,
 	IsOptional,
 } from 'class-validator';
-import { IProductCreate } from 'src/modules/product/interfaces';
+import { IProductUpdate } from 'src/modules/product/interfaces';
 import { Expose, Type } from 'class-transformer';
 
-export class ProductUpdateDto implements IProductCreate {
+export class ProductUpdateDto implements IProductUpdate {
 	@ApiProperty({
 		example: 'Viên uống Sâm Nhung Bổ Thận',
 		required: true,
@@ -48,6 +48,24 @@ export class ProductUpdateDto implements IProductCreate {
 	@IsString()
 	@IsOptional()
 	categoryId: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	@IsOptional()
+	trademarkId: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	@IsOptional()
+	originId: string;
 
 	@ApiProperty({
 		isArray: true,
