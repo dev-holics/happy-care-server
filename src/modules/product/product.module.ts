@@ -6,6 +6,7 @@ import {
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
+	ProductDetailRepository,
 	ProductPublicRepository,
 	ProductRepository,
 } from 'src/modules/product/repositories';
@@ -29,12 +30,14 @@ import { CategoryModule } from 'src/modules/category/category.module';
 		ProductPublicRepository,
 		ProductService,
 		ProductPublicService,
+		ProductDetailRepository,
 	],
 	exports: [
 		ProductRepository,
 		ProductPublicRepository,
 		ProductService,
 		ProductPublicService,
+		ProductDetailRepository,
 	],
 })
 export class ProductModule {}
