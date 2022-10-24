@@ -14,9 +14,10 @@ import { LocationModule } from 'src/modules/location/location.module';
 import { OriginModule } from 'src/modules/origin/origin.module';
 import { TagModule } from 'src/modules/tag/tag.module';
 import { OrderModule } from 'src/modules/order/order.module';
+import { CategoryController } from 'src/modules/category/controllers/category.controller';
 
 @Module({
-	controllers: [UserController, ProductController],
+	controllers: [UserController, ProductController, CategoryController],
 	providers: [],
 	exports: [],
 	imports: [

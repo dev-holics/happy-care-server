@@ -1,10 +1,13 @@
-import { CategoryTreeRepository } from 'src/modules/category/repositories/category.tree.repository';
+import { CategoryService } from 'src/modules/category/services/category.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { CategoryPublicService } from 'src/modules/category/services/category.public.service';
-import { CategoryPublicRepository } from 'src/modules/category/repositories/category.public.repository';
-import { CategoryRepository } from 'src/modules/category/repositories/category.repository';
+import {
+	CategoryTreeRepository,
+	CategoryRepository,
+	CategoryPublicRepository,
+} from 'src/modules/category/repositories';
 
 @Module({
 	controllers: [],
@@ -13,12 +16,14 @@ import { CategoryRepository } from 'src/modules/category/repositories/category.r
 		CategoryPublicRepository,
 		CategoryRepository,
 		CategoryTreeRepository,
+		CategoryService,
 	],
 	exports: [
 		CategoryPublicService,
 		CategoryPublicRepository,
 		CategoryRepository,
 		CategoryTreeRepository,
+		CategoryService,
 	],
 	imports: [TypeOrmModule.forFeature([CategoryEntity])],
 })
