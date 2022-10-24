@@ -1,10 +1,10 @@
-import { ProductEntity } from 'src/modules/product/entities';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { IImageEntity } from 'src/common/media/interfaces/image.entity.interface';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { snakeCase } from 'change-case';
+import { ProductEntity } from 'src/modules/product/entities';
 
 @Entity('images')
 export class ImageEntity
@@ -19,7 +19,7 @@ export class ImageEntity
 
 	@Column({
 		length: 1000,
-		nullable: true,
+		unique: true,
 	})
 	publicId: string;
 

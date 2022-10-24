@@ -1,8 +1,10 @@
+import { ImageCreateDto } from 'src/common/media/dtos';
+
 export interface IProductCreate {
-	code: string;
 	name: string;
 	description: string;
 	price: number;
-	trademarkId: string;
+	originId: string;
 	categoryId: string;
+	images: ImageCreateDto[];
 }

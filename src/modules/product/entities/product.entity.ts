@@ -10,12 +10,12 @@ import {
 import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { IProductEntity } from 'src/modules/product/interfaces';
-import { OriginEntity, TrademarkEntity } from 'src/modules/origin/entities';
-import { ProductDetailEntity, ProductLogEntity } from '.';
+import { TrademarkEntity, OriginEntity } from 'src/modules/origin/entities';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { TagEntity } from 'src/modules/tag/entities/tag.entity';
-import { OrderDetailEntity } from 'src/modules/order/entities';
+import { IProductEntity } from 'src/modules/product/interfaces';
+import { ProductDetailEntity, ProductLogEntity } from '.';
+import { OrderDetailEntity } from 'src/modules/order/entities/order-detail.entity';
 
 @Entity('products')
 export class ProductEntity

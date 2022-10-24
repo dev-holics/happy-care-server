@@ -8,24 +8,34 @@ import { DatabaseRepositoryAbstract } from 'src/common/database/abstracts/databa
 export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryEntity> {
 	constructor(
 		@InjectRepository(CategoryEntity)
-		private categoryTreeRepository: TreeRepository<CategoryEntity>,
+		private categoryRepository: TreeRepository<CategoryEntity>,
 	) {
-		super(categoryTreeRepository);
+		super(categoryRepository);
 	}
 
-	async getcategoryIds(id: string): Promise<string[]> {
-		let categories;
-		if (id) {
-			const category = await this.categoryTreeRepository.findOne({
-				where: {
-					id,
-				},
-			});
-			categories = await this.categoryTreeRepository.findDescendants(category);
-		} else {
-			categories = await this.categoryTreeRepository.find();
-		}
-		const ids = categories.map(category => category.id);
-		return ids;
+	async findDescendantsTreeCategories(parent: CategoryEntity) {
+		const category = await this.categoryRepository.findDescendantsTree(parent, {
+			relations: ['images'],
+		});
+		return category.children;
+	}
+
+	async findTreeCategories() {
+		return this.categoryRepository.findTrees();
+	}
+
+	async findTreeCategoriesOrder() {
+		const categories = await this.categoryRepository.findTrees();
+		categories.sort((a, b) => b.order - a.order);
+		return categories;
+	}
+
+	async findDescendantsTreeCategoriesOrder(parent: CategoryEntity) {
+		const categories = await this.categoryRepository.findDescendantsTree(
+			parent,
+			{ depth: 1 },
+		);
+		categories.children.sort((a, b) => b.order - a.order);
+		return categories.children;
 	}
 }
