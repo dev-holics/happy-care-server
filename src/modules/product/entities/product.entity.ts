@@ -15,6 +15,7 @@ import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { TagEntity } from 'src/modules/tag/entities/tag.entity';
 import { IProductEntity } from 'src/modules/product/interfaces';
 import { ProductDetailEntity, ProductLogEntity } from '.';
+import { OrderDetailEntity } from 'src/modules/order/entities/order-detail.entity';
 
 @Entity('products')
 export class ProductEntity
@@ -50,6 +51,9 @@ export class ProductEntity
 
 	@OneToMany(() => ImageEntity, image => image.product)
 	images: ImageEntity[];
+
+	@OneToMany(() => OrderDetailEntity, orderDetail => orderDetail.product)
+	orderDetails: OrderDetailEntity[];
 
 	@OneToMany(() => ProductDetailEntity, productDetail => productDetail.product)
 	productDetails: ProductDetailEntity[];

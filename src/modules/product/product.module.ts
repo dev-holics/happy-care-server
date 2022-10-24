@@ -5,8 +5,15 @@ import {
 } from 'src/modules/product/entities';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductRepository } from 'src/modules/product/repositories/product.repository';
-import { ProductService } from 'src/modules/product/services';
+import {
+	ProductPublicRepository,
+	ProductRepository,
+} from 'src/modules/product/repositories';
+import {
+	ProductPublicService,
+	ProductService,
+} from 'src/modules/product/services';
+import { CategoryModule } from 'src/modules/category/category.module';
 
 @Module({
 	imports: [
@@ -15,8 +22,19 @@ import { ProductService } from 'src/modules/product/services';
 			ProductLogEntity,
 			ProductDetailEntity,
 		]),
+		CategoryModule,
 	],
-	providers: [ProductRepository, ProductService],
-	exports: [ProductRepository, ProductService],
+	providers: [
+		ProductRepository,
+		ProductPublicRepository,
+		ProductService,
+		ProductPublicService,
+	],
+	exports: [
+		ProductRepository,
+		ProductPublicRepository,
+		ProductService,
+		ProductPublicService,
+	],
 })
 export class ProductModule {}

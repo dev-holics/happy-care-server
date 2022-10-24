@@ -2,12 +2,12 @@ import { CategoryService } from 'src/modules/category/services/category.service'
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { CategoryPublicService } from 'src/modules/category/services/category.public.service';
 import {
 	CategoryTreeRepository,
 	CategoryRepository,
 	CategoryPublicRepository,
 } from 'src/modules/category/repositories';
+import { CategoryPublicService } from 'src/modules/category/services/category.public.service';
 
 @Module({
 	controllers: [],

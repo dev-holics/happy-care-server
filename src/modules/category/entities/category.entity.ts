@@ -1,15 +1,12 @@
 import {
 	Column,
 	Entity,
-	JoinColumn,
-	ManyToOne,
 	OneToMany,
 	Tree,
 	TreeChildren,
 	TreeParent,
 	Unique,
 } from 'typeorm';
-import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { ICategoryEntity } from 'src/modules/category/interfaces/category.entity.interface';
@@ -41,14 +38,11 @@ export class CategoryEntity
 	@OneToMany(() => ImageEntity, image => image.categorie)
 	images: ImageEntity[];
 
-	@ManyToOne(() => CategoryEntity, parent => parent.children)
-	@JoinColumn({ name: snakeCase('parentId'), referencedColumnName: 'id' })
-	@TreeParent()
-	parent: CategoryEntity;
-
-	@OneToMany(() => CategoryEntity, child => child.parent)
 	@TreeChildren()
 	children: CategoryEntity[];
+
+	@TreeParent()
+	parent: CategoryEntity;
 
 	@OneToMany(() => ProductEntity, product => product.category)
 	products: ProductEntity[];
