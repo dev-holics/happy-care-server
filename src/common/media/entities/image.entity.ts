@@ -19,7 +19,6 @@ export class ImageEntity
 
 	@Column({
 		length: 1000,
-		nullable: true,
 		unique: true,
 	})
 	publicId: string;

@@ -68,12 +68,12 @@ export class UserSeed {
 				}),
 				this.userRepository.createOne({
 					data: {
-						phoneNumber: '0812345678',
+						phoneNumber: '0768796932',
 						password: password.passwordHash,
 						email: 'admin@gmail.com',
 						fullname: 'Ai Linh',
 						gender: ENUM_GENDERS.FEMALE,
-						birthday: '2001-5-10',
+						birthday: '2001-5-21',
 						role: roleAdmin || undefined,
 					},
 					options: {

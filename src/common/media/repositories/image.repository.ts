@@ -13,4 +13,12 @@ export class ImageRepository extends DatabaseRepositoryAbstract<ImageEntity> {
 	) {
 		super(imageRepository);
 	}
+
+	async softDeleteMany(ids: string[]) {
+		return this.imageRepository
+			.createQueryBuilder('images')
+			.where('images.id IN (:...ids)', { ids })
+			.orderBy('post.createdAt')
+			.getMany();
+	}
 }

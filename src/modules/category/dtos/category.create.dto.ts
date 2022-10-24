@@ -1,3 +1,4 @@
+import { ImageCreateDto } from 'src/common/media/dtos';
 import { faker } from '@faker-js/faker';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
@@ -7,9 +8,9 @@ import {
 	MaxLength,
 	MinLength,
 	IsOptional,
+	IsArray,
 } from 'class-validator';
 import { ICategoryCreate } from 'src/modules/category/interfaces/category.api.interface';
-import { CategoryEntity } from '../entities/category.entity';
 
 export class CategoryCreateDto implements ICategoryCreate {
 	@ApiProperty({
@@ -44,5 +45,16 @@ export class CategoryCreateDto implements ICategoryCreate {
 		example: faker.datatype.uuid(),
 		required: false,
 	})
-	readonly parent?: CategoryEntity;
+	@IsOptional()
+	@IsString()
+	readonly parentId: string;
+
+	@ApiProperty({
+		isArray: true,
+		type: ImageCreateDto,
+		required: false,
+	})
+	@IsArray()
+	@Type(() => ImageCreateDto)
+	images: ImageCreateDto[];
 }
