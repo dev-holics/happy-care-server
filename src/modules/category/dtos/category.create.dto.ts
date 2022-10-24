@@ -50,11 +50,11 @@ export class CategoryCreateDto implements ICategoryCreate {
 	readonly parentId: string;
 
 	@ApiProperty({
-		example: faker.image.imageUrl(),
+		isArray: true,
+		type: ImageCreateDto,
 		required: false,
 	})
-	@IsOptional()
 	@IsArray()
 	@Type(() => ImageCreateDto)
-	readonly imageList: ImageCreateDto[];
+	images: ImageCreateDto[];
 }

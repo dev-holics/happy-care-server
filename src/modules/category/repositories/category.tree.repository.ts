@@ -20,4 +20,19 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 	async findTreeCategories() {
 		return this.categoryRepository.findTrees();
 	}
+
+	async findTreeCategoriesOrder() {
+		const categories = await this.categoryRepository.findTrees();
+		categories.sort((a, b) => b.order - a.order);
+		return categories;
+	}
+
+	async findDescendantsTreeCategoriesOrder(parent: CategoryEntity) {
+		const categories = await this.categoryRepository.findDescendantsTree(
+			parent,
+			{ depth: 1 },
+		);
+		categories.children.sort((a, b) => b.order - a.order);
+		return categories.children;
+	}
 }
