@@ -2,7 +2,6 @@ import { ImageCreateDto } from 'src/common/media/dtos';
 import { ImageRepository } from 'src/common/media/repositories/image.repository';
 import { Injectable } from '@nestjs/common';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
-import { NotFound } from '@aws-sdk/client-s3';
 import { In, Not } from 'typeorm';
 
 @Injectable()

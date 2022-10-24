@@ -1,6 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
-
 import { CategoryService } from 'src/modules/category/services/category.service';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
