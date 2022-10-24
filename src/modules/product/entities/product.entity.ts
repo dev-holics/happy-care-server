@@ -10,7 +10,7 @@ import {
 import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
-import { TrademarkEntity } from 'src/modules/origin/entities';
+import { TrademarkEntity, OriginEntity } from 'src/modules/origin/entities';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { TagEntity } from 'src/modules/tag/entities/tag.entity';
 import { IProductEntity } from 'src/modules/product/interfaces';
@@ -40,6 +40,10 @@ export class ProductEntity
 	@ManyToOne(() => TrademarkEntity, trademark => trademark.products)
 	@JoinColumn({ name: snakeCase('trademarkId'), referencedColumnName: 'id' })
 	trademark: TrademarkEntity;
+
+	@ManyToOne(() => OriginEntity, origin => origin.products)
+	@JoinColumn({ name: snakeCase('originId'), referencedColumnName: 'id' })
+	origin: OriginEntity;
 
 	@OneToMany(() => ProductLogEntity, productLog => productLog.product)
 	productLogs: ProductLogEntity[];

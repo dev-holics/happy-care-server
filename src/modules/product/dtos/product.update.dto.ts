@@ -1,24 +1,23 @@
-import { ImageCreateDto } from 'src/common/media/dtos';
+import { ImageUpdateDto } from 'src/common/media/dtos';
 import { faker } from '@faker-js/faker';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString, IsNotEmpty, IsArray } from 'class-validator';
-import { IProductCreate } from 'src/modules/product/interfaces';
+import {
+	IsNumber,
+	IsString,
+	IsNotEmpty,
+	IsArray,
+	IsOptional,
+} from 'class-validator';
+import { IProductUpdate } from 'src/modules/product/interfaces';
 import { Expose, Type } from 'class-transformer';
 
-export class ProductCreateDto implements IProductCreate {
-	@ApiProperty({
-		example: '00011059',
-		required: true,
-	})
-	@IsNotEmpty()
-	@IsString()
-	code: string;
-
+export class ProductUpdateDto implements IProductUpdate {
 	@ApiProperty({
 		example: 'Viên uống Sâm Nhung Bổ Thận',
 		required: true,
 	})
 	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	name: string;
 
@@ -28,6 +27,7 @@ export class ProductCreateDto implements IProductCreate {
 		required: true,
 	})
 	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	description: string;
 
@@ -36,6 +36,7 @@ export class ProductCreateDto implements IProductCreate {
 		required: true,
 	})
 	@IsNotEmpty()
+	@IsOptional()
 	@IsNumber()
 	price: number;
 
@@ -45,6 +46,16 @@ export class ProductCreateDto implements IProductCreate {
 	})
 	@IsNotEmpty()
 	@IsString()
+	@IsOptional()
+	categoryId: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	@IsOptional()
 	trademarkId: string;
 
 	@ApiProperty({
@@ -53,22 +64,16 @@ export class ProductCreateDto implements IProductCreate {
 	})
 	@IsNotEmpty()
 	@IsString()
+	@IsOptional()
 	originId: string;
 
 	@ApiProperty({
-		example: faker.datatype.uuid(),
-		required: true,
-	})
-	@IsNotEmpty()
-	@IsString()
-	categoryId: string;
-
-	@ApiProperty({
 		isArray: true,
-		type: ImageCreateDto,
+		type: ImageUpdateDto,
 		required: false,
 	})
+	@IsOptional()
 	@IsArray()
-	@Type(() => ImageCreateDto)
-	images: ImageCreateDto[];
+	@Type(() => ImageUpdateDto)
+	images: ImageUpdateDto[];
 }

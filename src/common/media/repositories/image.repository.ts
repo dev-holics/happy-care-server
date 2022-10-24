@@ -3,6 +3,7 @@ import { DatabaseRepositoryAbstract } from 'src/common/database/abstracts/databa
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { options } from 'joi';
 
 @Injectable()
 export class ImageRepository extends DatabaseRepositoryAbstract<ImageEntity> {
