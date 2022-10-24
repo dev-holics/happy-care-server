@@ -1,11 +1,15 @@
+import { HelperDateService } from 'src/common/helper/services/helper.date.service';
 import { CategoryTreeRepository } from 'src/modules/category/repositories';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { ProductPublicRepository } from 'src/modules/product/repositories';
-import { ProductGetListDto } from 'src/modules/product/dtos';
+import {
+	ProductDetailRepository,
+	ProductPublicRepository,
+} from 'src/modules/product/repositories';
+import { ProductGetListDto, ProductParamDto } from 'src/modules/product/dtos';
 import { Injectable } from '@nestjs/common';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { isEmpty } from 'radash';
-import { PRODUCT_DEFAULT_AVAILABLE_SORT } from '../constants';
+import { MoreThan, MoreThanOrEqual } from 'typeorm';
 
 @Injectable()
 export class ProductPublicService {
@@ -13,6 +17,8 @@ export class ProductPublicService {
 		private readonly productPublicRepository: ProductPublicRepository,
 		private readonly categoryTreeRepository: CategoryTreeRepository,
 		private readonly paginationService: PaginationService,
+		private readonly productDetailRepository: ProductDetailRepository,
+		private readonly helperDateService: HelperDateService,
 	) {}
 
 	async getProducts(
@@ -62,5 +68,32 @@ export class ProductPublicService {
 			availableSort,
 			products,
 		);
+	}
+
+	async getProductDetails(productParamDto: ProductParamDto) {
+		const product = await this.productPublicRepository.findOne({
+			where: {
+				id: productParamDto.productId,
+			},
+			options: {
+				relations: {
+					images: true,
+					category: true,
+					trademark: true,
+					origin: true,
+				},
+			},
+		});
+		const productDetails = await this.productDetailRepository.findMany({
+			where: {
+				expiredDate: MoreThanOrEqual(this.helperDateService.now()),
+				quantity: MoreThan(0),
+				product: {
+					id: productParamDto.productId,
+				},
+			},
+		});
+		product.productDetails = productDetails;
+		return product;
 	}
 }

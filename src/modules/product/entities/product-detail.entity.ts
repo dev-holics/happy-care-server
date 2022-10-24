@@ -19,9 +19,6 @@ export class ProductDetailEntity
 	@Column()
 	packingSpec: string;
 
-	@Column()
-	unit: string;
-
 	@Column({ type: 'date' })
 	expiredDate: Date;
 
