@@ -13,7 +13,7 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 		super(categoryTreeRepository);
 	}
 
-	async getcategoryIds(id: string): Promise<string[]> {
+	async getCategoryIds(id: string): Promise<string[]> {
 		let categories;
 		if (id) {
 			const category = await this.categoryTreeRepository.findOne({
@@ -29,32 +29,21 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 		return ids;
 	}
 
-	async findDescendantsTreeCategories(parent: CategoryEntity) {
+	async findDescendantsTreeCategories(parent: CategoryEntity, depth = -1) {
 		const category = await this.categoryTreeRepository.findDescendantsTree(
 			parent,
 			{
+				depth: depth,
 				relations: ['images'],
 			},
 		);
 		return category.children;
 	}
 
-	async findTreeCategories() {
-		return this.categoryTreeRepository.findTrees();
-	}
-
-	async findTreeCategoriesOrder() {
-		const categories = await this.categoryTreeRepository.findTrees();
-		categories.sort((a, b) => b.order - a.order);
-		return categories;
-	}
-
-	async findDescendantsTreeCategoriesOrder(parent: CategoryEntity) {
-		const categories = await this.categoryTreeRepository.findDescendantsTree(
-			parent,
-			{ depth: 1 },
-		);
-		categories.children.sort((a, b) => b.order - a.order);
-		return categories.children;
+	async findTreeCategories(depth = -1) {
+		return this.categoryTreeRepository.findTrees({
+			depth: depth,
+			relations: ['images'],
+		});
 	}
 }
