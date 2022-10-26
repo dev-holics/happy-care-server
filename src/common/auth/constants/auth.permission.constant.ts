@@ -26,6 +26,12 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_create_category',
 		module: ENUM_PERMISSION_MODULE.CATEGORY,
 	},
+	UPDATE_CATEGORY: {
+		code: 31,
+		name: 'update_category',
+		description: 'can_update_category',
+		module: ENUM_PERMISSION_MODULE.CATEGORY,
+	},
 	CREATE_PRODUCT: {
 		code: 40,
 		name: 'create_product',
