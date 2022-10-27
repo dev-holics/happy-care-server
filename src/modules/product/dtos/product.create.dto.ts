@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString, IsNotEmpty, IsArray } from 'class-validator';
 import { IProductCreate } from 'src/modules/product/interfaces';
-import { Expose, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 
 export class ProductCreateDto implements IProductCreate {
 	@ApiProperty({
@@ -30,6 +30,14 @@ export class ProductCreateDto implements IProductCreate {
 	@IsNotEmpty()
 	@IsString()
 	description: string;
+
+	@ApiProperty({
+		example: '10 vỉ/hộp',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	packingSpec: string;
 
 	@ApiProperty({
 		example: 110000,
@@ -64,8 +72,7 @@ export class ProductCreateDto implements IProductCreate {
 	categoryId: string;
 
 	@ApiProperty({
-		isArray: true,
-		type: ImageCreateDto,
+		type: [ImageCreateDto],
 		required: false,
 	})
 	@IsArray()

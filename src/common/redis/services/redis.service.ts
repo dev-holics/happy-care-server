@@ -63,4 +63,15 @@ export class RedisService
 			delete: () => this.delete(redisKey),
 		};
 	}
+
+	appCart(ttl: number = this.ttl) {
+		const redisKey = `${REDIS_KEY.APP_CART}`;
+		const cacheConfig = { ttl };
+
+		return {
+			get: () => this.get(redisKey),
+			set: (carts: any) => this.set(redisKey, carts, cacheConfig),
+			delete: () => this.delete(redisKey),
+		};
+	}
 }

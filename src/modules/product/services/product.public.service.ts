@@ -50,7 +50,7 @@ export class ProductPublicService {
 				+productGetListDto.page,
 				+productGetListDto.limit,
 			);
-			const ids = await this.categoryTreeRepository.getcategoryIds(
+			const ids = await this.categoryTreeRepository.getCategoryIds(
 				productGetListDto.categoryId,
 			);
 			products = await this.productPublicRepository.getProducts(

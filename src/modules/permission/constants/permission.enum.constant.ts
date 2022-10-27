@@ -8,4 +8,5 @@ export enum ENUM_PERMISSION_MODULE {
 	PRODUCT = 'PRODUCT',
 	BRANCH = 'BRANCH',
 	TAG = 'TAG',
+	CART = 'CART',
 }

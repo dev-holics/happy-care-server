@@ -16,6 +16,7 @@ import { TagEntity } from 'src/modules/tag/entities/tag.entity';
 import { IProductEntity } from 'src/modules/product/interfaces';
 import { ProductDetailEntity, ProductLogEntity } from '.';
 import { OrderDetailEntity } from 'src/modules/order/entities/order-detail.entity';
+import { CartItemEntity } from 'src/modules/cart/entities/cart-item.entity';
 
 @Entity('products')
 export class ProductEntity
@@ -30,6 +31,9 @@ export class ProductEntity
 
 	@Column()
 	description: string;
+
+	@Column()
+	packingSpec: string;
 
 	@Column()
 	price: number;
@@ -57,6 +61,9 @@ export class ProductEntity
 
 	@OneToMany(() => ProductDetailEntity, productDetail => productDetail.product)
 	productDetails: ProductDetailEntity[];
+
+	@OneToMany(() => CartItemEntity, cartItem => cartItem.cart)
+	cartItems: CartItemEntity[];
 
 	@ManyToMany(() => TagEntity, tag => tag.products, {
 		cascade: true,

@@ -13,7 +13,7 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 		super(categoryTreeRepository);
 	}
 
-	async getcategoryIds(id: string): Promise<string[]> {
+	async getCategoryIds(id: string): Promise<string[]> {
 		let categories;
 		if (id) {
 			const category = await this.categoryTreeRepository.findOne({

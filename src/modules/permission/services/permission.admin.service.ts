@@ -5,7 +5,6 @@ import {
 	InternalServerErrorException,
 	NotFoundException,
 } from '@nestjs/common';
-import { AuthService } from 'src/common/auth/services/auth.service';
 import { PermissionCreateDto } from 'src/modules/permission/dtos/permission.create.dto';
 import { PermissionRepository } from 'src/modules/permission/repositories/permission.repository';
 import { ENUM_PERMISSION_STATUS_CODE_ERROR } from 'src/modules/permission/constants';
@@ -18,7 +17,6 @@ import { RedisService } from 'src/common/redis/services/redis.service';
 @Injectable()
 export class PermissionAdminService {
 	constructor(
-		private readonly authService: AuthService,
 		private readonly permissionRepository: PermissionRepository,
 		private readonly paginationService: PaginationService,
 		private readonly redisService: RedisService,

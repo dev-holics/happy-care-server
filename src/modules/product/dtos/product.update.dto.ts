@@ -41,6 +41,15 @@ export class ProductUpdateDto implements IProductUpdate {
 	price: number;
 
 	@ApiProperty({
+		example: '10 vỉ/hộp',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsOptional()
+	@IsString()
+	packingSpec: string;
+
+	@ApiProperty({
 		example: faker.datatype.uuid(),
 		required: true,
 	})
