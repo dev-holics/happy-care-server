@@ -15,10 +15,6 @@ export class CategoryService {
 		private readonly databaseTransactionService: DatabaseTransactionService,
 	) {}
 
-	async getAllCategories() {
-		return this.categoryRepository.findMany({});
-	}
-
 	async updateOrderOfCategories(parentId: string, order: number) {
 		let categories;
 		if (parentId) {

@@ -32,12 +32,6 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_update_category',
 		module: ENUM_PERMISSION_MODULE.CATEGORY,
 	},
-	GET_ALL_CATEGORIES: {
-		code: 32,
-		name: 'get_all_categories',
-		description: 'can_get_all_categories',
-		module: ENUM_PERMISSION_MODULE.CATEGORY,
-	},
 	CREATE_PRODUCT: {
 		code: 40,
 		name: 'create_product',
@@ -103,5 +97,23 @@ export const PERMISSIONS = Object.freeze({
 		name: 'delete_user_cart',
 		description: 'can_delete_user_cart',
 		module: ENUM_PERMISSION_MODULE.CART,
+	},
+	CREATE_BRANCH: {
+		code: 110,
+		name: 'create_branch',
+		description: 'can_create_branch',
+		module: ENUM_PERMISSION_MODULE.BRANCH,
+	},
+	UPDATE_BRANCH: {
+		code: 111,
+		name: 'update_branch',
+		description: 'can_update_branch',
+		module: ENUM_PERMISSION_MODULE.BRANCH,
+	},
+	DELETE_BRANCH: {
+		code: 110,
+		name: 'delete_branch',
+		description: 'can_delete_branch',
+		module: ENUM_PERMISSION_MODULE.BRANCH,
 	},
 });

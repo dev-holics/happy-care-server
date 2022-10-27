@@ -21,20 +21,13 @@ import { Response } from 'src/common/response/decorators/response.decorator';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 import { faker } from '@faker-js/faker';
 
-@ApiTags('Categories')
+@ApiTags('Admin.Categories')
 @Controller({
 	version: '1',
 	path: '/categories',
 })
-export class CategoryController {
+export class CategoryAdminController {
 	constructor(private readonly categoryService: CategoryService) {}
-
-	@AuthJwtGuard([PERMISSIONS.GET_ALL_CATEGORIES])
-	@AuthApiKeyGuard()
-	@Get('')
-	async getAllCategories() {
-		return this.categoryService.getAllCategories();
-	}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
 	@AuthJwtGuard([PERMISSIONS.CREATE_CATEGORY])

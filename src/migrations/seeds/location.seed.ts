@@ -4,15 +4,15 @@ import { DatabaseTransactionService } from 'src/common/database/services/databas
 import { HttpService } from '@nestjs/axios';
 import {
 	BranchRepository,
-	CityRepository,
-	DistrictRepository,
+	CityPublicRepository,
+	DistrictPublicRepository,
 } from 'src/modules/location/repositories';
 
 @Injectable()
 export class LocationSeed {
 	constructor(
-		private readonly districtRepository: DistrictRepository,
-		private readonly cityRepository: CityRepository,
+		private readonly districtRepository: DistrictPublicRepository,
+		private readonly cityRepository: CityPublicRepository,
 		private readonly branchRepository: BranchRepository,
 		private readonly databaseTransactionService: DatabaseTransactionService,
 		private readonly httpService: HttpService,

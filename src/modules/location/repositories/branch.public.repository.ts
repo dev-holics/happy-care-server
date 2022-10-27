@@ -1,15 +1,15 @@
-import { CityEntity } from 'src/modules/location/entities/city.entity';
+import { BranchEntity } from './../entities/branch.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DatabaseRepositoryAbstract } from 'src/common/database/abstracts/database.repository.abstract';
 
 @Injectable()
-export class CityRepository extends DatabaseRepositoryAbstract<CityEntity> {
+export class BranchPublicRepository extends DatabaseRepositoryAbstract<BranchEntity> {
 	constructor(
-		@InjectRepository(CityEntity)
-		private cityRepository: Repository<CityEntity>,
+		@InjectRepository(BranchEntity)
+		private branchPublicRepository: Repository<BranchEntity>,
 	) {
-		super(cityRepository);
+		super(branchPublicRepository);
 	}
 }
