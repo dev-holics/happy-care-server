@@ -62,8 +62,8 @@ export class ProductService {
 						productIds.push(item.publicId);
 					}
 				}
-				this.imageService.deleteSoftImages(productIds);
-				this.imageService.createImages(images);
+				await this.imageService.deleteSoftImages(productIds);
+				await this.imageService.createImages(images);
 			}
 			await this.productRepository.updateOne({
 				criteria: {

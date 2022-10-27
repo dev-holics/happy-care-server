@@ -12,7 +12,11 @@ import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { ICategoryEntity } from 'src/modules/category/interfaces/category.entity.interface';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 
-@Entity('categories')
+@Entity('categories', {
+	orderBy: {
+		order: 'ASC',
+	},
+})
 @Tree('materialized-path')
 @Unique(['order', 'parent'])
 export class CategoryEntity
