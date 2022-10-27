@@ -12,12 +12,12 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { Response } from 'src/common/response/decorators/response.decorator';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
-@ApiTags('Product')
+@ApiTags('Admin.Product')
 @Controller({
 	version: '1',
 	path: '/products',
 })
-export class ProductController {
+export class ProductAdminController {
 	constructor(private readonly productService: ProductService) {}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })

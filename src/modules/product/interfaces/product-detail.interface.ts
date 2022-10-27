@@ -4,7 +4,6 @@ import { BranchEntity } from 'src/modules/location/entities';
 export interface IProductDetailEntity {
 	isAllowSell: boolean;
 	quantity: number;
-	packingSpec: string;
 	expiredDate: Date;
 	product: ProductEntity;
 	branch: BranchEntity;

@@ -74,4 +74,28 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_update_role',
 		module: ENUM_PERMISSION_MODULE.ROLE,
 	},
+	READ_USER_CART: {
+		code: 100,
+		name: 'read_user_cart',
+		description: 'can_read_user_cart',
+		module: ENUM_PERMISSION_MODULE.CART,
+	},
+	CREATE_USER_CART: {
+		code: 101,
+		name: 'create_user_cart',
+		description: 'can_create_user_cart',
+		module: ENUM_PERMISSION_MODULE.CART,
+	},
+	UPDATE_USER_CART: {
+		code: 102,
+		name: 'update_user_cart',
+		description: 'can_update_user_cart',
+		module: ENUM_PERMISSION_MODULE.CART,
+	},
+	DELETE_USER_CART: {
+		code: 103,
+		name: 'delete_user_cart',
+		description: 'can_delete_user_cart',
+		module: ENUM_PERMISSION_MODULE.CART,
+	},
 });

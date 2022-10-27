@@ -5,6 +5,7 @@ export interface IProductCreate {
 	description: string;
 	price: number;
 	originId: string;
+	packingSpec: string;
 	categoryId: string;
 	images: ImageCreateDto[];
 }

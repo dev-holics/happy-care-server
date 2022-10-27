@@ -7,7 +7,6 @@ import { RoleModule } from 'src/modules/role/role.module';
 import { PermissionModule } from 'src/modules/permission/permission.module';
 import { CategoryModule } from 'src/modules/category/category.module';
 import { ProductModule } from 'src/modules/product/product.module';
-import { ProductController } from 'src/modules/product/controllers';
 import { DistrictEntity } from 'src/modules/location/entities/district.entity';
 import { CityEntity } from 'src/modules/location/entities/city.entity';
 import { LocationModule } from 'src/modules/location/location.module';
@@ -15,9 +14,11 @@ import { OriginModule } from 'src/modules/origin/origin.module';
 import { TagModule } from 'src/modules/tag/tag.module';
 import { OrderModule } from 'src/modules/order/order.module';
 import { CategoryController } from 'src/modules/category/controllers/category.controller';
+import { CartModule } from 'src/modules/cart/cart.module';
+import { CartController } from 'src/modules/cart/controllers/cart.controller';
 
 @Module({
-	controllers: [UserController, ProductController, CategoryController],
+	controllers: [UserController, CategoryController, CartController],
 	providers: [],
 	exports: [],
 	imports: [
@@ -32,6 +33,7 @@ import { CategoryController } from 'src/modules/category/controllers/category.co
 		LocationModule,
 		OriginModule,
 		TagModule,
+		CartModule,
 		OrderModule,
 		HttpModule,
 	],

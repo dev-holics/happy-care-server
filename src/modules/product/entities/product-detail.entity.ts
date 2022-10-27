@@ -13,11 +13,8 @@ export class ProductDetailEntity
 	@Column()
 	isAllowSell: boolean;
 
-	@Column()
+	@Column({ type: 'int' })
 	quantity: number;
-
-	@Column()
-	packingSpec: string;
 
 	@Column({ type: 'date' })
 	expiredDate: Date;

@@ -13,6 +13,7 @@ export class ImageEntity
 {
 	@Column({
 		length: 2000,
+		unique: true,
 		nullable: true,
 	})
 	url: string;
