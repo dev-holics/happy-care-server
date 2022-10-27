@@ -173,6 +173,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc cơ thể',
 							order: 1,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -183,6 +184,7 @@ export class CategorySeed {
 						data: {
 							name: 'Giải pháp làn da',
 							order: 2,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -193,6 +195,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc da mặt',
 							order: 3,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -203,6 +206,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc tóc - da đầu',
 							order: 4,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -213,6 +217,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc da vùng mắt',
 							order: 5,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -223,6 +228,7 @@ export class CategorySeed {
 						data: {
 							name: 'Mỹ phẩm trang điểm',
 							order: 6,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -233,6 +239,7 @@ export class CategorySeed {
 						data: {
 							name: 'Sản phẩm từ thiên nhiên',
 							order: 7,
+
 							parent: cate2 || undefined,
 						},
 						options: {
@@ -247,6 +254,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hỗ trợ tình dục',
 							order: 1,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -257,6 +265,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc răng miệng',
 							order: 2,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -267,6 +276,7 @@ export class CategorySeed {
 						data: {
 							name: 'Vệ sinh cá nhân',
 							order: 3,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -277,6 +287,7 @@ export class CategorySeed {
 						data: {
 							name: 'Đồ dùng gia đình',
 							order: 4,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -287,6 +298,7 @@ export class CategorySeed {
 						data: {
 							name: 'Tinh dầu các loại',
 							order: 5,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -297,6 +309,7 @@ export class CategorySeed {
 						data: {
 							name: 'Thực phẩm - Đồ uống',
 							order: 6,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -307,6 +320,7 @@ export class CategorySeed {
 						data: {
 							name: 'Thiết bị làm đẹp',
 							order: 7,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -317,6 +331,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hàng tổng hợp',
 							order: 8,
+
 							parent: cate3 || undefined,
 						},
 						options: {
@@ -553,6 +568,7 @@ export class CategorySeed {
 						data: {
 							name: 'Thận, tiền liệt tuyến',
 							order: 1,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -563,6 +579,7 @@ export class CategorySeed {
 						data: {
 							name: 'Cơ xương khớp',
 							order: 2,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -573,6 +590,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hỗ trợ điều trị gout',
 							order: 3,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -583,6 +601,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hô hấp, ho, xoang',
 							order: 4,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -593,6 +612,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hỗ trợ điều trị trĩ',
 							order: 5,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -603,6 +623,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hỗ trợ điều trị tiểu đường',
 							order: 6,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -613,6 +634,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hỗ trợ điều trị ung thư',
 							order: 7,
+
 							parent: cate9 || undefined,
 						},
 						options: {
@@ -626,6 +648,7 @@ export class CategorySeed {
 						data: {
 							name: 'Giải rượu, cai rượu',
 							order: 1,
+
 							parent: cate10 || undefined,
 						},
 						options: {
@@ -636,6 +659,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chức năng gan',
 							order: 2,
+
 							parent: cate10 || undefined,
 						},
 						options: {
@@ -646,6 +670,7 @@ export class CategorySeed {
 						data: {
 							name: 'Bổ mắt, bảo vệ mắt',
 							order: 3,
+
 							parent: cate10 || undefined,
 						},
 						options: {
@@ -656,6 +681,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chống lão hóa',
 							order: 4,
+
 							parent: cate10 || undefined,
 						},
 						options: {
@@ -666,6 +692,7 @@ export class CategorySeed {
 						data: {
 							name: 'Tăng sức đề kháng, miễn dịch',
 							order: 5,
+
 							parent: cate10 || undefined,
 						},
 						options: {
@@ -676,6 +703,7 @@ export class CategorySeed {
 						data: {
 							name: 'Hỗ trợ trao đổi chất',
 							order: 6,
+
 							parent: cate10 || undefined,
 						},
 						options: {
@@ -721,6 +749,7 @@ export class CategorySeed {
 						data: {
 							name: 'Vitamin tổng hợp',
 							order: 1,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -731,6 +760,7 @@ export class CategorySeed {
 						data: {
 							name: 'Bổ sung Canxi & Vitamin D',
 							order: 2,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -741,6 +771,7 @@ export class CategorySeed {
 						data: {
 							name: 'Bổ sung Sắt & Axit Folic',
 							order: 3,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -751,6 +782,7 @@ export class CategorySeed {
 						data: {
 							name: 'Bổ sung Kẽm & Magie',
 							order: 4,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -761,6 +793,7 @@ export class CategorySeed {
 						data: {
 							name: 'Dầu cá, Omega 3, DHA',
 							order: 5,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -771,6 +804,7 @@ export class CategorySeed {
 						data: {
 							name: 'Vitamin C các loại',
 							order: 6,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -781,6 +815,7 @@ export class CategorySeed {
 						data: {
 							name: 'Vitamin E các loại',
 							order: 7,
+
 							parent: cate12 || undefined,
 						},
 						options: {
@@ -818,6 +853,7 @@ export class CategorySeed {
 						data: {
 							name: 'Sữa tắm, xà bông',
 							order: 1,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -828,6 +864,7 @@ export class CategorySeed {
 						data: {
 							name: 'Dưỡng thể',
 							order: 2,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -838,6 +875,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc ngực',
 							order: 3,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -848,6 +886,7 @@ export class CategorySeed {
 						data: {
 							name: 'Khử mùi',
 							order: 4,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -858,6 +897,7 @@ export class CategorySeed {
 						data: {
 							name: 'Trị nứt da',
 							order: 5,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -868,6 +908,7 @@ export class CategorySeed {
 						data: {
 							name: 'Dưỡng tay, chân',
 							order: 6,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -878,6 +919,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chống nắng toàn thân',
 							order: 7,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -888,6 +930,7 @@ export class CategorySeed {
 						data: {
 							name: 'Chăm sóc da mặt',
 							order: 8,
+
 							parent: cate14 || undefined,
 						},
 						options: {
@@ -901,6 +944,7 @@ export class CategorySeed {
 						data: {
 							name: 'Da sạm, xỉn màu',
 							order: 1,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -911,6 +955,7 @@ export class CategorySeed {
 						data: {
 							name: 'Nám, tàn nhang, đốm nâu',
 							order: 2,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -921,6 +966,7 @@ export class CategorySeed {
 						data: {
 							name: 'Trị sẹo, mờ vết thâm',
 							order: 3,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -931,6 +977,7 @@ export class CategorySeed {
 						data: {
 							name: 'Da bị mụn',
 							order: 4,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -941,6 +988,7 @@ export class CategorySeed {
 						data: {
 							name: 'Da bị khô, thiếu ẩm',
 							order: 5,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -951,6 +999,7 @@ export class CategorySeed {
 						data: {
 							name: 'Da bị kích ứng',
 							order: 6,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -961,6 +1010,7 @@ export class CategorySeed {
 						data: {
 							name: 'Tái tạo, chống lão hóa da',
 							order: 7,
+
 							parent: cate15 || undefined,
 						},
 						options: {
@@ -971,6 +1021,7 @@ export class CategorySeed {
 						data: {
 							name: 'Viêm da cơ địa',
 							order: 8,
+
 							parent: cate15 || undefined,
 						},
 						options: {

@@ -13,12 +13,11 @@ import { LocationModule } from 'src/modules/location/location.module';
 import { OriginModule } from 'src/modules/origin/origin.module';
 import { TagModule } from 'src/modules/tag/tag.module';
 import { OrderModule } from 'src/modules/order/order.module';
-import { CategoryController } from 'src/modules/category/controllers/category.controller';
 import { CartModule } from 'src/modules/cart/cart.module';
 import { CartController } from 'src/modules/cart/controllers/cart.controller';
 
 @Module({
-	controllers: [UserController, CategoryController, CartController],
+	controllers: [UserController, CartController],
 	providers: [],
 	exports: [],
 	imports: [

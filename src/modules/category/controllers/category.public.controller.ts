@@ -11,8 +11,13 @@ import { CategoryInputQueryDto } from 'src/modules/category/dtos/category.input.
 export class CategoryPublicController {
 	constructor(private readonly categoryPublicService: CategoryPublicService) {}
 
-	@Get('')
+	@Get('/tree')
 	async getCategories(@Query() body: CategoryInputQueryDto) {
 		return this.categoryPublicService.getCategories(body);
+	}
+
+	@Get('')
+	async getAllCategories() {
+		return this.categoryPublicService.getAllCategories();
 	}
 }

@@ -20,4 +20,8 @@ export class CategoryPublicService {
 
 		return this.categoryTreeRepository.findTreeCategories();
 	}
+
+	async getAllCategories() {
+		return this.categoryPublicRepository.findMany({});
+	}
 }

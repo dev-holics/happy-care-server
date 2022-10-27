@@ -39,6 +39,9 @@ export class CategoryEntity
 	})
 	order: number;
 
+	@Column({})
+	slug: string;
+
 	@OneToMany(() => ImageEntity, image => image.categorie)
 	images: ImageEntity[];
 

@@ -1,3 +1,4 @@
+import { CategoryModule } from 'src/modules/category/category.module';
 import { LocationModule } from 'src/modules/location/location.module';
 import { ProductModule } from 'src/modules/product/product.module';
 import { CartModule } from 'src/modules/cart/cart.module';
@@ -9,6 +10,7 @@ import { RoleModule } from 'src/modules/role/role.module';
 import { CartAdminController } from 'src/modules/cart/controllers/cart.admin.controller';
 import { ProductAdminController } from 'src/modules/product/controllers';
 import { BranchAdminController } from 'src/modules/location/controllers';
+import { CategoryAdminController } from 'src/modules/category/controllers/category.controller';
 
 @Module({
 	controllers: [
@@ -17,6 +19,7 @@ import { BranchAdminController } from 'src/modules/location/controllers';
 		CartAdminController,
 		ProductAdminController,
 		BranchAdminController,
+		CategoryAdminController,
 	],
 	providers: [],
 	exports: [],
@@ -26,6 +29,7 @@ import { BranchAdminController } from 'src/modules/location/controllers';
 		CartModule,
 		ProductModule,
 		LocationModule,
+		CategoryModule,
 	],
 })
 export class RoutesAdminModule {}
