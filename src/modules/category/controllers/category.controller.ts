@@ -4,7 +4,15 @@ import {
 	CategoryUpdateDto,
 } from 'src/modules/category/dtos';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
-import { Body, Controller, HttpStatus, Post, Put, Param } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	HttpStatus,
+	Post,
+	Put,
+	Param,
+	Get,
+} from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { CategoryService } from 'src/modules/category/services/category.service';
@@ -20,6 +28,13 @@ import { faker } from '@faker-js/faker';
 })
 export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
+
+	@AuthJwtGuard([PERMISSIONS.GET_ALL_CATEGORIES])
+	@AuthApiKeyGuard()
+	@Get('')
+	async getAllCategories() {
+		return this.categoryService.getAllCategories();
+	}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
 	@AuthJwtGuard([PERMISSIONS.CREATE_CATEGORY])
