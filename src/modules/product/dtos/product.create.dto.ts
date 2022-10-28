@@ -48,6 +48,22 @@ export class ProductCreateDto implements IProductCreate {
 	price: number;
 
 	@ApiProperty({
+		example: 'thành phần',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	element: string;
+
+	@ApiProperty({
+		example: 'công dụng',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	uses: string;
+
+	@ApiProperty({
 		example: faker.datatype.uuid(),
 		required: true,
 	})

@@ -9,7 +9,7 @@ import {
 	IsOptional,
 } from 'class-validator';
 import { IProductUpdate } from 'src/modules/product/interfaces';
-import { Expose, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 
 export class ProductUpdateDto implements IProductUpdate {
 	@ApiProperty({
@@ -48,6 +48,24 @@ export class ProductUpdateDto implements IProductUpdate {
 	@IsOptional()
 	@IsString()
 	packingSpec: string;
+
+	@ApiProperty({
+		example: 'thành phần',
+		required: true,
+	})
+	@IsOptional()
+	@IsNotEmpty()
+	@IsString()
+	element: string;
+
+	@ApiProperty({
+		example: 'công dụng',
+		required: true,
+	})
+	@IsOptional()
+	@IsNotEmpty()
+	@IsString()
+	uses: string;
 
 	@ApiProperty({
 		example: faker.datatype.uuid(),
