@@ -25,9 +25,8 @@ export class ProductCreateDto implements IProductCreate {
 	@ApiProperty({
 		example:
 			'Sâm Nhung Bổ Thận NV giúp bổ thận, tráng dương, mạnh gân cốt, ăn ngủ tốt, tăng cường sinh lực, giúp giảm tình trạng mãn dục nam, yếu sinh lý, đau lưng, mỏi gối.',
-		required: true,
+		required: false,
 	})
-	@IsNotEmpty()
 	@IsString()
 	description: string;
 
@@ -49,19 +48,38 @@ export class ProductCreateDto implements IProductCreate {
 
 	@ApiProperty({
 		example: 'thành phần',
-		required: true,
+		required: false,
 	})
-	@IsNotEmpty()
 	@IsString()
 	element: string;
 
 	@ApiProperty({
 		example: 'công dụng',
-		required: true,
+		required: false,
 	})
-	@IsNotEmpty()
 	@IsString()
 	uses: string;
+
+	@ApiProperty({
+		example: 'đối tượng',
+		required: false,
+	})
+	@IsString()
+	subject: string;
+
+	@ApiProperty({
+		example: 'hướng dẫn',
+		required: false,
+	})
+	@IsString()
+	guide: string;
+
+	@ApiProperty({
+		example: 'bảo quản',
+		required: false,
+	})
+	@IsString()
+	preserve: string;
 
 	@ApiProperty({
 		example: faker.datatype.uuid(),

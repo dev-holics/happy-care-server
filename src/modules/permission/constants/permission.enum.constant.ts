@@ -9,4 +9,5 @@ export enum ENUM_PERMISSION_MODULE {
 	BRANCH = 'BRANCH',
 	TAG = 'TAG',
 	CART = 'CART',
+	ORIGIN = 'ORIGIN',
 }

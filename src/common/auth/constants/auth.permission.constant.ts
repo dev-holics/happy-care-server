@@ -111,9 +111,27 @@ export const PERMISSIONS = Object.freeze({
 		module: ENUM_PERMISSION_MODULE.BRANCH,
 	},
 	DELETE_BRANCH: {
-		code: 110,
+		code: 112,
 		name: 'delete_branch',
 		description: 'can_delete_branch',
 		module: ENUM_PERMISSION_MODULE.BRANCH,
+	},
+	CREATE_ORIGIN: {
+		code: 120,
+		name: 'create_origin',
+		description: 'can_create_origin',
+		module: ENUM_PERMISSION_MODULE.BRANCH,
+	},
+	UPDATE_ORIGIN: {
+		code: 121,
+		name: 'update_origin',
+		description: 'can_update_origin',
+		module: ENUM_PERMISSION_MODULE.ORIGIN,
+	},
+	DELETE_ORIGIN: {
+		code: 12,
+		name: 'delete_origin',
+		description: 'can_delete_origin',
+		module: ENUM_PERMISSION_MODULE.ORIGIN,
 	},
 });

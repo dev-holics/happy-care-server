@@ -29,7 +29,7 @@ export class ProductEntity
 	@Column({ unique: true })
 	name: string;
 
-	@Column()
+	@Column({ nullable: true })
 	description: string;
 
 	@Column()
@@ -38,11 +38,20 @@ export class ProductEntity
 	@Column()
 	price: number;
 
-	@Column()
+	@Column({ nullable: true })
 	element: string;
 
-	@Column()
+	@Column({ nullable: true })
 	uses: string;
+
+	@Column({ nullable: true })
+	subject: string;
+
+	@Column({ nullable: true })
+	guide: string;
+
+	@Column({ nullable: true })
+	preserve: string;
 
 	@ManyToOne(() => CategoryEntity, category => category.products)
 	@JoinColumn({ name: snakeCase('categoryId'), referencedColumnName: 'id' })
