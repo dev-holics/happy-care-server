@@ -42,7 +42,8 @@
     "rollback:role": "nestjs-command remove:role",
     "rollback:permission": "nestjs-command remove:permission",
     "rollback:user": "nestjs-command remove:user",
-    "rollback:location": "nestjs-command remove:location"
+    "rollback:location": "nestjs-command remove:location",
+    "rollback:category": "nestjs-command remove:category"
   },
   "lint-staged": {
     "*.ts": [

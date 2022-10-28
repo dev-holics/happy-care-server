@@ -1,6 +1,6 @@
 import {
 	CategoryCreateDto,
-	CategoryParamDto,
+	CategoryInputParamDto,
 	CategoryUpdateDto,
 } from 'src/modules/category/dtos';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
@@ -11,7 +11,7 @@ import {
 	Post,
 	Put,
 	Param,
-	Get,
+	Delete,
 } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
@@ -50,12 +50,22 @@ export class CategoryAdminController {
 	})
 	@Put(':categoryId')
 	async updateCategory(
-		@Param() categoryParamDto: CategoryParamDto,
+		@Param() categoryParamDto: CategoryInputParamDto,
 		@Body() categoryUpdateDto: CategoryUpdateDto,
 	) {
 		return this.categoryService.updateCategory(
 			categoryParamDto.categoryId,
 			categoryUpdateDto,
 		);
+	}
+
+	@Response('deleted soft successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@AuthJwtGuard([PERMISSIONS.DELETE_CATEGORY])
+	@AuthApiKeyGuard()
+	@Delete('/:categoryId')
+	async deleteSoftCategory(
+		@Param() categoryInputParamDto: CategoryInputParamDto,
+	) {
+		return this.categoryService.deleteCategory(categoryInputParamDto);
 	}
 }

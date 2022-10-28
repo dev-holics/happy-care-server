@@ -5,6 +5,7 @@ import { ImageService } from 'src/common/media/services/image.service';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { CategoryTreeRepository } from 'src/modules/category/repositories/category.tree.repository';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { CategoryInputParamDto } from 'src/modules/category/dtos';
 
 @Injectable()
 export class CategoryService {
@@ -121,5 +122,11 @@ export class CategoryService {
 			await queryRunner.rollbackTransaction();
 			throw e;
 		}
+	}
+
+	async deleteCategory(categoryInputParamDto: CategoryInputParamDto) {
+		return this.categoryRepository.delete({
+			id: categoryInputParamDto.categoryId,
+		});
 	}
 }
