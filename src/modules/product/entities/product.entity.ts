@@ -38,6 +38,12 @@ export class ProductEntity
 	@Column()
 	price: number;
 
+	@Column()
+	element: string;
+
+	@Column()
+	uses: string;
+
 	@ManyToOne(() => CategoryEntity, category => category.products)
 	@JoinColumn({ name: snakeCase('categoryId'), referencedColumnName: 'id' })
 	category: CategoryEntity;

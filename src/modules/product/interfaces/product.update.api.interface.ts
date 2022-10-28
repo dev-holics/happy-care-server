@@ -6,6 +6,8 @@ export interface IProductUpdate {
 	price: number;
 	trademarkId: string;
 	originId: string;
+	element: string;
+	uses: string;
 	packingSpec: string;
 	categoryId: string;
 	images: ImageUpdateDto[];

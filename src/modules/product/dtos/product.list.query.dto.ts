@@ -48,4 +48,20 @@ export class ProductGetListDto implements PaginationListAbstract {
 	@IsOptional()
 	@IsUUID()
 	readonly categoryId?: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: false,
+	})
+	@IsOptional()
+	@IsUUID()
+	readonly trademarkId?: string;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: false,
+	})
+	@IsOptional()
+	@IsUUID()
+	readonly originId?: string;
 }

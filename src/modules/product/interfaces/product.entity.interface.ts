@@ -12,6 +12,8 @@ export interface IProductEntity {
 	description: string;
 	price: number;
 	packingSpec: string;
+	element: string;
+	uses: string;
 	category: CategoryEntity;
 	trademark: TrademarkEntity;
 	images: ImageEntity[];
