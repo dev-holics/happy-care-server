@@ -11,6 +11,11 @@ import { CartAdminController } from 'src/modules/cart/controllers/cart.admin.con
 import { ProductAdminController } from 'src/modules/product/controllers';
 import { BranchAdminController } from 'src/modules/location/controllers';
 import { CategoryAdminController } from 'src/modules/category/controllers/category.controller';
+import { OriginModule } from 'src/modules/origin/origin.module';
+import {
+	OriginAdminController,
+	TrademarkAdminController,
+} from 'src/modules/origin/controllers';
 
 @Module({
 	controllers: [
@@ -20,6 +25,8 @@ import { CategoryAdminController } from 'src/modules/category/controllers/catego
 		ProductAdminController,
 		BranchAdminController,
 		CategoryAdminController,
+		OriginAdminController,
+		TrademarkAdminController,
 	],
 	providers: [],
 	exports: [],
@@ -30,6 +37,7 @@ import { CategoryAdminController } from 'src/modules/category/controllers/catego
 		ProductModule,
 		LocationModule,
 		CategoryModule,
+		OriginModule,
 	],
 })
 export class RoutesAdminModule {}

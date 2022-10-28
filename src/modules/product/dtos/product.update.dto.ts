@@ -24,9 +24,8 @@ export class ProductUpdateDto implements IProductUpdate {
 	@ApiProperty({
 		example:
 			'Sâm Nhung Bổ Thận NV giúp bổ thận, tráng dương, mạnh gân cốt, ăn ngủ tốt, tăng cường sinh lực, giúp giảm tình trạng mãn dục nam, yếu sinh lý, đau lưng, mỏi gối.',
-		required: true,
+		required: false,
 	})
-	@IsNotEmpty()
 	@IsOptional()
 	@IsString()
 	description: string;
@@ -51,21 +50,43 @@ export class ProductUpdateDto implements IProductUpdate {
 
 	@ApiProperty({
 		example: 'thành phần',
-		required: true,
+		required: false,
 	})
 	@IsOptional()
-	@IsNotEmpty()
 	@IsString()
 	element: string;
 
 	@ApiProperty({
 		example: 'công dụng',
-		required: true,
+		required: false,
 	})
 	@IsOptional()
-	@IsNotEmpty()
 	@IsString()
 	uses: string;
+
+	@ApiProperty({
+		example: 'đối tượng',
+		required: false,
+	})
+	@IsOptional()
+	@IsString()
+	subject: string;
+
+	@ApiProperty({
+		example: 'hướng dẫn',
+		required: false,
+	})
+	@IsOptional()
+	@IsString()
+	guide: string;
+
+	@ApiProperty({
+		example: 'bảo quản',
+		required: false,
+	})
+	@IsOptional()
+	@IsString()
+	preserve: string;
 
 	@ApiProperty({
 		example: faker.datatype.uuid(),

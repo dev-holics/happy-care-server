@@ -11,6 +11,11 @@ import {
 	CityPublicController,
 	BranchPublicController,
 } from 'src/modules/location/controllers';
+import { OriginModule } from 'src/modules/origin/origin.module';
+import {
+	OriginPublicController,
+	TrademarkPublicController,
+} from 'src/modules/origin/controllers';
 
 @Module({
 	controllers: [
@@ -20,9 +25,17 @@ import {
 		DistrictPublicController,
 		CityPublicController,
 		BranchPublicController,
+		OriginPublicController,
+		TrademarkPublicController,
 	],
 	providers: [],
 	exports: [],
-	imports: [UserModule, CategoryModule, ProductModule, LocationModule],
+	imports: [
+		UserModule,
+		CategoryModule,
+		ProductModule,
+		LocationModule,
+		OriginModule,
+	],
 })
 export class RoutesPublicModule {}

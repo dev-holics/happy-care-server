@@ -8,6 +8,9 @@ export interface IProductUpdate {
 	originId: string;
 	element: string;
 	uses: string;
+	subject: string;
+	guide: string;
+	preserve: string;
 	packingSpec: string;
 	categoryId: string;
 	images: ImageUpdateDto[];
