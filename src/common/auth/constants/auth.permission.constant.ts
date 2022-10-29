@@ -83,7 +83,7 @@ export const PERMISSIONS = Object.freeze({
 	READ_USER_CART: {
 		code: 130,
 		name: 'read_user_cart',
-		description: 'can_user_cart',
+		description: 'can_read_user_cart',
 		module: ENUM_PERMISSION_MODULE.CART,
 	},
 	CREATE_USER_CART: {
