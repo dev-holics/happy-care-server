@@ -1,3 +1,4 @@
+import { options } from 'joi';
 import { CategoryEntity } from 'src/modules/category/entities/category.entity';
 import { Injectable } from '@nestjs/common';
 import { CategoryInputQueryDto } from 'src/modules/category/dtos/category.input.query.dto';
@@ -13,8 +14,16 @@ export class CategoryPublicService {
 
 	async getCategories(query: CategoryInputQueryDto) {
 		if (query.parentId) {
-			const parent = new CategoryEntity();
-			parent.id = query.parentId;
+			const parent = await this.categoryPublicRepository.findOne({
+				where: {
+					id: query.parentId,
+				},
+				options: {
+					relations: {
+						parent: true,
+					},
+				},
+			});
 			return this.categoryTreeRepository.findDescendantsTreeCategories(parent);
 		}
 

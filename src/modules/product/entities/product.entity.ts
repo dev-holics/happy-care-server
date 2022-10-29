@@ -17,6 +17,7 @@ import { IProductEntity } from 'src/modules/product/interfaces';
 import { ProductDetailEntity, ProductLogEntity } from '.';
 import { OrderDetailEntity } from 'src/modules/order/entities/order-detail.entity';
 import { CartItemEntity } from 'src/modules/cart/entities/cart-item.entity';
+import { FeedbackEntity } from 'src/modules/feedback/entities/feedback.entity';
 
 @Entity('products')
 export class ProductEntity
@@ -79,6 +80,9 @@ export class ProductEntity
 
 	@OneToMany(() => CartItemEntity, cartItem => cartItem.cart)
 	cartItems: CartItemEntity[];
+
+	@OneToMany(() => FeedbackEntity, feedback => feedback.product)
+	feedbacks: FeedbackEntity[];
 
 	@ManyToMany(() => TagEntity, tag => tag.products, {
 		cascade: true,

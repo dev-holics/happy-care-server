@@ -10,4 +10,5 @@ export enum ENUM_PERMISSION_MODULE {
 	TAG = 'TAG',
 	CART = 'CART',
 	ORIGIN = 'ORIGIN',
+	FEEDBACK = 'FEEDBACK',
 }

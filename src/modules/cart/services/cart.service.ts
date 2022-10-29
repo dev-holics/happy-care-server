@@ -34,7 +34,6 @@ export class CartService {
 		let cart;
 		const carts = await this.redisService.appCart().get();
 		if (carts) {
-			console.log('redis', carts);
 			cart = carts.find(p => p.user.id === userId);
 		} else {
 			cart = await this.cartRepository.findOne({

@@ -6,6 +6,7 @@ import { TokenEntity } from 'src/common/auth/entities/auth.token.entity';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
+import { FeedbackEntity } from 'src/modules/feedback/entities/feedback.entity';
 
 @Entity('users')
 export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
@@ -51,4 +52,7 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	@ManyToOne(() => RoleEntity, role => role.users)
 	@JoinColumn({ name: snakeCase('roleId'), referencedColumnName: 'id' })
 	role: RoleEntity;
+
+	@OneToMany(() => FeedbackEntity, feedback => feedback.user)
+	feedbacks: FeedbackEntity[];
 }

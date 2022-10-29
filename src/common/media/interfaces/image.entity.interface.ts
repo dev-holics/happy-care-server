@@ -17,7 +17,7 @@ export interface IImageEntity {
 
 	user: UserEntity;
 
-	categorie: CategoryEntity;
+	category: CategoryEntity;
 
 	product: ProductEntity;
 }

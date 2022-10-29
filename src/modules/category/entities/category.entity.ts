@@ -42,7 +42,7 @@ export class CategoryEntity
 	@Column({})
 	slug: string;
 
-	@OneToMany(() => ImageEntity, image => image.categorie)
+	@OneToMany(() => ImageEntity, image => image.category)
 	images: ImageEntity[];
 
 	@TreeChildren()
