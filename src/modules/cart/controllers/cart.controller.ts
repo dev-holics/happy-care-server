@@ -1,3 +1,4 @@
+import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { CartEntity } from 'src/modules/cart/entities';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
@@ -32,6 +33,7 @@ export class CartController {
 	constructor(private readonly cartService: CartService) {}
 
 	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
+	@UserProfileGuard()
 	@AuthApiKeyGuard()
 	@Get('')
 	async getMyCart(@GetUser('id') id: string): Promise<CartEntity> {
@@ -39,6 +41,7 @@ export class CartController {
 	}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.CREATE_USER_CART])
 	@AuthApiKeyGuard()
 	@Post('')

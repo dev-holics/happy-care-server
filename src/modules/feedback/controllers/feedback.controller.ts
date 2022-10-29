@@ -1,3 +1,4 @@
+import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
@@ -17,6 +18,7 @@ export class FeedbackController {
 	constructor(private readonly feedbackService: FeedbackService) {}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.CREATE_FEEDBACK])
 	@AuthApiKeyGuard()
 	@Post()
