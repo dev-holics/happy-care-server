@@ -504,7 +504,7 @@ export function ResponsePaging<T>(
 	);
 }
 
-export function ResponsePagingCart<T>(
+export function ResponsePagingBase<T>(
 	messagePath: string,
 	options?: IResponsePagingOptions<T>,
 ): any {
@@ -608,14 +608,12 @@ export function ResponsePagingCart<T>(
 		ApiQuery({
 			name: 'limit',
 			required: false,
-			allowEmptyValue: true,
 			type: 'number',
 			description: 'Data cart page',
 		}),
 		ApiQuery({
 			name: 'page',
 			required: false,
-			allowEmptyValue: true,
 			type: 'number',
 			description: 'page number',
 		}),
@@ -731,24 +729,19 @@ export function ResponsePagingProduct<T>(
 		ApiQuery({
 			name: 'search',
 			required: false,
-			allowEmptyValue: true,
 			type: 'string',
 			description:
 				'Search will base on availableSearch with rule contains, and case insensitive',
 		}),
 		ApiQuery({
 			name: 'limit',
-			required: true,
-			allowEmptyValue: false,
-			example: 20,
+			required: false,
 			type: 'number',
 			description: 'Data per page',
 		}),
 		ApiQuery({
 			name: 'page',
-			required: true,
-			allowEmptyValue: false,
-			example: 1,
+			required: false,
 			type: 'number',
 			description: 'page number',
 		}),

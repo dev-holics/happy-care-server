@@ -12,10 +12,12 @@ import { ProductAdminController } from 'src/modules/product/controllers';
 import { BranchAdminController } from 'src/modules/location/controllers';
 import { CategoryAdminController } from 'src/modules/category/controllers/category.controller';
 import { OriginModule } from 'src/modules/origin/origin.module';
+import { FeedbackModule } from 'src/modules/feedback/feedback.module';
 import {
 	OriginAdminController,
 	TrademarkAdminController,
 } from 'src/modules/origin/controllers';
+import { FeedbackAdminController } from 'src/modules/feedback/controllers';
 
 @Module({
 	controllers: [
@@ -27,6 +29,7 @@ import {
 		CategoryAdminController,
 		OriginAdminController,
 		TrademarkAdminController,
+		FeedbackAdminController,
 	],
 	providers: [],
 	exports: [],
@@ -38,6 +41,7 @@ import {
 		LocationModule,
 		CategoryModule,
 		OriginModule,
+		FeedbackModule,
 	],
 })
 export class RoutesAdminModule {}

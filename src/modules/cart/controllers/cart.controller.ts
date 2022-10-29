@@ -31,7 +31,7 @@ import {
 export class CartController {
 	constructor(private readonly cartService: CartService) {}
 
-	@AuthJwtGuard([PERMISSIONS.BASIC])
+	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
 	@AuthApiKeyGuard()
 	@Get('')
 	async getMyCart(@GetUser('id') id: string): Promise<CartEntity> {
@@ -39,7 +39,7 @@ export class CartController {
 	}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@AuthJwtGuard([PERMISSIONS.BASIC])
+	@AuthJwtGuard([PERMISSIONS.CREATE_USER_CART])
 	@AuthApiKeyGuard()
 	@Post('')
 	async addCart(@GetUser('id') id: string) {
@@ -47,7 +47,7 @@ export class CartController {
 	}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@AuthJwtGuard([PERMISSIONS.BASIC])
+	@AuthJwtGuard([PERMISSIONS.CREATE_USER_CART_ITEM])
 	@AuthApiKeyGuard()
 	@ApiBody({
 		type: [CartCreateDto],
@@ -61,7 +61,7 @@ export class CartController {
 	}
 
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
-	@AuthJwtGuard([PERMISSIONS.BASIC])
+	@AuthJwtGuard([PERMISSIONS.UPDATE_USER_CART_ITEM])
 	@AuthApiKeyGuard()
 	@Put('/items/:itemId')
 	async updateCart(
@@ -75,7 +75,7 @@ export class CartController {
 	}
 
 	@Response('deleted soft successfully', { doc: { httpStatus: HttpStatus.OK } })
-	@AuthJwtGuard([PERMISSIONS.BASIC])
+	@AuthJwtGuard([PERMISSIONS.DELETE_USER_CART_ITEM])
 	@AuthApiKeyGuard()
 	@Delete('/items/:itemId')
 	async deleteSoftItem(@Param() cartItemInputParamDto: CartItemInputParamDto) {

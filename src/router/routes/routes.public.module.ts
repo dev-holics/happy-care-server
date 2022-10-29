@@ -16,6 +16,8 @@ import {
 	OriginPublicController,
 	TrademarkPublicController,
 } from 'src/modules/origin/controllers';
+import { FeedbackModule } from 'src/modules/feedback/feedback.module';
+import { FeedbackPublicController } from 'src/modules/feedback/controllers';
 
 @Module({
 	controllers: [
@@ -27,6 +29,7 @@ import {
 		BranchPublicController,
 		OriginPublicController,
 		TrademarkPublicController,
+		FeedbackPublicController,
 	],
 	providers: [],
 	exports: [],
@@ -36,6 +39,7 @@ import {
 		ProductModule,
 		LocationModule,
 		OriginModule,
+		FeedbackModule,
 	],
 })
 export class RoutesPublicModule {}
