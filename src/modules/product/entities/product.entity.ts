@@ -71,7 +71,9 @@ export class ProductEntity
 	@OneToMany(() => ImageEntity, image => image.product)
 	images: ImageEntity[];
 
-	@OneToMany(() => OrderDetailEntity, orderDetail => orderDetail.product)
+	@OneToMany(() => OrderDetailEntity, orderDetail => orderDetail.product, {
+		nullable: true,
+	})
 	orderDetails: OrderDetailEntity[];
 
 	@OneToMany(() => ProductDetailEntity, productDetail => productDetail.product)

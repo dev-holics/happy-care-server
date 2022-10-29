@@ -38,11 +38,12 @@
     "migrate:permission": "nestjs-command insert:permission",
     "migrate:user": "nestjs-command insert:user",
     "migrate:location": "nestjs-command insert:location",
-    "migrate:category": "nestjs-command insert:category",
+    "migrate:product": "nestjs-command insert:product",
     "rollback:role": "nestjs-command remove:role",
     "rollback:permission": "nestjs-command remove:permission",
     "rollback:user": "nestjs-command remove:user",
-    "rollback:location": "nestjs-command remove:location"
+    "rollback:location": "nestjs-command remove:location",
+    "rollback:product": "nestjs-command remove:product"
   },
   "lint-staged": {
     "*.ts": [

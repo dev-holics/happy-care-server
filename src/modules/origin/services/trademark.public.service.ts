@@ -9,6 +9,10 @@ export class TrademarkPublicService {
 	) {}
 
 	async getTrademarks(): Promise<TrademarkEntity[]> {
-		return this.trademarkPublicRepository.findAll({});
+		return this.trademarkPublicRepository.findAll({
+			options: {
+				relations: ['origin'],
+			},
+		});
 	}
 }
