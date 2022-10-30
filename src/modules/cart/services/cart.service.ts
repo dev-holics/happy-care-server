@@ -69,6 +69,7 @@ export class CartService {
 	}
 
 	async getCarts(cartGetListDto: CartGetListDto): Promise<IResponsePaging> {
+		const totalData = await this.cartRepository.count({});
 		const carts = await this.cartRepository.findMany({
 			options: {
 				relations: {
@@ -80,6 +81,7 @@ export class CartService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			cartGetListDto.page,
 			cartGetListDto.limit,
 			null,

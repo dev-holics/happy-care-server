@@ -48,8 +48,9 @@ export class RoleAdminService {
 				},
 			},
 		});
-
+		const totalData = await this.roleRepository.count({});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			roleGetListData.page,
 			roleGetListData.limit,
 			roleGetListData.availableSearch,

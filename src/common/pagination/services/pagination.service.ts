@@ -24,14 +24,13 @@ export class PaginationService implements IPaginationService {
 	}
 
 	formatPaginationResult(
+		totalData: number,
 		page: number,
 		limit: number,
 		availableSearch: string[],
 		availableSort: string[],
 		data: any[],
 	): IResponsePaging {
-		const totalData = data.length;
-
 		return {
 			data,
 			limit,

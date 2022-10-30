@@ -20,6 +20,7 @@ export class FeedbackService {
 	async getAllFeedbacks(
 		feedbackListDto: FeedbackListDto,
 	): Promise<IResponsePaging> {
+		const totalData = await this.feedbackRepository.count({});
 		const feedbacks = await this.feedbackRepository.findMany({
 			options: {
 				page: feedbackListDto.page,
@@ -27,6 +28,7 @@ export class FeedbackService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			feedbackListDto.page,
 			feedbackListDto.limit,
 			null,
@@ -39,6 +41,7 @@ export class FeedbackService {
 		feedbackListDto: FeedbackListDto,
 		productParamDto: ProductParamDto,
 	): Promise<IResponsePaging> {
+		const totalData = await this.feedbackRepository.count({});
 		const feedbacks = await this.feedbackRepository.findAll({
 			where: {
 				product: {
@@ -52,6 +55,7 @@ export class FeedbackService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			feedbackListDto.page,
 			feedbackListDto.limit,
 			null,

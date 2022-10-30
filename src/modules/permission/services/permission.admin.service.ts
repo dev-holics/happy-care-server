@@ -46,7 +46,10 @@ export class PermissionAdminService {
 			},
 		});
 
+		const totalData = await this.permissionRepository.count({});
+
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			permissionGetListData.page,
 			permissionGetListData.limit,
 			permissionGetListData.availableSearch,
