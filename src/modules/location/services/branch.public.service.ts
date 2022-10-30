@@ -15,6 +15,7 @@ export class BranchPublicService {
 	async getBranches(
 		branchGetListDto: BranchGetListDto,
 	): Promise<IResponsePaging> {
+		const totalData = await this.branchPublicRepository.count({});
 		const branches = await this.branchPublicRepository.findMany({
 			where: {
 				district: {
@@ -31,6 +32,7 @@ export class BranchPublicService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			branchGetListDto.page,
 			branchGetListDto.limit,
 			null,

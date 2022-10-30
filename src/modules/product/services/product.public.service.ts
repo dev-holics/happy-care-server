@@ -24,6 +24,7 @@ export class ProductPublicService {
 	async getProducts(
 		productGetListDto: ProductGetListDto,
 	): Promise<IResponsePaging> {
+		const totalData = await this.productPublicRepository.count({});
 		let whereOptions: Record<string, any> | Record<string, any>[];
 		let products;
 		let availableSort;
@@ -62,6 +63,7 @@ export class ProductPublicService {
 			availableSort = [productGetListDto.sortOption];
 		}
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			productGetListDto.page,
 			productGetListDto.limit,
 			productGetListDto.availableSearch,

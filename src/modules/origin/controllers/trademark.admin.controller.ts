@@ -37,6 +37,9 @@ export class TrademarkAdminController {
 		@Param() trademarkParamDto: TrademarkParamDto,
 		@Body() trademarkUpdateBodyDto: TrademarkUpdateBodyDto,
 	) {
-		return;
+		return this.trademarkAdminService.updateTrademark(
+			trademarkParamDto,
+			trademarkUpdateBodyDto,
+		);
 	}
 }

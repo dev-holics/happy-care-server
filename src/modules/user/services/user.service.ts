@@ -31,6 +31,7 @@ export class UserService {
 	) {}
 
 	async getUsers(userGetListDto: UserGetListDto): Promise<IResponsePaging> {
+		const totalData = await this.userRepository.count({});
 		const users = await this.userRepository.findMany({
 			options: {
 				relations: {
@@ -41,6 +42,7 @@ export class UserService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			userGetListDto.page,
 			userGetListDto.limit,
 			null,

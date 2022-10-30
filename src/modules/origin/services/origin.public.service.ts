@@ -19,6 +19,7 @@ export class OriginPublicService {
 	async getOrigins(
 		originGetListDto: OriginGetListDto,
 	): Promise<IResponsePaging> {
+		const totalData = await this.originPublicRepository.count({});
 		const result = await this.originPublicRepository.findMany({
 			options: {
 				page: originGetListDto.page,
@@ -26,6 +27,7 @@ export class OriginPublicService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			originGetListDto.page,
 			originGetListDto.limit,
 			null,
@@ -38,6 +40,7 @@ export class OriginPublicService {
 		originParamDto: OriginParamDto,
 		originGetListDto: OriginGetListDto,
 	): Promise<IResponsePaging> {
+		const totalData = await this.originPublicRepository.count({});
 		const result = await this.trademarkPublicRepository.findMany({
 			where: {
 				origin: {
@@ -50,6 +53,7 @@ export class OriginPublicService {
 			},
 		});
 		return this.paginationService.formatPaginationResult(
+			totalData,
 			originGetListDto.page,
 			originGetListDto.limit,
 			null,
