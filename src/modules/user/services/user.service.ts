@@ -20,6 +20,7 @@ import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.
 import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
+import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
 
 @Injectable()
 export class UserService {
@@ -46,6 +47,26 @@ export class UserService {
 			null,
 			users,
 		);
+	}
+
+	async getUserById(userGetDto: UserGetDto): Promise<UserEntity> {
+		const user = await this.userRepository.findOne({
+			where: {
+				id: userGetDto.userId,
+			},
+			options: {
+				relations: ['role'],
+			},
+		});
+
+		if (!user) {
+			throw new NotFoundException({
+				statusCode: 400,
+				message: 'user.error.notFound',
+			});
+		}
+
+		return user;
 	}
 
 	async login(loginData: UserLoginDto) {
