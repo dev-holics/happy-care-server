@@ -2,7 +2,15 @@ import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorat
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { TrademarkAdminService } from 'src/modules/origin/services';
 import { Response } from 'src/common/response/decorators/response.decorator';
-import { Body, Controller, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	HttpStatus,
+	Param,
+	Post,
+	Put,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import {
@@ -41,5 +49,13 @@ export class TrademarkAdminController {
 			trademarkParamDto,
 			trademarkUpdateBodyDto,
 		);
+	}
+
+	@Response('deleted successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@AuthJwtGuard([PERMISSIONS.DELETE_ORIGIN])
+	@AuthApiKeyGuard()
+	@Delete('/:trademarkId')
+	async deleteSoftTrademark(@Param() trademarkParamDto: TrademarkParamDto) {
+		return this.trademarkAdminService.deleteSoftTrademark(trademarkParamDto);
 	}
 }
