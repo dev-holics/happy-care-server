@@ -69,9 +69,20 @@ export class RoleAdminService {
 				where: {
 					id: roleId,
 				},
+				options: {
+					relations: {
+						permissions: true,
+					},
+				},
 			});
 
-			const allRoles = await this.roleRepository.findAll({});
+			const allRoles = await this.roleRepository.findAll({
+				options: {
+					relations: {
+						permissions: true,
+					},
+				},
+			});
 			await this.redisService.appRole().set(allRoles);
 		}
 

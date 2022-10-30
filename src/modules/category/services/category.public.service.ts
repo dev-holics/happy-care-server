@@ -4,15 +4,19 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryInputQueryDto } from 'src/modules/category/dtos/category.input.query.dto';
 import { CategoryTreeRepository } from 'src/modules/category/repositories/category.tree.repository';
 import { CategoryPublicRepository } from 'src/modules/category/repositories/category.public.repository';
+import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import { PaginationService } from 'src/common/pagination/services/pagination.service';
 
 @Injectable()
 export class CategoryPublicService {
 	constructor(
 		private readonly categoryPublicRepository: CategoryPublicRepository,
 		private readonly categoryTreeRepository: CategoryTreeRepository,
+		private readonly paginationService: PaginationService,
 	) {}
 
-	async getCategories(query: CategoryInputQueryDto) {
+	async getCategories(query: CategoryInputQueryDto): Promise<IResponseBase> {
+		let result;
 		if (query.parentId) {
 			const parent = await this.categoryPublicRepository.findOne({
 				where: {
@@ -30,13 +34,18 @@ export class CategoryPublicService {
 					message: 'categoryId.error.notFound',
 				});
 			}
-			return this.categoryTreeRepository.findDescendantsTreeCategories(parent);
+			result = await this.categoryTreeRepository.findDescendantsTreeCategories(
+				parent,
+			);
 		}
 
-		return this.categoryTreeRepository.findTreeCategories();
+		result = await this.categoryTreeRepository.findTreeCategories();
+
+		return this.paginationService.formatResult(result);
 	}
 
-	async getAllCategories() {
-		return this.categoryPublicRepository.findMany({});
+	async getAllCategories(): Promise<IResponseBase> {
+		const categories = await this.categoryPublicRepository.findMany({});
+		return this.paginationService.formatResult(categories);
 	}
 }
