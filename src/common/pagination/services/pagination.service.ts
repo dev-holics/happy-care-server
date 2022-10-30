@@ -4,7 +4,10 @@ import {
 	PAGINATION_MAX_LIMIT,
 } from 'src/common/pagination/constants/pagination.constant';
 import { IPaginationService } from 'src/common/pagination/interfaces/pagination.service.interface';
-import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponseBase,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 
 @Injectable()
 export class PaginationService implements IPaginationService {
@@ -37,6 +40,12 @@ export class PaginationService implements IPaginationService {
 			totalData,
 			currentPage: page,
 			totalPage: this.totalPage(totalData, limit),
+		};
+	}
+
+	formatResult(data: any[]): IResponseBase {
+		return {
+			data,
 		};
 	}
 }

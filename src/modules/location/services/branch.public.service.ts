@@ -25,6 +25,7 @@ export class BranchPublicService {
 				},
 			},
 			options: {
+				relations: ['district', 'district.city'],
 				page: branchGetListDto.page,
 				limit: branchGetListDto.limit,
 			},
@@ -42,6 +43,9 @@ export class BranchPublicService {
 		return this.branchPublicRepository.findOne({
 			where: {
 				id: branchParamDto.branchId,
+			},
+			options: {
+				relations: ['district', 'district.city'],
 			},
 		});
 	}
