@@ -753,6 +753,115 @@ export function ResponsePagingProduct<T>(
 	);
 }
 
+export function ResponseBase<T>(
+	messagePath: string,
+	options?: IResponsePagingOptions<T>,
+): any {
+	const docs = [];
+	const docOptions =
+		options && options.doc ? (options.doc as IResponseDocPagingOptions) : {};
+	const schema: Record<string, any> = {
+		allOf: [{ $ref: getSchemaPath(ResponsePagingSerialization<T>) }],
+		properties: {
+			message: {
+				example: messagePath,
+			},
+		},
+	};
+
+	if (options && options.classSerialization) {
+		docs.push(ApiExtraModels(options.classSerialization));
+		schema.allOf.push({
+			properties: {
+				data: {
+					type: 'array',
+					items: {
+						$ref: getSchemaPath(options.classSerialization),
+					},
+				},
+			},
+		});
+	}
+
+	if (docOptions.statusCode) {
+		schema.properties = {
+			...schema.properties,
+			statusCode: {
+				type: 'number',
+				example: docOptions.statusCode ? docOptions.statusCode : HttpStatus.OK,
+			},
+		};
+	}
+
+	if (docOptions.availableSearch) {
+		schema.properties = {
+			...schema.properties,
+			availableSearch: {
+				example: docOptions.availableSearch,
+			},
+		};
+	}
+
+	if (docOptions.availableSort) {
+		schema.properties = {
+			...schema.properties,
+			availableSort: {
+				example: docOptions.availableSort,
+			},
+		};
+	}
+
+	if (docOptions.responses) {
+		docs.push(...docOptions.responses.map(response => ResponseDoc(response)));
+	}
+
+	if (docOptions.params) {
+		docs.push(...docOptions.params.map(param => ApiParam(param)));
+	}
+
+	if (docOptions.queries) {
+		docs.push(...docOptions.queries.map(query => ApiQuery(query)));
+	}
+
+	return applyDecorators(
+		UseInterceptors(ResponsePagingInterceptor<T>),
+		SetMetadata(RESPONSE_MESSAGE_PATH_META_KEY, messagePath),
+		SetMetadata(
+			RESPONSE_SERIALIZATION_META_KEY,
+			options ? options.classSerialization : undefined,
+		),
+		SetMetadata(
+			RESPONSE_MESSAGE_PROPERTIES_META_KEY,
+			options ? options.messageProperties : undefined,
+		),
+
+		// doc
+		ApiProduces('application/json'),
+		ApiConsumes('application/json'),
+		RequestHeaderDoc(),
+		ResponseDoc({
+			httpStatus: HttpStatus.SERVICE_UNAVAILABLE,
+			messagePath: 'http.serverError.serviceUnavailable',
+			statusCode: ENUM_ERROR_STATUS_CODE_ERROR.ERROR_SERVICE_UNAVAILABLE,
+		}),
+		ResponseDoc({
+			httpStatus: HttpStatus.INTERNAL_SERVER_ERROR,
+			messagePath: 'http.serverError.internalServerError',
+			statusCode: ENUM_ERROR_STATUS_CODE_ERROR.ERROR_UNKNOWN,
+		}),
+		ResponseDoc({
+			httpStatus: HttpStatus.REQUEST_TIMEOUT,
+			messagePath: 'http.serverError.requestTimeout',
+			statusCode: ENUM_ERROR_STATUS_CODE_ERROR.ERROR_REQUEST_TIMEOUT,
+		}),
+		ApiResponse({
+			status: HttpStatus.OK,
+			schema,
+		}),
+		...docs,
+	);
+}
+
 export function ResponseTimeout(seconds: string): any {
 	return applyDecorators(
 		SetMetadata(RESPONSE_CUSTOM_TIMEOUT_META_KEY, true),

@@ -5,8 +5,8 @@ import {
 	CityPublicService,
 	DistrictPublicService,
 } from 'src/modules/location/services';
-import { CityEntity, DistrictEntity } from 'src/modules/location/entities';
-import { Response } from 'src/common/response/decorators/response.decorator';
+import { ResponseBase } from 'src/common/response/decorators/response.decorator';
+import { IResponseBase } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Public.City')
 @Controller({
@@ -19,17 +19,17 @@ export class CityPublicController {
 		private readonly districtPublicService: DistrictPublicService,
 	) {}
 
-	@Response('city.getAll', {})
+	@ResponseBase('city.getAll')
 	@Get('')
-	async getCities(): Promise<CityEntity[]> {
+	async getCities(): Promise<IResponseBase> {
 		return this.cityPublicService.getCities();
 	}
 
-	@Response('district.getDistrictByCityId', {})
+	@ResponseBase('district.getDistrictByCityId')
 	@Get('/:cityId/district')
 	async getDistrictsByCityId(
 		@Param() cityParamDto: CityParamDto,
-	): Promise<DistrictEntity[]> {
+	): Promise<IResponseBase> {
 		return this.districtPublicService.getDistrictsByCityId(cityParamDto);
 	}
 }

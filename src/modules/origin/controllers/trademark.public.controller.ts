@@ -1,8 +1,8 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get } from '@nestjs/common';
 import { TrademarkPublicService } from 'src/modules/origin/services';
-import { TrademarkEntity } from 'src/modules/origin/entities';
-import { Response } from 'src/common/response/decorators/response.decorator';
+import { ResponseBase } from 'src/common/response/decorators/response.decorator';
+import { IResponseBase } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Public.Trademark')
 @Controller({
@@ -14,9 +14,9 @@ export class TrademarkPublicController {
 		private readonly trademarkPublicService: TrademarkPublicService,
 	) {}
 
-	@Response('trademark.getAll', {})
+	@ResponseBase('trademark.getAll')
 	@Get()
-	async getTrademarks(): Promise<TrademarkEntity[]> {
+	async getTrademarks(): Promise<IResponseBase> {
 		return this.trademarkPublicService.getTrademarks();
 	}
 }

@@ -70,3 +70,7 @@ export interface IResponsePaging<T = Record<string, any>> {
 	metadata?: IResponseMetadata;
 	data: T[];
 }
+
+export interface IResponseBase<T = Record<string, any>> {
+	data: T[];
+}

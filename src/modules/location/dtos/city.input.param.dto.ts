@@ -5,5 +5,5 @@ export class CityParamDto {
 	@IsNotEmpty()
 	@IsUUID()
 	@Type(() => String)
-	citytId: string;
+	cityId: string;
 }

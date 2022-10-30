@@ -3,7 +3,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param } from '@nestjs/common';
 import { OriginPublicService } from 'src/modules/origin/services';
 import { OriginParamDto } from 'src/modules/origin/dtos';
-import { Response } from 'src/common/response/decorators/response.decorator';
+import { ResponseBase } from 'src/common/response/decorators/response.decorator';
+import { IResponseBase } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Public.Origin')
 @Controller({
@@ -13,17 +14,17 @@ import { Response } from 'src/common/response/decorators/response.decorator';
 export class OriginPublicController {
 	constructor(private readonly originPublicService: OriginPublicService) {}
 
-	@Response('origin.getAll', {})
+	@ResponseBase('origin.getAll')
 	@Get()
-	getOrigins(): Promise<OriginEntity[]> {
+	getOrigins(): Promise<IResponseBase> {
 		return this.originPublicService.getOrigins();
 	}
 
-	@Response('trademark.getTrademarkByOriginId', {})
+	@ResponseBase('trademark.getTrademarkByOriginId')
 	@Get('/:originId/trademark')
 	async getTrademarksByOriginId(
 		@Param() originParamDto: OriginParamDto,
-	): Promise<TrademarkEntity[]> {
+	): Promise<IResponseBase> {
 		return this.originPublicService.getTrademarksByOriginId(originParamDto);
 	}
 }
