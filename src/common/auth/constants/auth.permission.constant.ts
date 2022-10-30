@@ -188,4 +188,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_read_user',
 		module: ENUM_PERMISSION_MODULE.USER,
 	},
+	DELETE_TRADEMARK: {
+		code: 310,
+		name: 'delete_trademark',
+		description: 'can_delete_trademark',
+		module: ENUM_PERMISSION_MODULE.ORIGIN,
+	},
 });

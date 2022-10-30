@@ -1,4 +1,4 @@
-import { OriginGetListDto } from 'src/modules/origin/dtos';
+import { TrademarkGetListDto } from 'src/modules/origin/dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Query } from '@nestjs/common';
 import { TrademarkPublicService } from 'src/modules/origin/services';
@@ -18,8 +18,8 @@ export class TrademarkPublicController {
 	@ResponsePagingBase('origin.getAll')
 	@Get()
 	async getTrademarks(
-		@Query() originGetListDto: OriginGetListDto,
+		@Query() trademarkGetListDto: TrademarkGetListDto,
 	): Promise<IResponsePaging> {
-		return this.trademarkPublicService.getTrademarks(originGetListDto);
+		return this.trademarkPublicService.getTrademarks(trademarkGetListDto);
 	}
 }

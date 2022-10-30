@@ -24,6 +24,9 @@ export class OriginPublicService {
 			options: {
 				page: originGetListDto.page,
 				limit: originGetListDto.limit,
+				order: {
+					createdAt: 'DESC',
+				},
 			},
 		});
 		return this.paginationService.formatPaginationResult(
@@ -50,6 +53,9 @@ export class OriginPublicService {
 			options: {
 				page: originGetListDto.page,
 				limit: originGetListDto.limit,
+				order: {
+					createdAt: 'DESC',
+				},
 			},
 		});
 		return this.paginationService.formatPaginationResult(
