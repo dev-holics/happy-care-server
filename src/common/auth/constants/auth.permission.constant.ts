@@ -176,4 +176,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_delete_feedback',
 		module: ENUM_PERMISSION_MODULE.FEEDBACK,
 	},
+	READ_ALL_USER: {
+		code: 290,
+		name: 'read_all_user',
+		description: 'can_read_all_user',
+		module: ENUM_PERMISSION_MODULE.USER,
+	},
 });
