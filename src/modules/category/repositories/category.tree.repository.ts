@@ -33,7 +33,7 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 		const category = await this.categoryTreeRepository.findDescendantsTree(
 			parent,
 			{
-				depth: depth,
+				depth,
 				relations: ['images', 'parent'],
 			},
 		);

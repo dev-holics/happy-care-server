@@ -37,10 +37,9 @@ export class CategoryPublicService {
 			result = await this.categoryTreeRepository.findDescendantsTreeCategories(
 				parent,
 			);
+		} else {
+			result = await this.categoryTreeRepository.findTreeCategories();
 		}
-
-		result = await this.categoryTreeRepository.findTreeCategories();
-
 		return this.paginationService.formatResult(result);
 	}
 
