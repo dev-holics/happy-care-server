@@ -1,5 +1,3 @@
-import { OrderDetailEntity } from 'src/modules/order/entities';
-import { ProductInputQueryDto } from 'src/modules/product/dtos/product.input.query.dto';
 import { ProductEntity } from 'src/modules/product/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
