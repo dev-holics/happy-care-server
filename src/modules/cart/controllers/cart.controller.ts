@@ -32,7 +32,7 @@ import {
 export class CartController {
 	constructor(private readonly cartService: CartService) {}
 
-	@Response('cart.getMyCart', {})
+	@Response('cart.getMyCart')
 	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
 	@UserProfileGuard()
 	@AuthApiKeyGuard()

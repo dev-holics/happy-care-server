@@ -1,27 +1,31 @@
 import { CityParamDto } from 'src/modules/location/dtos';
-import { DistrictEntity } from 'src/modules/location/entities';
 import { Injectable } from '@nestjs/common';
 import { DistrictPublicRepository } from 'src/modules/location/repositories';
+import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import { PaginationService } from 'src/common/pagination/services/pagination.service';
 
 @Injectable()
 export class DistrictPublicService {
 	constructor(
 		private readonly districtPublicRepository: DistrictPublicRepository,
+		private readonly paginationService: PaginationService,
 	) {}
 
-	async getDistricts(): Promise<DistrictEntity[]> {
-		return this.districtPublicRepository.findAll({});
+	async getDistricts(): Promise<IResponseBase> {
+		const result = await this.districtPublicRepository.findAll({});
+		return this.paginationService.formatResult(result);
 	}
 
 	async getDistrictsByCityId(
 		cityParamDto: CityParamDto,
-	): Promise<DistrictEntity[]> {
-		return this.districtPublicRepository.findAll({
+	): Promise<IResponseBase> {
+		const result = await this.districtPublicRepository.findAll({
 			where: {
 				city: {
-					id: cityParamDto.citytId,
+					id: cityParamDto.cityId,
 				},
 			},
 		});
+		return this.paginationService.formatResult(result);
 	}
 }

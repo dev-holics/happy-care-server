@@ -22,7 +22,7 @@ export class OriginAdminService {
 	) {
 		return this.originAdminRepository.updateOne({
 			criteria: {
-				id: originParamDto.origintId,
+				id: originParamDto.originId,
 			},
 			data: originUpdateBodyDto,
 		});

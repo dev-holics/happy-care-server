@@ -5,5 +5,5 @@ export class OriginParamDto {
 	@IsNotEmpty()
 	@IsUUID()
 	@Type(() => String)
-	origintId: string;
+	originId: string;
 }
