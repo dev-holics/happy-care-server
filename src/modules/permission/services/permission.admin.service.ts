@@ -135,7 +135,6 @@ export class PermissionAdminService {
 
 		await this.redisService.appPermission().delete();
 		await this.redisService.appRole().delete();
-
 		return {
 			id: updatedPermission.id,
 		};

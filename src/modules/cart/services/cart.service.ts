@@ -88,34 +88,52 @@ export class CartService {
 		);
 	}
 
-	async createCart(userId: string) {
-		return Promise.all([
-			this.cartRepository.createOne({
+	// async createCart(userId: string) {
+	// 	return Promise.all([
+	// 		this.cartRepository.createOne({
+	// 			data: {
+	// 				user: {
+	// 					id: userId,
+	// 				},
+	// 			},
+	// 		}),
+	// 		this.redisService.appCart().delete(),
+	// 	]);
+	// }
+
+	async createCartItem(userId: string, cartItems: CartCreateDto[]) {
+		// eslint-disable-next-line prefer-const
+		let newCart;
+		let cartId;
+		const cart = await this.cartRepository.findOne({
+			where: {
+				user: {
+					id: userId,
+				},
+			},
+		});
+		if (!cart) {
+			newCart = await this.cartRepository.createOne({
 				data: {
 					user: {
 						id: userId,
 					},
 				},
-			}),
-			this.redisService.appCart().delete(),
-		]);
-	}
-
-	async createCartItem(
-		cartInputParamDto: CartInputParamDto,
-		cartItems: CartCreateDto[],
-	) {
-		const cart = new CartEntity();
-		cart.id = cartInputParamDto.cartId;
+			});
+			cartId = newCart.id;
+		} else {
+			cartId = cart.id;
+		}
+		const cartUser = new CartEntity();
+		cart.id = cartId;
 		// eslint-disable-next-line prefer-const
-		let results = [];
 		cartItems = await Promise.all(
 			cartItems.map(async (item: any, index: number) => {
 				const product = new ProductEntity();
 				product.id = item.productId;
 				const cartItem = await this.cartItemRepository.findOne({
 					where: {
-						cart,
+						cart: cartUser,
 						product,
 					},
 				});
@@ -126,11 +144,10 @@ export class CartService {
 						},
 						data: {
 							quantity: item.quantity + cartItem.quantity,
-							cart,
+							cart: cartUser,
 							product,
 						},
 					});
-					results.push(updateItem);
 					return;
 				}
 				item.cart = cart;
@@ -140,15 +157,14 @@ export class CartService {
 		);
 		cartItems = cartItems.filter(item => item !== undefined);
 		if (cartItems) {
-			const itemData = await this.cartItemRepository.createMany({
+			await this.cartItemRepository.createMany({
 				data: Object.values(cartItems),
 			});
 			await this.redisService.appCart().delete();
-			results.push(...itemData);
-			return results;
+			return;
 		} else {
 			await this.redisService.appCart().delete();
-			return results;
+			return;
 		}
 	}
 

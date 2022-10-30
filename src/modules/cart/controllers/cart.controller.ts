@@ -23,6 +23,7 @@ import {
 	CartItemInputParamDto,
 	CartItemUpdateDto,
 } from 'src/modules/cart/dtos';
+import { IResponse } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Cart')
 @Controller({
@@ -33,35 +34,36 @@ export class CartController {
 	constructor(private readonly cartService: CartService) {}
 
 	@Response('cart.getMyCart')
-	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
 	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
 	@AuthApiKeyGuard()
 	@Get('')
-	async getMyCart(@GetUser('id') id: string): Promise<CartEntity> {
+	async getMyCart(@GetUser('id') id: string): Promise<IResponse> {
 		return this.cartService.getMyCart(id);
 	}
 
-	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.CREATE_USER_CART])
-	@AuthApiKeyGuard()
-	@Post('')
-	async addCart(@GetUser('id') id: string) {
-		return this.cartService.createCart(id);
-	}
+	// @Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	// @UserProfileGuard()
+	// @AuthJwtGuard([PERMISSIONS.CREATE_USER_CART])
+	// @AuthApiKeyGuard()
+	// @Post('')
+	// async addCart(@GetUser('id') id: string) {
+	// 	return this.cartService.createCart(id);
+	// }
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.CREATE_USER_CART_ITEM])
 	@AuthApiKeyGuard()
 	@ApiBody({
 		type: [CartCreateDto],
 	})
-	@Post('/:cartId/items')
+	@Post('/items')
 	async addCartLineItems(
-		@Param() cartInputParamDto: CartInputParamDto,
+		@GetUser('id') id: string,
 		@Body() cartItems: CartCreateDto[],
 	) {
-		return this.cartService.createCartItem(cartInputParamDto, cartItems);
+		return this.cartService.createCartItem(id, cartItems);
 	}
 
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
