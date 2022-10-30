@@ -52,15 +52,6 @@ export class CategoryPublicService {
 	async getCountProductCategoryParent(): Promise<IResponseBase> {
 		const parentCategories =
 			await this.categoryTreeRepository.findTreeCategories(0);
-		// for (const item of parentCategories) {
-		// 	const ids = await this.categoryTreeRepository.getCategoryIds(item.id);
-		// 	const countProducts = await this.productPublicRepository.count({
-		// 		where: {
-		// 			category: { id: In(ids) },
-		// 		},
-		// 	});
-		// 	item.countProducts = countProducts;
-		// }
 		await Promise.all(
 			parentCategories.map(async (item: any) => {
 				const ids = await this.categoryTreeRepository.getCategoryIds(item.id);
