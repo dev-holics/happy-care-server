@@ -1,10 +1,13 @@
 import { OriginEntity, TrademarkEntity } from 'src/modules/origin/entities';
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { OriginPublicService } from 'src/modules/origin/services';
-import { OriginParamDto } from 'src/modules/origin/dtos';
-import { ResponseBase } from 'src/common/response/decorators/response.decorator';
-import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import { OriginGetListDto, OriginParamDto } from 'src/modules/origin/dtos';
+import { ResponsePagingBase } from 'src/common/response/decorators/response.decorator';
+import {
+	IResponseBase,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Public.Origin')
 @Controller({
@@ -14,17 +17,23 @@ import { IResponseBase } from 'src/common/response/interfaces/response.interface
 export class OriginPublicController {
 	constructor(private readonly originPublicService: OriginPublicService) {}
 
-	@ResponseBase('origin.getAll')
+	@ResponsePagingBase('origin.getAll')
 	@Get()
-	getOrigins(): Promise<IResponseBase> {
-		return this.originPublicService.getOrigins();
+	getOrigins(
+		@Query() originGetListDto: OriginGetListDto,
+	): Promise<IResponsePaging> {
+		return this.originPublicService.getOrigins(originGetListDto);
 	}
 
-	@ResponseBase('trademark.getTrademarkByOriginId')
+	@ResponsePagingBase('trademark.getTrademarkByOriginId')
 	@Get('/:originId/trademark')
 	async getTrademarksByOriginId(
 		@Param() originParamDto: OriginParamDto,
-	): Promise<IResponseBase> {
-		return this.originPublicService.getTrademarksByOriginId(originParamDto);
+		@Query() originGetListDto: OriginGetListDto,
+	): Promise<IResponsePaging> {
+		return this.originPublicService.getTrademarksByOriginId(
+			originParamDto,
+			originGetListDto,
+		);
 	}
 }

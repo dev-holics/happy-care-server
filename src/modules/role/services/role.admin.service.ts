@@ -120,7 +120,7 @@ export class RoleAdminService {
 				message: 'role.error.cannotUpdate',
 			});
 		}
-
+		await this.redisService.appRole().delete();
 		return {
 			id: updatedRole.id,
 		};
