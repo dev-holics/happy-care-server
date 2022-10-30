@@ -26,8 +26,8 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 				'categories.id IN (:...ids)',
 			)
 			.innerJoinAndSelect('products.category', 'category')
-			.leftJoinAndSelect('trademark.origin', 'origin')
 			.leftJoinAndSelect('products.trademark', 'trademark')
+			.leftJoinAndSelect('products.origin', 'origin')
 			.leftJoinAndSelect('products.images', 'images')
 			.leftJoinAndSelect('products.tags', 'tags')
 			.orderBy('products.id');

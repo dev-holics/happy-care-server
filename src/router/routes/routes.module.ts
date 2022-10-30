@@ -15,9 +15,11 @@ import { TagModule } from 'src/modules/tag/tag.module';
 import { OrderModule } from 'src/modules/order/order.module';
 import { CartModule } from 'src/modules/cart/cart.module';
 import { CartController } from 'src/modules/cart/controllers/cart.controller';
+import { FeedbackModule } from 'src/modules/feedback/feedback.module';
+import { FeedbackController } from 'src/modules/feedback/controllers';
 
 @Module({
-	controllers: [UserController, CartController],
+	controllers: [UserController, CartController, FeedbackController],
 	providers: [],
 	exports: [],
 	imports: [
@@ -35,6 +37,7 @@ import { CartController } from 'src/modules/cart/controllers/cart.controller';
 		CartModule,
 		OrderModule,
 		HttpModule,
+		FeedbackModule,
 	],
 })
 export class RoutesModule {}

@@ -15,7 +15,7 @@ export class BranchPublicService {
 	async getBranches(
 		branchGetListDto: BranchGetListDto,
 	): Promise<IResponsePaging> {
-		const carts = await this.branchPublicRepository.findMany({
+		const branches = await this.branchPublicRepository.findMany({
 			where: {
 				district: {
 					id: branchGetListDto.districtId,
@@ -34,11 +34,11 @@ export class BranchPublicService {
 			branchGetListDto.limit,
 			null,
 			null,
-			carts,
+			branches,
 		);
 	}
 
-	async getBrancheById(branchParamDto: BranchParamDto): Promise<BranchEntity> {
+	async getBranchesById(branchParamDto: BranchParamDto): Promise<BranchEntity> {
 		return this.branchPublicRepository.findOne({
 			where: {
 				id: branchParamDto.branchId,

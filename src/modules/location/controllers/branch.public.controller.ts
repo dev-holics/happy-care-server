@@ -3,7 +3,10 @@ import { IResponsePaging } from 'src/common/response/interfaces/response.interfa
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { BranchPublicService } from 'src/modules/location/services';
-import { ResponsePagingCart } from 'src/common/response/decorators/response.decorator';
+import {
+	ResponsePagingBase,
+	Response,
+} from 'src/common/response/decorators/response.decorator';
 import { BranchEntity } from 'src/modules/location/entities';
 
 @ApiTags('Public.Branch')
@@ -14,7 +17,7 @@ import { BranchEntity } from 'src/modules/location/entities';
 export class BranchPublicController {
 	constructor(private readonly branchPublicService: BranchPublicService) {}
 
-	@ResponsePagingCart('cart.getList')
+	@ResponsePagingBase('branch.getList')
 	@Get('/list')
 	async getBranches(
 		@Query() branchGetListDto: BranchGetListDto,
@@ -22,10 +25,11 @@ export class BranchPublicController {
 		return this.branchPublicService.getBranches(branchGetListDto);
 	}
 
+	@Response('branch.getBranch', {})
 	@Get('/:branchId')
-	async getBrancheById(
+	async getBranchesById(
 		@Param() branchParamDto: BranchParamDto,
 	): Promise<BranchEntity> {
-		return this.branchPublicService.getBrancheById(branchParamDto);
+		return this.branchPublicService.getBranchesById(branchParamDto);
 	}
 }

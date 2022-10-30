@@ -21,7 +21,6 @@ export class AuthPayloadPermissionGuard implements CanActivate {
 				AUTH_PERMISSION_META_KEY,
 				[context.getHandler(), context.getClass()],
 			);
-
 		if (!requiredPermissions) {
 			return true;
 		}

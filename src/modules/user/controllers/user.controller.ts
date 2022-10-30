@@ -49,7 +49,7 @@ export class UserController {
 
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
 	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.BASIC])
+	@AuthJwtGuard([PERMISSIONS.UPDATE_USER_PROFILE])
 	@AuthApiKeyGuard()
 	@RequestBodyDtoGuard(UserProfileUpdateDto)
 	@Put('/profile')

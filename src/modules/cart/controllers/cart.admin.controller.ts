@@ -21,7 +21,7 @@ import {
 } from 'src/modules/cart/dtos';
 import {
 	Response,
-	ResponsePagingCart,
+	ResponsePagingBase,
 } from 'src/common/response/decorators/response.decorator';
 
 @ApiTags('Admin.Cart')
@@ -32,8 +32,8 @@ import {
 export class CartAdminController {
 	constructor(private readonly cartService: CartService) {}
 
-	@ResponsePagingCart('cart.getList')
-	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
+	@ResponsePagingBase('cart.getList')
+	@AuthJwtGuard([PERMISSIONS.READ_ALL_USER_CART])
 	@AuthApiKeyGuard()
 	@Get('')
 	async getCarts(

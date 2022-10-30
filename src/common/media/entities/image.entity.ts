@@ -56,7 +56,7 @@ export class ImageEntity
 		nullable: true,
 	})
 	@JoinColumn({ name: snakeCase('categoryId'), referencedColumnName: 'id' })
-	categorie: CategoryEntity;
+	category: CategoryEntity;
 
 	@ManyToOne(() => ProductEntity, product => product.images, { nullable: true })
 	@JoinColumn({ name: snakeCase('productId'), referencedColumnName: 'id' })

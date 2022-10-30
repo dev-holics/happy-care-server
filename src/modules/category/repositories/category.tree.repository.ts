@@ -34,10 +34,13 @@ export class CategoryTreeRepository extends DatabaseRepositoryAbstract<CategoryE
 			parent,
 			{
 				depth: depth,
-				relations: ['images'],
+				relations: ['images', 'parent'],
 			},
 		);
-		return category.children;
+		if (depth === 1) {
+			return category.children;
+		}
+		return category;
 	}
 
 	async findTreeCategories(depth = -1) {

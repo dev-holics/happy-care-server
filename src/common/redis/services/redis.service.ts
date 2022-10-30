@@ -74,4 +74,15 @@ export class RedisService
 			delete: () => this.delete(redisKey),
 		};
 	}
+
+	appFeedback(ttl: number = this.ttl) {
+		const redisKey = `${REDIS_KEY.APP_FEEDBACK}`;
+		const cacheConfig = { ttl };
+
+		return {
+			get: () => this.get(redisKey),
+			set: (feedbacks: any) => this.set(redisKey, feedbacks, cacheConfig),
+			delete: () => this.delete(redisKey),
+		};
+	}
 }
