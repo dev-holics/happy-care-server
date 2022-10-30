@@ -3,7 +3,7 @@ import {
 	ProductEntity,
 	ProductLogEntity,
 } from 'src/modules/product/entities';
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
 	ProductDetailRepository,
@@ -23,7 +23,7 @@ import { CategoryModule } from 'src/modules/category/category.module';
 			ProductLogEntity,
 			ProductDetailEntity,
 		]),
-		CategoryModule,
+		forwardRef(() => CategoryModule),
 	],
 	providers: [
 		ProductRepository,

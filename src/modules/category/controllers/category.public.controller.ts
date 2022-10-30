@@ -26,4 +26,10 @@ export class CategoryPublicController {
 	async getAllCategories(): Promise<IResponseBase> {
 		return this.categoryPublicService.getAllCategories();
 	}
+
+	@ResponseBase('category.getCountProduct')
+	@Get('/parent')
+	async getCountProductCategoryParent(): Promise<IResponseBase> {
+		return this.categoryPublicService.getCountProductCategoryParent();
+	}
 }
