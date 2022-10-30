@@ -108,6 +108,7 @@ export class PermissionAdminService {
 				},
 			}),
 			this.redisService.appPermission().delete(),
+			this.redisService.appRole().delete(),
 		]);
 	}
 
@@ -133,6 +134,7 @@ export class PermissionAdminService {
 		}
 
 		await this.redisService.appPermission().delete();
+		await this.redisService.appRole().delete();
 
 		return {
 			id: updatedPermission.id,
@@ -154,6 +156,7 @@ export class PermissionAdminService {
 		});
 
 		await this.redisService.appPermission().delete();
+		await this.redisService.appRole().delete();
 
 		return {
 			id: updatedPermission.id,
