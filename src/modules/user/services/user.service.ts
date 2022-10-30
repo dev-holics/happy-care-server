@@ -17,13 +17,36 @@ import { UserPayloadSerialization } from 'src/modules/user/serializations/user.p
 import { plainToInstance } from 'class-transformer';
 import { ENUM_ROLE_STATUS_CODE_ERROR } from 'src/modules/role/constants';
 import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
+import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
+import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import { PaginationService } from 'src/common/pagination/services/pagination.service';
 
 @Injectable()
 export class UserService {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly userRepository: UserRepository,
+		private readonly paginationService: PaginationService,
 	) {}
+
+	async getUsers(userGetListDto: UserGetListDto): Promise<IResponsePaging> {
+		const users = await this.userRepository.findMany({
+			options: {
+				relations: {
+					role: true,
+				},
+				page: userGetListDto.page,
+				limit: userGetListDto.limit,
+			},
+		});
+		return this.paginationService.formatPaginationResult(
+			userGetListDto.page,
+			userGetListDto.limit,
+			null,
+			null,
+			users,
+		);
+	}
 
 	async login(loginData: UserLoginDto) {
 		const user: UserEntity = await this.userRepository.findOne({

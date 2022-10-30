@@ -18,6 +18,8 @@ import {
 	TrademarkAdminController,
 } from 'src/modules/origin/controllers';
 import { FeedbackAdminController } from 'src/modules/feedback/controllers';
+import { UserAdminController } from 'src/modules/user/controllers/user.admin.controller';
+import { UserModule } from 'src/modules/user/user.module';
 
 @Module({
 	controllers: [
@@ -30,6 +32,7 @@ import { FeedbackAdminController } from 'src/modules/feedback/controllers';
 		OriginAdminController,
 		TrademarkAdminController,
 		FeedbackAdminController,
+		UserAdminController,
 	],
 	providers: [],
 	exports: [],
@@ -42,6 +45,7 @@ import { FeedbackAdminController } from 'src/modules/feedback/controllers';
 		CategoryModule,
 		OriginModule,
 		FeedbackModule,
+		UserModule,
 	],
 })
 export class RoutesAdminModule {}

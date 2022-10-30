@@ -2075,44 +2075,54 @@ export class ProductSeed {
 				}), // Japan Gals 120.
 			]);
 
-			const [brand121, brand122, brand123, brand124] = await Promise.all([
-				this.brandRepository.createOne({
-					data: {
-						name: 'Live Cool',
-						origin: origin1 || undefined, // Việt Nam
-					},
-					options: {
-						transaction: true,
-					},
-				}), // Live Cool 121.
-				this.brandRepository.createOne({
-					data: {
-						name: 'Milaganics',
-						origin: origin1 || undefined, // Việt Nam
-					},
-					options: {
-						transaction: true,
-					},
-				}), // Milaganics 122.
-				this.brandRepository.createOne({
-					data: {
-						name: 'XO',
-						origin: origin5 || undefined, // Hàn Quốc
-					},
-					options: {
-						transaction: true,
-					},
-				}), // XO 123.
-				this.brandRepository.createOne({
-					data: {
-						name: 'Xuân An',
-						origin: origin1 || undefined, // Việt Nam
-					},
-					options: {
-						transaction: true,
-					},
-				}), // Xuân An 124.
-			]);
+			const [brand121, brand122, brand123, brand124, brand125] =
+				await Promise.all([
+					this.brandRepository.createOne({
+						data: {
+							name: 'Live Cool',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}), // Live Cool 121.
+					this.brandRepository.createOne({
+						data: {
+							name: 'Milaganics',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}), // Milaganics 122.
+					this.brandRepository.createOne({
+						data: {
+							name: 'XO',
+							origin: origin5 || undefined, // Hàn Quốc
+						},
+						options: {
+							transaction: true,
+						},
+					}), // XO 123.
+					this.brandRepository.createOne({
+						data: {
+							name: 'Xuân An',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}), // Xuân An 124.
+					this.brandRepository.createOne({
+						data: {
+							name: 'Calbee',
+							origin: origin15 || undefined, // Nhật Bản
+						},
+						options: {
+							transaction: true,
+						},
+					}), // Calbee 125.
+				]);
 
 			// Seed product
 			await Promise.all([
@@ -2131,9 +2141,9 @@ export class ProductSeed {
 							'Hòa tan 1-2 muỗng cà phê Đông trùng hạ thảo mật ong chín tổ Bonie Bee với 120-150ml nước ấm hoặc trà ấm',
 						preserve:
 							'Nơi thoáng mát, tránh ánh nắng mặt trời trực tiếp. Không cần bỏ trong tủ lạnh',
-						category: cate8 || undefined,
-						trademark: brand119 || undefined,
-						origin: origin1 || undefined,
+						category: cate8 || undefined, // Thực phẩm dinh dưỡng
+						trademark: brand119 || undefined, // Bonie Bee
+						origin: origin1 || undefined, // Việt Nam
 					},
 					options: {
 						transaction: true,
@@ -2343,6 +2353,68 @@ export class ProductSeed {
 						transaction: true,
 					},
 				}), // 8
+				this.productRepository.createOne({
+					data: {
+						code: 'P22046',
+						name: 'Ngũ cốc trái cây Calbee đỏ',
+						description:
+							'Ngũ cốc trái cây Calbee đỏ gồm rất nhiều thành phần hoàn toàn tự nhiên,giàu chất xơ, có lợi cho sức khỏe người dùng, tốt cho hệ tiêu hóa và không gây chướng bụng. Ngũ cốc với hương vị thơm ngon cung cấp đầy đủ năng lượng và dinh dưỡng cần thiết cho cơ thể mỗi bữa sáng, có thể làm bữa phụ nhanh chóng và tiện lợi.',
+						packingSpec: 'Bịch 700g',
+						price: 241230,
+						element:
+							'Yến mạch, bột lúa mạch đen, bột mì, bột gạo, bột bắp, cám lúa mì, bột gạo lức, trái cây sấy 12% (đu đủ, nho khô, táo, dâu tây), dừa, hạt bí, bột hạnh nhân, Maltodextrin, chất xơ hoà tan, chất làm ẩm: Glycerol, chất điều chỉnh độ acid: acid citric, chất chống oxi hoá: d-alpha-Tocopherol, tinh bột biến tính, dầu thực vật, đường, muối, nước ép táo, đường lactose, Vitamin A, Vitamin B1, Vitamin B3, Vitamin B6, Vitamin B9, Vitamin B12, Vitamin D.',
+						uses: 'Bổ sung Protein, Vitamin, khoáng chất, chất xơ…',
+						subject:
+							'Không sử dụng cho trẻ em dưới 03 tuổi và người dị ứng với bất cứ thành phần nào của sản phẩm.',
+						guide:
+							'- Ăn trực tiếp.\n' +
+							'- Dùng chung với sữa tươi (không đường), sữa chua, trà sữa…\n' +
+							'- Topping kem, trái cây, salad, súp…\n' +
+							'- Lượng khuyên dùng hàng ngày: 56g\n' +
+							'* Không dùng sản phẩm đã hết hạn.\n' +
+							'* Do nguyên liệu cứng nên cần nhai kỹ.',
+						preserve:
+							'- Khoá túi zip sau khi sử dụng\n' +
+							'- Bảo quản nơi khô ráo thoáng mát, tránh ánh sáng mặt trời trực tiếp.',
+						category: cate8 || undefined, // Thực phẩm dinh dưỡng
+						trademark: brand125 || undefined, // Calbee
+						origin: origin15 || undefined, // Nhật Bản
+					},
+					options: {
+						transaction: true,
+					},
+				}), // 9
+				this.productRepository.createOne({
+					data: {
+						code: 'P22047',
+						name: 'Ngũ cốc trái cây ít đường Calbee trắng',
+						description:
+							'Ngũ cốc trái cây ít đường Calbee trắng gồm rất nhiều thành phần hoàn toàn tự nhiên,giàu chất xơ, có lợi cho sức khỏe người dùng, tốt cho hệ tiêu hóa và không gây chướng bụng. Ngũ cốc với hương vị thơm ngon cung cấp đầy đủ năng lượng và dinh dưỡng cần thiết cho cơ thể mỗi bữa sáng, có thể làm bữa phụ nhanh chóng và tiện lợi.',
+						packingSpec: 'Bịch 600g',
+						price: 283800,
+						element:
+							'Yến mạch, bột lúa mạch đen, bột mì, bột gạo, bột bắp, cám lúa mì, bột gạo lức, trái cây sấy 12% (nho khô, dâu tây), dừa, hạnh nhân, bột hạnh nhân, hạt bí ngô, protein đậu nành (không biến đổi gen), Maltodextrin, chất xơ hoà tan, chất làm ẩm: Glycerol, calci carbonat, chất điều chỉnh độ acid: acid citric, chất chống oxi hoá: d-alpha-Tocopherol, tinh bột biến tính, sữa đậu nành, dầu thực vật, đường, muối, đường lactose.',
+						uses: 'Bổ sung Protein, Vitamin, khoáng chất, chất xơ…',
+						subject:
+							'Không sử dụng cho trẻ em dưới 03 tuổi và người dị ứng với bất cứ thành phần nào của sản phẩm.',
+						guide:
+							'- Ăn trực tiếp\n' +
+							'- Dùng chung với sữa tươi (không đường), sữa chua, trà sữa…\n' +
+							'- Topping kem, trái cây, salad, súp…\n' +
+							'- Lượng khuyên dùng hàng ngày: 70g – 130g\n' +
+							'* Không dùng sản phẩm đã hết hạn\n' +
+							'* Do nguyên liệu cứng nên cần nhai kỹ',
+						preserve:
+							'- Khoá túi zip sau khi sử dụng.\n' +
+							'- Bảo quản nơi khô ráo thoáng mát, tránh ánh sáng mặt trời trực tiếp.',
+						category: cate8 || undefined, // Thực phẩm dinh dưỡng
+						trademark: brand125 || undefined, // Calbee
+						origin: origin15 || undefined, // Nhật Bản
+					},
+					options: {
+						transaction: true,
+					},
+				}), // 10
 			]);
 		} catch (e) {
 			await queryRunner.rollbackTransaction();
