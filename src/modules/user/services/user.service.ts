@@ -61,7 +61,7 @@ export class UserService {
 
 		if (!user) {
 			throw new NotFoundException({
-				statusCode: 400,
+				statusCode: 404,
 				message: 'user.error.notFound',
 			});
 		}

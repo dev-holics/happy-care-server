@@ -7,12 +7,10 @@ import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
-import {
-	IResponse,
-	IResponsePaging,
-} from 'src/common/response/interfaces/response.interface';
+import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { RequestParamsDtoGuard } from 'src/common/request/decorators/request.decorator';
 import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 
 @ApiTags('Admin.User')
 @Controller({
@@ -37,7 +35,7 @@ export class UserAdminController {
 	@AuthApiKeyGuard()
 	@RequestParamsDtoGuard(UserGetDto)
 	@Get(':userId')
-	async getById(@Param() userGetDto: UserGetDto): Promise<IResponse> {
+	async getById(@Param() userGetDto: UserGetDto): Promise<UserEntity> {
 		return this.userService.getUserById(userGetDto);
 	}
 }
