@@ -1,8 +1,9 @@
+import { OriginGetListDto } from 'src/modules/origin/dtos';
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { TrademarkPublicService } from 'src/modules/origin/services';
-import { ResponseBase } from 'src/common/response/decorators/response.decorator';
-import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import { ResponsePagingBase } from 'src/common/response/decorators/response.decorator';
+import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Public.Trademark')
 @Controller({
@@ -14,9 +15,11 @@ export class TrademarkPublicController {
 		private readonly trademarkPublicService: TrademarkPublicService,
 	) {}
 
-	@ResponseBase('trademark.getAll')
+	@ResponsePagingBase('origin.getAll')
 	@Get()
-	async getTrademarks(): Promise<IResponseBase> {
-		return this.trademarkPublicService.getTrademarks();
+	async getTrademarks(
+		@Query() originGetListDto: OriginGetListDto,
+	): Promise<IResponsePaging> {
+		return this.trademarkPublicService.getTrademarks(originGetListDto);
 	}
 }

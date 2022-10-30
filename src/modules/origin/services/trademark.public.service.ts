@@ -1,8 +1,8 @@
+import { OriginGetListDto } from 'src/modules/origin/dtos';
 import { Injectable } from '@nestjs/common';
 import { TrademarkPublicRepository } from 'src/modules/origin/repositories';
-import { TrademarkEntity } from 'src/modules/origin/entities';
 import { ResponseBase } from 'src/common/response/decorators/response.decorator';
-import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 
 @Injectable()
@@ -13,12 +13,22 @@ export class TrademarkPublicService {
 	) {}
 
 	@ResponseBase('trademark.getAll')
-	async getTrademarks(): Promise<IResponseBase> {
-		const result = await this.trademarkPublicRepository.findAll({
+	async getTrademarks(
+		originGetListDto: OriginGetListDto,
+	): Promise<IResponsePaging> {
+		const result = await this.trademarkPublicRepository.findMany({
 			options: {
 				relations: ['origin'],
+				page: originGetListDto.page,
+				limit: originGetListDto.limit,
 			},
 		});
-		return this.paginationService.formatResult(result);
+		return this.paginationService.formatPaginationResult(
+			originGetListDto.page,
+			originGetListDto.limit,
+			null,
+			null,
+			result,
+		);
 	}
 }
