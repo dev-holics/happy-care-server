@@ -182,4 +182,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_read_all_user',
 		module: ENUM_PERMISSION_MODULE.USER,
 	},
+	READ_USER: {
+		code: 300,
+		name: 'read_user',
+		description: 'can_read_user',
+		module: ENUM_PERMISSION_MODULE.USER,
+	},
 });

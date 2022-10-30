@@ -1,5 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Response } from 'src/common/response/decorators/response.decorator';
 import { UserService } from 'src/modules/user/services/user.service';
 import { ResponsePagingBase } from 'src/common/response/decorators/response.decorator';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
@@ -7,6 +8,9 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import { RequestParamsDtoGuard } from 'src/common/request/decorators/request.decorator';
+import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 
 @ApiTags('Admin.User')
 @Controller({
@@ -24,5 +28,14 @@ export class UserAdminController {
 		@Query() userGetListDto: UserGetListDto,
 	): Promise<IResponsePaging> {
 		return this.userService.getUsers(userGetListDto);
+	}
+
+	@Response('user.getById')
+	@AuthJwtGuard([PERMISSIONS.READ_USER])
+	@AuthApiKeyGuard()
+	@RequestParamsDtoGuard(UserGetDto)
+	@Get(':userId')
+	async getById(@Param() userGetDto: UserGetDto): Promise<UserEntity> {
+		return this.userService.getUserById(userGetDto);
 	}
 }
