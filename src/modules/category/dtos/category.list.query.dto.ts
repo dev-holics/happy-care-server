@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { PaginationListAbstract } from 'src/common/pagination/abstracts/pagination.abstract';
 import {
 	PaginationPage,
@@ -11,7 +11,7 @@ import {
 	PERMISSION_DEFAULT_PAGE,
 } from 'src/modules/permission/constants';
 
-export class TrademarkGetListDto implements PaginationListAbstract {
+export class CategoryGetListDto implements PaginationListAbstract {
 	@PaginationPage(PERMISSION_DEFAULT_PAGE)
 	readonly page: number;
 
@@ -24,11 +24,4 @@ export class TrademarkGetListDto implements PaginationListAbstract {
 	@IsOptional()
 	@IsString()
 	searchData: string;
-
-	@ApiProperty({
-		required: false,
-	})
-	@IsOptional()
-	@IsUUID()
-	readonly originId?: string;
 }

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsUUID } from 'class-validator';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 import { PaginationListAbstract } from 'src/common/pagination/abstracts/pagination.abstract';
 import {
 	PaginationPage,
@@ -14,7 +14,6 @@ import {
 
 export class BranchGetListDto implements PaginationListAbstract {
 	@ApiProperty({
-		example: faker.datatype.uuid(),
 		required: false,
 	})
 	@IsOptional()
@@ -22,12 +21,18 @@ export class BranchGetListDto implements PaginationListAbstract {
 	readonly cityId?: string;
 
 	@ApiProperty({
-		example: faker.datatype.uuid(),
 		required: false,
 	})
 	@IsOptional()
 	@IsUUID()
 	readonly districtId?: string;
+
+	@ApiProperty({
+		required: false,
+	})
+	@IsOptional()
+	@IsString()
+	searchData: string;
 
 	@PaginationPage(PERMISSION_DEFAULT_PAGE)
 	readonly page: number;
