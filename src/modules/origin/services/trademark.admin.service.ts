@@ -40,8 +40,8 @@ export class TrademarkAdminService {
 		});
 	}
 
-	async deleteSoftTrademark(trademarkParamDto: TrademarkParamDto) {
-		return this.trademarkAdminRepository.delete({
+	async deleteTrademark(trademarkParamDto: TrademarkParamDto) {
+		return this.trademarkAdminRepository.hardDelete({
 			id: trademarkParamDto.trademarkId,
 		});
 	}

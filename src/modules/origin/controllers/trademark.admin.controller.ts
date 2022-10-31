@@ -28,8 +28,8 @@ export class TrademarkAdminController {
 	constructor(private readonly trademarkAdminService: TrademarkAdminService) {}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@AuthJwtGuard([PERMISSIONS.CREATE_ORIGIN])
-	@AuthApiKeyGuard()
+	// @AuthJwtGuard([PERMISSIONS.CREATE_ORIGIN])
+	// @AuthApiKeyGuard()
 	@Post()
 	async createTrademark(
 		@Body() trademarkCreateBodyDto: TrademarkCreateBodyDto,

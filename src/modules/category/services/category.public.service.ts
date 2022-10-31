@@ -3,9 +3,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryInputQueryDto } from 'src/modules/category/dtos/category.input.query.dto';
 import { CategoryTreeRepository } from 'src/modules/category/repositories/category.tree.repository';
 import { CategoryPublicRepository } from 'src/modules/category/repositories/category.public.repository';
-import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponseBase,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { In } from 'typeorm';
+import { ILike, In } from 'typeorm';
+import { CategoryGetListDto } from 'src/modules/category/dtos';
 
 @Injectable()
 export class CategoryPublicService {
@@ -44,9 +48,33 @@ export class CategoryPublicService {
 		return this.paginationService.formatResult(result);
 	}
 
-	async getAllCategories(): Promise<IResponseBase> {
-		const categories = await this.categoryPublicRepository.findMany({});
-		return this.paginationService.formatResult(categories);
+	async getAllCategories(
+		categoryGetListDto: CategoryGetListDto,
+	): Promise<IResponsePaging> {
+		const totalData = await this.categoryPublicRepository.count({});
+		const search = categoryGetListDto.searchData
+			? categoryGetListDto.searchData.trim()
+			: null;
+		const categories = await this.categoryPublicRepository.findMany({
+			where: {
+				name: search ? ILike(`%${search}%`) : undefined,
+			},
+			options: {
+				page: categoryGetListDto.page,
+				limit: categoryGetListDto.limit,
+				order: {
+					createdAt: 'DESC',
+				},
+			},
+		});
+		return this.paginationService.formatPaginationResult(
+			totalData,
+			categoryGetListDto.page,
+			categoryGetListDto.limit,
+			null,
+			null,
+			categories,
+		);
 	}
 
 	async getCountProductCategoryParent(): Promise<IResponseBase> {

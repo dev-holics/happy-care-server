@@ -2,8 +2,15 @@ import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Query } from '@nestjs/common';
 import { CategoryPublicService } from 'src/modules/category/services/category.public.service';
 import { CategoryInputQueryDto } from 'src/modules/category/dtos/category.input.query.dto';
-import { ResponseBase } from 'src/common/response/decorators/response.decorator';
-import { IResponseBase } from 'src/common/response/interfaces/response.interface';
+import {
+	ResponseBase,
+	ResponsePagingBase,
+} from 'src/common/response/decorators/response.decorator';
+import {
+	IResponseBase,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
+import { CategoryGetListDto } from 'src/modules/category/dtos';
 
 @ApiTags('Public.category')
 @Controller({
@@ -21,10 +28,12 @@ export class CategoryPublicController {
 		return this.categoryPublicService.getCategories(body);
 	}
 
-	@ResponseBase('category.getAll')
+	@ResponsePagingBase('category.getAll')
 	@Get('')
-	async getAllCategories(): Promise<IResponseBase> {
-		return this.categoryPublicService.getAllCategories();
+	async getAllCategories(
+		@Query() categoryGetListDto: CategoryGetListDto,
+	): Promise<IResponsePaging> {
+		return this.categoryPublicService.getAllCategories(categoryGetListDto);
 	}
 
 	@ResponseBase('category.getCountProduct')

@@ -1,7 +1,6 @@
 import { TrademarkGetListDto } from 'src/modules/origin/dtos';
 import { Injectable } from '@nestjs/common';
 import { TrademarkPublicRepository } from 'src/modules/origin/repositories';
-import { ResponseBase } from 'src/common/response/decorators/response.decorator';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { ILike } from 'typeorm';
@@ -13,20 +12,29 @@ export class TrademarkPublicService {
 		private readonly paginationService: PaginationService,
 	) {}
 
-	@ResponseBase('trademark.getAll')
 	async getTrademarks(
 		trademarkGetListDto: TrademarkGetListDto,
 	): Promise<IResponsePaging> {
 		const totalData = await this.trademarkPublicRepository.count({});
-		const search = trademarkGetListDto.searchData.trim();
+		const search = trademarkGetListDto.searchData
+			? trademarkGetListDto.searchData.trim()
+			: null;
 		const result = await this.trademarkPublicRepository.findMany({
 			where: [
 				{
-					name: ILike(`%${search}%`),
+					name: search ? ILike(`%${search}%`) : undefined,
+					origin: {
+						id: trademarkGetListDto.originId
+							? trademarkGetListDto.originId
+							: undefined,
+					},
 				},
 				{
 					origin: {
-						name: ILike(`%${search}%`),
+						id: trademarkGetListDto.originId
+							? trademarkGetListDto.originId
+							: undefined,
+						name: search ? ILike(`%${search}%`) : undefined,
 					},
 				},
 			],

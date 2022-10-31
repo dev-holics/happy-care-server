@@ -4,6 +4,7 @@ import { BranchGetListDto, BranchParamDto } from 'src/modules/location/dtos';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { Injectable } from '@nestjs/common';
 import { BranchPublicRepository } from 'src/modules/location/repositories';
+import { ILike } from 'typeorm';
 
 @Injectable()
 export class BranchPublicService {
@@ -16,14 +17,21 @@ export class BranchPublicService {
 		branchGetListDto: BranchGetListDto,
 	): Promise<IResponsePaging> {
 		const totalData = await this.branchPublicRepository.count({});
+		const search = branchGetListDto.searchData
+			? branchGetListDto.searchData.trim()
+			: null;
 		const branches = await this.branchPublicRepository.findMany({
 			where: {
 				district: {
-					id: branchGetListDto.districtId,
+					id: branchGetListDto.districtId
+						? branchGetListDto.districtId
+						: undefined,
+
 					city: {
-						id: branchGetListDto.cityId,
+						id: branchGetListDto.cityId ? branchGetListDto.cityId : undefined,
 					},
 				},
+				address: search ? ILike(`%${search}%`) : undefined,
 			},
 			options: {
 				relations: ['district', 'district.city'],

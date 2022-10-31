@@ -25,7 +25,7 @@ export class BranchPublicController {
 		return this.branchPublicService.getBranches(branchGetListDto);
 	}
 
-	@Response('branch.getList')
+	@Response('branch.getBranch')
 	@Get('/:branchId')
 	async getBranchesById(
 		@Param() branchParamDto: BranchParamDto,
