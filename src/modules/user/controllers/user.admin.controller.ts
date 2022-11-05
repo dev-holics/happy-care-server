@@ -1,5 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { Response } from 'src/common/response/decorators/response.decorator';
 import { UserService } from 'src/modules/user/services/user.service';
 import { ResponsePagingBase } from 'src/common/response/decorators/response.decorator';
@@ -8,9 +8,13 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
-import { RequestParamsDtoGuard } from 'src/common/request/decorators/request.decorator';
+import {
+	RequestBodyDtoGuard,
+	RequestParamsDtoGuard,
+} from 'src/common/request/decorators/request.decorator';
 import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
+import { UserRoleUpdateDto } from 'src/modules/user/dtos/user.role.update.dto';
 
 @ApiTags('Admin.User')
 @Controller({
@@ -37,5 +41,15 @@ export class UserAdminController {
 	@Get(':userId')
 	async getById(@Param() userGetDto: UserGetDto): Promise<UserEntity> {
 		return this.userService.getUserById(userGetDto);
+	}
+
+	@Response('user.updateRole')
+	@AuthJwtGuard([PERMISSIONS.UPDATE_USER_ROLE])
+	@AuthApiKeyGuard()
+	@RequestParamsDtoGuard(UserGetDto)
+	@RequestBodyDtoGuard(UserRoleUpdateDto)
+	@Put(':userId/update-role')
+	async updateRole(@Param() user: UserGetDto, @Body() role: UserRoleUpdateDto) {
+		return this.userService.updateRole(user, role);
 	}
 }
