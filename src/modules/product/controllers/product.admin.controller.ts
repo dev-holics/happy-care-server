@@ -11,6 +11,7 @@ import { ProductService } from 'src/modules/product/services';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { Response } from 'src/common/response/decorators/response.decorator';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
+import { ProductLogCreateDto } from 'src/modules/product/dtos/product-log.create.dto';
 
 @ApiTags('Admin.Product')
 @Controller({
@@ -46,5 +47,14 @@ export class ProductAdminController {
 			productParamDto.productId,
 			productUpdateDto,
 		);
+	}
+
+	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT_LOG])
+	@AuthApiKeyGuard()
+	@RequestBodyDtoGuard(ProductLogCreateDto)
+	@Post('/update-stock')
+	async updateStock(@Body() productLogCreateDto: ProductLogCreateDto) {
+		return this.productService.updateStock(productLogCreateDto);
 	}
 }

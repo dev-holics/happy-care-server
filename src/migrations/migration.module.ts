@@ -14,6 +14,7 @@ import { CategoryModule } from 'src/modules/category/category.module';
 import { OriginModule } from 'src/modules/origin/origin.module';
 import { ProductModule } from 'src/modules/product/product.module';
 import { ProductSeed } from 'src/migrations/seeds/product.seed';
+import { MediaModule } from 'src/common/media/media.module';
 
 @Module({
 	imports: [
@@ -28,6 +29,7 @@ import { ProductSeed } from 'src/migrations/seeds/product.seed';
 		CategoryModule,
 		OriginModule,
 		ProductModule,
+		MediaModule,
 	],
 	providers: [ProductSeed, RoleSeed, PermissionSeed, UserSeed, LocationSeed],
 	exports: [],

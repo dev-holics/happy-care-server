@@ -20,7 +20,7 @@ export class ProductLogEntity
 	@Column({
 		enum: ENUM_TRANSACTION_TYPES,
 	})
-	types: string;
+	type: string;
 
 	@ManyToOne(() => BranchEntity, branch => branch.productLogs)
 	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })

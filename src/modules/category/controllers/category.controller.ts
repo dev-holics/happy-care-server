@@ -4,15 +4,7 @@ import {
 	CategoryUpdateDto,
 } from 'src/modules/category/dtos';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
-import {
-	Body,
-	Controller,
-	HttpStatus,
-	Post,
-	Put,
-	Param,
-	Get,
-} from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Put, Param } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { CategoryService } from 'src/modules/category/services/category.service';
