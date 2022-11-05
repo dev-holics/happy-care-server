@@ -15,6 +15,7 @@ import {
 	ProductService,
 } from 'src/modules/product/services';
 import { CategoryModule } from 'src/modules/category/category.module';
+import { ProductLogRepository } from 'src/modules/product/repositories/product-log.repository';
 
 @Module({
 	imports: [
@@ -31,6 +32,7 @@ import { CategoryModule } from 'src/modules/category/category.module';
 		ProductService,
 		ProductPublicService,
 		ProductDetailRepository,
+		ProductLogRepository,
 	],
 	exports: [
 		ProductRepository,
@@ -38,6 +40,7 @@ import { CategoryModule } from 'src/modules/category/category.module';
 		ProductService,
 		ProductPublicService,
 		ProductDetailRepository,
+		ProductLogRepository,
 	],
 })
 export class ProductModule {}

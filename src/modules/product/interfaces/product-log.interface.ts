@@ -4,7 +4,7 @@ import { ProductEntity } from 'src/modules/product/entities';
 export interface IProductLogEntity {
 	quantity: number;
 	transactionDate: Date;
-	types: string;
+	type: string;
 	branch: BranchEntity;
 	product: ProductEntity;
 }

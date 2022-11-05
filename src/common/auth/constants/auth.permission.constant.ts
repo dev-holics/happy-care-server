@@ -194,4 +194,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_delete_trademark',
 		module: ENUM_PERMISSION_MODULE.ORIGIN,
 	},
+	CREATE_PRODUCT_LOG: {
+		code: 320,
+		name: 'create_product_log',
+		description: 'can_create_product_log',
+		module: ENUM_PERMISSION_MODULE.PRODUCT_LOG,
+	},
 });
