@@ -18,12 +18,14 @@ import {
 } from 'src/modules/origin/controllers';
 import { FeedbackModule } from 'src/modules/feedback/feedback.module';
 import { FeedbackPublicController } from 'src/modules/feedback/controllers';
+import { ProductDetailPublicController } from 'src/modules/product/controllers/product-detail.public.controller';
 
 @Module({
 	controllers: [
 		UserPublicController,
 		CategoryPublicController,
 		ProductPublicController,
+		ProductDetailPublicController,
 		DistrictPublicController,
 		CityPublicController,
 		BranchPublicController,

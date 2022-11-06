@@ -609,7 +609,7 @@ export function ResponsePagingBase<T>(
 			name: 'limit',
 			required: false,
 			type: 'number',
-			description: 'Data cart page',
+			description: 'page limit',
 		}),
 		ApiQuery({
 			name: 'page',
@@ -737,7 +737,7 @@ export function ResponsePagingProduct<T>(
 			name: 'limit',
 			required: false,
 			type: 'number',
-			description: 'Data per page',
+			description: 'page limit',
 		}),
 		ApiQuery({
 			name: 'page',

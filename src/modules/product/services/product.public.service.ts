@@ -1,4 +1,3 @@
-import { HelperDateService } from 'src/common/helper/services/helper.date.service';
 import { CategoryTreeRepository } from 'src/modules/category/repositories';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import {
@@ -9,7 +8,7 @@ import { ProductGetListDto, ProductParamDto } from 'src/modules/product/dtos';
 import { Injectable } from '@nestjs/common';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { isEmpty } from 'radash';
-import { MoreThan, MoreThanOrEqual } from 'typeorm';
+import { MoreThan } from 'typeorm';
 
 @Injectable()
 export class ProductPublicService {
@@ -18,7 +17,6 @@ export class ProductPublicService {
 		private readonly categoryTreeRepository: CategoryTreeRepository,
 		private readonly paginationService: PaginationService,
 		private readonly productDetailRepository: ProductDetailRepository,
-		private readonly helperDateService: HelperDateService,
 	) {}
 
 	async getProducts(
@@ -72,7 +70,7 @@ export class ProductPublicService {
 		);
 	}
 
-	async getProductDetails(productParamDto: ProductParamDto) {
+	async getProductDetail(productParamDto: ProductParamDto) {
 		const product = await this.productPublicRepository.findOne({
 			where: {
 				id: productParamDto.productId,
@@ -88,7 +86,6 @@ export class ProductPublicService {
 		});
 		const productDetails = await this.productDetailRepository.findMany({
 			where: {
-				expiredDate: MoreThanOrEqual(this.helperDateService.now()),
 				quantity: MoreThan(0),
 				product: {
 					id: productParamDto.productId,

@@ -3,3 +3,4 @@ export * from './product.input.query.dto';
 export * from './product.list.query.dto';
 export * from './product.update.dto';
 export * from './product.input.param.dto';
+export * from './product-detail.input.query.dto';
