@@ -21,6 +21,7 @@ import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
+import { UserRoleUpdateDto } from 'src/modules/user/dtos/user.role.update.dto';
 
 @Injectable()
 export class UserService {
@@ -228,5 +229,29 @@ export class UserService {
 				...userProfileUpdateDto,
 			},
 		});
+	}
+
+	async updateRole(user: UserGetDto, role: UserRoleUpdateDto) {
+		const updatedUser = await this.userRepository.updateOne({
+			criteria: {
+				id: user.userId,
+			},
+			data: {
+				role: {
+					id: role.roleId,
+				},
+			},
+		});
+
+		if (!updatedUser) {
+			throw new NotFoundException({
+				statusCode: ENUM_USER_STATUS_CODE_ERROR.USER_CANNOT_UPDATE,
+				message: 'user.error.cannotUpdate',
+			});
+		}
+
+		return {
+			id: updatedUser.id,
+		};
 	}
 }

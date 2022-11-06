@@ -200,4 +200,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_create_product_log',
 		module: ENUM_PERMISSION_MODULE.PRODUCT_LOG,
 	},
+	UPDATE_USER_ROLE: {
+		code: 330,
+		name: 'update_user_role',
+		description: 'can_update_user_role',
+		module: ENUM_PERMISSION_MODULE.USER,
+	},
 });
