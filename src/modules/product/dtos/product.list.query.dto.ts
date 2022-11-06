@@ -7,15 +7,12 @@ import {
 } from 'src/common/pagination/decorators/pagination.decorator';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import {
-	PERMISSION_DEFAULT_LIMIT,
-	PERMISSION_DEFAULT_PAGE,
-} from 'src/modules/permission/constants';
-import {
 	PRODUCT_DEFAULT_AVAILABLE_SEARCH,
+	PRODUCT_DEFAULT_LIMIT,
+	PRODUCT_DEFAULT_PAGE,
 	SORT_OPTION_ENUM,
 } from 'src/modules/product/constants';
 import { IsEnum, IsOptional, IsUUID } from 'class-validator';
-import { faker } from '@faker-js/faker';
 import { shuffle } from 'radash';
 
 export class ProductGetListDto implements PaginationListAbstract {
@@ -26,10 +23,10 @@ export class ProductGetListDto implements PaginationListAbstract {
 	@PaginationAvailableSearch(PRODUCT_DEFAULT_AVAILABLE_SEARCH)
 	readonly availableSearch: string[];
 
-	@PaginationPage(PERMISSION_DEFAULT_PAGE)
+	@PaginationPage(PRODUCT_DEFAULT_PAGE)
 	readonly page: number;
 
-	@PaginationLimit(PERMISSION_DEFAULT_LIMIT)
+	@PaginationLimit(PRODUCT_DEFAULT_LIMIT)
 	readonly limit: number;
 
 	@ApiProperty({

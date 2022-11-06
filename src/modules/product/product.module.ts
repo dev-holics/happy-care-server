@@ -11,6 +11,7 @@ import {
 	ProductRepository,
 } from 'src/modules/product/repositories';
 import {
+	ProductDetailPublicService,
 	ProductPublicService,
 	ProductService,
 } from 'src/modules/product/services';
@@ -32,6 +33,7 @@ import { ProductLogRepository } from 'src/modules/product/repositories/product-l
 		ProductService,
 		ProductPublicService,
 		ProductDetailRepository,
+		ProductDetailPublicService,
 		ProductLogRepository,
 	],
 	exports: [
@@ -40,6 +42,7 @@ import { ProductLogRepository } from 'src/modules/product/repositories/product-l
 		ProductService,
 		ProductPublicService,
 		ProductDetailRepository,
+		ProductDetailPublicService,
 		ProductLogRepository,
 	],
 })

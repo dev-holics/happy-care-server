@@ -25,8 +25,8 @@ export class ProductPublicController {
 		name: 'productId',
 		type: 'string',
 	})
-	@Get('/:productId/details')
-	async getProductDetails(@Param() productParamDto: ProductParamDto) {
-		return this.productPublicService.getProductDetails(productParamDto);
+	@Get('/:productId')
+	async getProductDetail(@Param() productParamDto: ProductParamDto) {
+		return this.productPublicService.getProductDetail(productParamDto);
 	}
 }
