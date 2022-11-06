@@ -16,7 +16,7 @@ export class ProductDetailPublicController {
 	) {}
 
 	@ResponsePagingProduct('productDetail.getList')
-	@Get('/product-details')
+	@Get('')
 	async getProductDetailList(
 		@Query() productDetailInputQueryDto: ProductDetailInputQueryDto,
 	): Promise<IResponsePaging> {
