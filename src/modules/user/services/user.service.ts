@@ -2,6 +2,7 @@ import {
 	BadRequestException,
 	ForbiddenException,
 	Injectable,
+	InternalServerErrorException,
 	NotFoundException,
 } from '@nestjs/common';
 import { IUserCheckExist } from 'src/modules/user/interfaces/user.interface';
@@ -22,6 +23,11 @@ import { IResponsePaging } from 'src/common/response/interfaces/response.interfa
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
 import { UserRoleUpdateDto } from 'src/modules/user/dtos/user.role.update.dto';
+import { UserCreateDto } from 'src/modules/user/dtos/user.create.dto';
+import { RoleEntity } from 'src/modules/role/entities/role.entity';
+import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
+import { RoleRepository } from 'src/modules/role/repositories/role.repository';
+import { ENUM_ERROR_STATUS_CODE_ERROR } from 'src/common/error/constants';
 
 @Injectable()
 export class UserService {
@@ -29,7 +35,63 @@ export class UserService {
 		private readonly authService: AuthService,
 		private readonly userRepository: UserRepository,
 		private readonly paginationService: PaginationService,
+		private readonly databaseTransactionService: DatabaseTransactionService,
+		private readonly roleRepository: RoleRepository,
 	) {}
+
+	async createUser(userCreateDto: UserCreateDto): Promise<UserEntity> {
+		const role: RoleEntity = await this.roleRepository.findOne({
+			where: {
+				id: userCreateDto.role,
+			},
+		});
+
+		if (!role) {
+			throw new NotFoundException({
+				statusCode: ENUM_ROLE_STATUS_CODE_ERROR.ROLE_NOT_FOUND_ERROR,
+				message: 'role.error.notFound',
+			});
+		}
+
+		const checkUserExist: IUserCheckExist = await this.checkExist(
+			userCreateDto.phoneNumber,
+		);
+
+		if (checkUserExist.phoneNumber) {
+			throw new BadRequestException({
+				statusCode: ENUM_USER_STATUS_CODE_ERROR.USER_PHONE_NUMBER_EXIST_ERROR,
+				message: 'user.error.phoneNumberExist',
+			});
+		}
+
+		const queryRunner = await this.databaseTransactionService.getQueryRunner();
+		await queryRunner.startTransaction();
+
+		try {
+			const hashedPassword = await this.authService.createPassword(
+				userCreateDto.password,
+			);
+
+			await this.userRepository.createOne({
+				data: {
+					...userCreateDto,
+					role,
+					password: hashedPassword.passwordHash,
+				},
+			});
+
+			return;
+		} catch (err: any) {
+			await queryRunner.rollbackTransaction();
+			throw new InternalServerErrorException({
+				statusCode: ENUM_ERROR_STATUS_CODE_ERROR.ERROR_UNKNOWN,
+				message: 'http.serverError.internalServerError',
+				error: err.message,
+			});
+		} finally {
+			await queryRunner.release();
+		}
+	}
 
 	async getUsers(userGetListDto: UserGetListDto): Promise<IResponsePaging> {
 		const totalData = await this.userRepository.count({});
