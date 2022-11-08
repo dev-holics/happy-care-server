@@ -5,7 +5,10 @@ import { UserPublicController } from 'src/modules/user/controllers/user.public.c
 import { UserModule } from 'src/modules/user/user.module';
 import { CategoryModule } from 'src/modules/category/category.module';
 import { CategoryPublicController } from 'src/modules/category/controllers/category.public.controller';
-import { ProductPublicController } from 'src/modules/product/controllers';
+import {
+	ProductDetailPublicController,
+	ProductPublicController,
+} from 'src/modules/product/controllers';
 import {
 	DistrictPublicController,
 	CityPublicController,
@@ -18,7 +21,6 @@ import {
 } from 'src/modules/origin/controllers';
 import { FeedbackModule } from 'src/modules/feedback/feedback.module';
 import { FeedbackPublicController } from 'src/modules/feedback/controllers';
-import { ProductDetailPublicController } from 'src/modules/product/controllers/product-detail.public.controller';
 
 @Module({
 	controllers: [

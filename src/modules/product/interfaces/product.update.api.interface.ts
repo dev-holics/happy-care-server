@@ -13,6 +13,7 @@ export interface IProductUpdate {
 	preserve: string;
 	discount: number;
 	packingSpec: string;
+	unit: string;
 	categoryId: string;
 	images: ImageUpdateDto[];
 }

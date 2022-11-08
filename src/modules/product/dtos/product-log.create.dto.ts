@@ -1,4 +1,4 @@
-import { IProductLogCreate } from 'src/modules/product/interfaces/product-log.create.api.interface';
+import { IProductLogCreate } from 'src/modules/product/interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
 import { IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';

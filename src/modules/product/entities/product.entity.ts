@@ -37,6 +37,9 @@ export class ProductEntity
 	packingSpec: string;
 
 	@Column()
+	unit: string;
+
+	@Column()
 	price: number;
 
 	@Column({ nullable: true })

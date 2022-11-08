@@ -12,6 +12,7 @@ export interface IProductEntity {
 	description: string;
 	price: number;
 	packingSpec: string;
+	unit: string;
 	element: string;
 	uses: string;
 	subject: string;
