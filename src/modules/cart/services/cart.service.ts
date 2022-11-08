@@ -1,4 +1,7 @@
-import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponseBase,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { CartGetListDto } from 'src/modules/cart/dtos';
 import { ProductEntity } from 'src/modules/product/entities';
@@ -30,42 +33,62 @@ export class CartService {
 		private readonly redisService: RedisService,
 	) {}
 
-	async getMyCart(userId: string): Promise<CartEntity> {
-		let cart;
-		const carts = await this.redisService.appCart().get();
-		if (carts) {
-			cart = carts.find(p => p.user.id === userId);
-		} else {
-			cart = await this.cartRepository.findOne({
-				where: {
+	async getMyCart(userId: string): Promise<IResponseBase> {
+		const myCart = await this.cartRepository.findOne({
+			where: {
+				user: {
+					id: userId,
+				},
+			},
+			options: {
+				relations: [
+					'cartItems',
+					'cartItems.product',
+					'cartItems.product.images',
+				],
+			},
+		});
+
+		if (!myCart) {
+			await this.cartRepository.createOne({
+				data: {
 					user: {
 						id: userId,
 					},
 				},
-				options: {
-					relations: {
-						cartItems: true,
-					},
-				},
 			});
+			return this.paginationService.formatResult([]);
+		}
+
+		let cart;
+
+		const carts = await this.redisService.appCart().get();
+
+		if (carts) {
+			cart = carts.find(p => p.user.id === userId);
+		} else {
+			cart = myCart;
 			const allCarts = await this.cartRepository.findAll({
 				options: {
-					relations: {
-						cartItems: true,
-						user: true,
-					},
+					relations: [
+						'cartItems',
+						'cartItems.product',
+						'cartItems.product.images',
+						'user',
+					],
 				},
 			});
 			await this.redisService.appCart().set(allCarts);
 		}
+
 		if (!cart) {
 			throw new NotFoundException({
 				statusCode: 400,
 				message: 'cart.error.notFound',
 			});
 		}
-		delete cart.user;
-		return cart;
+
+		return this.paginationService.formatResult(cart.cartItems);
 	}
 
 	async getCarts(cartGetListDto: CartGetListDto): Promise<IResponsePaging> {
@@ -197,16 +220,39 @@ export class CartService {
 		return updateCart;
 	}
 
-	async updateItem(
-		cartItemInputParamDto: CartItemInputParamDto,
-		cartItemUpdateDto: CartItemUpdateDto,
-	) {
-		const cartItemUpdate = await this.cartItemRepository.updateOne({
-			criteria: {
-				id: cartItemInputParamDto.itemId,
+	async updateItem(userId: string, cartItemUpdateDto: CartItemUpdateDto[]) {
+		const myCart = await this.cartRepository.findOne({
+			where: {
+				user: {
+					id: userId,
+				},
 			},
-			data: cartItemUpdateDto,
 		});
+
+		let cart;
+
+		if (!myCart) {
+			cart = await this.cartRepository.createOne({
+				data: {
+					user: {
+						id: userId,
+					},
+				},
+			});
+		} else {
+			cart = myCart;
+		}
+
+		cartItemUpdateDto.forEach((item: any) => {
+			const product = new ProductEntity();
+			product.id = item.productId;
+			item.product = product;
+		});
+
+		const cartItemUpdate = await this.cartRepository.updateItems(
+			cart.id,
+			cartItemUpdateDto,
+		);
 
 		if (!cartItemUpdate) {
 			throw new BadRequestException({

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsInt, IsNotEmpty, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsUUID, Min } from 'class-validator';
 
 export class CartItemUpdateDto {
 	@ApiProperty({
@@ -12,4 +12,11 @@ export class CartItemUpdateDto {
 	@IsNotEmpty()
 	@Min(1)
 	quantity: number;
+
+	@ApiProperty({
+		required: false,
+	})
+	@IsUUID()
+	@IsNotEmpty()
+	productId: string;
 }

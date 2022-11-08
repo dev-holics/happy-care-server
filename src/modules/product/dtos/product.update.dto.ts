@@ -7,6 +7,7 @@ import {
 	IsNotEmpty,
 	IsArray,
 	IsOptional,
+	Min,
 } from 'class-validator';
 import { IProductUpdate } from 'src/modules/product/interfaces';
 import { Type } from 'class-transformer';
@@ -87,6 +88,15 @@ export class ProductUpdateDto implements IProductUpdate {
 	@IsOptional()
 	@IsString()
 	preserve: string;
+
+	@ApiProperty({
+		example: 10,
+		required: false,
+	})
+	@Min(0)
+	@IsOptional()
+	@IsNumber()
+	discount: number;
 
 	@ApiProperty({
 		example: faker.datatype.uuid(),
