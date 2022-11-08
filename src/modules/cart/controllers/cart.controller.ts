@@ -1,5 +1,4 @@
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
-import { CartEntity } from 'src/modules/cart/entities';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
@@ -16,14 +15,16 @@ import {
 	Put,
 } from '@nestjs/common';
 import { PERMISSIONS } from 'src/common/auth/constants/auth.permission.constant';
-import { Response } from 'src/common/response/decorators/response.decorator';
+import {
+	Response,
+	ResponseBase,
+} from 'src/common/response/decorators/response.decorator';
 import {
 	CartCreateDto,
-	CartInputParamDto,
 	CartItemInputParamDto,
 	CartItemUpdateDto,
 } from 'src/modules/cart/dtos';
-import { IResponse } from 'src/common/response/interfaces/response.interface';
+import { IResponseBase } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Cart')
 @Controller({
@@ -33,12 +34,12 @@ import { IResponse } from 'src/common/response/interfaces/response.interface';
 export class CartController {
 	constructor(private readonly cartService: CartService) {}
 
-	@Response('cart.getMyCart')
+	@ResponseBase('cart.getMyCart')
 	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.READ_USER_CART])
 	@AuthApiKeyGuard()
-	@Get('')
-	async getMyCart(@GetUser('id') id: string): Promise<IResponse> {
+	@Get('/items')
+	async getMyCart(@GetUser('id') id: string): Promise<IResponseBase> {
 		return this.cartService.getMyCart(id);
 	}
 
@@ -51,40 +52,41 @@ export class CartController {
 	// 	return this.cartService.createCart(id);
 	// }
 
-	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.CREATE_USER_CART_ITEM])
-	@AuthApiKeyGuard()
-	@ApiBody({
-		type: [CartCreateDto],
-	})
-	@Post('/items')
-	async addCartLineItems(
-		@GetUser('id') id: string,
-		@Body() cartItems: CartCreateDto[],
-	) {
-		return this.cartService.createCartItem(id, cartItems);
-	}
+	// @Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	// @UserProfileGuard()
+	// @AuthJwtGuard([PERMISSIONS.CREATE_USER_CART_ITEM])
+	// @AuthApiKeyGuard()
+	// @ApiBody({
+	// 	type: [CartCreateDto],
+	// })
+	// @Post('/items')
+	// async addCartLineItems(
+	// 	@GetUser('id') id: string,
+	// 	@Body() cartItems: CartCreateDto[],
+	// ) {
+	// 	return this.cartService.createCartItem(id, cartItems);
+	// }
 
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.UPDATE_USER_CART_ITEM])
 	@AuthApiKeyGuard()
-	@Put('/items/:itemId')
+	@ApiBody({
+		type: [CartItemUpdateDto],
+	})
+	@Put('/items')
 	async updateCart(
-		@Param() cartItemInputParamDto: CartItemInputParamDto,
-		@Body() cartItemUpdateDto: CartItemUpdateDto,
+		@GetUser('id') id: string,
+		@Body() cartItemUpdateDto: CartItemUpdateDto[],
 	) {
-		return this.cartService.updateItem(
-			cartItemInputParamDto,
-			cartItemUpdateDto,
-		);
+		return this.cartService.updateItem(id, cartItemUpdateDto);
 	}
 
-	@Response('deleted soft successfully', { doc: { httpStatus: HttpStatus.OK } })
-	@AuthJwtGuard([PERMISSIONS.DELETE_USER_CART_ITEM])
-	@AuthApiKeyGuard()
-	@Delete('/items/:itemId')
-	async deleteSoftItem(@Param() cartItemInputParamDto: CartItemInputParamDto) {
-		return this.cartService.deleteSoftItem(cartItemInputParamDto);
-	}
+	// @Response('deleted soft successfully', { doc: { httpStatus: HttpStatus.OK } })
+	// @AuthJwtGuard([PERMISSIONS.DELETE_USER_CART_ITEM])
+	// @AuthApiKeyGuard()
+	// @Delete('/items/:itemId')
+	// async deleteSoftItem(@Param() cartItemInputParamDto: CartItemInputParamDto) {
+	// 	return this.cartService.deleteSoftItem(cartItemInputParamDto);
+	// }
 }

@@ -11,6 +11,7 @@ export interface IProductUpdate {
 	subject: string;
 	guide: string;
 	preserve: string;
+	discount: number;
 	packingSpec: string;
 	categoryId: string;
 	images: ImageUpdateDto[];
