@@ -39,6 +39,14 @@ export class ProductCreateDto implements IProductCreate {
 	packingSpec: string;
 
 	@ApiProperty({
+		example: 'Hộp',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	unit: string;
+
+	@ApiProperty({
 		example: 110000,
 		required: true,
 	})

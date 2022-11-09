@@ -1,16 +1,21 @@
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { ImageService } from 'src/common/media/services/image.service';
-import { ProductCreateDto, ProductUpdateDto } from 'src/modules/product/dtos';
+import {
+	ProductCreateDto,
+	ProductLogCreateDto,
+	ProductUpdateDto,
+} from 'src/modules/product/dtos';
 import {
 	ProductDetailRepository,
+	ProductLogRepository,
 	ProductRepository,
 } from 'src/modules/product/repositories';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ProductEntity } from 'src/modules/product/entities';
-import { ProductLogCreateDto } from 'src/modules/product/dtos/product-log.create.dto';
-import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
-import { ENUM_PRODUCT_STATUS_CODE_ERROR } from 'src/modules/product/constants/product.status-code.constant';
-import { ProductLogRepository } from 'src/modules/product/repositories/product-log.repository';
+import {
+	ENUM_PRODUCT_STATUS_CODE_ERROR,
+	ENUM_TRANSACTION_TYPES,
+} from 'src/modules/product/constants';
 
 @Injectable()
 export class ProductService {

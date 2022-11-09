@@ -11,6 +11,7 @@ export interface IProductCreate {
 	guide: string;
 	preserve: string;
 	packingSpec: string;
+	unit: string;
 	categoryId: string;
 	images: ImageCreateDto[];
 }

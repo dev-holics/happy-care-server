@@ -1,5 +1,6 @@
 import {
 	ProductCreateDto,
+	ProductLogCreateDto,
 	ProductParamDto,
 	ProductUpdateDto,
 } from 'src/modules/product/dtos';
@@ -11,7 +12,6 @@ import { ProductService } from 'src/modules/product/services';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { Response } from 'src/common/response/decorators/response.decorator';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
-import { ProductLogCreateDto } from 'src/modules/product/dtos/product-log.create.dto';
 
 @ApiTags('Admin.Product')
 @Controller({

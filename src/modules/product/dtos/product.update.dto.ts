@@ -50,6 +50,15 @@ export class ProductUpdateDto implements IProductUpdate {
 	packingSpec: string;
 
 	@ApiProperty({
+		example: 'Hộp',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsOptional()
+	@IsString()
+	unit: string;
+
+	@ApiProperty({
 		example: 'thành phần',
 		required: false,
 	})

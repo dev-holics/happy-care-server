@@ -7,6 +7,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
 	ProductDetailRepository,
+	ProductLogRepository,
 	ProductPublicRepository,
 	ProductRepository,
 } from 'src/modules/product/repositories';
@@ -16,7 +17,6 @@ import {
 	ProductService,
 } from 'src/modules/product/services';
 import { CategoryModule } from 'src/modules/category/category.module';
-import { ProductLogRepository } from 'src/modules/product/repositories/product-log.repository';
 
 @Module({
 	imports: [

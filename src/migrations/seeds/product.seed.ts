@@ -387,8 +387,10 @@ export class ProductSeed {
 						data: {
 							code: 'P20414',
 							name: 'Agilodin',
-							description: 'Hình thức: Viên nén',
-							packingSpec: 'Hộp 10 vỉ x 10 viên nén',
+							description:
+								'Agilodin là thuốc có chứa thành phần chính là hoạt chất Loratadin 10mg với tác dụng chống dị ứng và dùng cho các các trường hợp bệnh nhân có biểu hiện quá mẫn.',
+							packingSpec: 'Hộp 10 vỉ x 10 viên',
+							unit: 'Hộp',
 							price: 350000,
 							element:
 								'Mỗi viên nén chứa: Loratadin 10mg\n' +
@@ -471,8 +473,9 @@ export class ProductSeed {
 							code: 'P13206',
 							name: 'Bostanex',
 							description:
-								'Hình thức: Viên nén bao phim (Viên nén tròn bao phim màu xanh dương, hai mặt khum, một mặt trơn, một mặt có khắc chữ B, cạnh và thành viên lành lặn)',
-							packingSpec: 'Hộp 03 vỉ x 10 viên nén bao phim',
+								'Thuốc Bostanex được sản xuất và đăng ký bởi Công ty Cổ phần Dược phẩm Boston Việt Nam. Thuốc thuộc nhóm chống dị ứng và sử dụng trong các trường hợp quá mẫn. Sử dụng thuốc Bostanex theo đúng chỉ định của bác sĩ sẽ giúp bạn đảm bảo an toàn cho sức khỏe và phát huy tối đa hiệu quả điều trị bệnh.',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
 							price: 60000,
 							element:
 								'Mỗi viên nén bao phim có chứa:\n' +
@@ -527,8 +530,10 @@ export class ProductSeed {
 						data: {
 							code: 'P15294',
 							name: 'Clanzen',
-							description: 'Hình thức: Viên nén bao phim',
-							packingSpec: 'Hộp 5 vỉ x 10 viên nén',
+							description:
+								'Thuốc Clanzen 5mg là thuốc thuộc nhóm thuốc chống dị ứng được sản xuất bởi công ty cổ phần Dược phẩm Khánh Hòa với số đăng ký thuốc là VD-14328-1. Thuốc Clanzen được bào chế dưới dạng viên nén theo quy cách 1 hộp 5 vỉ x10 viên.',
+							packingSpec: 'Hộp 5 vỉ x 10 viên',
+							unit: 'Hộp',
 							price: 100000,
 							element: 'Levocetirizin dihydroclorid 5mg',
 							uses: 'Điều trị triệu chứng đi kèm trong các tình trạng dị ứng như: viêm mũi dị ứng theo mùa, viêm mũi dị ứng quanh năm, mày đay mạn tính.',
@@ -563,8 +568,10 @@ export class ProductSeed {
 						data: {
 							code: 'P15254',
 							name: 'Clorpheniramin',
-							description: 'Hình thức: Viên nén bao phim',
+							description:
+								'Thuốc Clorpheniramin 4mg là nhóm thuốc được ưu tiên chỉ định dùng để điều trị các triệu chứng của bệnh dị ứng như mày đay, phù mạch, viêm mũi ....',
 							packingSpec: 'Hộp 10 vỉ x 20 viên',
+							unit: 'Hộp',
 							price: 20000,
 							element:
 								'- Clorpheniramin maleat 4mg\n' +
@@ -642,8 +649,10 @@ export class ProductSeed {
 						data: {
 							code: 'P18691',
 							name: 'Desbebe',
-							description: 'Hình thức: Siro màu cam',
+							description:
+								'Thuốc Desbebe được biết đến với tác dụng điều trị dị ứng và dùng trong các trường hợp quá mẫn. Trước khi có ý định dùng thuốc Desbebe, người bệnh cần nắm rõ thông tin để việc điều trị mang đến hiệu quả cao hơn.',
 							packingSpec: 'Hộp 1 lọ x 60ml',
+							unit: 'Hộp',
 							price: 70.0,
 							element:
 								'– Hoạt chất: Desloratadine 30mg.\n' +
@@ -736,8 +745,10 @@ export class ProductSeed {
 						data: {
 							code: 'P18110',
 							name: 'Descallerg',
-							description: 'Hình thức: Viên nén Thương hiệu: ENLIE',
+							description:
+								'Descallerg là một trong những loại thuốc thuộc nhóm histamin chuyên điều trị các triệu chứng dị ứng như chảy nước mắt, chảy nước mũi, hắt hơi kéo dài, nổi mề đay và ngứa. Việc sử dụng thuốc cần tuân thủ theo đúng hướng dẫn để mang đến hiệu quả điều trị cao nhất.',
 							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
 							price: 55000,
 							element:
 								'- Hoạt chất: Desloratadin 5mg\n' +
@@ -809,8 +820,10 @@ export class ProductSeed {
 						data: {
 							code: 'P00606',
 							name: 'Zyrtec',
-							description: 'Hình thức: Dung dịch',
+							description:
+								'Zyrtec 10mg chứa hoạt chất chính là certirizine, đây là thuốc điều trị dị ứng được chỉ định trong điều trị mày đay, viêm mũi dị ứng. Để đảm bảo hiệu quả sử dụng, người dùng thuốc cần tuân thủ theo đúng chỉ dẫn của bác sĩ, dược sĩ tư vấn.',
 							packingSpec: 'Hộp 1 chai 60ml',
+							unit: 'Chai',
 							price: 59000,
 							element:
 								'Mỗi 1ml dung dịch uống chứa\n' +
@@ -848,7 +861,7 @@ export class ProductSeed {
 
 					const brand7 = await this.brandRepository.createOne({
 						data: {
-							name: 'Pymepharco ',
+							name: 'Pymepharco',
 							origin: origin1 || undefined, // Việt Nam
 						},
 						options: {
@@ -872,8 +885,10 @@ export class ProductSeed {
 						data: {
 							code: 'P14768',
 							name: 'Fegra',
-							description: 'Hình thức: Viên nén bao phim',
+							description:
+								'Thuốc Fegra 60 có thành phần chính Fexofenadin. Thuốc có tác dụng trong điều trị những bệnh viêm mũi dị ứng, mày đay. Để sử dụng thuốc an toàn, người bệnh cần tuân thủ theo chỉ định và hướng dẫn của bác sĩ kê đơn.',
 							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
 							price: 43000,
 							element:
 								'Hoạt chất: Fexofenadin hydrochloric 180mg\n' +
@@ -893,9 +908,2051 @@ export class ProductSeed {
 							transaction: true,
 						},
 					}); // Fegra
-				}
 
-				// ...
+					const P18105_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuocantam.org/wp-content/uploads/2021/05/p18105_1_l.jpg',
+							publicId: 'P18105_1_l',
+							fileName: 'P18105_1_l.jpg',
+							description: 'Gimfastnew',
+							width: 460,
+							height: 460,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P18105',
+							name: 'Gimfastnew',
+							description:
+								'Trong điều trị các triệu chứng của viêm mũi dị ứng như hắt hơi, chảy nước mũi, ngứa họng,... bác sĩ thường sử dụng thuốc Gimfastnew 180 mg.',
+							packingSpec: 'Hộp 2 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 130000,
+							element:
+								'Mỗi viên chứa:\n' +
+								'Fexofenadin hydroclorid 180mg\n' +
+								'Tá dược vừa đủ',
+							uses: 'Giảm triệu chứng viêm mũi dị ứng',
+							subject: 'Người lớn và trẻ từ 12 tuổi trở lên',
+							guide:
+								'Người lớn và trẻ từ 12 tuổi trở lên: Uống 1 viên/lần, 1 lần/ngày.\n' +
+								'Liều cao hơn không làm tăng tác dụng điều trị.\n' +
+								'Bệnh nhân suy gan không cần giảm liều.',
+							preserve: 'Nhiệt độ dưới 30 độ C, tránh ẩm và ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand1 || undefined, // Agimexpharm
+							origin: origin1 || undefined, // Việt Nam
+							images: [P18105_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Gimfastnew
+
+					const brand8 = await this.brandRepository.createOne({
+						data: {
+							name: 'Vidipha',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Vidipha 8
+					const P11021_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://images.fpt.shop/unsafe/fit-in/600x600/filters:quality(80):fill(white)/nhathuoclongchau.com/images/product/2021/05/00015283-siro-promethazin-90ml-vidapha-9578-60a3_large.JPG',
+							publicId: 'P11021_1_l',
+							fileName: 'P11021_1_l.jpg',
+							description: 'Promethazine',
+							width: 600,
+							height: 600,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P11021',
+							name: 'Promethazine',
+							description:
+								'Thuốc promethazine HCL là một loại thuốc kháng histamine, giúp làm giảm các triệu chứng của dị ứng. Cũng như các thuốc kháng histamine khác, promethazine cũng gây buồn ngủ với tác dụng an thần. Ngoài ra, promethazine cũng có thể phối hợp với các loại thuốc khác, chẳng hạn như paracetamol, dextromethorphan, pholcodine hoặc pseudoephedrine, để điều trị ho và cảm lạnh hoặc đau nhức.',
+							packingSpec: 'Hộp 1 chai 90ml',
+							unit: 'Chai',
+							price: 12000,
+							element:
+								'Promethazin (dưới dạng Promethazin hydroclorid) 0,1g/100ml',
+							uses: 'Điều trị các trường hợp dị ứng, các bệnh ngoài da ngứa, các chứng mất ngủ của người lớn...',
+							subject: 'Tất cả các đối tượng đều dùng được',
+							guide:
+								'Liều hàng ngày chia làm nhiều lần, liều lớn nhất dành cho buổi tối.\n' +
+								'Người lớn: 3-10 muỗng canh/ngày.\n' +
+								'Trẻ 5-10 tuổi: 5-10 muỗng cà phê/ngày.\n' +
+								'Trẻ 2-5 tuổi: 3-5 muỗng cà phê/ngày.\n' +
+								'Trẻ < 2 tuổi: 1/2-3 muỗng cà phê/ngày.',
+							preserve:
+								'Nơi khô mát, tránh ánh nắng, nhiệt độ không quá 30 độ C',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand8 || undefined, // Vidipha
+							origin: origin1 || undefined, // Việt Nam
+							images: [P11021_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Promethazine
+
+					const brand9 = await this.brandRepository.createOne({
+						data: {
+							name: 'Stella',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Stella 9
+					const P01014_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://vietphapplus.com/wp-content/uploads/2021/07/Lorastad-Sp.-Chai-60ml.jpg',
+							publicId: 'P01014_1_l',
+							fileName: 'P01014_1_l.jpg',
+							description: 'Lorastad',
+							width: 1050,
+							height: 1050,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P01014',
+							name: 'Lorastad',
+							description:
+								'Thuốc Lorastad được dùng để điều trị viêm mũi dị ứng như, viêm kết mạc dị ứng, nổi mề đay và các rối loạn dị ứng da,...',
+							packingSpec: 'Hộp 1 chai 60ml',
+							unit: 'Chai',
+							price: 15000,
+							element:
+								'Mỗi 60 ml siro chứa: Loratadin 60mg\n' +
+								'Tá dược vừa đủ 60ml (Glycerin, acid citric khan, natri benzoat, saccharose, propylen glycol, mùi dâu nước, nước tinh khiết).',
+							uses: 'Giảm triệu chứng của dị ứng bao gồm viêm mũi và mày đay mạn tính.',
+							subject: 'Viêm mũi và mày đay mạn tính',
+							guide:
+								'Lorastad Sp. được dùng bằng đường uống.\n' +
+								'Người lớn và trẻ em trên 12 tuổi: 10ml x 1 lần/ ngày.\n' +
+								'Trẻ em từ 2 - 12 tuổi:\n' +
+								'2 - 5 tuổi: 5ml/ngày.\n' +
+								'6 - 12 tuổi; 10ml/ngày.\n' +
+								'Người bị suy gan hoặc suy thận nặng (độ thanh thải creatinin < 30ml/phút)\n' +
+								'Người lớn và trẻ em từ 6 tuổi trở lên: Liều khởi đầu 10ml/ lần, 2 ngày một lần.\n' +
+								'Trẻ em từ 2 tuổi đến dưới 6 tuổi: Liều 5ml/ lần, 2 ngày một lần.',
+							preserve:
+								'Trong bao bì kín, tránh ánh sáng. Nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand9 || undefined, // Stella
+							origin: origin1 || undefined, // Việt Nam
+							images: [P01014_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Lorastad
+
+					const brand10 = await this.brandRepository.createOne({
+						data: {
+							name: 'Sanofi',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Sanofi 10
+					const P00649_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://phuocthien.vn/images/ImageUpload/2021-03/P00649_1_l.jpg',
+							publicId: 'P00649_1_l',
+							fileName: 'P00649_1_l.jpg',
+							description: 'Theralene',
+							width: 460,
+							height: 460,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P00649',
+							name: 'Theralene',
+							description:
+								'Thuốc Theralene 5mg có chứa hoạt chất alimemazin, có tác dụng giúp ngăn chặn histamin mà cơ thể tạo ra trong phản ứng dị ứng. Hơn nữa, thuốc Theralene 5mg còn tác động trực tiếp lên não giúp cho bạn cảm thấy thư giãn hơn. Tuy nhiên, khi sử dụng có thể gặp một số tác dụng phụ không mong muốn như: đau đầu, chóng mặt, mệt mỏi, táo bón,...',
+							packingSpec: 'Hộp 1 chai 90ml',
+							unit: 'Chai',
+							price: 16500,
+							element:
+								'- Hoạt chất: Alimemazin (duới dạng Alimemazin tartrat) 0.050g/100ml.\n' +
+								'- Tá dược: acid citric khan, acid ascorbic, methyl parahydroxybenzoat (Nipagin), propyl parahydroxybenzoat (Nipasol), glycerin, caramel, ethanol 96°, hương framboise (Arôme de framboise), đường tình luyện (RE) (đường saccharose), nước tinh khiết vừa đủ 100 ml.',
+							uses: 'Trị ho khan, ho do kích ứng, chống dị ứng,…',
+							subject:
+								'Thuốc này chứa alimemazin, một chất kháng histamin. Thuốc được chỉ định:\n' +
+								'- Trong trường hợp thỉnh thoảng mất ngủ (ví dụ khi đi xa) và/hoặc thoáng qua (ví dụ khi có một biến cố cảm xúc).\n' +
+								'- Trong điều trị triệu chứng đối với các biểu hiện dị ứng như: viêm mũi (ví dụ: viêm mũi theo mùa, viêm mũi không theo mùa,...); viêm kết mạc (viêm mắt); nổi mề đay.\n' +
+								'- Để giảm ho khan và ho do kích ứng, đặc biệt là khi ho về chiều hoặc về đêm.',
+							guide:
+								'- Dùng đường uống.\n' +
+								'- Thời gian uống thuốc:\n' +
+								'Vì thuốc có tác dụng gây buồn ngủ, tốt nhất nên bắt đầu điều trị các biểu hiện dị ứng vào buổi tối.\n' +
+								'- Thời gian điều trị:\n' +
+								'Chỉ nên điều trị triệu chứng ngắn ngày (vài ngày). Nếu trị ho, chỉ nên dùng thuốc vào những lúc bị ho.',
+							preserve: 'Bảo quản ở nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand10 || undefined, // Sanofi
+							origin: origin1 || undefined, // Việt Nam
+							images: [P00649_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Theralene
+
+					const [P13207_1, P13207_2, P13207_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://cherrypharmacy.vn/wp-content/uploads/2021/07/p13207_1_l-247x296.jpg',
+								publicId: 'P13207_1_l',
+								fileName: 'P13207_1_l.jpg',
+								description: 'Bostanex',
+								width: 247,
+								height: 296,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://alogap.com/uploads/alogap.com/items/516071/bostanex-60ml-thuoc-chong-di-ung-dang-siro_2.jpg',
+								publicId: 'P13207_2_l',
+								fileName: 'P13207_2_l.jpg',
+								description: 'Bostanex',
+								width: 400,
+								height: 400,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://static.salekit.com/image/shop/3180/products/1575369928-thuocbatyy.jpg',
+								publicId: 'P13207_4_l',
+								fileName: 'P13207_4_l.jpg',
+								description: 'Bostanex',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P13207',
+							name: 'Bostanex 60ml',
+							description:
+								'Thuốc Bostanex được sản xuất và đăng ký bởi Công ty Cổ phần Dược phẩm Boston Việt Nam. Thuốc thuộc nhóm chống dị ứng và sử dụng trong các trường hợp quá mẫn. Sử dụng thuốc Bostanex theo đúng chỉ định của bác sĩ sẽ giúp bạn đảm bảo an toàn cho sức khỏe và phát huy tối đa hiệu quả điều trị bệnh.',
+							packingSpec: 'Hộp 1 chai 60ml',
+							unit: 'Chai',
+							price: 65000,
+							element:
+								'Thành phần hoạt chất: Mỗi 1 ml sirô chứa Desloratadin 0,5 mg\n' +
+								'Thành phần tá dược: Beta cyclodextrin, đường trắng, sorbitol lỏng, natri benzoat, natri citrat, acid citric khan, màu vàng số 6, hương ngọt tổng hợp dạng lỏng, kali sorbat, dinatri edetat, nước tinh khiết.',
+							uses: 'Giảm triệu chứng viêm mũi dị ứng, nổi mày đay',
+							subject: 'Người lớn và trẻ từ 1-2 tuổi trở lên',
+							guide:
+								'BOSTANEX được dùng bằng đường uống, cùng hoặc không cùng bữa ăn.\n' +
+								'- Trẻ từ 1 đến 5 tuổi: 2,5 ml x 1 lần/ngày.\n' +
+								'- Trẻ từ 6 đến 11 tuổi: 5 ml x 1 lần/ngày.\n' +
+								'- Người lớn và thanh thiếu niên (≥12 tuổi): 10 ml x 1 lần/ngày.\n' +
+								'- Viêm mũi dị ứng gián đoạn (triệu chứng xuất hiện < 4 ngày/tuần hoặc < 4 tuần) nên được điều trị phù hợp dựa trên đánh giá tiền sử bệnh của bệnh nhân, nên ngừng điều trị khi hết triệu chứng và tái điều trị khi tái xuất hiện triệu chứng.\n' +
+								'- Viêm mũi dị ứng dai dẳng (triệu chứng xuất hiện ≥ 4 ngày/tuần và kéo dài > 4 tuần), có thể điều trị liên tục trong thời gian tiếp xúc với dị nguyên.',
+							preserve:
+								'Nơi khô, dưới 30°C, tránh ánh sáng. Để xa tầm tay trẻ em.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand2 || undefined, // Boston
+							origin: origin1 || undefined, // Việt Nam
+							images: [P13207_1, P13207_2, P13207_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Bostanex 60ml
+
+					const [P25114_1, P25114_3, P25114_2, P25114_5, P25114_4] =
+						await Promise.all([
+							this.imageRepository.createOne({
+								data: {
+									url: 'https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/products/P25114_1.jpg',
+									publicId: 'P25114_1',
+									fileName: 'P25114_1.jpg',
+									description: 'Telfast',
+									width: 1000,
+									height: 1000,
+								},
+								options: {
+									transaction: true,
+								},
+							}),
+							this.imageRepository.createOne({
+								data: {
+									url: 'https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/products/P25114_3.jpg',
+									publicId: 'P25114_3',
+									fileName: 'P25114_3.jpg',
+									description: 'Telfast',
+									width: 1000,
+									height: 1000,
+								},
+								options: {
+									transaction: true,
+								},
+							}),
+							this.imageRepository.createOne({
+								data: {
+									url: 'https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/products/P25114_2.jpg',
+									publicId: 'P25114_2',
+									fileName: 'P25114_2.jpg',
+									description: 'Telfast',
+									width: 1000,
+									height: 1000,
+								},
+								options: {
+									transaction: true,
+								},
+							}),
+							this.imageRepository.createOne({
+								data: {
+									url: 'https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/products/P25114_5.jpg',
+									publicId: 'P25114_5',
+									fileName: 'P25114_5.jpg',
+									description: 'Telfast',
+									width: 1000,
+									height: 1000,
+								},
+								options: {
+									transaction: true,
+								},
+							}),
+							this.imageRepository.createOne({
+								data: {
+									url: 'https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/products/P25114_4.jpg',
+									publicId: 'P25114_4',
+									fileName: 'P25114_4.jpg',
+									description: 'Telfast',
+									width: 1000,
+									height: 1000,
+								},
+								options: {
+									transaction: true,
+								},
+							}),
+						]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P25114',
+							name: 'Telfast BD',
+							description:
+								'Thuốc Telfast 180mg được sử dụng để điều trị các bệnh về viêm mũi dị ứng theo mùa và một số biểu hiện ngoài da khác. Thuốc có thành phần chủ yếu là Fexofenadine, được điều chế dưới dạng viên nén. Đối tượng sử dụng thuốc bao gồm người lớn và trẻ em trên 12 tuổi.',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 120000,
+							element:
+								'Cho 1 viên nén bao phim:\n' +
+								'Thành phần hoạt chất: Fexofenadin hydroclorid 60mg\n' +
+								'Thành phần tá dược: microcrystalline cellulose (avicel pH 101, avicel pH 102), pregelatinised maize starch, croscarmellose natri, magnesi stearat, hypromellose E - 5, hypromellose E - 15, titan dioxyd, povidon, colloidal anhydrous silica, macrogol 400, hỗn hợp pink iron oxyd (PB1254), hỗn hợp yellow iron oxyd (PB1255).',
+							uses: 'Trị viêm mũi dị ứng, mày đay.',
+							subject: 'Người lớn, trẻ em ≥ 12 tuổi',
+							guide:
+								'Thuốc dùng đường uống với nước và trước bữa ăn. Không uống thuốc với nước hoa quả (như cam, bưởi, táo).',
+							preserve: 'Bảo quản ở nhiệt độ không quá 30°C, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand10 || undefined, // Sanofi
+							origin: origin1 || undefined, // Việt Nam
+							images: [P25114_1, P25114_3, P25114_2, P25114_5, P25114_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Telfast
+
+					const brand11 = await this.brandRepository.createOne({
+						data: {
+							name: 'Traphaco',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Traphaco 11
+					const [P10544_1, P10544_2, P10544_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://duocare.vn/wp-content/uploads/2020/08/P10544_1_l.jpg',
+								publicId: 'P10544_1_l',
+								fileName: 'P10544_1_l.jpg',
+								description: 'Dimenhydrinat',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p105443l-6307.jpg',
+								publicId: 'P10544_2_l',
+								fileName: 'P10544_2_l.jpg',
+								description: 'Dimenhydrinat',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p105442l-8639.jpg',
+								publicId: 'P10544_4_l',
+								fileName: 'P10544_4_l.jpg',
+								description: 'Dimenhydrinat',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P10544',
+							name: 'Dimenhydrinat',
+							description:
+								'Dimenhydrinate là một thuốc kháng histamin H1 được dùng chủ yếu làm thuốc dự phòng triệu chứng nôn, buồn nôn do say tàu xe. Thuốc dimenhydrinat dùng được cho cả người lớn và trẻ nhỏ từ 2 tuổi trở lên, nhưng có thể gây ra tác dụng phụ trên hệ thần kinh trung ương, hệ tiêu hóa, hô hấp hay hệ tim mạch... nên cần thận trọng khi sử dụng.',
+							packingSpec: 'Hộp 10 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 40000,
+							element:
+								'- Dimenhydrinat 50mg\n' +
+								'- Tá dược: Tinh bột. Lactose, Microcrystalline cellulose, Màu sunset yellow, Talc, Magneslstearat vừa đủ 1 viên.',
+							uses: 'Phòng và điều trị triệu chứng buồn nôn, nôn, chóng mặt do say sóng, say khi đi tàu xe...',
+							subject:
+								'- Phòng và điều trị triệu chứng buồn nôn, nôn, chóng mặt do say sóng, say khi đi tàu xe.\n' +
+								'- Điều trị triệu chứng nôn, chóng mặt trong bệnh Ménière và các rối loạn tiền đình khác.',
+							guide:
+								'Phòng say tàu xe, liều đầu tiên phải uống 30 phút trước khi khởi hành.\n' +
+								'- Người lớn và trẻ trên 12 tuổi: 1 - 2 viên/lần (50 -100 mg), cách 4 - 6 giờ/lần khi cần, (không quá 8 viên/ngày).\n' +
+								'- Trẻ em 6 - 12 tuổi: Dùng 1/2 -1 viên/ lần (25 - 50 mg), cách 6- 8 giờ/lần khi cần (không quá 3 viên/ngày).\n' +
+								'- Trẻ em 2 - 6 tuổi: Dùng 1/4 - 1/2 viên/lần (12,5 - 25 mg), cách 6-8 giờ/lần khi cần (không quá 1,5 viên/ngày).\n' +
+								'Điều trị triệu chứng của bệnh Ménière: uống mỗi lần 25-50mg(1/2-1 viên) ngày 3 lần để điều trị duy trì.',
+							preserve: 'Nơi khô ráo, nhiệt độ không quá 30°C, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand11 || undefined, // Traphaco
+							origin: origin1 || undefined, // Việt Nam
+							images: [P10544_1, P10544_2, P10544_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Dimenhydrinat
+
+					const brand12 = await this.brandRepository.createOne({
+						data: {
+							name: 'Domesco',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Domesco 12
+					const P00445_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'http://product.hstatic.net/1000113261/product/quay-thuoc-ba-ty_a0729ce17970439f86e455c8e67b5d76_grande.jpg',
+							publicId: 'P00445_1_l',
+							fileName: 'P00445_1_l.jpg',
+							description: 'Cinnarizin',
+							width: 460,
+							height: 460,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P00445',
+							name: 'Cinnarizin',
+							description:
+								'Thuốc Cinnarizin ngoài việc trị rối loạn tiền đình thì còn có tác dụng trong việc điều trị rối loạn tuần hoàn và chống say tàu xe. Tuy nhiên, cũng cần có những lưu ý khi dùng thuốc Cinnarizin để tránh những tác dụng phụ không mong muốn.',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 15000,
+							element:
+								'Mỗi viên nén chứa:\n' +
+								'Thành phần dược chất: Cinnarizin 25 mg\n' +
+								'Thành phần tá dược: Povidon K30, Lactose khan, Microcrystallin cellulose PH102, Natri Croscarmellose, Magnesi stearat, Colloidal silicon dioxid A200.',
+							uses: 'Được chỉ định trong bệnh mạch ngoại vi với các triệu chứng như đau cách hồi, lạnh đầu chi và các rối loạn co thắt mạch.',
+							subject:
+								'Cinnarizin được chỉ định trong bệnh mạch ngoại vi với các triệu chứng như đau cách hồi, lạnh đầu chi và các rối loạn co thắt mạch.',
+							guide:
+								'Dùng uống. Cinnarizin nên được uống sau bữa ăn.\n' +
+								'Trường hợp quên uống một liều dùng: Hãy uống ngay khi nhớ ra. Nếu thời gian gần với lần dùng thuốc tiếp theo, bỏ qua liều đã quên và hãy dùng liều tiếp theo vào thời gian thường lệ. Không dùng liều gấp đôi để bù vào liều đã quên.\n' +
+								'Trường hợp uống quá nhiều viên thuốc: Hãy gặp ngay bác sỹ hoặc tới khoa Hồi sức - Cấp cứu của bệnh viện gần nhất.',
+							preserve:
+								'Bảo quản ở: Nơi khô, nhiệt độ dưới 30 °C, tránh ánh sáng. Bảo quản trong bao bì gốc của thuốc.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand12 || undefined, // Domesco
+							origin: origin1 || undefined, // Việt Nam
+							images: [P00445_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Cinnarizin
+
+					const P02523_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/thumb/400x400x1x90/upload/sanpham/p02523_1-5805.jpg',
+							publicId: 'P02523_1_l',
+							fileName: 'P02523_1_l.jpg',
+							description: 'Fexostad',
+							width: 400,
+							height: 400,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P02523',
+							name: 'Fexostad',
+							description:
+								'Thuốc Fexostad 180 là thuốc được dùng trong các trường hợp dị ứng như nổi mày đay, viêm mũi dị ứng...nhưng nó ít gây tác dụng phụ là buồn ngủ và ảnh hưởng tới thần kinh trung ương.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 34000,
+							element:
+								'Hoạt chất: Fexofenadin hydroclorid 180mg\n' +
+								'Tá dược: Tinh bột bắp tiền gelatin hóa, microcrystallin cellulose, tinh bột bắp biến tính một phần, croscarmellose natri, colloidal silica khan, magnesi stearat, opadry trắng.',
+							uses: 'Giảm các triệu chứng của bệnh viêm mũi dị ứng theo mùa, các triệu chứng ngoài da không biến chứng của bệnh nổi mề đay vô căn mãn tính.',
+							subject:
+								'- Giảm các triệu chứng của bệnh viêm mũi dị ứng theo mùa ở người lớn và trẻ em từ 12 tuổi trở lên.\n' +
+								'- Điều trị các triệu chứng ngoài da không biến chứng của bệnh nổi mề đay vô căn mãn tính ở người lớn và trẻ em từ 12 tuổi trở lên.',
+							guide:
+								'Fexostad 180 được dùng bằng đường uống và uống thuốc trước bữa ăn.',
+							preserve: 'Trong bao bì kín, nơi khô. Nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand9 || undefined, // Stella
+							origin: origin1 || undefined, // Việt Nam
+							images: [P02523_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Fexostad
+
+					const P04919_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://alphabetpharma.com.vn/image/cache/catalog/nha-thuoc/thuoc-khong-ke-don/thuoc-khang-di-ung/stadeltine-800x800.jpg',
+							publicId: 'P04919_1_l',
+							fileName: 'P04919_1_l.jpg',
+							description: 'Stadeltine',
+							width: 800,
+							height: 800,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P04919',
+							name: 'Stadeltine',
+							description:
+								'Thuốc Stadeltine là thuốc chống dị ứng, được dùng trong các trường hợp quá mẫn cảm. Thành phần của thuốc Stadeltine 5mg gồm Levocetirizin dihydroclorid 5mg, có dạng bào chế là viên nén bao phim.',
+							packingSpec: 'Hộp 5 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 52000,
+							element:
+								'-Hoạt chất: Levocetirizine dihydrocloride 5mg.\n' +
+								'-Tá dược: Lactose monohydrat, microcrystanllin cellulose, hydroxyproyl cellulose, colloidal sillca khan, magnesi stearat, hypromellose 6 cps, macrogol 6000, talc, titan dioxyd.',
+							uses: 'Giảm các triệu chứng ở mắt và mũi của viêm mũi dị ứng theo mùa, mày đay mạn tính...',
+							subject: 'Người lớn/ Trẻ em',
+							guide:
+								'Stadeline được dùng bằng đường uống, có thể uống cùng với thức ăn hoặc không cùng với thức ăn',
+							preserve:
+								'Bảo quản trong bao bì kín, nơi khô. Nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand9 || undefined, // Stella
+							origin: origin1 || undefined, // Việt Nam
+							images: [P04919_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Stadeltine
+
+					const origin6 = await this.originRepository.createOne({
+						data: {
+							name: 'Thái Lan',
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Thái Lan 6
+					const brand13 = await this.brandRepository.createOne({
+						data: {
+							name: 'Merck Sharp & Dohme',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Merck Sharp & Dohme 13
+					const P01429_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoclongchau.com/images/product/2019/03/00000545-aerius-5mg-5593-5c7f_large.png',
+							publicId: 'P01429_1_l',
+							fileName: 'P01429_1_l.jpg',
+							description: 'Aerius Desloratadine',
+							width: 1000,
+							height: 1000,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P01429',
+							name: 'Aerius Desloratadine',
+							description:
+								'Aerius là tên biệt dược của thuốc có hoạt chất là desloratadin. Desloratadine là thuốc thuộc nhóm kháng histamin H1 có tác dụng kháng dị ứng, làm giảm triệu chứng viêm mũi dị ứng như hắt hơi, chảy nước mũi, ngứa mũi, ngứa mắt, chảy nước mắt. Thuốc còn có tác dụng giảm mẩn ngứa, mày đay trên da do dị ứng gây ra.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 100000,
+							element:
+								'Hoạt chất: desloratadine 5mg\n' +
+								'Tá dược: Aerius viên nén: dibasic calcium phosphate dihydrate, microcrystalline cellulose, tinh bột ngô, bột talc, lactose monohydrate, hydroxypropyl methylcellulose, titanium dioxide, polyethylene glycol, FD và Blue No 2 aluminium lake, carnauba wax và white wax.',
+							uses: 'Giảm nhanh các triệu chứng liên quan đến viêm mũi dị ứng, như hắt hơi, sổ mũi và ngứa mũi, sung huyết/nghẹt mũi, cũng như ngứa, chảy nước mắt và đỏ mắt, ngứa họng và ho.',
+							subject:
+								'Aerius được chỉ định để giảm nhanh các triệu chứng liên quan đến viêm mũi dị ứng, như hắt hơi, sổ mũi và ngứa mũi, sung huyết/nghẹt mũi, cũng như ngứa, chảy nước mắt và đỏ mắt, ngứa họng và ho.\n' +
+								'Aerius cũng được chỉ định để giảm các triệu chứng liên quan đến mày đay như giảm ngứa, giảm kích cỡ và số lượng ban.',
+							guide:
+								'Người lớn và thanh thiếu niên (> 12 tuổi): Một viên nén bao film Aerius 5mg hoặc 10ml (5mg) Aerius sirô, uống 1 lần/ngày uống cùng hoặc không cùng bữa ăn, để giảm các triệu chứng liên quan đến viêm mũi dị ứng (bao gồm viêm mũi dị ứng không liên tục và viêm mũi dị ứng kéo dài) và mày đay. Chỉ dùng đường uống.\n' +
+								'Trẻ từ 6 đến 11 tuổi: 5ml (2.5mg) Aerius sirô, uống 1 lần/ngày cùng hoặc không cùng bữa ăn, để giảm các triệu chứng liên quan đến viêm mũi dị ứng (bao gồm viêm mũi dị ứng không liên tục và viêm mũi dị ứng kéo dài) và mày đay.\n' +
+								'Trẻ từ 1 đến 5 tuổi: 2.5ml (1.25mg) Aerius sirô, uống 1 lần/ngày cùng hoặc không cùng bữa ăn, để giảm các triệu chứng liên quan đến viêm mũi dị ứng (bao gồm viêm mũi dị ứng không liên tục và viêm mũi dị ứng kéo dài) và mày đay.\n' +
+								'Trẻ từ 6 tháng đến 11 tháng tuổi: 2ml (1mg) Aerius sirô, uống 1 lần/ngày cùng hoặc không cùng bữa ăn, để giảm các triệu chứng liên quan đến viêm mũi dị ứng (bao gồm viêm mũi dị ứng không liên tục và viêm mũi dị ứng kéo dài) và mày đay.\n' +
+								'Viêm mũi dị ứng không liên tục (triệu chứng xuất hiện < 4 ngày/tuần hoặc < 4 tuần) nên được điều trị phù hợp dựa trên đánh giá tiền sử bệnh của bệnh nhân và nên ngừng điều trị khi hết triệu chứng và tái điều trị khi tái xuất hiện triệu chứng. Trong viêm mũi dị ứng kéo dài (triệu chứng xuất hiện > 4 ngày/tuần và kéo dài > 4 tuần), có thể điều trị liên tục trong thời gian tiếp xúc với dị nguyên.',
+							preserve: 'Bảo quản từ 2 đến 30°C. Tránh ẩm.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand13 || undefined, // Merck Sharp & Dohme
+							origin: origin6 || undefined, // Thái Lan
+							images: [P01429_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Aerius Desloratadine
+
+					const brand14 = await this.brandRepository.createOne({
+						data: {
+							name: 'DHG Pharma',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // DHG Pharma 14
+					const [P11242_1, P11242_2, P11242_3] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://duocare.vn/wp-content/uploads/2020/08/P11242_1_l.jpg',
+								publicId: 'P11242_1_l',
+								fileName: 'P11242_1_l.jpg',
+								description: 'Telfor',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuocsuckhoe.com/proxy/500/0/1/upload/product/2019/03/thuoc-tri-viem-mui-di-ung-noi-me-day-tu-phat-telfor-60mg-5c79f96bbb4f5-02032019103259.jpg',
+								publicId: 'P11242_2_l',
+								fileName: 'P11242_2_l.jpg',
+								description: 'Telfor',
+								width: 500,
+								height: 500,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p112423l-4676.jpg',
+								publicId: 'P11242_3_l',
+								fileName: 'P11242_3_l.jpg',
+								description: 'Telfor',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P11242',
+							name: 'Telfor',
+							description:
+								'Nhóm thuốc kháng Histamin H1 được sử dụng phổ biến trong các tình trạng dị ứng như viêm mũi dị ứng hay mày đay tự phát mãn tính. Trong đó hay gặp nhất là hoạt chất Fexofenadin có trong sản phẩm thương mại Tocimat 60.',
+							packingSpec: 'Hộp 2 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 26000,
+							element:
+								'Fexofenadin HCl ........................................................................60 mg\n' +
+								'Tá dược vừa đủ ..........................................................................1 viên\n' +
+								'(Tinh bột biến tính, microcystalline cellulose M101, croscarmellose sodium, magnesi stearat, HPMC 606, HPMC 615, PEG 6000, titan dioxyd, talc, oxyd sắt đỏ, màu cam E110).',
+							uses: 'Điều trị các triệu chứng viêm mũi dị ứng',
+							subject: 'Người lớn và trẻ em trên 12 tuổi',
+							guide:
+								'Người lớn và trẻ em trên 12 tuổi: uống 1 viên x 2 lần / ngày.\n' +
+								'Người lớn và trẻ em trên 12 tuổi bị suy thận hay phải thẩm phân máu: uống 1 viên x 1 lần/ ngày.\n' +
+								'Không cần điều chỉnh liều cho người suy gan.\n',
+							preserve: 'Nơi khô, nhiệt độ không quá 30°C, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand14 || undefined, // DHG Pharma
+							origin: origin1 || undefined, // Việt Nam
+							images: [P11242_1, P11242_2, P11242_3],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Telfor
+
+					const origin7 = await this.originRepository.createOne({
+						data: {
+							name: 'Thuỵ Sĩ',
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Thuỵ Sĩ 7
+					const P00521_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/thumb/400x400x1x90/upload/sanpham/p00521_1_l-9945.jpg',
+							publicId: 'P00521_1_l',
+							fileName: 'P00521_1_l.jpg',
+							description: 'Xyzal',
+							width: 400,
+							height: 400,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P00521',
+							name: 'Xyzal',
+							description:
+								'Thuốc Xyzal là một trong những thuốc kháng histamin và kháng dị ứng. Công dụng của thuốc Xyzal để điều trị các triệu chứng viêm mũi dị ứng theo mùa và quanh năm hay mày đay mãn tính.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 75000,
+							element:
+								'Mỗi viên nén bao phim chứa 5mg Levocetirizin dihydroclorid.\n' +
+								'Tá dược: Microcrystallin cellulose, Lactose monohydrat, Colloidal anhydrous silica, Magnesium stearat, Opadry Y - 1 - 7000 [chứa Hypromellose (E464), Titanium dioxid (E171), Macrogol 400].',
+							uses: 'Điều trị triệu chứng đi kèm với các tình trạng dị ứng:viêm mũi dị ứng theo mùa (bao gồm cả các triệu chứng ở mắt), viêm mũi dị ứng quanh năm, mày đay mạn tính.',
+							subject:
+								'Levocetirizin được chỉ định điều trị triệu chứng đi kèm với các tình trạng dị ứng:\n' +
+								'Viêm mũi dị ứng theo mùa (bao gồm cả các triệu chứng ở mắt).\n' +
+								'Viêm mũi dị ứng quanh năm.\n' +
+								'Mày đay mạn tính.',
+							guide:
+								'Thuốc Xyzal được dùng đường uống, uống nguyên 1 viên thuốc cùng với nước hoặc không, có thể uống trong bữa ăn hoặc không.',
+							preserve: 'Bảo quản ở nhiệt độ dưới 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand6 || undefined, // GlaxoSmithKline
+							origin: origin7 || undefined, // Thuỵ Sĩ
+							images: [P00521_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Xyzal
+
+					const [P14195_1, P14195_3] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/sanpham/p14195_1_l-0073.jpg',
+								publicId: 'P14195_1_l',
+								fileName: 'P14195_1_l.jpg',
+								description: 'Allermine',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p141953l-9247.jpg',
+								publicId: 'P14195_3_l',
+								fileName: 'P14195_3_l.jpg',
+								description: 'Allermine',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P14195',
+							name: 'Allermine',
+							description:
+								'Thuốc Allermine 4mg được bào chế dưới dạng viên nén, có thành phần là hoạt chất Clorpheniramin Maleat. Thuốc được chỉ định sử dụng điều trị các bệnh do dị ứng cấp và mãn tính ở đường hô hấp.',
+							packingSpec: 'Hộp 10 vỉ x 20',
+							unit: 'Hộp',
+							price: 44000,
+							element:
+								'Mỗi viên nén chứa:\n' +
+								'- Clorpheniramin maleat 4mg\n' +
+								'- Tá dược vừa đủ 1 viên',
+							uses: 'Điều trị bệnh do dị ứng cấp và mãn tính ở đường hô hấp như: Sổ mũi mùa, viêm mũi…; những triệu chứng dị ứng khác như viêm da tiếp xúc, mày đay, phù Quincke…',
+							subject:
+								'- Bệnh do dị ứng cấp và mãn tính ở đường hô hấp như: Sổ mũi mùa, viêm mũi…\n' +
+								'- Những triệu chứng dị ứng khác như viêm da tiếp xúc, mày đay, phù Quincke, dị ứng do thức ăn hoặc thuốc; ngứa ở người bệnh bị sởi hoặc thủy đậu.',
+							guide: 'Thuốc được dùng đường uống.',
+							preserve: 'Để ở nhiệt độ dưới 30°C, tránh ẩm và ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand1 || undefined, // Agimexpharm
+							origin: origin1 || undefined, // Việt Nam
+							images: [P14195_1, P14195_3],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Allermine
+
+					const P01336_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://duocare.vn/wp-content/uploads/2020/08/P01336_1_l.jpg',
+							publicId: 'P01336_1_l',
+							fileName: 'P01336_1_l.jpg',
+							description: 'Theralene',
+							width: 400,
+							height: 400,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P01336',
+							name: 'Theralene 5mg',
+							description:
+								'Thuốc Theralene 5mg có chứa hoạt chất alimemazin, có tác dụng giúp ngăn chặn histamin mà cơ thể tạo ra trong phản ứng dị ứng. Hơn nữa, thuốc Theralene 5mg còn tác động trực tiếp lên não giúp cho bạn cảm thấy thư giãn hơn. Tuy nhiên, khi sử dụng có thể gặp một số tác dụng phụ không mong muốn như: đau đầu, chóng mặt, mệt mỏi, táo bón,...',
+							packingSpec: 'Hộp 2 vỉ x 20 viên',
+							unit: 'Hộp',
+							price: 19200,
+							element:
+								'Hoạt chất: Alimemazin (dưới dạng Alimemazin tartrat) 5mg\n' +
+								'Tá dược:\n' +
+								'+ viên nhân: lactose monohydrat, tinh bột mì, colloidal anhydrous silica (Aerosil 200), erythrosin, colloidal hydrated silica (Levilite), magnesi stearat.\n' +
+								'+ lớp bao: hydroxypropyl methyl cellulose, polyoxyethylen glycol 6000 (PEG 6000, Macrogol 6000), erythrosin vừa đủ cho 1 viên.',
+							uses: 'Giảm ho khan, ho do kích ứng, dị ứng,…',
+							subject: 'Trẻ em trên 6 tuổi và người lớn.',
+							guide:
+								'- Dùng đường uống.\n' +
+								'- Uống viên thuốc với một ít nước.\n' +
+								'- Thời gian uống thuốc:\n' +
+								'Vì thuốc có tác dụng gây buồn ngủ, tốt nhất nên bắt đầu điều trị các biểu hiện dị ứng vào buổi tối.\n' +
+								'- Thời gian điều trị:\n' +
+								'Chỉ nên điều trị triệu chứng ngắn ngày (vài ngày). Nếu trị ho, chỉ nên dùng thuốc vào những lúc bị ho.',
+							preserve: 'Bảo quản ở nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand10 || undefined, // Sanofi
+							origin: origin1 || undefined, // Việt Nam
+							images: [P01336_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Theralene 5mg
+
+					const origin8 = await this.originRepository.createOne({
+						data: {
+							name: 'Bỉ',
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Bỉ 8
+					const brand15 = await this.brandRepository.createOne({
+						data: {
+							name: 'Jassen',
+							origin: origin8 || undefined, // Bỉ
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Jassen 15
+					const P00995_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/thumb/400x400x1x90/upload/sanpham/p00995_1_l-6880.jpg',
+							publicId: 'P00995_1_l',
+							fileName: 'P00995_1_l.jpg',
+							description: 'Stugeron',
+							width: 400,
+							height: 400,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P00995',
+							name: 'Stugeron',
+							description:
+								'Stugeron là một biệt dược hay được sử dụng trong điều trị tình trạng rối loạn tuần hoàn máu, rối loạn tiền đình hay phòng ngừa say tàu xe. Khi dùng thuốc cần lưu ý một số vấn đề về tác dụng phụ của thuốc đối với sức khỏe người bệnh.',
+							packingSpec: 'Hộp 25 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 187000,
+							element:
+								'- Hoạt chất: mỗi viên nén chứa 25mg Cinnarizin.\n' +
+								'- Tá dược: lactose monohydrat, tinh bột ngô, sucrose, bột talc, dầu thực vật được hydro hóa loại I, polyvidon K90, nước tinh khiết.',
+							uses: 'Điều trị rối loạn tuần hoàn não, rối loạn thăng bằng, say tàu xe ...',
+							subject: 'Trẻ em trên 6 tuổi và người lớn',
+							guide: 'Nên uống STUGERON sau bữa ăn.',
+							preserve: 'Bảo quản ở nhiệt độ 15 độ C - 30 độ C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand15 || undefined, // Jassen
+							origin: origin6 || undefined, // Thái Lan
+							images: [P00995_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Stugeron
+
+					const brand16 = await this.brandRepository.createOne({
+						data: {
+							name: 'Imexpharm',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Imexpharm 16
+					const P04750_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/thumb/400x400x1x90/upload/sanpham/p04750_1_l-0362.jpg',
+							publicId: 'P04750_1_l',
+							fileName: 'P04750_1_l.jpg',
+							description: 'Imexofen',
+							width: 400,
+							height: 400,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P04750',
+							name: 'Imexofen',
+							description:
+								'Thuốc Imexofen 180mg có tác dụng trong điều trị các triệu chứng của viêm mũi dị ứng theo mùa và mề đay. Việc tuân thủ chỉ định, liều dùng của thuốc Imexofen sẽ giúp người bệnh nâng cao hiệu quả điều trị và đảm bảo an toàn cho sức khỏe.',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 48000,
+							element:
+								'Fexofenadin hydroclorid: 60mg\n' +
+								'Tá dược: Cellulose vi tinh thể, Lactose monohydrat, Natri croscarmellose, Magnesi stearat, Hydroxypropyl methylcellulose, Macrogol, Titan dioxyd, Oxyd sắt đỏ, FD&C yellow 6 lake.',
+							uses: 'Điều trị triệu chứng trong viêm mũi',
+							subject: 'Người lớn và trẻ em trên 6 tuổi',
+							guide:
+								'Uống nguyên viên thuốc. Có thể uống thuốc trước, trong hoặc sau bữa ăn.',
+							preserve: 'Dưới 30°C, tránh ẩm và ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand16 || undefined, // Imexpharm
+							origin: origin1 || undefined, // Việt Nam
+							images: [P04750_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Imexofen
+
+					const [P11743_1, P11743_2, P11743_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://static.salekit.com/image/shop/3180/products/1575369258-thuocbaty.jpg',
+								publicId: 'P11743_1_l',
+								fileName: 'P11743_1_l.jpg',
+								description: 'Agimfast',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://product.hstatic.net/1000113261/product/thuoc-ba-ty-_97487c1727b945d19171e0853aa9cc0a.jpg',
+								publicId: 'P11743_2_l',
+								fileName: 'P11743_2_l.jpg',
+								description: 'Agimfast',
+								width: 300,
+								height: 300,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'http://product.hstatic.net/1000113261/product/thuoc-ba-ty--_6d3c02b4dc2e480c8bc319972783d690_grande.jpg',
+								publicId: 'P11743_4_l',
+								fileName: 'P11743_4_l.jpg',
+								description: 'Agimfast',
+								width: 300,
+								height: 300,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P11743',
+							name: 'Agimfast',
+							description:
+								'Thuốc Agimfast 60mg là thuốc kháng histamin thế hệ hai, được sử dụng trong điều trị triệu chứng viêm mũi dị ứng và mày đay vô căn.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 15000,
+							element:
+								'Công thức cho 1 viên:\n' +
+								'Fexofenadin hydroclorid 60mg\n' +
+								'Tá dược vừa đủ cho 1 viên',
+							uses: 'Điều trị triệu chứng viêm mũi dị ứng như: Hắt hơi, chảy nước mũi, ngứa mũi, ngứa vòm miệng và họng…',
+							subject: 'Người lớn và trẻ em từ 12 tuổi trở lên',
+							guide:
+								'Thuốc Agimfast 60mg dùng đường uống, thời điểm uống thuốc không phụ thuộc vào bữa ăn. Không nên uống thuốc Agimfast với nước hoa quả.',
+							preserve: 'Nhiệt độ dưới 30°C, tránh ẩm và ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand1 || undefined, // Agimexpharm
+							origin: origin1 || undefined, // Việt Nam
+							images: [P11743_1, P11743_2, P11743_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Agimfast
+
+					const P04150_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/upload/sanpham/p04150_1-400x400-6000.jpg',
+							publicId: 'P04150_1_l',
+							fileName: 'P04150_1_l.jpg',
+							description: 'Cetirizin',
+							width: 460,
+							height: 460,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P04150',
+							name: 'Cetirizin',
+							description:
+								'Nếu bạn bị dị ứng quanh năm hoặc dị ứng theo mùa bác sĩ có thể đề nghị dùng Cetirizin stada 10mg. Thuốc này có thể giúp giảm các triệu chứng dị ứng, nhưng không ngăn được sự xuất hiện của bệnh.',
+							packingSpec: 'Hộp 5 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 20000,
+							element:
+								'- Cetirizine dihydrochloride 10mg\n' +
+								'- Tá dược: Lactose monohydrat, tinh bột bắp, talc, magnesi stearat, povidon K30, hypromellose, polyethylen glycol 6000, titan dioxyd.',
+							uses: 'Điều trị các triệu chứng ở mũi và mắt của viêm mũi dị ứng theo mùa và quanh năm, các triệu chứng của mày đay vô căn mạn tính',
+							subject: 'Người lớn/trẻ em từ 12 tuổi trở lên',
+							guide:
+								'Cetirizin STADA 10mg được dùng bằng đường uống. Thức ăn có thể làm giảm nồng độ đỉnh trong máu và kéo dài thời gian đạt nồng độ đỉnh nhưng không ảnh hưởng đến mức hấp thụ thuốc, cho nên có thể uống cùng hoặc ngoài bữa ăn.',
+							preserve:
+								'Bảo quản trong bao bì kín, nơi khô. Nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand9 || undefined, // Stella
+							origin: origin1 || undefined, // Việt Nam
+							images: [P04150_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Cetirizin
+
+					const brand17 = await this.brandRepository.createOne({
+						data: {
+							name: 'Dược Phẩm 3/2',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Dược Phẩm 3/2 17
+					const [P15119_1, P15119_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuochapu.com/img/uploads/eftilora-10mg-dp3-2-1x10.jpg',
+								publicId: 'P15119_1_l',
+								fileName: 'P15119_1_l.jpg',
+								description: 'Eftilora',
+								width: 600,
+								height: 600,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'http://product.hstatic.net/1000113261/product/quay-thuoc-ba-ty_c9fad20a2fe94d8e9b4e2d54535b533c_grande.jpg',
+								publicId: 'P15119_4_l',
+								fileName: 'P15119_4_l.jpg',
+								description: 'Eftilora',
+								width: 300,
+								height: 300,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P15119',
+							name: 'Eftilora',
+							description:
+								'Thuốc Eftilora có thành phần chính là Loratadin 10mg. Đây là một thuốc kê đơn sử dụng trong điều trị các triệu chứng dị ứng. Để đảm bảo hiệu quả sử dụng, người dùng cần đọc kỹ hướng dẫn và tuân thủ theo đúng chỉ dẫn của bác sĩ.',
+							packingSpec: 'Hộp 10 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 165000,
+							element: 'Cho 1 viên nén\n' + '- Hoạt chất: Loratadin 10mg',
+							uses: 'Điều trị viêm mũi dị ứng, nổi mề đay tự phát mạn tính.',
+							subject:
+								'- Viêm mũi dị ứng.\n' + '- Nổi mề đay tự phát mạn tính.',
+							guide: 'Dùng theo đường uống.',
+							preserve: 'Nên bảo quản dưới 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand17 || undefined, // Dược Phẩm 3/2
+							origin: origin1 || undefined, // Việt Nam
+							images: [P15119_1, P15119_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Eftilora
+
+					const P14098_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p140982l-3158.jpg',
+							publicId: 'P14098_1_l',
+							fileName: 'P14098_1_l.jpg',
+							description: 'Fefasdin',
+							width: 460,
+							height: 460,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P14098',
+							name: 'Fefasdin',
+							description:
+								'Thuốc Fefasdin 60 là thuốc chống dị ứng (thuộc nhóm thuốc kháng Histamin thế hệ 2) thường dùng trong các trường hợp quá mẫn cảm, dị ứng theo mùa, nổi phát ban và phát ban tự phát mạn tính.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 24000,
+							element: 'Fexofenadin HCl 120mg',
+							uses: 'Điều trị triệu chứng trong viêm mũi dị ứng theo mùa, mày đay mạn tính vô căn ở người lớn và trẻ em trên 6 tuổi.',
+							subject:
+								'Điều trị triệu chứng trong viêm mũi dị ứng theo mùa, mày đay mạn tính vô căn ở người lớn và trẻ em trên 6 tuổi.',
+							guide:
+								'Thuốc Fefasdin có dạng viên nén bao phim nên sẽ hiệu quả nhất nếu người dùng uống nguyên viên thuốc với một ít nước khi bụng đói.',
+							preserve: 'Bảo quản ở nhiệt độ không quá 30°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand3 || undefined, // Khánh Hòa
+							origin: origin1 || undefined, // Việt Nam
+							images: [P14098_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Fefasdin
+
+					const brand18 = await this.brandRepository.createOne({
+						data: {
+							name: 'An Thien Pharma',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // An Thien Pharma 18
+					const [P12776_1, P12776_2] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://www.duocgiasi.com/image/6037d5729402e33868c3321b/original.jpg',
+								publicId: 'P12776_1_l',
+								fileName: 'P12776_1_l.jpg',
+								description: 'A.T Desloratadin',
+								width: 1000,
+								height: 1000,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://chothuoctay.com/80257-home_default/sm-desloratadin-25mg5ml-h30a.jpg',
+								publicId: 'P12776_2_l',
+								fileName: 'P12776_2_l.jpg',
+								description: 'Eftilora',
+								width: 450,
+								height: 478,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P12776',
+							name: 'A.T Desloratadin',
+							description:
+								'At Desloratadin có thành phần chính là Desloratadin 2.5mg, bào chế dạng dung dịch uống. Tuân thủ chỉ định, liều dùng thuốc At Desloratadin sẽ giúp người bệnh nâng cao hiệu quả điều trị và tránh được những tác dụng phụ không mong muốn.',
+							packingSpec: 'Hộp 30 ống x 5ml',
+							unit: 'Hộp',
+							price: 112000,
+							element:
+								'- Hoạt chất: Desloratadin 2.5mg.\n' +
+								'- Tá dược: Sucrose, Sucralose, Acid citric, Sorbitol 70%, Methyl paraben, Propyl paraben, Propylen glycol, Đỏ erythrosin, Hương dâu, Nước tinh khiết.',
+							uses: 'Làm giảm triệu chứng trong các bệnh: Viêm mũi dị ứng, ngứa, nổi mề đay mạn tính.',
+							subject:
+								'Làm giảm triệu chứng trong các bệnh: Viêm mũi dị ứng, ngứa, nổi mề đay mạn tính.',
+							guide: 'Uống 1 lần duy nhất trong ngày.',
+							preserve:
+								'Nơi khô ráo, nhiệt độ không quá 30 độ C, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand18 || undefined, // An Thien Pharma
+							origin: origin1 || undefined, // Việt Nam
+							images: [P12776_1, P12776_2],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // A.T Desloratadin
+
+					const P14749_2 = await this.imageRepository.createOne({
+						data: {
+							url: 'http://product.hstatic.net/1000113261/product/quay-thuoc-ba-ty_af0aac21d87a4774804645ab3ee70658_grande.jpg',
+							publicId: 'P14749_2_l',
+							fileName: 'P14749_2_l.jpg',
+							description: 'Telfast Kids',
+							width: 300,
+							height: 300,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P14749',
+							name: 'Telfast Kids',
+							description:
+								'Telfast Kids là một thuốc kháng histamin thế hệ 2 được sử dụng để điều trị các trường hợp viêm mũi dị ứng và nổi mày đay tự phát mạn tính. Thuốc dùng được cho cả người lớn và trẻ em trên 6 tuổi. Khuyến cáo không nên dùng thuốc Telfast Kids ở phụ nữ có thai và đang cho con bú.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 28000,
+							element:
+								'Cho 1 viên nén bao phim:\n' +
+								'- Thành phần hoạt chất: Fexofenadin hydroclorid 30mg\n' +
+								'- Thành phần tá dược: Microcrystalline cellulose (avicel pHIOI, avicel pH102), pregelatinised starch, croscarmellose natri, magnesi stearat, hypromellose E-5, hypromellose E-15, titan dioxyd, povidon, colloidal anhydrous silica, macrogol 400, hỗn hợp pink iron oxyd (PB1254), hỗn hợp yellow iron oxyd (PB1255).',
+							uses: 'Điều trị viêm mũi dị ứng và mày đay vô căn mạn tính.',
+							subject: 'Trẻ em từ 6 đến 11 tuổi',
+							guide:
+								'- Thuốc dùng đường uống với nước. Không uống thuốc với nước hoa quả (như cam, bưởi, táo).\n' +
+								'- Nên uống Telfast Kids với nước lọc.',
+							preserve: 'Bảo quản ở nhiệt độ không quá 30°C, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand10 || undefined, // Sanofi
+							origin: origin1 || undefined, // Việt Nam
+							images: [P14749_2],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Telfast Kids
+
+					const brand19 = await this.brandRepository.createOne({
+						data: {
+							name: 'Mega Lifesciences',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Mega Lifesciences 19
+					const [P14329_1, P14329_2, P14329_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuocantam.org/wp-content/uploads/2021/05/p14329_1-600x600-1.jpg',
+								publicId: 'P14329_1_l',
+								fileName: 'P14329_1_l.jpg',
+								description: 'Loreze',
+								width: 600,
+								height: 600,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p143292l-8290.jpg',
+								publicId: 'P14329_2_l',
+								fileName: 'P14329_2_l.jpg',
+								description: 'Loreze',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p143294l-3701.jpg',
+								publicId: 'P14329_4_l',
+								fileName: 'P14329_4_l.jpg',
+								description: 'Loreze',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P14329',
+							name: 'Loreze',
+							description:
+								'Thuốc Loreze được sản xuất bởi Công ty Mega Lifesciences Public Company Limited - Thái Lan, có thành phần chính là Loratadin. Thuốc Loreze được chỉ định trong điều trị triệu chứng viêm mũi dị ứng; Điều trị triệu chứng mề đay mạn tính tự phát.',
+							packingSpec: 'Hộp 5 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 210000,
+							element:
+								'- Mỗi viên nang mềm chứa Loratadin micronized 10mg.\n' +
+								'- Tá dược: Polyethylen glycol 400, propylen glycol, polysorbat 80.\n' +
+								'- Tá dược nang mềm: Gelatin, glycerin, màu xanh brilliant, nước tinh khiết.',
+							uses: 'Điều trị triệu chứng viêm mũi dị ứng (chảy nước mũi, hắt hơi, ngứa mũi hoặc họng) và triệu chứng mề đay mạn tính tự phát.',
+							subject: 'Người lớn và trẻ em trên 2 tuổi',
+							guide: 'Loreze dùng đường uống.',
+							preserve: 'Bảo quản dưới 30°C ở nơi khô ráo, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand19 || undefined, // Mega Lifesciences
+							origin: origin6 || undefined, // Thái Lan
+							images: [P14329_1, P14329_2, P14329_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Loreze
+
+					const [P04574_1, P04574_2] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://duocare.vn/wp-content/uploads/2020/08/P04574_1_l.jpg',
+								publicId: 'P04574_1_l',
+								fileName: 'P04574_1_l.jpg',
+								description: 'Loratadin',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://dalieutailinh.edu.vn/wp-content/uploads/2021/07/P04574_2_l.jpg',
+								publicId: 'P04574_2_l',
+								fileName: 'P04574_2_l.jpg',
+								description: 'Loratadin',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P04574',
+							name: 'Loratadin',
+							description:
+								'Dị ứng gây các triệu chứng ngứa ngáy, nổi mề đay, hắt hơi, sổ mũi... khiến cơ thể người bệnh mệt mỏi và khó chịu. Khi đó thuốc dị ứng loratadin là một giải pháp hiệu quả, giúp người bệnh cảm thấy dễ chịu hơn.',
+							packingSpec: 'Hộp 2 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 16800,
+							element:
+								'Mỗi viên nén chứa\n' +
+								'- Hoạt chất: Loratadin 10mg\n' +
+								'- Tá dược: Cellulose vi tinh thể, Cellactose 80, Natri starch glycollat, Magnesi stearat, Aerosil.',
+							uses: 'Thuốc Loratadin 10 mg được sản xuất bởi Công ty cổ phần Traphaco, có thành phần chính là loratadin. Thuốc Loratadin được chỉ định trong điều trị viêm mũi dị ứng bao gồm hắt hơi, sổ mũi, chảy nước mũi, ngứa mũi, viêm kết mạc dị ứng, ngứa và chảy nước mắt do dị ứng, ngứa, mày đay và các bệnh về da do dị ứng khác. Thuốc Loratadin được bào chế dưới dạng viên nén. Hộp 1 vỉ x 10 viên.',
+							subject: 'Người lớn và trẻ em trên 12 tuổi',
+							guide: 'Thuốc Loratadin được dùng đường uống.',
+							preserve: 'Dưới 300C, tránh ẩm và ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand16 || undefined, // Imexpharm
+							origin: origin1 || undefined, // Việt Nam
+							images: [P04574_1, P04574_2],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Loratadin
+
+					const P11167_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoclongchau.com/images/product/2021/05/00020030-cetirizine-10mg-imexpharm-10x10-1219-60a4_large.jpg',
+							publicId: 'P11167_1_l',
+							fileName: 'P11167_1_l.jpg',
+							description: 'Pms-Cetirizine',
+							width: 600,
+							height: 600,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P11167',
+							name: 'Pms-Cetirizine',
+							description:
+								'Thuốc Cetirizine là một loại thuốc được dùng để điều trị dị ứng, hoạt chất là cetirizine hydrochloride hoặc cetirizine dihydrochloride. Thuốc được bào chế dưới nhiều dạng dùng như: Viên nén bao phim, viên nang, dung dịch uống hoặc siro.',
+							packingSpec: 'Hộp 10 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 37000,
+							element: 'Cetirizine 10mg',
+							uses: 'Điều trị viêm mũi dị ứng theo mùa, viêm mũi dị ứng quanh năm & mề đay tự phát mạn tính như hắt hơi, sổ mũi...',
+							subject:
+								'Viêm mũi dị ứng theo mùa, viêm mũi dị ứng quanh năm & mề đay tự phát mạn tính như hắt hơi, sổ mũi, xu',
+							guide:
+								'Người lớn & trẻ >= 12 tuổi: liều khởi đầu 5 - 10 mg/ngày, tùy mức độ. Có thể dùng lâu dài.\n' +
+								'Người lớn >= 65 tuổi: 5 mg/ngày',
+							preserve: 'Nơi khô thoáng,tránh ánh nắng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand16 || undefined, // Imexpharm
+							origin: origin1 || undefined, // Việt Nam
+							images: [P11167_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Pms-Cetirizine
+
+					const P00624_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://nhathuoctuelamso8.com/thumb/400x400x1x90/upload/sanpham/p00624_1_l-0062.jpg',
+							publicId: 'P00624_1_l',
+							fileName: 'P00624_1_l.jpg',
+							description: 'Zyrtec',
+							width: 400,
+							height: 400,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P00624',
+							name: 'Zyrtec 10mg',
+							description:
+								'Zyrtec 10mg chứa hoạt chất chính là certirizine, đây là thuốc điều trị dị ứng được chỉ định trong điều trị mày đay, viêm mũi dị ứng. Để đảm bảo hiệu quả sử dụng, người dùng thuốc cần tuân thủ theo đúng chỉ dẫn của bác sĩ, dược sĩ tư vấn.',
+							packingSpec: 'Hộp 1 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 71000,
+							element:
+								'Mỗi viên chứa:\n' +
+								'Hoạt chất: 10mg Cetirizine dihydrochloride\n' +
+								'Tá dược: microcrystalline cellulose, lactose monohydrate, colloidal anhydrous silica, magnesium stearate vừa đủ cho một viên, Opadry Y-1-7000 vỏ bao.',
+							uses: 'giảm các triệu chứng về mũi và mắt của viêm mũi dị ứng theo mùa và viêm mũi dị ứng quanh năm',
+							subject:
+								'Người lớn, trẻ em từ 2 tuổi trở lên:\n' +
+								'- Cetirizin được chỉ định để làm giảm các triệu chứng về mũi và mắt của viêm mũi dị ứng theo mùa và viêm mũi dị ứng quanh năm.\n' +
+								'- Cetirizin được chỉ định để làm giảm các triệu chứng của mày đay.',
+							guide:
+								'Thuốc Zyrtec 10mg dạng viên nén bao phim dùng đường uống.',
+							preserve: 'Dưới 25°C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand6 || undefined, // GlaxoSmithKline
+							origin: origin7 || undefined, // Thuỵ Sĩ
+							images: [P00624_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Zyrtec 10mg
+
+					const brand20 = await this.brandRepository.createOne({
+						data: {
+							name: "Dr Reddy'S",
+							origin: origin3 || undefined, // Ấn Độ
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Dr Reddy'S 20
+					const [P07905_1, P07905_2] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://duocare.vn/wp-content/uploads/2020/08/P07905_1_l.jpg',
+								publicId: 'P07905_1_l',
+								fileName: 'P07905_1_l.jpg',
+								description: 'Histalong',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://whitepharma.vn/wp-content/uploads/2021/07/Thuoc-dieu-tri-viem-mui-di-ung-theo-mua-viem-mang-ket-va-noi-me-day-Histalong-5-vi-x-4-vien_2.jpg',
+								publicId: 'P07905_2_l',
+								fileName: 'P07905_2_l.jpg',
+								description: 'Histalong',
+								width: 400,
+								height: 400,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P07905',
+							name: 'Histalong',
+							description:
+								'Thuốc Histalong (Cetirizine) thường được chỉ định để điều trị các tình trạng liên quan đến dị ứng. Thuốc được dành cho cả trẻ em và người lớn. Tuy nhiên sử dụng thuốc histalong đúng cách không phải ai cũng biết.',
+							packingSpec: 'Hộp 5 vỉ x 4 viên',
+							unit: 'Hộp',
+							price: 22000,
+							element: 'Cetirizin',
+							uses: 'Thuốc Histalong điều trị viêm mũi theo mùa và viêm màng kết, viêm mũi dị ứng tái viên, ngứa và nổi mề đay.',
+							subject:
+								'Điều trị viêm mũi theo mùa và viêm màng kết, viêm mũi dị ứng tái viên, ngứa và nổi mề đay.',
+							guide: 'Có thể dùng trước và sau khi ăn.',
+							preserve:
+								'Bảo quản ở nhiệt độ không quá 30 độ C, tránh ánh sáng và ẩm.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand20 || undefined, // Dr Reddy'S
+							origin: origin3 || undefined, // Ấn Độ
+							images: [P07905_1, P07905_2],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Histalong
+
+					const brand21 = await this.brandRepository.createOne({
+						data: {
+							name: 'Pharmedic',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Pharmedic 21
+					const P02818_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://cdn.nhathuocsuckhoe.com/unsafe/0x0/left/top/smart/filters:quality(350)/https://nhathuocsuckhoe.com/upload/news/content/2021/06/thuoc-allerfar-4mg-co-chua-chlorpheniramine-maleat-jpg-1623403100-11062021161820.jpg',
+							publicId: 'P02818_1_l',
+							fileName: 'P02818_1_l.jpg',
+							description: 'Allerfar',
+							width: 600,
+							height: 600,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P02818',
+							name: 'Allerfar',
+							description:
+								'Thuốc Allerfar là thuốc kháng Histamin, có thành phần chính là Chlorpheniramine maleate với hàm lượng 4 mg. Thuốc thường được chỉ định trong các trường hợp viêm mũi dị ứng, điều trị triệu chứng dị ứng khác như mày đay, viêm kết mạc dị ứng, viêm da tiếp xúc...',
+							packingSpec: 'Hộp 10 vỉ x 20 viên',
+							unit: 'Hộp',
+							price: 19000,
+							element:
+								'Viên nén có chứa:\n' +
+								'- Hoạt chất: Chlorphenamine maleat 4mg\n' +
+								'- Tá dược: Lactose, tinh bột sắn, povidon, talc, magnesi stearat, vàng tartrazin vừa đủ 1 viên nén dài.',
+							uses: 'Điều trị viêm mũi dị ứng theo mùa và quanh năm...',
+							subject:
+								'- Điều trị viêm mũi dị ứng theo mùa và quanh năm.\n' +
+								'- Điều trị những triệu chứng dị ứng khác như: Mày đay, viêm mũi vận mạch do histamin, viêm kết mạc dị ứng, viêm da tiếp xúc, phù mạch, phù quincke, dị ứng thức ăn, phản ứng huyết thanh, côn trùng đốt, ngứa ở người bệnh bị sởi hoặc thủy đậu.',
+							guide:
+								'Thuốc Allerfar dược dùng đường uống, có thể dùng trong hoặc ngoài bữa ăn. Đối với trẻ dưới 6 tuổi tốt nhất nên nghiền thuốc để tránh nguy cơ hóc thuốc.',
+							preserve:
+								'- Ở nhiệt độ không quá 30°C.\n' +
+								'- Để xa tầm tay của trẻ em.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand21 || undefined, // Pharmedic
+							origin: origin1 || undefined, // Việt Nam
+							images: [P02818_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Allerfar
+
+					const brand22 = await this.brandRepository.createOne({
+						data: {
+							name: 'VNP',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // VNP 22
+					const [P15114_1, P15114_2, P15114_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuocchinhhang.vn/wp-content/uploads/2020/10/Eucol-1.jpg',
+								publicId: 'P15114_1_l',
+								fileName: 'P15114_1_l.jpg',
+								description: 'Eucol',
+								width: 800,
+								height: 800,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'http://product.hstatic.net/1000113261/product/2_4a87345c323a4f128c492608abc80409_grande.jpg',
+								publicId: 'P15114_2_l',
+								fileName: 'P15114_2_l.jpg',
+								description: 'Eucol',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'http://product.hstatic.net/1000113261/product/3_be1b9c09170642fe9beaeebe1ec630bb_grande.jpg',
+								publicId: 'P15114_4_l',
+								fileName: 'P15114_4_l.jpg',
+								description: 'Eucol',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P15114',
+							name: 'Eucol',
+							description:
+								'Thuốc Eucol 1,25mg/5ml có chứa thành phần chính là hoạt chất Desloratadin có vai trò trong điều trị viêm mũi dị ứng, mày đay. Để đảm bảo hiệu quả sử dụng và tránh được các tác dụng phụ không mong muốn, người bệnh cần đọc kỹ hướng dẫn sử dụng và tham khảo ý kiến của bác sĩ, dược sĩ chuyên môn.',
+							packingSpec: 'Hộp 4 vỉ x 5 ống',
+							unit: 'Hộp',
+							price: 110000,
+							element:
+								'- Hoạt chất: Desloratadin 1,25 mg.\n' +
+								'- Tá dược: Propylen glycol, glycerin, sorbitol, acid citric, trinatri citrat dihydrat, natri benzoat, natri edetat, sucralose, kali sorbat, hương hoa quả tự nhiên, nước tinh khiết.',
+							uses: 'Điều trị viêm mũi dị ứng như hắt hơi, sổ mũi và ngứa mũi, sung huyết, nghẹt mũi, cũng như ngứa, chảy nước mắt và đỏ mắt, ngứa họng và ho.',
+							subject: 'Người lớn và trẻ em.',
+							guide:
+								'Thuốc Eucol 1.25 mg/5 ml dạng dung dịch dùng đường uống. Có thể dùng lúc đói hoặc no.',
+							preserve: 'Ở nhiệt độ 30 độ C, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand22 || undefined, // VNP
+							origin: origin1 || undefined, // Việt Nam
+							images: [P15114_1, P15114_2, P15114_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Eucol
+
+					const brand23 = await this.brandRepository.createOne({
+						data: {
+							name: 'S.P.M',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // S.P.M 23
+					const [P13558_1, P13558_2] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://duocare.vn/wp-content/uploads/2020/08/P13558_1_l.jpg',
+								publicId: 'P13558_1_l',
+								fileName: 'P13558_1_l.jpg',
+								description: 'Devomir',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'http://product.hstatic.net/1000113261/product/quay-thuoc-ba-ty_1a3e01374d1f40b5b49be45bc4497dce_grande.jpg',
+								publicId: 'P13558_2_l',
+								fileName: 'P13558_2_l.jpg',
+								description: 'Devomir',
+								width: 300,
+								height: 300,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P13558',
+							name: 'Devomir',
+							description:
+								'Thuốc Devomir là một loại thuốc hướng tâm thần được sử dụng để khắc phục các vấn đề nhức đầu, choáng váng, buồn nôn,...',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 9000,
+							element:
+								'- Hoạt chất:Cinnarizin 25 mg\n' +
+								'- Tá dược(vừa đủ 1 viên nén): Avicel M102, Lactose monohydrate, Talc, Magnesi stearat, Aerosil.',
+							uses: 'Điều trị chóng mặt, đau nữa đầu, say tàu xe,…',
+							subject: 'Người lớn và trẻ em.',
+							guide: 'Dùng uống.',
+							preserve: 'Nơi khô thoáng, tránh ánh sáng.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand23 || undefined, // S.P.M
+							origin: origin1 || undefined, // Việt Nam
+							images: [P13558_1, P13558_2],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Devomir
+
+					const [P02586_1, P02586_2, P02586_3] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/sanpham/p02586_1_l-5010.jpg',
+								publicId: 'P02586_1_l',
+								fileName: 'P02586_1_l.jpg',
+								description: 'Bestrip',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p025862l-1504.jpg',
+								publicId: 'P02586_2_l',
+								fileName: 'P02586_2_l.jpg',
+								description: 'Bestrip',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p025863l-158.jpg',
+								publicId: 'P02586_3_l',
+								fileName: 'P02586_3_l.jpg',
+								description: 'Bestrip',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P02586',
+							name: 'Bestrip',
+							description:
+								'Thuốc Bestrip là sản phẩm của Công ty CP Dược phẩm Dược liệu Pharmedic, với thành phần chính Dimenhydrinat 50mg. Đây là loại thuốc dùng để phòng và điều trị các chứng say tàu xe, phòng và điều trị các chứng buồn nôn do nhiều nguyên nhân khác nhau (trừ do hoá trị liệu ung thư).',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 12000,
+							element: 'Dimenhydrinate 50mg',
+							uses: 'Phòng và điều trị các chứng buồn nôn, nôn và chóng mặt do say tàu xe, rối loạn tiền đình',
+							subject:
+								'- Thuốc Bestrip 50mg được chỉ định dùng trong các trường hợp sau:\n' +
+								'- Phòng và điều trị các chứng buồn nôn, nôn và chóng mặt do say tàu xe.\n' +
+								'- Phòng và điều trị nôn và chóng mặt do chứng Ménière và rối loạn tiền đình.',
+							guide:
+								'Thuốc Bestrip được sử dụng qua đường uống. Uống trọn viên thuốc với một ly nước.',
+							preserve:
+								'- Để nơi mát, tránh ánh sáng, nhiệt độ dưới 30⁰C.\n' +
+								'- Để xa tầm tay trẻ em.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand21 || undefined, // Pharmedic
+							origin: origin1 || undefined, // Việt Nam
+							images: [P02586_1, P02586_2, P02586_3],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Bestrip
+
+					const P15175_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://whitepharma.vn/wp-content/uploads/2021/07/Loratadine-SPM-10mg-ODT-3-vi-x-10-vien-500x500.jpg',
+							publicId: 'P15175_1_l',
+							fileName: 'P15175_1_l.jpg',
+							description: 'Loratadine SPM',
+							width: 500,
+							height: 500,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P15175',
+							name: 'Loratadine SPM',
+							description:
+								'Dị ứng gây các triệu chứng ngứa ngáy, nổi mề đay, hắt hơi, sổ mũi... khiến cơ thể người bệnh mệt mỏi và khó chịu. Khi đó thuốc dị ứng loratadin là một giải pháp hiệu quả, giúp người bệnh cảm thấy dễ chịu hơn.',
+							packingSpec: 'Hộp 3 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 39000,
+							element:
+								'- Hoạt chất: Loratadin 10,00mg.\n' +
+								'- Tá dược: vừa đủ 1 viên.',
+							uses: 'Điều trị viêm mũi dị ứng, viêm kết mạc dị ứng, ngứa, mề đay...',
+							subject:
+								'- Viêm mũi dị ứng\n' +
+								'- Viêm kết mạc dị ứng \n' +
+								'- Ngứa và mề đay liên quan đến histamin',
+							guide:
+								'Đặt viên thuốc lên lưỡi, thuốc tự tan sau 1 -2 phút, không cần uống với nước.',
+							preserve:
+								'- Để nơi mát, tránh ánh sáng, nhiệt độ dưới 30⁰C.\n' +
+								'- Để xa tầm tay trẻ em.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand23 || undefined, // SPM
+							origin: origin1 || undefined, // Việt Nam
+							images: [P15175_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Bestrip
+
+					const brand24 = await this.brandRepository.createOne({
+						data: {
+							name: 'Bidiphar',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Bidiphar 24
+					const P14865_1 = await this.imageRepository.createOne({
+						data: {
+							url: 'https://static.salekit.com/image/shop/3180/products/1575368177-thuocbaty.jpg',
+							publicId: 'P14865_1_l',
+							fileName: 'P14865_1_l.jpg',
+							description: 'Tocimat',
+							width: 460,
+							height: 460,
+						},
+						options: {
+							transaction: true,
+						},
+					});
+					await this.productRepository.createOne({
+						data: {
+							code: 'P14865',
+							name: 'Tocimat',
+							description:
+								'Thuốc Tocimat 180 có tác dụng làm giảm các triệu chứng của bệnh lý gây ra do tác nhân dị ứng như viêm mũi dị ứng, viêm kết mạc, mày đay... Đây là một loại thuốc kháng dị ứng thế hệ mới, hiệu quả kéo dài hơn và giảm được tác dụng phụ gây buồn ngủ của thuốc thế hệ cũ.',
+							packingSpec: 'Hộp 5 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 58000,
+							element:
+								'Cho 1 viên nén bao phim\n' +
+								'- Thành phần hoạt chất: Fexofenadin HCl 60mg\n' +
+								'- Thành phần tá dược: Tá dược vừa đủ 1 viên.\n' +
+								'(Microcrystalline Cellulose, Croscarmellose natri, Pregelatinized Starch, PVP K30, Colloidal Silicon Dioxid, Natri Stearyl Fumarat, Natri Starch Glycolat, Crospovidon, HPMC, bột Talc, Titan dioxyd, PEG 4000, màu đỏ oxyd sắt, màu vàng oxyd sắt).',
+							uses: 'Giảm các triệu chứng liên quan đến viêm mũi dị ứng theo mùa.',
+							subject:
+								'Dùng cho người lớn và trẻ em từ 12 tuổi trở lên để làm giảm các triệu chứng liên quan đến viêm mũi dị ứng theo mùa.',
+							guide:
+								'Dùng đường uống, thời điểm uống thuốc không phụ thuộc vào bữa ăn. Nuốt nguyên viên với một lượng nước phù hợp.',
+							preserve:
+								'Nơi khô, mát, tránh ánh sáng, nhiệt độ không quá 30⁰C.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand24 || undefined, // Bidiphar
+							origin: origin1 || undefined, // Việt Nam
+							images: [P14865_1],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Tocimat
+
+					const brand25 = await this.brandRepository.createOne({
+						data: {
+							name: 'AMPHARCO U.S.A',
+							origin: origin1 || undefined, // Việt Nam
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Bidiphar 25
+					const [P15227_1, P15227_3, P15227_4] = await Promise.all([
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://shipthuocnhanh.vn/images/products/2021/11/01/5-529.PNG',
+								publicId: 'P15227_1_l',
+								fileName: 'P15227_1_l.jpg',
+								description: 'Usaallerz',
+								width: 579,
+								height: 346,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p152273l-1400.jpg',
+								publicId: 'P15227_3_l',
+								fileName: 'P15227_3_l.jpg',
+								description: 'Usaallerz',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+						this.imageRepository.createOne({
+							data: {
+								url: 'https://nhathuoctuelamso8.com/upload/hinhthem/p152274l-1052.jpg',
+								publicId: 'P15227_4_l',
+								fileName: 'P15227_4_l.jpg',
+								description: 'Usaallerz',
+								width: 460,
+								height: 460,
+							},
+							options: {
+								transaction: true,
+							},
+						}),
+					]);
+					await this.productRepository.createOne({
+						data: {
+							code: 'P15227',
+							name: 'Usaallerz',
+							description:
+								'Fexofenadine là một thuốc thuộc nhóm thuốc kháng histamin tác dụng kéo dài được sử dụng để điều trị dị ứng, thuốc ít có tác dụng an thần gây ngủ. Đây cũng là hoạt chất chính có trong thuốc Usaallerz 120.',
+							packingSpec: 'Hộp 10 vỉ x 10 viên',
+							unit: 'Hộp',
+							price: 200000,
+							element:
+								'Mỗi viên nén bao phim chứa:\n' +
+								'Fexofenadin hydroclorid......................... 120 mg\n' +
+								'Tá dược: Corn starch, Pregelatinised starch, Lactose, Croscarmellose sodium, Colloidal anhydrous silica, Talc, Magnesi stearat, Opadry II white, Red iron oxide, Yellow iron oxide vđ 1 viên.',
+							uses: 'Điều trị triệu chứng viêm mũi dị ứng, mày đay',
+							subject: 'Người lớn và trẻ em từ 12 tuổi trở lên',
+							guide:
+								'Viêm mũi dị ứng theo mùa và bệnh nổi mày đay mạn tính vô căn\n' +
+								'Người lớn và trẻ em từ 12 tuổi trở lên: Liều đề nghị 60mg uống 2 lần mỗi ngày hoặc 120-180mg uống ngày 1 lần với nước. Liều khởi đầu cho những bệnh nhân có suy chức năng thận được khuyến nghị là 60mg uống 1 lần mỗi ngày.',
+							preserve:
+								'Ở nhiệt độ dưới 30°C. Tránh ánh sáng trực tiếp và nơi ẩm ướt.',
+							category: cate11 || undefined, // Thuốc kháng dị ứng
+							trademark: brand25 || undefined, // AMPHARCO U.S.A
+							origin: origin1 || undefined, // Việt Nam
+							images: [P15227_1, P15227_3, P15227_4],
+						},
+						options: {
+							transaction: true,
+						},
+					}); // Usaallerz
+				}
 
 				// Cate1 / 10: Dược phẩm / Thuốc kê đơn
 				const [
