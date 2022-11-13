@@ -1,17 +1,31 @@
 import {
 	ProductCreateDto,
 	ProductLogCreateDto,
+	ProductLogListQueryDto,
 	ProductParamDto,
 	ProductUpdateDto,
 } from 'src/modules/product/dtos';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
-import { Body, Controller, HttpStatus, Post, Put, Param } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	HttpStatus,
+	Post,
+	Put,
+	Param,
+	Get,
+	Query,
+} from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { ProductService } from 'src/modules/product/services';
 import { PERMISSIONS } from 'src/common/auth/constants';
-import { Response } from 'src/common/response/decorators/response.decorator';
+import {
+	Response,
+	ResponsePagingBase,
+} from 'src/common/response/decorators/response.decorator';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
+import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Admin.Product')
 @Controller({
@@ -47,6 +61,16 @@ export class ProductAdminController {
 			productParamDto.productId,
 			productUpdateDto,
 		);
+	}
+
+	@ResponsePagingBase('product.getList')
+	@AuthJwtGuard([PERMISSIONS.READ_PRODUCT_LOG])
+	@AuthApiKeyGuard()
+	@Get('/logs')
+	async getProducts(
+		@Query() productLogListQueryDto: ProductLogListQueryDto,
+	): Promise<IResponsePaging> {
+		return this.productService.getProductLogs(productLogListQueryDto);
 	}
 
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
