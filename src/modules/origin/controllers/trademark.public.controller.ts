@@ -2,7 +2,7 @@ import { TrademarkGetListDto } from 'src/modules/origin/dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Query } from '@nestjs/common';
 import { TrademarkPublicService } from 'src/modules/origin/services';
-import { ResponsePagingBase } from 'src/common/response/decorators/response.decorator';
+import { ResponsePagingProduct } from 'src/common/response/decorators/response.decorator';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Public.Trademark')
@@ -15,7 +15,7 @@ export class TrademarkPublicController {
 		private readonly trademarkPublicService: TrademarkPublicService,
 	) {}
 
-	@ResponsePagingBase('origin.getAll')
+	@ResponsePagingProduct('origin.getAll')
 	@Get()
 	async getTrademarks(
 		@Query() trademarkGetListDto: TrademarkGetListDto,
