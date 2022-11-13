@@ -29,9 +29,10 @@ export class OrderController {
 		return this.orderService.createPaymentUrl(userId, ip, orderCreateBodyDto);
 	}
 
+	@Response('order.vnPayReturn')
 	@ApiExcludeEndpoint()
 	@Get('vnpay_return')
-	returnUrl(@Query() query: any) {
+	returnUrl(@Query() query: any): Promise<IResponse> {
 		return this.orderService.returnUrl(query);
 	}
 }
