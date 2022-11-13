@@ -45,6 +45,9 @@ export class ProductEntity
 	@Column({ nullable: true })
 	element: string;
 
+	@Column({ nullable: true, default: 0 })
+	discount: number;
+
 	@Column({ nullable: true })
 	uses: string;
 
@@ -56,9 +59,6 @@ export class ProductEntity
 
 	@Column({ nullable: true })
 	preserve: string;
-
-	@Column({ nullable: true, default: 0 })
-	discount: number;
 
 	@ManyToOne(() => CategoryEntity, category => category.products)
 	@JoinColumn({ name: snakeCase('categoryId'), referencedColumnName: 'id' })

@@ -7,6 +7,7 @@ import RequestConfig from 'src/configs/request.config';
 import DatabaseConfig from 'src/configs/database.config';
 import RedisConfig from 'src/configs/redis.config';
 import AuthConfig from 'src/configs/auth.config';
+import VnPayConfig from './vnpay.config';
 
 export default [
 	AppConfig,
@@ -18,4 +19,5 @@ export default [
 	RequestConfig,
 	DatabaseConfig,
 	RedisConfig,
+	VnPayConfig,
 ];

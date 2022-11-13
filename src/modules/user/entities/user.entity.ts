@@ -7,6 +7,8 @@ import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { FeedbackEntity } from 'src/modules/feedback/entities/feedback.entity';
+import { OrderEntity } from 'src/modules/order/entities';
+import { UserSettingEntity } from 'src/modules/user/entities';
 
 @Entity('users')
 export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
@@ -46,6 +48,9 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	@OneToMany(() => TokenEntity, token => token.user)
 	tokens: TokenEntity[];
 
+	@OneToMany(() => UserSettingEntity, userSetting => userSetting.user)
+	userSettings: UserSettingEntity[];
+
 	@OneToMany(() => ImageEntity, image => image.user)
 	photos: ImageEntity[];
 
@@ -55,4 +60,10 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 
 	@OneToMany(() => FeedbackEntity, feedback => feedback.user)
 	feedbacks: FeedbackEntity[];
+
+	@OneToMany(() => OrderEntity, order => order.customer)
+	orderCustomers: OrderEntity[];
+
+	@OneToMany(() => OrderEntity, order => order.pharmacist)
+	orderPharmacists: OrderEntity[];
 }
