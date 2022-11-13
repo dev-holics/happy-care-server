@@ -127,7 +127,7 @@ export class OrderService {
 		};
 	}
 
-	returnUrl(query: any) {
+	async returnUrl(query: any): Promise<IResponse> {
 		let vnp_Params = query;
 		const secureHash = vnp_Params.vnp_SecureHash;
 
@@ -148,10 +148,13 @@ export class OrderService {
 
 		if (secureHash === signed) {
 			//Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
-
-			return 'success';
+			return {
+				message: 'payment success',
+			};
 		} else {
-			return 'failes';
+			return {
+				message: 'payment failed',
+			};
 		}
 	}
 
