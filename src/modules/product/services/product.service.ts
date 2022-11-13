@@ -3,6 +3,7 @@ import { ImageService } from 'src/common/media/services/image.service';
 import {
 	ProductCreateDto,
 	ProductLogCreateDto,
+	ProductLogListQueryDto,
 	ProductUpdateDto,
 } from 'src/modules/product/dtos';
 import {
@@ -16,6 +17,7 @@ import {
 	ENUM_PRODUCT_STATUS_CODE_ERROR,
 	ENUM_TRANSACTION_TYPES,
 } from 'src/modules/product/constants';
+import { PaginationService } from 'src/common/pagination/services/pagination.service';
 
 @Injectable()
 export class ProductService {
@@ -25,6 +27,7 @@ export class ProductService {
 		private readonly productDetailRepository: ProductDetailRepository,
 		private readonly productLogRepository: ProductLogRepository,
 		private readonly databaseTransactionService: DatabaseTransactionService,
+		private readonly paginationService: PaginationService,
 	) {}
 
 	async createProduct(productCreateDto: ProductCreateDto) {
@@ -100,6 +103,55 @@ export class ProductService {
 			await queryRunner.rollbackTransaction();
 			throw e;
 		}
+	}
+
+	async getProductLogs(productLogListQueryDto: ProductLogListQueryDto) {
+		const totalData = await this.productLogRepository.count({
+			where: {
+				transactionDate: productLogListQueryDto.transactionDate
+					? productLogListQueryDto.transactionDate
+					: undefined,
+				type: productLogListQueryDto.type
+					? productLogListQueryDto.type
+					: undefined,
+				branch: {
+					id: productLogListQueryDto.branchId
+						? productLogListQueryDto.branchId
+						: undefined,
+				},
+			},
+		});
+		const productLogs = await this.productLogRepository.findMany({
+			where: {
+				transactionDate: productLogListQueryDto.transactionDate
+					? productLogListQueryDto.transactionDate
+					: undefined,
+				type: productLogListQueryDto.type
+					? productLogListQueryDto.type
+					: undefined,
+				branch: {
+					id: productLogListQueryDto.branchId
+						? productLogListQueryDto.branchId
+						: undefined,
+				},
+			},
+			options: {
+				relations: {
+					product: true,
+					branch: true,
+				},
+				page: productLogListQueryDto.page,
+				limit: productLogListQueryDto.limit,
+			},
+		});
+		return this.paginationService.formatPaginationResult(
+			totalData,
+			productLogListQueryDto.page,
+			productLogListQueryDto.limit,
+			null,
+			null,
+			productLogs,
+		);
 	}
 
 	async updateStock(productLogCreateDto: ProductLogCreateDto) {

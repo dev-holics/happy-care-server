@@ -89,6 +89,9 @@ export class PermissionAdminService {
 
 	async createOnePermission(permissionData: PermissionCreateDto) {
 		const permissionWithLargestCode = await this.permissionRepository.findOne({
+			where: {
+				isActive: true || false,
+			},
 			options: {
 				order: {
 					code: 'DESC',

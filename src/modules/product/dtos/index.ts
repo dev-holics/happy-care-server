@@ -5,3 +5,4 @@ export * from './product.list.query.dto';
 export * from './product.update.dto';
 export * from './product-detail.input.query.dto';
 export * from './product-log.create.dto';
+export * from './product-log.list.query.dto';
