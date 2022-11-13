@@ -17,7 +17,8 @@ import { CartModule } from 'src/modules/cart/cart.module';
 import { CartController } from 'src/modules/cart/controllers/cart.controller';
 import { FeedbackModule } from 'src/modules/feedback/feedback.module';
 import { FeedbackController } from 'src/modules/feedback/controllers';
-import { OrderController } from 'src/modules/order/controllers/order.controller';
+import { OrderController } from 'src/modules/order/controllers';
+import { UserSettingController } from 'src/modules/user/controllers/user-setting.controller';
 
 @Module({
 	controllers: [
@@ -25,6 +26,7 @@ import { OrderController } from 'src/modules/order/controllers/order.controller'
 		CartController,
 		FeedbackController,
 		OrderController,
+		UserSettingController,
 	],
 	providers: [],
 	exports: [],

@@ -224,4 +224,16 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_create_my_order',
 		module: ENUM_PERMISSION_MODULE.ORDER,
 	},
+	READ_MY_USER_SETTING: {
+		code: 370,
+		name: 'read_my_user_setting',
+		description: 'can_read_my_user_setting',
+		module: ENUM_PERMISSION_MODULE.USER,
+	},
+	CREATE_MY_USER_SETTING: {
+		code: 380,
+		name: 'create_my_user_setting',
+		description: 'can_create_my_user_setting',
+		module: ENUM_PERMISSION_MODULE.USER,
+	},
 });

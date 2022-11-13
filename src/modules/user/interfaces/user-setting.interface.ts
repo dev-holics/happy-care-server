@@ -4,7 +4,7 @@ import { UserEntity } from 'src/modules/user/entities';
 export interface IUserSetting {
 	address: string;
 
-	phoneNumber: number;
+	phoneNumber: string;
 
 	orders: OrderEntity[];
 
