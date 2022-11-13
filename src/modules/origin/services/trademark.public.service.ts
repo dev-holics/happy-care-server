@@ -15,33 +15,46 @@ export class TrademarkPublicService {
 	async getTrademarks(
 		trademarkGetListDto: TrademarkGetListDto,
 	): Promise<IResponsePaging> {
-		const totalData = await this.trademarkPublicRepository.count({});
-		const search = trademarkGetListDto.searchData
-			? trademarkGetListDto.searchData.trim()
-			: null;
+		const { search } = trademarkGetListDto;
+
+		const totalData = await this.trademarkPublicRepository.count({
+			where: [
+				{
+					name: search ? ILike(`%${search}%`) : undefined,
+					origin: {
+						id: trademarkGetListDto.originId || undefined,
+					},
+				},
+				{
+					origin: {
+						id: trademarkGetListDto.originId || undefined,
+						name: search ? ILike(`%${search}%`) : undefined,
+					},
+				},
+			],
+		});
+
 		const result = await this.trademarkPublicRepository.findMany({
 			where: [
 				{
 					name: search ? ILike(`%${search}%`) : undefined,
 					origin: {
-						id: trademarkGetListDto.originId
-							? trademarkGetListDto.originId
-							: undefined,
+						id: trademarkGetListDto.originId || undefined,
 					},
 				},
 				{
 					origin: {
-						id: trademarkGetListDto.originId
-							? trademarkGetListDto.originId
-							: undefined,
+						id: trademarkGetListDto.originId || undefined,
 						name: search ? ILike(`%${search}%`) : undefined,
 					},
 				},
 			],
 			options: {
-				relations: ['origin'],
 				page: trademarkGetListDto.page,
 				limit: trademarkGetListDto.limit,
+				relations: {
+					origin: true,
+				},
 				order: {
 					createdAt: 'DESC',
 				},
