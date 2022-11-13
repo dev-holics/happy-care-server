@@ -1,4 +1,5 @@
-import { BranchEntity } from './branch.entity';
+import { UserSettingEntity } from 'src/modules/user/entities';
+import { BranchEntity } from 'src/modules/location/entities';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { IDistrictEntity } from 'src/modules/location/interfaces';
@@ -19,4 +20,7 @@ export class DistrictEntity
 
 	@OneToMany(() => BranchEntity, branch => branch.district)
 	branches: BranchEntity[];
+
+	@OneToMany(() => UserSettingEntity, userSetting => userSetting.district)
+	userSettings: UserSettingEntity[];
 }

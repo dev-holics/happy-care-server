@@ -5,6 +5,7 @@ import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.e
 import { snakeCase } from 'change-case';
 import { IBranchEntity } from 'src/modules/location/interfaces';
 import { ProductDetailEntity } from 'src/modules/product/entities';
+import { OrderEntity } from 'src/modules/order/entities';
 
 @Entity('branches')
 export class BranchEntity
@@ -23,4 +24,7 @@ export class BranchEntity
 
 	@OneToMany(() => ProductLogEntity, productLog => productLog.branch)
 	productLogs: ProductLogEntity[];
+
+	@OneToMany(() => OrderEntity, order => order.branch)
+	orders: OrderEntity[];
 }

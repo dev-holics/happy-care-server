@@ -218,4 +218,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_read_product_log',
 		module: ENUM_PERMISSION_MODULE.PRODUCT_LOG,
 	},
+	CREATE_MY_ORDER: {
+		code: 360,
+		name: 'create_my_order',
+		description: 'can_create_my_order',
+		module: ENUM_PERMISSION_MODULE.ORDER,
+	},
 });
