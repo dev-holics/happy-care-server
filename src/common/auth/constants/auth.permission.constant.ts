@@ -236,4 +236,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_create_my_user_setting',
 		module: ENUM_PERMISSION_MODULE.USER,
 	},
+	UPDATE_USER: {
+		code: 390,
+		name: 'update_user',
+		description: 'can_update_user',
+		module: ENUM_PERMISSION_MODULE.USER,
+	},
 });

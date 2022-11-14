@@ -13,7 +13,7 @@ import { Response } from 'src/common/response/decorators/response.decorator';
 import { UserLoginSerialization } from 'src/modules/user/serializations/user.login.serialization';
 import { ENUM_USER_STATUS_CODE_SUCCESS } from 'src/modules/user/constants';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
-import { UserLoginDto } from 'src/modules/user/dtos/user.login.dto';
+import { UserLoginDto, UserProfileUpdateDto } from 'src/modules/user/dtos';
 import { Token, User } from 'src/common/auth/decorators/auth.decorator';
 import {
 	AuthJwtGuard,
@@ -25,7 +25,6 @@ import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
-import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 
 @ApiTags('User')

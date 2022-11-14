@@ -1,43 +1,20 @@
 import { faker } from '@faker-js/faker';
-import { shuffle } from 'radash';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
-	IsString,
+	IsDate,
 	IsNotEmpty,
+	IsOptional,
+	IsString,
 	MaxLength,
 	MinLength,
-	IsOptional,
-	IsDate,
 } from 'class-validator';
-import { IsPasswordStrong } from 'src/common/request/validations/request.is-password-strong.validation';
+import { shuffle } from 'radash';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
-import { IUserCreate } from 'src/modules/user/interfaces/user.api.interface';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
+import { IUserUpdate } from 'src/modules/user/interfaces/user.update.interface';
 
-export class UserCreateDto implements IUserCreate {
-	@ApiProperty({
-		example: faker.phone.number('09#########'),
-		required: true,
-	})
-	@IsString()
-	@IsNotEmpty()
-	@MinLength(10)
-	@MaxLength(14)
-	@Type(() => String)
-	readonly phoneNumber: string;
-
-	@ApiProperty({
-		description: 'string password',
-		example: `${faker.random.alphaNumeric(5).toLowerCase()}${faker.random
-			.alphaNumeric(5)
-			.toUpperCase()}@@!123`,
-		required: true,
-	})
-	@IsNotEmpty()
-	@IsPasswordStrong()
-	readonly password: string;
-
+export class UserUpdateDto implements IUserUpdate {
 	@ApiProperty({
 		example: faker.name.fullName(),
 		required: true,
