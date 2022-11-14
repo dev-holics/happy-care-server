@@ -7,6 +7,7 @@ import {
 	CityPublicRepository,
 	DistrictPublicRepository,
 } from 'src/modules/location/repositories';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class LocationSeed {
@@ -26,31 +27,32 @@ export class LocationSeed {
 		const queryRunner = await this.databaseTransactionService.getQueryRunner();
 		await queryRunner.startTransaction();
 		try {
-			const cities = await (
-				await this.httpService
-					.get('https://vapi.vnappmob.com/api/province/')
-					.toPromise()
+			const cities = (
+				await lastValueFrom(
+					this.httpService.get('https://vapi.vnappmob.com/api/province/'),
+				)
 			).data.results;
-			cities.forEach((city: any) => {
-				city.name = city.province_name;
+
+			const createdCities = await this.cityRepository.createMany({
+				data: cities.map((city: any) => ({
+					name: city.province_name,
+				})),
 			});
-			const createCities: any = await this.cityRepository.createMany({
-				data: Object.values(cities),
-			});
-			for (let i = 0; i < createCities.length; i++) {
-				const districts = await (
-					await this.httpService
-						.get(
-							`https://vapi.vnappmob.com/api/province/district/${createCities[i].province_id}`,
-						)
-						.toPromise()
+
+			for (let i = 0; i < cities.length; i++) {
+				const districts = (
+					await lastValueFrom(
+						this.httpService.get(
+							`https://vapi.vnappmob.com/api/province/district/${cities[i].province_id}`,
+						),
+					)
 				).data.results;
 				for (let j = 0; j < districts.length; j++) {
 					await this.districtRepository.createOne({
 						data: {
 							name: districts[j].district_name,
 							city: {
-								id: createCities[i].id,
+								id: createdCities[i].id,
 							},
 						},
 					});
