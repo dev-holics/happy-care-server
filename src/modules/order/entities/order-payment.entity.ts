@@ -24,4 +24,7 @@ export class OrderPaymentEntity
 
 	@Column({ nullable: true })
 	vnpOrderInfo: string;
+
+	@Column({ nullable: true })
+	vnpTransactionNo: string;
 }

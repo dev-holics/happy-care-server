@@ -48,6 +48,9 @@ export class OrderEntity
 	@Column()
 	totalPrice: number;
 
+	@Column()
+	createDate: string;
+
 	@OneToOne(() => OrderPaymentEntity)
 	@JoinColumn()
 	orderPayment: OrderPaymentEntity;

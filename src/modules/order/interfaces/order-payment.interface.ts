@@ -10,4 +10,6 @@ export interface IOrderPayment {
 	vnpPayDate: string;
 
 	vnpOrderInfo: string;
+
+	vnpTransactionNo: string;
 }
