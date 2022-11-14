@@ -44,6 +44,7 @@ export class OrderService {
 				paymentType: orderCreateBodyDto.paymentType,
 				orderType: orderCreateBodyDto.orderType,
 				totalPrice: orderCreateBodyDto.totalPrice,
+				createDate: moment(date).format('yyyyMMDDHHmmss'),
 				freeShip:
 					orderCreateBodyDto.shipPrice && orderCreateBodyDto.shipPrice > 0
 						? false
@@ -102,7 +103,7 @@ export class OrderService {
 			vnp_Params.vnp_OrderInfo = `Thanh toan hoa don. So tien ${orderCreateBodyDto.totalPrice}`;
 			vnp_Params.vnp_OrderType = 'Thanh toán hóa đơn';
 			vnp_Params.vnp_Amount = orderCreateBodyDto.totalPrice * 100;
-			vnp_Params.vnp_CreateDate = moment(date).format('yyyyMMDDHHmmss');
+			vnp_Params.vnp_CreateDate = newOrder.createDate;
 			vnp_Params.vnp_TxnRef = newOrder.orderCode;
 
 			vnp_Params = this.sortObject(vnp_Params);
@@ -139,8 +140,6 @@ export class OrderService {
 
 		vnp_Params = this.sortObject(vnp_Params);
 
-		// const tmnCode = this.configService.get<string>('vnpay.payment.vnp_TmnCode');
-
 		const secretKey = this.configService.get<string>(
 			'vnpay.payment.vnp_HashSecret',
 		);
@@ -158,6 +157,7 @@ export class OrderService {
 					vnpCardType: vnp_Params.vnp_CardType,
 					vnpPayDate: vnp_Params.vnp_PayDate,
 					vnpOrderInfo: vnp_Params.vnp_OrderInfo,
+					vnpTransactionNo: vnp_Params.vnp_TransactionNo,
 				},
 			});
 
