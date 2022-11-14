@@ -12,7 +12,13 @@ export class DistrictPublicService {
 	) {}
 
 	async getDistricts(): Promise<IResponseBase> {
-		const result = await this.districtPublicRepository.findAll({});
+		const result = await this.districtPublicRepository.findAll({
+			options: {
+				relations: {
+					city: true,
+				},
+			},
+		});
 		return this.paginationService.formatResult(result);
 	}
 
