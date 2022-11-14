@@ -9,6 +9,7 @@ import {
 import {
 	OrderDetailRepository,
 	OrderDiscountRepository,
+	OrderPaymentRepository,
 	OrderRepository,
 } from 'src/modules/order/repositories';
 import { OrderService } from 'src/modules/order/services';
@@ -26,12 +27,14 @@ import { OrderService } from 'src/modules/order/services';
 		OrderDetailRepository,
 		OrderDiscountRepository,
 		OrderRepository,
+		OrderPaymentRepository,
 		OrderService,
 	],
 	exports: [
 		OrderDetailRepository,
 		OrderDiscountRepository,
 		OrderRepository,
+		OrderPaymentRepository,
 		OrderService,
 	],
 })
