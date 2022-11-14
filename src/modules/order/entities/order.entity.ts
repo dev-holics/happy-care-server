@@ -49,6 +49,7 @@ export class OrderEntity
 	totalPrice: number;
 
 	@OneToOne(() => OrderPaymentEntity)
+	@JoinColumn()
 	orderPayment: OrderPaymentEntity;
 
 	@OneToMany(() => OrderDetailEntity, orderDetail => orderDetail.order)

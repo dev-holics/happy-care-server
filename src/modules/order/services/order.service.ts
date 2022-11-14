@@ -1,8 +1,8 @@
-import { ProductEntity } from './../../product/entities/product.entity';
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-const */
 import {
 	OrderDetailRepository,
+	OrderPaymentRepository,
 	OrderRepository,
 } from 'src/modules/order/repositories';
 import { BadRequestException, Injectable } from '@nestjs/common';
@@ -17,13 +17,16 @@ import {
 	ENUM_VNPAY_COMMAND,
 } from 'src/modules/order/constants/order.constant';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
-import { OrderEntity } from '../entities';
+import { OrderEntity } from 'src/modules/order/entities';
+import { ProductEntity } from 'src/modules/product/entities/product.entity';
+import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class OrderService {
 	constructor(
 		private readonly orderRepository: OrderRepository,
 		private readonly orderDetailRepository: OrderDetailRepository,
+		private readonly orderPaymentRepository: OrderPaymentRepository,
 		private readonly configService: ConfigService,
 	) {}
 
@@ -36,7 +39,7 @@ export class OrderService {
 		const date = new Date();
 		const newOrder = await this.orderRepository.createOne({
 			data: {
-				orderCode: moment(date).format('HHmmss'),
+				orderCode: faker.datatype.uuid(),
 				status: ENUM_ORDER_STATUS.PROCESSING,
 				paymentType: orderCreateBodyDto.paymentType,
 				orderType: orderCreateBodyDto.orderType,
@@ -100,7 +103,7 @@ export class OrderService {
 			vnp_Params.vnp_OrderType = 'Thanh toán hóa đơn';
 			vnp_Params.vnp_Amount = orderCreateBodyDto.totalPrice * 100;
 			vnp_Params.vnp_CreateDate = moment(date).format('yyyyMMDDHHmmss');
-			vnp_Params.vnp_TxnRef = moment(date).format('HHmmss');
+			vnp_Params.vnp_TxnRef = newOrder.orderCode;
 
 			vnp_Params = this.sortObject(vnp_Params);
 
@@ -136,7 +139,7 @@ export class OrderService {
 
 		vnp_Params = this.sortObject(vnp_Params);
 
-		const tmnCode = this.configService.get<string>('vnpay.payment.vnp_TmnCode');
+		// const tmnCode = this.configService.get<string>('vnpay.payment.vnp_TmnCode');
 
 		const secretKey = this.configService.get<string>(
 			'vnpay.payment.vnp_HashSecret',
@@ -147,11 +150,66 @@ export class OrderService {
 		const signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
 
 		if (secureHash === signed) {
-			//Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
+			const payment = await this.orderPaymentRepository.createOne({
+				data: {
+					isPay: true,
+					vnpBankCode: vnp_Params.vnp_BankCode,
+					vnpBankTranNo: vnp_Params.vnp_BankTranNo,
+					vnpCardType: vnp_Params.vnp_CardType,
+					vnpPayDate: vnp_Params.vnp_PayDate,
+					vnpOrderInfo: vnp_Params.vnp_OrderInfo,
+				},
+			});
+
+			const order = await this.orderRepository.findOne({
+				where: {
+					orderCode: vnp_Params.vnp_TxnRef,
+				},
+			});
+
+			await this.orderRepository.updateOne({
+				criteria: {
+					id: order.id,
+				},
+				data: {
+					orderPayment: {
+						id: payment.id,
+					},
+				},
+			});
+
 			return {
 				message: 'payment success',
 			};
 		} else {
+			const payment = await this.orderPaymentRepository.createOne({
+				data: {
+					isPay: false,
+					vnpBankCode: vnp_Params.vnp_BankCode,
+					vnpBankTranNo: vnp_Params.vnp_BankTranNo,
+					vnpCardType: vnp_Params.vnp_CardType,
+					vnpPayDate: vnp_Params.vnp_PayDate,
+					vnpOrderInfo: vnp_Params.vnp_OrderInfo,
+				},
+			});
+
+			const order = await this.orderRepository.findOne({
+				where: {
+					orderCode: vnp_Params.vnp_TxnRef,
+				},
+			});
+
+			await this.orderRepository.updateOne({
+				criteria: {
+					id: order.id,
+				},
+				data: {
+					orderPayment: {
+						id: payment.id,
+					},
+				},
+			});
+
 			return {
 				message: 'payment failed',
 			};

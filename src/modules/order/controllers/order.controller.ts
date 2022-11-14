@@ -30,7 +30,7 @@ export class OrderController {
 	}
 
 	@Response('order.vnPayReturn')
-	@ApiExcludeEndpoint()
+	// @ApiExcludeEndpoint()
 	@Get('vnpay_return')
 	returnUrl(@Query() query: any): Promise<IResponse> {
 		return this.orderService.returnUrl(query);
