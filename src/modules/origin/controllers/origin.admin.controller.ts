@@ -35,6 +35,9 @@ export class OriginAdminController {
 		@Param() originParamDto: OriginParamDto,
 		@Body() originUpdateBodyDto: OriginUpdateBodyDto,
 	) {
-		return this.updateOrigin(originParamDto, originUpdateBodyDto);
+		return this.originAdminService.updateOrigin(
+			originParamDto,
+			originUpdateBodyDto,
+		);
 	}
 }
