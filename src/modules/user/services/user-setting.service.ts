@@ -1,10 +1,12 @@
-import { UserSettingGetListDto } from 'src/modules/user/dtos/user-setting.input.query.dto';
+import {
+	UserSettingGetListDto,
+	UserSettingCreateDto,
+} from 'src/modules/user/dtos';
 import { UserSettingRepository } from 'src/modules/user/repositories/user-setting.repository';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { ILike } from 'typeorm';
-import { UserSettingCreateDto } from 'src/modules/user/dtos/user-setting.create.dto';
 
 @Injectable()
 export class UserSettingService {

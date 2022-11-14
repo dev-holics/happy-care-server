@@ -2,7 +2,7 @@ import { UserPublicService } from 'src/modules/user/services/user.public.service
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'src/common/response/decorators/response.decorator';
-import { UserSignUpDto } from 'src/modules/user/dtos/user.sign-up.dto';
+import { UserSignUpDto } from 'src/modules/user/dtos';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
 import { RequestBodyDtoGuard } from 'src/common/request/decorators/request.decorator';
 

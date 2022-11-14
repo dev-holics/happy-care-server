@@ -1,6 +1,6 @@
-import { ENUM_GENDERS } from './../constants/user.enum.constant';
+import { ENUM_GENDERS } from 'src/modules/user/constants';
 
-export interface IUserUpdate {
+export interface IProfileUpdate {
 	fullname: string;
 	gender: ENUM_GENDERS;
 	birthday: Date;

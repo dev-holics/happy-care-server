@@ -17,16 +17,19 @@ import { UserService } from 'src/modules/user/services/user.service';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
-import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
+import {
+	UserCreateDto,
+	UserGetDto,
+	UserGetListDto,
+	UserRoleUpdateDto,
+	UserUpdateDto,
+} from 'src/modules/user/dtos';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import {
 	RequestBodyDtoGuard,
 	RequestParamsDtoGuard,
 } from 'src/common/request/decorators/request.decorator';
-import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
-import { UserRoleUpdateDto } from 'src/modules/user/dtos/user.role.update.dto';
-import { UserCreateDto } from 'src/modules/user/dtos/user.create.dto';
 
 @ApiTags('Admin.User')
 @Controller({
@@ -72,5 +75,18 @@ export class UserAdminController {
 	@Put(':userId/update-role')
 	async updateRole(@Param() user: UserGetDto, @Body() role: UserRoleUpdateDto) {
 		return this.userService.updateRole(user, role);
+	}
+
+	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
+	@AuthJwtGuard([PERMISSIONS.UPDATE_USER])
+	@AuthApiKeyGuard()
+	@RequestParamsDtoGuard(UserGetDto)
+	@RequestBodyDtoGuard(UserUpdateDto)
+	@Put(':userId')
+	async updateUser(
+		@Param() user: UserGetDto,
+		@Body() userUpdateDto: UserUpdateDto,
+	) {
+		return this.userService.updateUser(user, userUpdateDto);
 	}
 }

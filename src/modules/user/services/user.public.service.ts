@@ -11,7 +11,7 @@ import { IUserCheckExist } from 'src/modules/user/interfaces/user.interface';
 import { UserService } from 'src/modules/user/services/user.service';
 import { ENUM_USER_STATUS_CODE_ERROR } from 'src/modules/user/constants';
 import { AuthService } from 'src/common/auth/services/auth.service';
-import { UserSignUpDto } from 'src/modules/user/dtos/user.sign-up.dto';
+import { UserSignUpDto } from 'src/modules/user/dtos';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { RoleRepository } from 'src/modules/role/repositories/role.repository';
 import { ENUM_AUTH_ACCESS_LEVEL } from 'src/common/auth/constants';

@@ -7,11 +7,13 @@ import {
 	ResponsePagingBase,
 } from 'src/common/response/decorators/response.decorator';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
-import { UserSettingGetListDto } from 'src/modules/user/dtos/user-setting.input.query.dto';
+import {
+	UserSettingGetListDto,
+	UserSettingCreateDto,
+} from 'src/modules/user/dtos';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
-import { UserSettingCreateDto } from 'src/modules/user/dtos/user-setting.create.dto';
 
 @ApiTags('User-Setting')
 @Controller({

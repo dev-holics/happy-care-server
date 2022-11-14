@@ -8,7 +8,15 @@ import {
 import { IUserCheckExist } from 'src/modules/user/interfaces/user.interface';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
-import { UserLoginDto } from 'src/modules/user/dtos/user.login.dto';
+import {
+	UserCreateDto,
+	UserGetDto,
+	UserGetListDto,
+	UserLoginDto,
+	UserRoleUpdateDto,
+	UserUpdateDto,
+	UserProfileUpdateDto,
+} from 'src/modules/user/dtos';
 import {
 	ENUM_USER_STATUS_CODE_ERROR,
 	ENUM_USER_STATUS_CODE_SUCCESS,
@@ -17,13 +25,8 @@ import { AuthService } from 'src/common/auth/services/auth.service';
 import { UserPayloadSerialization } from 'src/modules/user/serializations/user.payload.serialization';
 import { plainToInstance } from 'class-transformer';
 import { ENUM_ROLE_STATUS_CODE_ERROR } from 'src/modules/role/constants';
-import { UserProfileUpdateDto } from 'src/modules/user/dtos/user-profile.update.dto';
-import { UserGetListDto } from 'src/modules/user/dtos/user.get-list.dto';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { UserGetDto } from 'src/modules/user/dtos/user.get.dto';
-import { UserRoleUpdateDto } from 'src/modules/user/dtos/user.role.update.dto';
-import { UserCreateDto } from 'src/modules/user/dtos/user.create.dto';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { RoleRepository } from 'src/modules/role/repositories/role.repository';
@@ -315,5 +318,25 @@ export class UserService {
 		return {
 			id: updatedUser.id,
 		};
+	}
+
+	async updateUser(user: UserGetDto, userUpdateDto: UserUpdateDto) {
+		const updatedUser = this.userRepository.updateOne({
+			criteria: {
+				id: user.userId,
+			},
+			data: {
+				...userUpdateDto,
+			},
+		});
+
+		if (!updatedUser) {
+			throw new NotFoundException({
+				statusCode: ENUM_USER_STATUS_CODE_ERROR.USER_CANNOT_UPDATE,
+				message: 'user.error.cannotUpdate',
+			});
+		}
+
+		return updatedUser;
 	}
 }
