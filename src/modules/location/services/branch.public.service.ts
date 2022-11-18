@@ -1,10 +1,14 @@
 import { BranchEntity } from 'src/modules/location/entities/branch.entity';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { BranchGetListDto, BranchParamDto } from 'src/modules/location/dtos';
-import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponseBase,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 import { Injectable } from '@nestjs/common';
 import { BranchPublicRepository } from 'src/modules/location/repositories';
-import { ILike } from 'typeorm';
+import { ILike, In } from 'typeorm';
+import { CartCreateDto } from 'src/modules/cart/dtos';
 
 @Injectable()
 export class BranchPublicService {
@@ -58,5 +62,61 @@ export class BranchPublicService {
 				relations: ['district', 'district.city'],
 			},
 		});
+	}
+
+	async getBranchesStocking(
+		cartCreateDto: CartCreateDto[],
+	): Promise<IResponseBase> {
+		cartCreateDto.sort((a: any, b: any) => {
+			return a.productId - b.productId;
+		});
+		const ids = [];
+		cartCreateDto.forEach(item => {
+			ids.push(item.productId);
+		});
+		const size = ids.length;
+		const branchList = await this.branchPublicRepository.findAll({
+			where: {
+				productDetails: {
+					product: {
+						id: In(ids),
+					},
+				},
+			},
+			options: {
+				relations: [
+					'productDetails',
+					'productDetails.product',
+					'district',
+					'district.city',
+				],
+				order: {
+					id: 'ASC',
+					productDetails: {
+						product: {
+							id: 'ASC',
+						},
+					},
+				},
+			},
+		});
+		const result = [];
+		for (let i = 0; i < branchList.length; i++) {
+			if (branchList[i].productDetails.length !== size) continue;
+			let check = false;
+			for (let j = 0; j < cartCreateDto.length; j++) {
+				if (
+					branchList[i].productDetails[j].quantity < cartCreateDto[j].quantity
+				) {
+					check = true;
+					break;
+				}
+			}
+			if (!check) {
+				delete branchList[i].productDetails;
+				result.push(branchList[i]);
+			}
+		}
+		return this.paginationService.formatResult(result);
 	}
 }
