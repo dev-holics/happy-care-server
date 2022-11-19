@@ -14,6 +14,7 @@ import { IsPasswordStrong } from 'src/common/request/validations/request.is-pass
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { IUserCreate } from 'src/modules/user/interfaces/user.api.interface';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
+import { BranchEntity } from 'src/modules/location/entities';
 
 export class UserCreateDto implements IUserCreate {
 	@ApiProperty({
@@ -83,4 +84,11 @@ export class UserCreateDto implements IUserCreate {
 	})
 	@IsNotEmpty()
 	readonly role: RoleEntity;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: false,
+	})
+	@IsOptional()
+	branch: BranchEntity;
 }

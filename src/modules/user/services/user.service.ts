@@ -31,6 +31,8 @@ import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { RoleRepository } from 'src/modules/role/repositories/role.repository';
 import { ENUM_ERROR_STATUS_CODE_ERROR } from 'src/common/error/constants';
+import { ENUM_BRANCH_STATUS_CODE_ERROR } from 'src/modules/location/branch.status-code.constant';
+import { ENUM_AUTH_ACCESS_LEVEL } from 'src/common/auth/constants';
 
 @Injectable()
 export class UserService {
@@ -56,6 +58,17 @@ export class UserService {
 			});
 		}
 
+		if (role.accessLevel === ENUM_AUTH_ACCESS_LEVEL.PHARMACIST) {
+			if (!userCreateDto.branch) {
+				throw new BadRequestException({
+					statusCode: ENUM_BRANCH_STATUS_CODE_ERROR.BRANCH_ID_REQUIRED_ERROR,
+					message: 'branch.error.branchIdRequired',
+				});
+			}
+		} else {
+			userCreateDto.branch = null;
+		}
+
 		const checkUserExist: IUserCheckExist = await this.checkExist(
 			userCreateDto.phoneNumber,
 		);
@@ -78,7 +91,6 @@ export class UserService {
 			await this.userRepository.createOne({
 				data: {
 					...userCreateDto,
-					role,
 					password: hashedPassword.passwordHash,
 				},
 			});
@@ -296,15 +308,36 @@ export class UserService {
 		});
 	}
 
-	async updateRole(user: UserGetDto, role: UserRoleUpdateDto) {
+	async updateRole(userDto: UserGetDto, roleDto: UserRoleUpdateDto) {
+		const expectedRole = await this.roleRepository.findOne({
+			where: {
+				id: roleDto.roleId,
+			},
+		});
+
+		if (expectedRole.accessLevel === ENUM_AUTH_ACCESS_LEVEL.PHARMACIST) {
+			if (!roleDto.branchId) {
+				throw new BadRequestException({
+					statusCode: ENUM_BRANCH_STATUS_CODE_ERROR.BRANCH_ID_REQUIRED_ERROR,
+					message: 'branch.error.branchIdRequired',
+				});
+			}
+		}
+
 		const updatedUser = await this.userRepository.updateOne({
 			criteria: {
-				id: user.userId,
+				id: userDto.userId,
 			},
 			data: {
 				role: {
-					id: role.roleId,
+					id: roleDto.roleId,
 				},
+				branch:
+					expectedRole.accessLevel === ENUM_AUTH_ACCESS_LEVEL.PHARMACIST
+						? {
+								id: roleDto.branchId,
+						  }
+						: null,
 			},
 		});
 
@@ -321,6 +354,23 @@ export class UserService {
 	}
 
 	async updateUser(user: UserGetDto, userUpdateDto: UserUpdateDto) {
+		const expectedRole = await this.roleRepository.findOne({
+			where: {
+				id: userUpdateDto.role,
+			},
+		});
+
+		if (expectedRole.accessLevel == ENUM_AUTH_ACCESS_LEVEL.PHARMACIST) {
+			if (!userUpdateDto.branch) {
+				throw new BadRequestException({
+					statusCode: ENUM_BRANCH_STATUS_CODE_ERROR.BRANCH_ID_REQUIRED_ERROR,
+					message: 'branch.error.branchIdRequired',
+				});
+			}
+		} else {
+			userUpdateDto.branch = null;
+		}
+
 		const updatedUser = this.userRepository.updateOne({
 			criteria: {
 				id: user.userId,
