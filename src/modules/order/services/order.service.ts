@@ -56,7 +56,7 @@ export class OrderService {
 					id: orderCreateBodyDto.userSettingId,
 				},
 				branch: {
-					id: orderCreateBodyDto.branchId,
+					id: orderCreateBodyDto.branchId || undefined,
 				},
 			},
 		});
