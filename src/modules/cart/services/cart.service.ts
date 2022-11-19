@@ -220,7 +220,7 @@ export class CartService {
 		return updateCart;
 	}
 
-	async updateItem(userId: string, cartItemUpdateDto: CartItemUpdateDto) {
+	async updateItem(userId: string, cartItemUpdateDto: CartItemUpdateDto[]) {
 		const myCart = await this.cartRepository.findOne({
 			where: {
 				user: {
@@ -243,7 +243,7 @@ export class CartService {
 			cart = myCart;
 		}
 
-		cartItemUpdateDto.items.forEach((item: any) => {
+		cartItemUpdateDto.forEach((item: any) => {
 			const product = new ProductEntity();
 			product.id = item.productId;
 			item.product = product;
@@ -251,7 +251,7 @@ export class CartService {
 
 		const cartItemUpdate = await this.cartRepository.updateItems(
 			cart.id,
-			cartItemUpdateDto.items,
+			cartItemUpdateDto,
 		);
 
 		if (!cartItemUpdate) {
@@ -263,7 +263,7 @@ export class CartService {
 
 		await this.redisService.appCart().delete();
 
-		return cartItemUpdateDto;
+		return cartItemUpdate;
 	}
 
 	async deleteCart(cartInputParamDto: CartInputParamDto) {

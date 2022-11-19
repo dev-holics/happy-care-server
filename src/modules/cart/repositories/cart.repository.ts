@@ -13,7 +13,7 @@ export class CartRepository extends DatabaseRepositoryAbstract<CartEntity> {
 		super(cartRepository);
 	}
 
-	async updateItems(cartId: string, items: any) {
+	async updateItems(cartId: string, cartItemUpdateDto: any) {
 		const myCart = await this.cartRepository.findOne({
 			where: {
 				id: cartId,
@@ -22,7 +22,7 @@ export class CartRepository extends DatabaseRepositoryAbstract<CartEntity> {
 
 		myCart.cartItems = [];
 
-		myCart.cartItems = items;
+		myCart.cartItems = cartItemUpdateDto;
 
 		return this.cartRepository.save(myCart);
 	}
