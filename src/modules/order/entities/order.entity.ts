@@ -73,7 +73,9 @@ export class OrderEntity
 	@JoinColumn({ name: snakeCase('pharmacistId'), referencedColumnName: 'id' })
 	pharmacist: UserEntity;
 
-	@ManyToOne(() => BranchEntity, branch => branch.orders)
+	@ManyToOne(() => BranchEntity, branch => branch.orders, {
+		nullable: true,
+	})
 	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })
 	branch: BranchEntity;
 

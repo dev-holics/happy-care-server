@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsUUID } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsUUID } from 'class-validator';
 import { shuffle } from 'radash';
 import { ProductInputDto } from '.';
 import {
@@ -25,9 +25,10 @@ export class OrderCreateBodyDto {
 
 	@ApiProperty({
 		example: '',
-		required: true,
+		required: false,
 	})
 	@IsUUID()
+	@IsOptional()
 	branchId: string;
 
 	@ApiProperty({
