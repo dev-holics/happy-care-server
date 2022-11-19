@@ -1,14 +1,10 @@
-import {
-	BranchGetListDto,
-	BranchParamDto,
-	BranchQueryDto,
-} from 'src/modules/location/dtos';
+import { BranchGetListDto, BranchParamDto } from 'src/modules/location/dtos';
 import {
 	IResponseBase,
 	IResponsePaging,
 } from 'src/common/response/interfaces/response.interface';
-import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Query } from '@nestjs/common';
 import { BranchPublicService } from 'src/modules/location/services';
 import {
 	ResponsePagingBase,
@@ -16,6 +12,7 @@ import {
 	ResponseBase,
 } from 'src/common/response/decorators/response.decorator';
 import { BranchEntity } from 'src/modules/location/entities';
+import { CartCreateDto } from 'src/modules/cart/dtos';
 
 @ApiTags('Public.Branch')
 @Controller({
@@ -33,23 +30,15 @@ export class BranchPublicController {
 		return this.branchPublicService.getBranches(branchGetListDto);
 	}
 
-	// @ApiBody({
-	// 	type: [CartCreateDto],
-	// })
-	// @ResponseBase('branch.getBranchesStocking')
-	// @Get('statisfied')
-	// async getBranchesStocking(
-	// 	@Body() cartCreateDto: CartCreateDto[],
-	// ): Promise<IResponseBase> {
-	// 	return this.branchPublicService.getBranchesStocking(cartCreateDto);
-	// }
-
+	@ApiBody({
+		type: [CartCreateDto],
+	})
 	@ResponseBase('branch.getBranchesStocking')
 	@Get('statisfied')
-	async getBranchesStatisfied(
-		@Query() branchQueryDto: BranchQueryDto,
+	async getBranchesStocking(
+		@Body() cartCreateDto: CartCreateDto[],
 	): Promise<IResponseBase> {
-		return this.branchPublicService.getBranchesStatisfied(branchQueryDto);
+		return this.branchPublicService.getBranchesStocking(cartCreateDto);
 	}
 
 	@Response('branch.getBranch')
