@@ -1,10 +1,19 @@
-import { IResponse } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponse,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 import { OrderService } from 'src/modules/order/services';
 import { Body, Controller, Get, Ip, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { OrderCreateBodyDto } from 'src/modules/order/dtos';
+import {
+	OrderCreateBodyDto,
+	OrderHistoryQueryDto,
+} from 'src/modules/order/dtos';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
-import { Response } from 'src/common/response/decorators/response.decorator';
+import {
+	Response,
+	ResponsePagingBase,
+} from 'src/common/response/decorators/response.decorator';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
@@ -33,5 +42,16 @@ export class OrderController {
 	@Get('callback')
 	returnUrl(@Query() query: any): Promise<IResponse> {
 		return this.orderService.returnUrl(query);
+	}
+
+	@ResponsePagingBase('order.history')
+	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.READ_ORDER_HISTORY])
+	@Get('/history')
+	async getOrderHistory(
+		@GetUser('id') userId: string,
+		@Query() orderHistoryQueryDto: OrderHistoryQueryDto,
+	): Promise<IResponsePaging> {
+		return this.orderService.getOrderHistory(userId, orderHistoryQueryDto);
 	}
 }
