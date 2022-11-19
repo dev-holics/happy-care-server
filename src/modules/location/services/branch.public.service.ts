@@ -1,17 +1,13 @@
 import { BranchEntity } from 'src/modules/location/entities/branch.entity';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import {
-	BranchGetListDto,
-	BranchParamDto,
-	BranchQueryDto,
-} from 'src/modules/location/dtos';
+import { BranchGetListDto, BranchParamDto } from 'src/modules/location/dtos';
 import {
 	IResponseBase,
 	IResponsePaging,
 } from 'src/common/response/interfaces/response.interface';
 import { Injectable } from '@nestjs/common';
 import { BranchPublicRepository } from 'src/modules/location/repositories';
-import { ILike, In, MoreThan } from 'typeorm';
+import { ILike, In } from 'typeorm';
 import { CartCreateDto } from 'src/modules/cart/dtos';
 
 @Injectable()
@@ -122,25 +118,5 @@ export class BranchPublicService {
 			}
 		}
 		return this.paginationService.formatResult(result);
-	}
-
-	async getBranchesStatisfied(
-		branchQueryDto: BranchQueryDto,
-	): Promise<IResponseBase> {
-		const ids = branchQueryDto.productIds.trim().split(',');
-		const branchList = await this.branchPublicRepository.findAll({
-			where: {
-				productDetails: {
-					quantity: MoreThan(0),
-					product: {
-						id: In(ids),
-					},
-				},
-			},
-			options: {
-				relations: ['district', 'district.city'],
-			},
-		});
-		return this.paginationService.formatResult(branchList);
 	}
 }
