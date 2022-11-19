@@ -71,13 +71,10 @@ export class CartController {
 	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.UPDATE_USER_CART_ITEM])
 	@AuthApiKeyGuard()
-	@ApiBody({
-		type: [CartItemUpdateDto],
-	})
 	@Put('/items')
 	async updateCart(
 		@GetUser('id') id: string,
-		@Body() cartItemUpdateDto: CartItemUpdateDto[],
+		@Body() cartItemUpdateDto: CartItemUpdateDto,
 	) {
 		return this.cartService.updateItem(id, cartItemUpdateDto);
 	}

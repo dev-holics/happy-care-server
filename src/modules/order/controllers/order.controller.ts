@@ -20,7 +20,7 @@ export class OrderController {
 	@Response('order.createPaymentUrl')
 	@UserProfileGuard()
 	@AuthJwtGuard([PERMISSIONS.CREATE_MY_ORDER])
-	@Post('create_payment_url')
+	@Post('payment-url')
 	async createPaymentUrl(
 		@Body() orderCreateBodyDto: OrderCreateBodyDto,
 		@GetUser('id') userId: string,
@@ -30,7 +30,7 @@ export class OrderController {
 	}
 
 	@Response('order.vnPayReturn')
-	@Get('vnpay_return')
+	@Get('callback')
 	returnUrl(@Query() query: any): Promise<IResponse> {
 		return this.orderService.returnUrl(query);
 	}
