@@ -1,7 +1,7 @@
 import { IResponse } from 'src/common/response/interfaces/response.interface';
 import { OrderService } from 'src/modules/order/services';
 import { Body, Controller, Get, Ip, Post, Query } from '@nestjs/common';
-import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { OrderCreateBodyDto } from 'src/modules/order/dtos';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
 import { Response } from 'src/common/response/decorators/response.decorator';

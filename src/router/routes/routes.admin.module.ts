@@ -20,6 +20,8 @@ import {
 import { FeedbackAdminController } from 'src/modules/feedback/controllers';
 import { UserAdminController } from 'src/modules/user/controllers/user.admin.controller';
 import { UserModule } from 'src/modules/user/user.module';
+import { OrderAdminController } from 'src/modules/order/controllers';
+import { OrderModule } from 'src/modules/order/order.module';
 
 @Module({
 	controllers: [
@@ -29,6 +31,7 @@ import { UserModule } from 'src/modules/user/user.module';
 		ProductAdminController,
 		BranchAdminController,
 		CategoryAdminController,
+		OrderAdminController,
 		OriginAdminController,
 		TrademarkAdminController,
 		FeedbackAdminController,
@@ -43,6 +46,7 @@ import { UserModule } from 'src/modules/user/user.module';
 		ProductModule,
 		LocationModule,
 		CategoryModule,
+		OrderModule,
 		OriginModule,
 		FeedbackModule,
 		UserModule,
