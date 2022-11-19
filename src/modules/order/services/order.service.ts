@@ -10,7 +10,10 @@ import * as qs from 'qs';
 import * as crypto from 'crypto';
 import { ConfigService } from '@nestjs/config';
 import moment from 'moment';
-import { OrderCreateBodyDto } from 'src/modules/order/dtos';
+import {
+	OrderCreateBodyDto,
+	OrderHistoryQueryDto,
+} from 'src/modules/order/dtos';
 import {
 	ENUM_ORDER_STATUS,
 	ENUM_PAYMENT_TYPES,
@@ -20,6 +23,8 @@ import { IResponse } from 'src/common/response/interfaces/response.interface';
 import { OrderEntity } from 'src/modules/order/entities';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { faker } from '@faker-js/faker';
+import { PaginationService } from 'src/common/pagination/services/pagination.service';
+import { ILike } from 'typeorm';
 
 @Injectable()
 export class OrderService {
@@ -28,6 +33,7 @@ export class OrderService {
 		private readonly orderDetailRepository: OrderDetailRepository,
 		private readonly orderPaymentRepository: OrderPaymentRepository,
 		private readonly configService: ConfigService,
+		private readonly paginationService: PaginationService,
 	) {}
 
 	async createPaymentUrl(
@@ -236,5 +242,58 @@ export class OrderService {
 		}
 
 		return sorted;
+	}
+
+	async getOrderHistory(
+		userId: string,
+		orderHistoryQueryDto: OrderHistoryQueryDto,
+	) {
+		const { search, status } = orderHistoryQueryDto;
+
+		const totalData = await this.orderRepository.count({
+			where: {
+				customer: {
+					id: userId,
+				},
+				orderCode: search ? ILike(`%${search}%`) : undefined,
+				status: status || undefined,
+			},
+		});
+
+		const result = await this.orderRepository.findMany({
+			where: {
+				customer: {
+					id: userId,
+				},
+				orderCode: search ? ILike(`%${search}%`) : undefined,
+				status: status || undefined,
+			},
+			options: {
+				page: orderHistoryQueryDto.page,
+				limit: orderHistoryQueryDto.limit,
+				order: {
+					createdAt: 'DESC',
+				},
+				relations: {
+					branch: true,
+					userSetting: true,
+					pharmacist: true,
+					orderDetails: {
+						product: {
+							images: true,
+						},
+					},
+				},
+			},
+		});
+
+		return this.paginationService.formatPaginationResult(
+			totalData,
+			orderHistoryQueryDto.page,
+			orderHistoryQueryDto.limit,
+			null,
+			null,
+			result,
+		);
 	}
 }

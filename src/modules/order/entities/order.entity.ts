@@ -24,7 +24,9 @@ export class OrderEntity
 	extends DatabaseEntityAbstract
 	implements IOrderEntity
 {
-	@Column()
+	@Column({
+		unique: true,
+	})
 	orderCode: string;
 
 	@Column({
