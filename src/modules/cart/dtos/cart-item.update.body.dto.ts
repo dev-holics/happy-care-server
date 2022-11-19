@@ -1,22 +1,43 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsUUID, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
+import { ProductBaseDto } from 'src/modules/product/dtos';
 
 export class CartItemUpdateDto {
+	// @ApiProperty({
+	// 	example: 1,
+	// 	required: false,
+	// })
+	// @Expose()
+	// @IsInt()
+	// @IsNotEmpty()
+	// @Min(1)
+	// quantity: number;
+
+	// @ApiProperty({
+	// 	required: false,
+	// })
+	// @IsUUID()
+	// @IsNotEmpty()
+	// productId: string;
+
 	@ApiProperty({
-		example: 1,
-		required: false,
+		required: true,
 	})
-	@Expose()
-	@IsInt()
 	@IsNotEmpty()
-	@Min(1)
-	quantity: number;
+	@IsArray()
+	@Type(() => ProductBaseDto)
+	items: ProductBaseDto[];
 
 	@ApiProperty({
 		required: false,
 	})
-	@IsUUID()
-	@IsNotEmpty()
-	productId: string;
+	@IsNumber()
+	totalPrice?: number;
+
+	@ApiProperty({
+		required: false,
+	})
+	@IsNumber()
+	totalQuantity?: number;
 }
