@@ -9,6 +9,7 @@ import { ImageEntity } from 'src/common/media/entities/image.entity';
 import { FeedbackEntity } from 'src/modules/feedback/entities/feedback.entity';
 import { OrderEntity } from 'src/modules/order/entities';
 import { UserSettingEntity } from 'src/modules/user/entities';
+import { BranchEntity } from 'src/modules/location/entities';
 
 @Entity('users')
 export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
@@ -57,6 +58,10 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	@ManyToOne(() => RoleEntity, role => role.users)
 	@JoinColumn({ name: snakeCase('roleId'), referencedColumnName: 'id' })
 	role: RoleEntity;
+
+	@ManyToOne(() => BranchEntity, branch => branch.pharmacists)
+	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })
+	branch: BranchEntity;
 
 	@OneToMany(() => FeedbackEntity, feedback => feedback.user)
 	feedbacks: FeedbackEntity[];

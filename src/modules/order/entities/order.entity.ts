@@ -42,7 +42,9 @@ export class OrderEntity
 	})
 	status: string;
 
-	@Column()
+	@Column({
+		nullable: true,
+	})
 	freeShip: boolean;
 
 	@Column()

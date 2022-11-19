@@ -7,12 +7,15 @@ import {
 	OrderPaymentEntity,
 } from 'src/modules/order/entities';
 import {
+	OrderAdminRepository,
 	OrderDetailRepository,
 	OrderDiscountRepository,
 	OrderPaymentRepository,
 	OrderRepository,
 } from 'src/modules/order/repositories';
-import { OrderService } from 'src/modules/order/services';
+import { OrderAdminService, OrderService } from 'src/modules/order/services';
+import { UserEntity } from 'src/modules/user/entities';
+import { UserRepository } from 'src/modules/user/repositories/user.repository';
 
 @Module({
 	imports: [
@@ -21,16 +24,22 @@ import { OrderService } from 'src/modules/order/services';
 			OrderDiscountEntity,
 			OrderEntity,
 			OrderPaymentEntity,
+			UserEntity,
 		]),
 	],
 	providers: [
+		OrderAdminRepository,
+		OrderAdminService,
 		OrderDetailRepository,
 		OrderDiscountRepository,
 		OrderRepository,
 		OrderPaymentRepository,
 		OrderService,
+		UserRepository,
 	],
 	exports: [
+		OrderAdminRepository,
+		OrderAdminService,
 		OrderDetailRepository,
 		OrderDiscountRepository,
 		OrderRepository,

@@ -6,6 +6,7 @@ import { snakeCase } from 'change-case';
 import { IBranchEntity } from 'src/modules/location/interfaces';
 import { ProductDetailEntity } from 'src/modules/product/entities';
 import { OrderEntity } from 'src/modules/order/entities';
+import { UserEntity } from 'src/modules/user/entities';
 
 @Entity('branches')
 export class BranchEntity
@@ -27,4 +28,7 @@ export class BranchEntity
 
 	@OneToMany(() => OrderEntity, order => order.branch)
 	orders: OrderEntity[];
+
+	@OneToMany(() => UserEntity, pharmacist => pharmacist.branch)
+	pharmacists: UserEntity[];
 }
