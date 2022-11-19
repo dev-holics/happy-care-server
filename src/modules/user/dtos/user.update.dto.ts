@@ -13,6 +13,7 @@ import { shuffle } from 'radash';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
 import { IUserUpdate } from 'src/modules/user/interfaces/user.update.interface';
+import { BranchEntity } from 'src/modules/location/entities';
 
 export class UserUpdateDto implements IUserUpdate {
 	@ApiProperty({
@@ -60,4 +61,11 @@ export class UserUpdateDto implements IUserUpdate {
 	})
 	@IsNotEmpty()
 	readonly role: RoleEntity;
+
+	@ApiProperty({
+		example: faker.datatype.uuid(),
+		required: false,
+	})
+	@IsOptional()
+	branch: BranchEntity;
 }
