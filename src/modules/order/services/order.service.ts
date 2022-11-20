@@ -277,12 +277,14 @@ export class OrderService {
 				relations: {
 					branch: true,
 					userSetting: true,
+					customer: true,
 					pharmacist: true,
 					orderDetails: {
 						product: {
 							images: true,
 						},
 					},
+					orderPayment: true,
 				},
 			},
 		});
