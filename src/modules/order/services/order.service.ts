@@ -248,7 +248,7 @@ export class OrderService {
 		userId: string,
 		orderHistoryQueryDto: OrderHistoryQueryDto,
 	) {
-		const { search, status } = orderHistoryQueryDto;
+		const { search, status, page, limit } = orderHistoryQueryDto;
 
 		const totalData = await this.orderRepository.count({
 			where: {
@@ -269,8 +269,8 @@ export class OrderService {
 				status: status || undefined,
 			},
 			options: {
-				page: orderHistoryQueryDto.page,
-				limit: orderHistoryQueryDto.limit,
+				page: page,
+				limit: limit,
 				order: {
 					createdAt: 'DESC',
 				},
@@ -289,8 +289,8 @@ export class OrderService {
 
 		return this.paginationService.formatPaginationResult(
 			totalData,
-			orderHistoryQueryDto.page,
-			orderHistoryQueryDto.limit,
+			page,
+			limit,
 			null,
 			null,
 			result,

@@ -254,4 +254,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_read_order_history',
 		module: ENUM_PERMISSION_MODULE.ORDER,
 	},
+	READ_ALL_ORDERS: {
+		code: 420,
+		name: 'read_all_orders',
+		description: 'can_read_all_orders',
+		module: ENUM_PERMISSION_MODULE.ORDER,
+	},
 });
