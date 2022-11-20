@@ -19,7 +19,7 @@ export class OriginPublicService {
 	async getOrigins(
 		originGetListDto: OriginGetListDto,
 	): Promise<IResponsePaging> {
-		const { search } = originGetListDto;
+		const { search, page, limit } = originGetListDto;
 
 		const totalData = await this.originPublicRepository.count({
 			where: {
@@ -32,8 +32,8 @@ export class OriginPublicService {
 				name: search ? ILike(`%${search}%`) : undefined,
 			},
 			options: {
-				page: originGetListDto.page,
-				limit: originGetListDto.limit,
+				page: page,
+				limit: limit,
 				order: {
 					createdAt: 'DESC',
 				},
@@ -41,8 +41,8 @@ export class OriginPublicService {
 		});
 		return this.paginationService.formatPaginationResult(
 			totalData,
-			originGetListDto.page,
-			originGetListDto.limit,
+			page,
+			limit,
 			null,
 			null,
 			result,

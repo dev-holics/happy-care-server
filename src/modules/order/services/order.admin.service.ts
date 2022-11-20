@@ -1,6 +1,9 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { OrderAdminRepository } from 'src/modules/order/repositories';
-import { OrderAdminCreateBodyDto } from 'src/modules/order/dtos';
+import {
+	OrderAdminCreateBodyDto,
+	OrderListQueryDto,
+} from 'src/modules/order/dtos';
 import { faker } from '@faker-js/faker';
 import {
 	ENUM_ORDER_STATUS,
@@ -12,12 +15,15 @@ import {
 	ENUM_AUTH_ACCESS_LEVEL,
 	ENUM_AUTH_STATUS_CODE_ERROR,
 } from 'src/common/auth/constants';
+import { Between, ILike } from 'typeorm';
+import { PaginationService } from 'src/common/pagination/services/pagination.service';
 
 @Injectable()
 export class OrderAdminService {
 	constructor(
 		private readonly orderAdminRepository: OrderAdminRepository,
 		private readonly userRepository: UserRepository,
+		private readonly paginationService: PaginationService,
 	) {}
 
 	async createOrder(
@@ -67,5 +73,117 @@ export class OrderAdminService {
 				userSetting: null,
 			},
 		});
+	}
+
+	async getOrders(orderListQueryDto: OrderListQueryDto) {
+		const {
+			paymentType,
+			status,
+			startDate,
+			endDate,
+			branchId,
+			page,
+			limit,
+			search,
+		} = orderListQueryDto;
+
+		const totalData = await this.orderAdminRepository.count({
+			where: [
+				{
+					paymentType: paymentType || undefined,
+					status: status || undefined,
+					createDate:
+						startDate && endDate ? Between(startDate, endDate) : undefined,
+					branch: {
+						id: branchId || undefined,
+					},
+					orderCode: search ? ILike(`%${search}%`) : undefined,
+				},
+				{
+					paymentType: paymentType || undefined,
+					status: status || undefined,
+					createDate:
+						startDate && endDate ? Between(startDate, endDate) : undefined,
+					branch: {
+						id: branchId || undefined,
+					},
+					customer: {
+						fullname: search ? ILike(`%${search}%`) : undefined,
+					},
+				},
+				{
+					paymentType: paymentType || undefined,
+					status: status || undefined,
+					createDate:
+						startDate && endDate ? Between(startDate, endDate) : undefined,
+					branch: {
+						id: branchId || undefined,
+					},
+					customer: {
+						phoneNumber: search ? ILike(`%${search}%`) : undefined,
+					},
+				},
+			],
+		});
+
+		const result = await this.orderAdminRepository.findMany({
+			where: [
+				{
+					paymentType: paymentType || undefined,
+					status: status || undefined,
+					createDate:
+						startDate && endDate ? Between(startDate, endDate) : undefined,
+					branch: {
+						id: branchId || undefined,
+					},
+					orderCode: search ? ILike(`%${search}%`) : undefined,
+				},
+				{
+					paymentType: paymentType || undefined,
+					status: status || undefined,
+					createDate:
+						startDate && endDate ? Between(startDate, endDate) : undefined,
+					branch: {
+						id: branchId || undefined,
+					},
+					customer: {
+						fullname: search ? ILike(`%${search}%`) : undefined,
+					},
+				},
+				{
+					paymentType: paymentType || undefined,
+					status: status || undefined,
+					createDate:
+						startDate && endDate ? Between(startDate, endDate) : undefined,
+					branch: {
+						id: branchId || undefined,
+					},
+					customer: {
+						phoneNumber: search ? ILike(`%${search}%`) : undefined,
+					},
+				},
+			],
+			options: {
+				page: page,
+				limit: limit,
+				order: {
+					createdAt: 'DESC',
+				},
+				relations: {
+					customer: true,
+					branch: true,
+					pharmacist: true,
+				},
+			},
+		});
+
+		return this.paginationService.formatPaginationResult(
+			totalData,
+			page,
+			limit,
+			null,
+			null,
+			result,
+		);
 	}
 }
