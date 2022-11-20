@@ -12,6 +12,9 @@ export class UserSettingEntity
 	implements IUserSetting
 {
 	@Column()
+	name: string;
+
+	@Column()
 	address: string;
 
 	@Column()
