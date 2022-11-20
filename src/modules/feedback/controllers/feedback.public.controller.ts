@@ -1,6 +1,5 @@
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { ProductParamDto } from 'src/modules/product/dtos';
-import { FeedbackEntity } from 'src/modules/feedback/entities/feedback.entity';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { FeedbackService } from 'src/modules/feedback/services/feedback.service';

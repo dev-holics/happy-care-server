@@ -3,6 +3,7 @@ import { OrderAdminRepository } from 'src/modules/order/repositories';
 import {
 	OrderAdminCreateBodyDto,
 	OrderListQueryDto,
+	OrderTotalQueryDto,
 } from 'src/modules/order/dtos';
 import { faker } from '@faker-js/faker';
 import {
@@ -185,5 +186,26 @@ export class OrderAdminService {
 			null,
 			result,
 		);
+	}
+
+	async getTotalOrders(orderTotalQueryDto: OrderTotalQueryDto) {
+		const { startDate, endDate, branchId, pharmacistId } = orderTotalQueryDto;
+
+		const result = await this.orderAdminRepository.count({
+			where: {
+				createDate:
+					startDate && endDate ? Between(startDate, endDate) : undefined,
+				branch: {
+					id: branchId || undefined,
+				},
+				pharmacist: {
+					id: pharmacistId || undefined,
+				},
+			},
+		});
+
+		return {
+			total: result,
+		};
 	}
 }

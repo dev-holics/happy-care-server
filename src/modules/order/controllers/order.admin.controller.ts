@@ -7,6 +7,7 @@ import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorat
 import {
 	OrderAdminCreateBodyDto,
 	OrderListQueryDto,
+	OrderTotalQueryDto,
 } from 'src/modules/order/dtos';
 import {
 	Response,
@@ -14,7 +15,10 @@ import {
 } from 'src/common/response/decorators/response.decorator';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
-import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponse,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 
 @ApiTags('Admin.Order')
 @Controller({
@@ -44,5 +48,15 @@ export class OrderAdminController {
 		@Query() orderListQueryDto: OrderListQueryDto,
 	): Promise<IResponsePaging> {
 		return this.orderAdminService.getOrders(orderListQueryDto);
+	}
+
+	@Response('order.getTotal')
+	@AuthJwtGuard([PERMISSIONS.READ_TOTAL_ORDERS])
+	@AuthApiKeyGuard()
+	@Get('total')
+	async getTotalOrders(
+		@Query() orderTotalQueryDto: OrderTotalQueryDto,
+	): Promise<IResponse> {
+		return this.orderAdminService.getTotalOrders(orderTotalQueryDto);
 	}
 }
