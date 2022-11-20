@@ -12,6 +12,14 @@ export class UserSettingCreateDto {
 	districtId: string;
 
 	@ApiProperty({
+		example: 'đức trương',
+		required: true,
+	})
+	@IsNotEmpty()
+	@IsString()
+	name: string;
+
+	@ApiProperty({
 		example: '29 Phước Mỹ 1',
 		required: true,
 	})
