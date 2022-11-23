@@ -34,7 +34,6 @@ export class RouterModule {
 				],
 			};
 		}
-
 		return {
 			module: RouterModule,
 			controllers: [],
