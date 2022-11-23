@@ -10,7 +10,7 @@ import { RoleModule } from 'src/modules/role/role.module';
 import { CartAdminController } from 'src/modules/cart/controllers/cart.admin.controller';
 import { ProductAdminController } from 'src/modules/product/controllers';
 import { BranchAdminController } from 'src/modules/location/controllers';
-import { CategoryAdminController } from 'src/modules/category/controllers/category.controller';
+import { CategoryAdminController } from 'src/modules/category/controllers';
 import { OriginModule } from 'src/modules/origin/origin.module';
 import { FeedbackModule } from 'src/modules/feedback/feedback.module';
 import {
