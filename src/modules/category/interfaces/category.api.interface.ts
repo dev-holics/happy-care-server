@@ -1,4 +1,4 @@
-import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { CategoryEntity } from 'src/modules/category/entities';
 
 export interface ICategoryCreate {
 	readonly name: string;

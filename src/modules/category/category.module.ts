@@ -1,7 +1,7 @@
 import { CategoryService } from 'src/modules/category/services/category.service';
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { CategoryEntity } from 'src/modules/category/entities';
 import {
 	CategoryTreeRepository,
 	CategoryRepository,
