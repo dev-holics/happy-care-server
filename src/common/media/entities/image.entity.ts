@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { IImageEntity } from 'src/common/media/interfaces/image.entity.interface';
-import { CategoryEntity } from 'src/modules/category/entities/category.entity';
+import { CategoryEntity } from 'src/modules/category/entities';
 import { snakeCase } from 'change-case';
 import { ProductEntity } from 'src/modules/product/entities';
 
