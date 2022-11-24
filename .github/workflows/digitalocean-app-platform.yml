@@ -1,5 +1,6 @@
   name: happy-care-server-app
   uses: digitalocean/app_action@v1.1.4 # replace this with current version from https://github.com/digitalocean/app_action/releases
+  on: push
   with:
     app_name: happy_care_app
     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
