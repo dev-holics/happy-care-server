@@ -1,0 +1,15 @@
+- name: DigitalOcean App Platform deployment
+  uses: digitalocean/app_action@v1.0.0 # replace this with current version from https://github.com/digitalocean/app_action/releases
+  with:
+    app_name: happy_care_app
+    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    images: '[
+              {
+                "name": "happy-care-server-app",
+                "image":{
+                  "registry_type": "DOCR",
+                  "registry": "registry.digitalocean.com",
+                  "repository": "registry.digitalocean.com/happy-care-server",
+                  "tag": "1.0.0"
+                },
+            ]'
