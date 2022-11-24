@@ -2,15 +2,6 @@
   run-name: ${{ github.actor }} is learning GitHub Actions
   on: [ push ]
   jobs:
-    check-bats-version:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: '16'
-        - run: yarn install
-        - run: bats -v
     check-app-deploy:
       runs-on: ubuntu-latest
       name: deploy-app
@@ -18,7 +9,7 @@
         - name: happy-care-server-app
           uses: digitalocean/app_action@v1.1.4 # replace this with current version from https://github.com/digitalocean/app_action/releases
           with:
-            app_name: happy_care_app
+            app_name: happy-care-server-app
             token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
             images: '[
                       {
