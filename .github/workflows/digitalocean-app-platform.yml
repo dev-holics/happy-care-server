@@ -3,6 +3,7 @@
   on: [ push ]
   jobs:
     check-bats-version:
+      runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
         - uses: actions/setup-node@v3
@@ -10,18 +11,22 @@
             node-version: '16'
         - run: yarn install
         - run: bats -v
-- name: happy-care-server-app
-  uses: digitalocean/app_action@v1.1.4 # replace this with current version from https://github.com/digitalocean/app_action/releases
-  with:
-    app_name: happy_care_app
-    token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-    images: '[
-              {
-                "name": "happy-care-server-app",
-                "image":{
-                  "registry_type": "DOCR",
-                  "registry": "registry.digitalocean.com",
-                  "repository": "registry.digitalocean.com/happy-care-server",
-                  "tag": "1.0.0"
-                },
-            ]'
+    check-app-deploy:
+      runs-on: ubuntu-latest
+      name: deploy-app
+      steps:
+        - name: happy-care-server-app
+          uses: digitalocean/app_action@v1.1.4 # replace this with current version from https://github.com/digitalocean/app_action/releases
+          with:
+            app_name: happy_care_app
+            token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+            images: '[
+                      {
+                        "name": "happy-care-server-app",
+                        "image":{
+                          "registry_type": "DOCR",
+                          "registry": "registry.digitalocean.com",
+                          "repository": "registry.digitalocean.com/happy-care-server",
+                          "tag": "1.0.0"
+                        },
+                    ]'
