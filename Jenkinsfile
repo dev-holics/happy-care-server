@@ -6,5 +6,15 @@ pipeline {
                 sh 'npm install' 
             }
         }
+        stage('Test') {
+            steps {
+                sh 'echo "Test"'
+            }
+        }
+        stage("Deploy Stage") {
+            steps {
+                sh 'echo "hello"'
+            }
+        }
     }
 }
