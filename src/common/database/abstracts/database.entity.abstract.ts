@@ -8,7 +8,10 @@ import {
 } from 'typeorm';
 import { IDatabaseEntity } from 'src/common/database/interfaces/database.entity.interface';
 
-export abstract class DatabaseEntityAbstract extends BaseEntity implements IDatabaseEntity {
+export abstract class DatabaseEntityAbstract
+	extends BaseEntity
+	implements IDatabaseEntity
+{
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 

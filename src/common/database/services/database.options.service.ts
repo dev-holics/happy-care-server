@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
@@ -9,7 +10,6 @@ export class DatabaseOptionsService implements TypeOrmOptionsFactory {
 
 	createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
 		return {
-			driver: undefined,
 			type: 'postgres',
 			url: this.configService.get<string>('database.url'),
 			host: this.configService.get<string>('database.host'),
@@ -24,8 +24,10 @@ export class DatabaseOptionsService implements TypeOrmOptionsFactory {
 				this.configService.get<boolean>('database.logging') &&
 				this.configService.get<string>('app.env') !== 'production',
 			autoLoadEntities: true,
-			entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-			migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+			entities: [join(__dirname, '..', '..', '..', '**', '*.entity.{ts,js}')],
+			migrations: [
+				join(__dirname, '..', '..', '..', '**', '*.migration.{ts,js}'),
+			],
 			namingStrategy: new SnakeNamingStrategy(),
 			extra: {
 				// based on https://node-postgres.com/api/pool

@@ -1,14 +1,15 @@
-FROM node:lts-alpine
-LABEL maintainer="minhduc0589@gmail.com"
+FROM node:16.16.0-alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN yarn
+
+COPY . .
+
+RUN yarn build
+
 EXPOSE 3000
 
-COPY package.json yarn.lock ./
-
-RUN set -x && yarn
-RUN yarn global add @nestjs/cli
-
-COPY . /app
-
-CMD [ "yarn", "start:dev" ]
+CMD yarn start:prod

@@ -1,15 +1,36 @@
+import * as fs from 'fs';
 import morgan from 'morgan';
+import { isEmpty } from 'radash';
 import { NestApplication, NestFactory } from '@nestjs/core';
-import { Logger, VersioningType } from '@nestjs/common';
-import { AppModule } from 'src/app/app.module';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { useContainer } from 'class-validator';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { AppModule } from 'src/app/app.module';
+import { useContainer } from 'class-validator';
 import { ResponseDefaultSerialization } from 'src/common/response/serializations/response.default.serialization';
 import { ResponsePagingSerialization } from 'src/common/response/serializations/response.paging.serialization';
 
 async function bootstrap() {
-	const app: NestApplication = await NestFactory.create(AppModule);
+	let httpsOptions = {};
+
+	if (process.env.APP_ENV === 'production') {
+		httpsOptions = {
+			key: fs.readFileSync('./secrets/private-key.pem'),
+			cert: fs.readFileSync('./secrets/public-certificate.pem'),
+		};
+	}
+
+	let app: NestApplication;
+
+	if (isEmpty(httpsOptions)) {
+		app = await NestFactory.create(AppModule);
+	}
+	if (!isEmpty(httpsOptions)) {
+		app = await NestFactory.create(AppModule, {
+			httpsOptions,
+		});
+	}
+
 	const configService = app.get(ConfigService);
 	const appName: string = configService.get<string>('app.name');
 	const env: string = configService.get<string>('app.env');
@@ -29,6 +50,7 @@ async function bootstrap() {
 
 	// Global
 	app.setGlobalPrefix(globalPrefix);
+	app.useGlobalPipes(new ValidationPipe());
 	useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
 	// Morgan Http
@@ -80,6 +102,10 @@ async function bootstrap() {
 		SwaggerModule.setup(docPrefix, app, document, {
 			explorer: true,
 			customSiteTitle: docName,
+			swaggerOptions: {
+				operationsSorter: 'method',
+				docExpansion: 'list',
+			},
 		});
 	}
 

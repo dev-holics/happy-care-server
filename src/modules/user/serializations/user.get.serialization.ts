@@ -2,8 +2,9 @@ import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
 import { shuffle } from 'radash';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
-import { AwsS3Serialization } from 'src/common/aws/serializations/aws.s3.serialization';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
+import { IRoleEntity } from 'src/modules/role/interfaces/role.entity.interface';
+import { ImageSerialization } from 'src/common/media/serializations/image.serialization';
 
 export class UserGetSerialization {
 	@ApiProperty({
@@ -36,10 +37,22 @@ export class UserGetSerialization {
 	})
 	readonly gender: string;
 
+	@Transform(({ value }) => ({
+		name: value.name,
+		permissions: value.permissions.map((val: Record<string, any>) => ({
+			name: val.name,
+			isActive: val.isActive,
+			code: val.code,
+		})),
+		accessLevel: value.accessLevel,
+		isActive: value.isActive,
+	}))
+	readonly role: IRoleEntity;
+
 	@ApiProperty({
-		allOf: [{ $ref: getSchemaPath(AwsS3Serialization) }],
+		allOf: [{ $ref: getSchemaPath(ImageSerialization) }],
 	})
-	readonly photo?: AwsS3Serialization;
+	readonly photo?: ImageSerialization;
 
 	@ApiProperty({
 		example: true,
@@ -53,6 +66,9 @@ export class UserGetSerialization {
 
 	@Exclude()
 	readonly password: string;
+
+	@Exclude()
+	readonly deletedAt: Date;
 
 	@Exclude()
 	readonly updatedAt: Date;

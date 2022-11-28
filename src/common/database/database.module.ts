@@ -4,14 +4,8 @@ import { DatabaseTransactionService } from 'src/common/database/services/databas
 
 @Global()
 @Module({
-	providers: [
-		DatabaseOptionsService,
-		DatabaseTransactionService,
-	],
-	exports: [
-		DatabaseOptionsService,
-		DatabaseTransactionService,
-	],
+	providers: [DatabaseOptionsService, DatabaseTransactionService],
+	exports: [DatabaseOptionsService, DatabaseTransactionService],
 	imports: [],
 })
 export class DatabaseModule {}

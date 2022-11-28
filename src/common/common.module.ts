@@ -21,8 +21,8 @@ import { ResponseModule } from 'src/common/response/response.module';
 import { DebuggerOptionService } from 'src/common/debugger/services/debugger.options.service';
 import { MiddlewareModule } from 'src/common/middleware/middleware.module';
 import { AuthModule } from 'src/common/auth/auth.module';
-import { AwsModule } from 'src/common/aws/aws.module';
 import { RedisModule } from 'src/common/redis/redis.module';
+import { MediaModule } from 'src/common/media/media.module';
 
 @Module({
 	controllers: [],
@@ -63,7 +63,7 @@ import { RedisModule } from 'src/common/redis/redis.module';
 		ResponseModule,
 		RequestModule,
 		MiddlewareModule,
-		AwsModule,
+		MediaModule,
 	],
 })
 export class CommonModule {}

@@ -1,9 +1,9 @@
 export interface IHelperNumberService {
-    check(number: string): boolean;
+	check(number: string): boolean;
 
-    create(number: string): number;
+	create(number: string): number;
 
-    random(length: number): number;
+	random(length: number): number;
 
-    randomInRange(min: number, max: number): number;
+	randomInRange(min: number, max: number): number;
 }

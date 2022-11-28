@@ -1,11 +1,15 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { snakeCase } from 'change-case';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { ENUM_GENDERS } from 'src/modules/user/constants';
 import { TokenEntity } from 'src/common/auth/entities/auth.token.entity';
-import { AwsFileEntity } from 'src/common/aws/entities/aws.file.entity';
-import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
 import { RoleEntity } from 'src/modules/role/entities/role.entity';
-import { snakeCase } from 'change-case';
+import { IUserEntity } from 'src/modules/user/interfaces/user.entity.interface';
+import { ImageEntity } from 'src/common/media/entities/image.entity';
+import { FeedbackEntity } from 'src/modules/feedback/entities/feedback.entity';
+import { OrderEntity } from 'src/modules/order/entities';
+import { UserSettingEntity } from 'src/modules/user/entities';
+import { BranchEntity } from 'src/modules/location/entities';
 
 @Entity('users')
 export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
@@ -36,14 +40,35 @@ export class UserEntity extends DatabaseEntityAbstract implements IUserEntity {
 	})
 	gender: string;
 
+	@Column({
+		nullable: true,
+		type: 'date',
+	})
+	birthday: Date;
+
 	@OneToMany(() => TokenEntity, token => token.user)
 	tokens: TokenEntity[];
 
-	@ManyToOne(() => AwsFileEntity, awsFile => awsFile.users)
-	@JoinColumn({ name: snakeCase('photoId'), referencedColumnName: 'id' })
-	photo: AwsFileEntity;
+	@OneToMany(() => UserSettingEntity, userSetting => userSetting.user)
+	userSettings: UserSettingEntity[];
+
+	@OneToMany(() => ImageEntity, image => image.user)
+	photos: ImageEntity[];
 
 	@ManyToOne(() => RoleEntity, role => role.users)
 	@JoinColumn({ name: snakeCase('roleId'), referencedColumnName: 'id' })
 	role: RoleEntity;
+
+	@ManyToOne(() => BranchEntity, branch => branch.pharmacists)
+	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })
+	branch: BranchEntity;
+
+	@OneToMany(() => FeedbackEntity, feedback => feedback.user)
+	feedbacks: FeedbackEntity[];
+
+	@OneToMany(() => OrderEntity, order => order.customer)
+	orderCustomers: OrderEntity[];
+
+	@OneToMany(() => OrderEntity, order => order.pharmacist)
+	orderPharmacists: OrderEntity[];
 }

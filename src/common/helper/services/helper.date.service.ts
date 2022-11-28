@@ -84,6 +84,10 @@ export class HelperDateService implements IHelperDateService {
 			.toDate();
 	}
 
+	now(options?: IHelperDateOptions): Date {
+		return dayjs.tz(new Date(), options?.timezone ?? this.timezone).toDate();
+	}
+
 	timestamp(options?: IHelperDateOptionsCreate): number {
 		return dayjs
 			.tz(options?.date ?? undefined, options?.timezone ?? this.timezone)

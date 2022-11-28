@@ -1,0 +1,1 @@
+export const PRODUCT_DETAIL_DEFAULT_AVAILABLE_SEARCH = ['name'];

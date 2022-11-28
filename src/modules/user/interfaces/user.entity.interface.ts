@@ -1,5 +1,6 @@
 import { TokenEntity } from 'src/common/auth/entities/auth.token.entity';
-import { AwsFileEntity } from 'src/common/aws/entities/aws.file.entity';
+import { IRoleEntity } from 'src/modules/role/interfaces/role.entity.interface';
+import { ImageEntity } from 'src/common/media/entities/image.entity';
 
 export interface IUserEntity {
 	phoneNumber: string;
@@ -12,7 +13,11 @@ export interface IUserEntity {
 
 	gender: string;
 
+	birthday: Date;
+
 	tokens: TokenEntity[];
 
-	photo: AwsFileEntity;
+	photos: ImageEntity[];
+
+	role: IRoleEntity;
 }

@@ -1,21 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { LessThan } from 'typeorm';
 import { HelperHashService } from 'src/common/helper/services/helper.hash.service';
 import { HelperDateService } from 'src/common/helper/services/helper.date.service';
 import { HelperEncryptionService } from 'src/common/helper/services/helper.encryption.service';
-import { ConfigService } from '@nestjs/config';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { AuthTokenRepository } from 'src/common/auth/repositories/auth.token.repository';
 import { IAuthService } from 'src/common/auth/interfaces/auth.service.interface';
 import {
 	IAuthPassword,
 	IAuthPayloadOptions,
-	IAuthRefreshTokenOptions
+	IAuthRefreshTokenOptions,
 } from 'src/common/auth/interfaces/auth.interface';
 import { ENUM_AUTH_TOKEN_TYPES } from 'src/common/auth/constants';
 import { RedisService } from 'src/common/redis/services/redis.service';
+import { UserRepository } from 'src/modules/user/repositories/user.repository';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 
 @Injectable()
-export class AuthService implements IAuthService{
+export class AuthService implements IAuthService {
 	private readonly accessTokenSecretKey: string;
 
 	private readonly accessTokenExpirationTime: number;
@@ -39,6 +42,7 @@ export class AuthService implements IAuthService{
 	private readonly subject: string;
 
 	constructor(
+		private readonly userRepository: UserRepository,
 		private readonly tokenRepository: AuthTokenRepository,
 		private readonly helperHashService: HelperHashService,
 		private readonly helperDateService: HelperDateService,
@@ -50,8 +54,8 @@ export class AuthService implements IAuthService{
 		this.accessTokenSecretKey = this.configService.get<string>(
 			'auth.jwt.accessToken.secretKey',
 		);
-		this.accessTokenExpirationTime = this.configService.get<number>(
-			'auth.jwt.accessToken.expirationTime',
+		this.accessTokenExpirationTime = Number(
+			this.configService.get<string>('auth.jwt.accessToken.expirationTime'),
 		);
 		this.accessTokenNotBeforeExpirationTime = this.configService.get<number>(
 			'auth.jwt.accessToken.notBeforeExpirationTime',
@@ -60,14 +64,18 @@ export class AuthService implements IAuthService{
 		this.refreshTokenSecretKey = this.configService.get<string>(
 			'auth.jwt.refreshToken.secretKey',
 		);
-		this.refreshTokenExpirationTime = this.configService.get<number>(
-			'auth.jwt.refreshToken.expirationTime',
+		this.refreshTokenExpirationTime = Number(
+			this.configService.get<string>('auth.jwt.refreshToken.expirationTime'),
 		);
-		this.refreshTokenExpirationTimeRememberMe = this.configService.get<number>(
-			'auth.jwt.refreshToken.expirationTimeRememberMe',
+		this.refreshTokenExpirationTimeRememberMe = Number(
+			this.configService.get<string>(
+				'auth.jwt.refreshToken.expirationTimeRememberMe',
+			),
 		);
-		this.refreshTokenNotBeforeExpirationTime = this.configService.get<number>(
-			'auth.jwt.refreshToken.notBeforeExpirationTime',
+		this.refreshTokenNotBeforeExpirationTime = Number(
+			this.configService.get<string>(
+				'auth.jwt.refreshToken.notBeforeExpirationTime',
+			),
 		);
 
 		this.prefixAuthorization = this.configService.get<string>(
@@ -78,7 +86,10 @@ export class AuthService implements IAuthService{
 		this.issuer = this.configService.get<string>('auth.jwt.issuer');
 	}
 
-	async createAccessToken(userId: string, payload: Record<string, any>): Promise<string> {
+	async createAccessToken(
+		user: UserEntity,
+		payload: Record<string, any>,
+	): Promise<string> {
 		const accessToken = this.helperEncryptionService.jwtEncrypt(payload, {
 			secretKey: this.accessTokenSecretKey,
 			expiredIn: this.accessTokenExpirationTime,
@@ -93,12 +104,14 @@ export class AuthService implements IAuthService{
 
 		try {
 			await this.tokenRepository.createOne({
-				userId,
-				token: accessToken,
-				type: ENUM_AUTH_TOKEN_TYPES.ACCESS_TOKEN,
-				expiredTime: this.helperDateService.create({
-					date: new Date(Date.now() + this.accessTokenExpirationTime),
-				}),
+				data: {
+					user,
+					token: accessToken,
+					type: ENUM_AUTH_TOKEN_TYPES.ACCESS_TOKEN,
+					expiredTime: this.helperDateService.create({
+						date: new Date(Date.now() + this.accessTokenExpirationTime),
+					}),
+				},
 			});
 		} catch (err: any) {
 			await queryRunner.rollbackTransaction();
@@ -123,7 +136,7 @@ export class AuthService implements IAuthService{
 	}
 
 	async createRefreshToken(
-		userId: string,
+		user: UserEntity,
 		payload: Record<string, any>,
 		options?: IAuthRefreshTokenOptions,
 	): Promise<string> {
@@ -134,8 +147,8 @@ export class AuthService implements IAuthService{
 					? this.refreshTokenExpirationTimeRememberMe
 					: this.refreshTokenExpirationTime,
 			notBefore:
-				options?.notBeforeExpirationTime
-					|| this.refreshTokenNotBeforeExpirationTime,
+				options?.notBeforeExpirationTime ||
+				this.refreshTokenNotBeforeExpirationTime,
 			audience: this.audience,
 			issuer: this.issuer,
 			subject: this.subject,
@@ -146,12 +159,14 @@ export class AuthService implements IAuthService{
 
 		try {
 			await this.tokenRepository.createOne({
-				userId,
-				token: refreshToken,
-				type: ENUM_AUTH_TOKEN_TYPES.REFRESH_TOKEN,
-				expiredTime: this.helperDateService.create({
-					date: new Date(Date.now() + this.refreshTokenExpirationTime),
-				}),
+				data: {
+					user,
+					token: refreshToken,
+					type: ENUM_AUTH_TOKEN_TYPES.REFRESH_TOKEN,
+					expiredTime: this.helperDateService.create({
+						date: new Date(Date.now() + this.refreshTokenExpirationTime),
+					}),
+				},
 			});
 		} catch (err: any) {
 			await queryRunner.rollbackTransaction();
@@ -226,26 +241,11 @@ export class AuthService implements IAuthService{
 
 		const salt: string = this.helperHashService.randomSalt(saltLength);
 
-		const passwordExpiredInMs: number = this.configService.get<number>(
-			'auth.password.expiredInMs',
-		);
-		const passwordExpired: Date =
-			this.helperDateService.forwardInMilliseconds(passwordExpiredInMs);
 		const passwordHash = this.helperHashService.bcrypt(password, salt);
 		return {
 			passwordHash,
-			passwordExpired,
 			salt,
 		};
-	}
-
-	async checkPasswordExpired(passwordExpired: Date): Promise<boolean> {
-		const today: Date = this.helperDateService.create();
-		const passwordExpiredConvert: Date = this.helperDateService.create({
-			date: passwordExpired,
-		});
-
-		return today > passwordExpiredConvert;
 	}
 
 	async getTokenType(): Promise<string> {
@@ -262,5 +262,29 @@ export class AuthService implements IAuthService{
 
 	async getSubject(): Promise<string> {
 		return this.subject;
+	}
+
+	clearOldAuthTokens(user: UserEntity, justAccessToken = false) {
+		let criteria: Record<string, any> = {
+			user,
+			expiredTime: LessThan(this.helperDateService.now()),
+		};
+
+		if (justAccessToken) {
+			criteria = {
+				...criteria,
+				type: ENUM_AUTH_TOKEN_TYPES.ACCESS_TOKEN,
+			};
+		}
+
+		return this.tokenRepository.updateMany({
+			criteria,
+			data: {
+				isActive: false,
+				deletedAt: this.helperDateService.create({
+					date: new Date(),
+				}),
+			},
+		});
 	}
 }

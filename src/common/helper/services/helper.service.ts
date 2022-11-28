@@ -3,7 +3,7 @@ import { IHelperService } from 'src/common/helper/interfaces/helper.service.inte
 
 @Injectable()
 export class HelperService implements IHelperService {
-    async delay(ms: number): Promise<void> {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
+	async delay(ms: number): Promise<void> {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
 }

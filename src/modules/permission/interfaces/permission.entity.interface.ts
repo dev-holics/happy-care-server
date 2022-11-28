@@ -9,5 +9,5 @@ export interface IPermissionEntity {
 
 	description: string;
 
-	roles: RoleEntity[];
+	roles?: RoleEntity[];
 }

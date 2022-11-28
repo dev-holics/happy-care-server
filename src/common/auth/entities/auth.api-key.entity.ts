@@ -1,8 +1,13 @@
-import { Column, Entity } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
+import { IApiKeyEntity } from 'src/common/auth/interfaces/auth.api-key.entity.interface';
+import { Column, Entity, Index } from 'typeorm';
 
 @Entity('api_keys')
-export class ApiKeyEntity extends DatabaseEntityAbstract {
+export class ApiKeyEntity
+	extends DatabaseEntityAbstract
+	implements IApiKeyEntity
+{
+	@Index()
 	@Column({
 		length: 2000,
 		transformer: {
@@ -17,6 +22,7 @@ export class ApiKeyEntity extends DatabaseEntityAbstract {
 	})
 	description: string;
 
+	@Index()
 	@Column({
 		unique: true,
 		transformer: {
@@ -34,6 +40,7 @@ export class ApiKeyEntity extends DatabaseEntityAbstract {
 	})
 	hash: string;
 
+	@Index()
 	@Column({
 		transformer: {
 			from: (value: string) => value,
@@ -50,4 +57,10 @@ export class ApiKeyEntity extends DatabaseEntityAbstract {
 		length: 16,
 	})
 	passphrase: string;
+
+	@Index()
+	@Column({
+		default: true,
+	})
+	isActive: boolean;
 }
