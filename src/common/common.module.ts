@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import configs from 'src/configs';
 import { validationSchema } from 'src/configs/validation.schema.config';
 import { DATABASE_CONNECTION_NAME } from 'src/common/database/constants/database.constant';
