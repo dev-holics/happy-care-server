@@ -21,7 +21,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "yarn build && node dist/src/main",
-    "lint": "yarn lint:src && yarn lint:test",
+    "lint": "yarn lint:src",
     "lint:fix": "eslint --ext .ts,.tsx '{src,test}/**/*.ts' --fix --no-error-on-unmatched-pattern",
     "lint:src": "eslint --ext .ts,.tsx 'src/**/*.ts' --no-error-on-unmatched-pattern",
     "lint:staged": "lint-staged",
