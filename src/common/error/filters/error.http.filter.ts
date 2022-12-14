@@ -40,7 +40,7 @@ export class ErrorHttpFilter implements ExceptionFilter {
 		const ctx: HttpArgumentsHost = host.switchToHttp();
 
 		Sentry.init({
-			dsn: 'https://b98189f345d7405d9bade35a111c0a8b@o4504327762280448.ingest.sentry.io/4504328503033856',
+			dsn: 'https://7a15b0bde0034bdcbe1c6aebe693fbc0@o4504327762280448.ingest.sentry.io/4504328450932736',
 			tracesSampleRate: 1.0,
 		});
 
@@ -137,8 +137,15 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				data,
 			};
 
-			Sentry.captureException(responseException);
-			Sentry.captureMessage(message);
+			Sentry.captureException({
+				id: request && request.id ? request.id : ErrorHttpFilter.name,
+				description: exception.message,
+				class: __class,
+				function: __function,
+				path: __path,
+				exception: exception,
+			});
+			Sentry.captureMessage(`${exception.message}`);
 
 			responseExpress
 				.setHeader('x-custom-lang', reqCustomLang)
@@ -156,6 +163,9 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				statusCode: HttpStatus.BAD_REQUEST,
 				message: (exception as QueryFailedError).message,
 			};
+
+			Sentry.captureException(responseBody);
+			Sentry.captureMessage((exception as QueryFailedError).message);
 
 			httpAdapter.reply(
 				ctx.getResponse(),

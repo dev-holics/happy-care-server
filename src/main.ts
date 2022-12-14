@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import morgan from 'morgan';
 import { isEmpty } from 'radash';
 import { NestApplication, NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from 'src/app/app.module';
@@ -13,7 +13,6 @@ import { ResponsePagingSerialization } from 'src/common/response/serializations/
 import winston from 'winston';
 import winstonElasticsearch from 'winston-elasticsearch';
 import userAgentParser from 'ua-parser-js';
-import moment from 'moment';
 
 async function bootstrap() {
 	const esTransportOpts = {
@@ -181,7 +180,6 @@ async function bootstrap() {
 			},
 		});
 	}
-
 	// Listen
 	await app.listen(port, host);
 
