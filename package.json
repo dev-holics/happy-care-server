@@ -109,6 +109,7 @@
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1",
+    "winston-elasticsearch": "^0.17.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
