@@ -20,7 +20,7 @@ async function bootstrap() {
 		indexPrefix: 'logging-api',
 		indexSuffixPattern: 'pbl',
 		clientOpts: {
-			node: 'https://8c72-164-92-71-38.eu.ngrok.io',
+			node: process.env.ELK_URI || 'https://8c72-164-92-71-38.eu.ngrok.io',
 			maxRetries: 5,
 			requestTimeout: 10000,
 			sniffOnStart: false,
