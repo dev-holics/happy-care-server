@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     tools {
@@ -8,10 +7,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'npm install yarn'
-<<<<<<< HEAD
-=======
                 sh 'npm run build'
->>>>>>> f230285 (chore: add build step for CI)
                 sh 'npm run lint'
             }
         }
