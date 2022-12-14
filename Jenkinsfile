@@ -1,10 +1,14 @@
 pipeline {
     agent any
+    tools {
+    nodejs '19.3.0'
+    }
     stages {
         stage('Build') { 
             steps {
-                sh 'npm install' 
-                sh 'npm run lint' 
+                sh 'npm install yarn'
+                sh 'npm run build'
+                sh 'npm run lint'
             }
         }
         stage('Test') {
