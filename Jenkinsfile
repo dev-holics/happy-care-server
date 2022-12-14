@@ -8,7 +8,10 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'npm install yarn'
-                sh 'npm install'
+<<<<<<< HEAD
+=======
+                sh 'npm run build'
+>>>>>>> f230285 (chore: add build step for CI)
                 sh 'npm run lint'
             }
         }
