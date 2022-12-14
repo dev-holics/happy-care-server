@@ -24,6 +24,7 @@ import { IMessage } from 'src/common/message/interfaces/message.interface';
 import { MessageService } from 'src/common/message/services/message.service';
 import { IRequestApp } from 'src/common/request/interfaces/request.interface';
 import { QueryFailedError } from 'typeorm';
+import * as Sentry from '@sentry/node';
 
 // If we throw error with HttpException, there will always return object
 // The exception filter only catch HttpException
@@ -37,6 +38,11 @@ export class ErrorHttpFilter implements ExceptionFilter {
 
 	async catch(exception: unknown, host: ArgumentsHost): Promise<void> {
 		const ctx: HttpArgumentsHost = host.switchToHttp();
+
+		Sentry.init({
+			dsn: 'https://b98189f345d7405d9bade35a111c0a8b@o4504327762280448.ingest.sentry.io/4504328503033856',
+			tracesSampleRate: 1.0,
+		});
 
 		if (exception instanceof HttpException) {
 			const statusHttp: number = exception.getStatus();
@@ -131,6 +137,9 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				data,
 			};
 
+			Sentry.captureException(responseException);
+			Sentry.captureMessage(message);
+
 			responseExpress
 				.setHeader('x-custom-lang', reqCustomLang)
 				.setHeader('x-timestamp', __timestamp)
@@ -178,6 +187,9 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
 				message,
 			};
+
+			Sentry.captureException(responseBody);
+			Sentry.captureMessage(message);
 
 			httpAdapter.reply(
 				ctx.getResponse(),
