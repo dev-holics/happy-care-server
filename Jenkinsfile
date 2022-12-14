@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'yarn install' 
-                sh 'yarn lint:src' 
+                sh 'npm install' 
+                sh 'npm run lint'
             }
         }
         stage('Test') {
