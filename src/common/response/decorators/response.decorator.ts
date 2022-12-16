@@ -15,7 +15,6 @@ import {
 	getSchemaPath,
 } from '@nestjs/swagger';
 import { ENUM_ERROR_STATUS_CODE_ERROR } from 'src/common/error/constants/error.status-code.constant';
-import { ENUM_FILE_EXCEL_MIME } from 'src/common/file/constants/file.enum.constant';
 import { ENUM_PAGINATION_TYPE } from 'src/common/pagination/constants/pagination.enum.constant';
 import { RequestHeaderDoc } from 'src/common/request/decorators/request.decorator';
 import {
@@ -358,7 +357,6 @@ export function ResponseExcel(options?: IResponseExcelOptions<void>) {
 			statusCode: ENUM_ERROR_STATUS_CODE_ERROR.ERROR_REQUEST_TIMEOUT,
 		}),
 		ApiOkResponse(),
-		ApiProduces(ENUM_FILE_EXCEL_MIME.XLSX),
 		...docs,
 	);
 }

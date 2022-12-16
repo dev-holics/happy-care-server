@@ -1,9 +1,14 @@
 pipeline {
     agent any
+    tools {
+    nodejs '19.3.0'
+    }
     stages {
         stage('Build') { 
             steps {
-                sh 'npm install' 
+                sh 'npm install yarn'
+                sh 'npm run build'
+                sh 'npm run lint'
             }
         }
         stage('Test') {
@@ -13,7 +18,7 @@ pipeline {
         }
         stage("Deploy Stage") {
             steps {
-                sh 'echo "Deploy stage begin"'
+                sh 'echo "hello"'
             }
         }
     }

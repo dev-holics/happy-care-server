@@ -1,16 +1,77 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import * as fs from 'fs';
 import morgan from 'morgan';
 import { isEmpty } from 'radash';
 import { NestApplication, NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from 'src/app/app.module';
 import { useContainer } from 'class-validator';
 import { ResponseDefaultSerialization } from 'src/common/response/serializations/response.default.serialization';
 import { ResponsePagingSerialization } from 'src/common/response/serializations/response.paging.serialization';
+import winston from 'winston';
+import winstonElasticsearch from 'winston-elasticsearch';
+import userAgentParser from 'ua-parser-js';
 
 async function bootstrap() {
+	const esTransportOpts = {
+		indexPrefix: 'logging-api',
+		indexSuffixPattern: 'pbl',
+		clientOpts: {
+			node: process.env.ELK_URI || 'https://8c72-164-92-71-38.eu.ngrok.io',
+			maxRetries: 5,
+			requestTimeout: 10000,
+			sniffOnStart: false,
+		},
+		source: 'api',
+	};
+	const esTransport = new winstonElasticsearch.ElasticsearchTransport(
+		esTransportOpts,
+	);
+
+	const logger = winston.createLogger({
+		transports: [new winston.transports.Console(), esTransport],
+	});
+
+	const morganJSONFormat = () =>
+		JSON.stringify({
+			method: ':method',
+			url: ':url',
+			http_version: ':http-version',
+			remote_addr: ':remote-addr',
+			remote_addr_forwarded: ':req[x-forwarded-for]', //Get a specific header
+			response_time: ':response-time',
+			status: ':status',
+			content_length: ':res[content-length]',
+			timestamp: ':date[iso]',
+			user_agent: ':user-agent',
+		});
+
+	function parseUserAgent(data) {
+		if (data.user_agent) {
+			const ua = userAgentParser(data.user_agent);
+			if (ua.browser) {
+				data.user_agent_browser_name = ua.browser.name;
+				data.user_agent_browser_version =
+					ua.browser.major || ua.browser.version;
+			}
+			if (ua.os) {
+				data.user_agent_os_name = ua.os.name;
+				data.user_agent_os_version = ua.os.version;
+			}
+		}
+	}
+
+	function sanitizeUrl(data) {
+		if (!data.url) {
+			return;
+		}
+		const regex = /\/[0-9]+/g;
+		const urlWithoutParameter = data.url.replace(regex, '/:id');
+		data.url_sanitized = urlWithoutParameter;
+	}
+
 	let httpsOptions = {};
 
 	if (process.env.APP_ENV === 'production') {
@@ -44,7 +105,7 @@ async function bootstrap() {
 		'app.versioning.prefix',
 	);
 	const version: string = configService.get<string>('app.version');
-	const logger = new Logger();
+	// const logger = new Logger();
 	process.env.TZ = tz;
 	process.env.NODE_ENV = env;
 
@@ -54,7 +115,18 @@ async function bootstrap() {
 	useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
 	// Morgan Http
-	app.use(morgan('tiny'));
+	app.use(
+		morgan(morganJSONFormat(), {
+			stream: {
+				write: message => {
+					const data = JSON.parse(message);
+					parseUserAgent(data);
+					sanitizeUrl(data);
+					return logger.info(message, data);
+				},
+			},
+		}),
+	);
 
 	// Versioning
 	if (versioning) {
@@ -108,46 +180,45 @@ async function bootstrap() {
 			},
 		});
 	}
-
 	// Listen
 	await app.listen(port, host);
 
-	logger.log(`==========================================================`);
-	logger.log(`${appName} Environment is ${env}`, 'NestApplication');
-	logger.log(
+	logger.info(`==========================================================`);
+	logger.info(`${appName} Environment is ${env}`, 'NestApplication');
+	logger.info(
 		`App Language is ${configService.get<string>('app.language')}`,
 		'NestApplication',
 	);
-	logger.log(
+	logger.info(
 		`App Debug is ${configService.get<boolean>('app.debug')}`,
 		'NestApplication',
 	);
-	logger.log(`App Versioning is ${versioning}`, 'NestApplication');
-	logger.log(
+	logger.info(`App Versioning is ${versioning}`, 'NestApplication');
+	logger.info(
 		`App Http is ${configService.get<boolean>('app.httpOn')}`,
 		'NestApplication',
 	);
-	logger.log(
+	logger.info(
 		`App Task is ${configService.get<boolean>('app.jobOn')}`,
 		'NestApplication',
 	);
-	logger.log(`App Timezone is ${tz}`, 'NestApplication');
+	logger.info(`App Timezone is ${tz}`, 'NestApplication');
 
-	logger.log(`==========================================================`);
+	logger.info(`==========================================================`);
 
-	logger.log(`Docs will serve on ${await app.getUrl()}${docPrefix}`);
-	logger.log(`Docs version is ${docVersion}`);
+	logger.info(`Docs will serve on ${await app.getUrl()}${docPrefix}`);
+	logger.info(`Docs version is ${docVersion}`);
 
-	logger.log(`==========================================================`);
+	logger.info(`==========================================================`);
 
-	logger.log(
+	logger.info(
 		`Database running on ${configService.get<string>(
 			'database.host',
 		)}/${configService.get<string>('database.name')}`,
 		'NestApplication',
 	);
-	logger.log(`Server running on ${await app.getUrl()}`, 'NestApplication');
+	logger.info(`Server running on ${await app.getUrl()}`, 'NestApplication');
 
-	logger.log(`==========================================================`);
+	logger.info(`==========================================================`);
 }
 bootstrap();

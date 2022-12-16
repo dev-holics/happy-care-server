@@ -24,6 +24,7 @@ import { IMessage } from 'src/common/message/interfaces/message.interface';
 import { MessageService } from 'src/common/message/services/message.service';
 import { IRequestApp } from 'src/common/request/interfaces/request.interface';
 import { QueryFailedError } from 'typeorm';
+import * as Sentry from '@sentry/node';
 
 // If we throw error with HttpException, there will always return object
 // The exception filter only catch HttpException
@@ -37,6 +38,11 @@ export class ErrorHttpFilter implements ExceptionFilter {
 
 	async catch(exception: unknown, host: ArgumentsHost): Promise<void> {
 		const ctx: HttpArgumentsHost = host.switchToHttp();
+
+		Sentry.init({
+			dsn: 'https://7a15b0bde0034bdcbe1c6aebe693fbc0@o4504327762280448.ingest.sentry.io/4504328450932736',
+			tracesSampleRate: 1.0,
+		});
 
 		if (exception instanceof HttpException) {
 			const statusHttp: number = exception.getStatus();
@@ -131,6 +137,16 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				data,
 			};
 
+			Sentry.captureException({
+				id: request && request.id ? request.id : ErrorHttpFilter.name,
+				description: exception.message,
+				class: __class,
+				function: __function,
+				path: __path,
+				exception: exception,
+			});
+			Sentry.captureMessage(`${exception.message}`);
+
 			responseExpress
 				.setHeader('x-custom-lang', reqCustomLang)
 				.setHeader('x-timestamp', __timestamp)
@@ -147,6 +163,9 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				statusCode: HttpStatus.BAD_REQUEST,
 				message: (exception as QueryFailedError).message,
 			};
+
+			Sentry.captureException(responseBody);
+			Sentry.captureMessage((exception as QueryFailedError).message);
 
 			httpAdapter.reply(
 				ctx.getResponse(),
@@ -178,6 +197,9 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
 				message,
 			};
+
+			Sentry.captureException(responseBody);
+			Sentry.captureMessage(message);
 
 			httpAdapter.reply(
 				ctx.getResponse(),
