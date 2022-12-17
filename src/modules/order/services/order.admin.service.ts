@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
 	OrderAdminRepository,
 	OrderDetailRepository,
@@ -15,13 +15,8 @@ import {
 } from 'src/modules/order/constants/order.constant';
 import moment from 'moment';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
-import {
-	ENUM_AUTH_ACCESS_LEVEL,
-	ENUM_AUTH_STATUS_CODE_ERROR,
-} from 'src/common/auth/constants';
 import { Between, ILike } from 'typeorm';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { OrderDetailEntity } from 'src/modules/order/entities';
 import {
 	ProductDetailRepository,
 	ProductLogRepository,
@@ -63,33 +58,19 @@ export class OrderAdminService {
 				},
 			});
 
-			if (pharmacist.role.accessLevel != ENUM_AUTH_ACCESS_LEVEL.PHARMACIST) {
-				throw new ForbiddenException({
-					statusCode: ENUM_AUTH_STATUS_CODE_ERROR.AUTH_PERMISSION_INVALID_ERROR,
-					message: 'auth.error.mustBePharmacist',
-				});
-			}
-
 			// create new order
 			const newOrder = await this.orderAdminRepository.createOne({
 				data: {
 					orderCode: faker.datatype.uuid(),
 					paymentType: orderAdminCreateBodyDto.paymentType,
 					orderType: ENUM_ORDER_TYPES.OFFLINE_STORE,
-					status: ENUM_ORDER_STATUS.SUCCESS,
-					freeShip: null,
+					status: ENUM_ORDER_STATUS.RECEIVED,
+					freeShip: false,
 					totalPrice: orderAdminCreateBodyDto.totalPrice,
 					createDate: moment(new Date()).format('yyyyMMDDHHmmss'),
-					orderPayment: null,
-					orderDetails: orderAdminCreateBodyDto.products.map(orderDetail => {
-						return {
-							quantity: orderDetail.quantity,
-							product: {
-								id: orderDetail.productId,
-							},
-						} as OrderDetailEntity;
-					}),
-					orderDiscounts: null,
+					orderPayment: {
+						isPay: true,
+					},
 					customer: {
 						id: orderAdminCreateBodyDto.customerId,
 					},
@@ -99,7 +80,6 @@ export class OrderAdminService {
 					branch: {
 						id: pharmacist.branch.id,
 					},
-					userSetting: null,
 				},
 			});
 

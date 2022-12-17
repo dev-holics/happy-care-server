@@ -310,10 +310,10 @@ export class OrderService {
 	): Promise<IResponse> {
 		const order = await this.orderRepository.findOne({
 			where: {
+				id: orderParamDto.orderId,
 				customer: {
 					id: userId,
 				},
-				orderCode: orderParamDto.orderCode,
 			},
 			options: {
 				relations: {

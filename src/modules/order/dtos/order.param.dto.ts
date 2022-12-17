@@ -5,5 +5,5 @@ export class OrderParamDto {
 	@IsString()
 	@IsNotEmpty()
 	@Type(() => String)
-	readonly orderCode: string;
+	readonly orderId: string;
 }

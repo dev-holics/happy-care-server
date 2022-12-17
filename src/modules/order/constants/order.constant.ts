@@ -6,11 +6,12 @@ export enum ENUM_PAYMENT_TYPES {
 }
 
 export enum ENUM_ORDER_STATUS {
-	PROCESSING = 'PROCESSING',
-	CONFIRMED = 'CONFIRMED',
-	DELIVERING = 'DELIVERING',
-	SUCCESS = 'SUCCESS',
-	CANCELED = 'CANCELED',
+	PROCESSING = 'PROCESSING', // Customer has just placed the order
+	CONFIRMED = 'CONFIRMED', // Pharmacist has confirmed the order
+	DELIVERING = 'DELIVERING', // Pharmacist is delivering the order
+	DELIVERED = 'DELIVERED', // Order has been delivered
+	RECEIVED = 'RECEIVED', // Customer has received the order or Pharmacist has created the order, cannot cancel
+	CANCELED = 'CANCELED', // Order has been canceled or Pharmacist has canceled the order
 }
 
 export enum ENUM_ORDER_TYPES {

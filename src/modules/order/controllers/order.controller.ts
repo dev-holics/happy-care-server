@@ -61,11 +61,11 @@ export class OrderController {
 	@AuthJwtGuard([PERMISSIONS.READ_ORDER])
 	@AuthApiKeyGuard()
 	@ApiParam({
-		name: 'orderCode',
+		name: 'orderId',
 		type: 'string',
 	})
-	@Get('/:orderCode')
-	async getOrderByCode(
+	@Get('/:orderId')
+	async getOrderById(
 		@GetUser('id') id: string,
 		@Param() orderParamDto: OrderParamDto,
 	) {
