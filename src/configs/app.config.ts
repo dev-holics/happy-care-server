@@ -41,5 +41,8 @@ export default registerAs(
 
 		httpOn: process.env.APP_HTTP_ON === 'true' || false,
 		jobOn: process.env.APP_JOB_ON === 'true' || false,
+		dns:
+			process.env.DNS ||
+			'https://7a15b0bde0034bdcbe1c6aebe693fbc0@o4504327762280448.ingest.sentry.io/4504328450932736',
 	}),
 );
