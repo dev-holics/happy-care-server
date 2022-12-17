@@ -36,7 +36,7 @@ export class UserCreateDto implements IUserCreate {
 		required: true,
 	})
 	@IsNotEmpty()
-	@IsPasswordStrong()
+	// @IsPasswordStrong()
 	readonly password: string;
 
 	@ApiProperty({
