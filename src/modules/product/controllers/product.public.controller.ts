@@ -4,6 +4,7 @@ import { ProductPublicService } from 'src/modules/product/services';
 import { ProductGetListDto, ProductParamDto } from 'src/modules/product/dtos';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { ResponsePagingProduct } from 'src/common/response/decorators/response.decorator';
+import { ProductDetailQueryDto } from 'src/modules/product/dtos/product.detail.query.dto';
 
 @ApiTags('Public.product')
 @Controller({
@@ -26,7 +27,13 @@ export class ProductPublicController {
 		type: 'string',
 	})
 	@Get('/:productId')
-	async getProductDetail(@Param() productParamDto: ProductParamDto) {
-		return this.productPublicService.getProductDetail(productParamDto);
+	async getProductDetail(
+		@Param() productParamDto: ProductParamDto,
+		@Query() productDetailQueryDto: ProductDetailQueryDto,
+	) {
+		return this.productPublicService.getProductDetail(
+			productParamDto,
+			productDetailQueryDto,
+		);
 	}
 }
