@@ -5,10 +5,12 @@ import {
 	ProductPublicRepository,
 } from 'src/modules/product/repositories';
 import { ProductGetListDto, ProductParamDto } from 'src/modules/product/dtos';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
 import { isEmpty } from 'radash';
-import { MoreThan } from 'typeorm';
+import { BranchPublicRepository } from 'src/modules/location/repositories';
+import { ENUM_PRODUCT_STATUS_CODE_ERROR } from 'src/modules/product/constants';
+import { ProductDetailQueryDto } from 'src/modules/product/dtos/product.detail.query.dto';
 
 @Injectable()
 export class ProductPublicService {
@@ -17,6 +19,7 @@ export class ProductPublicService {
 		private readonly categoryTreeRepository: CategoryTreeRepository,
 		private readonly paginationService: PaginationService,
 		private readonly productDetailRepository: ProductDetailRepository,
+		private readonly branchPublicRepository: BranchPublicRepository,
 	) {}
 
 	async getProducts(
@@ -70,7 +73,10 @@ export class ProductPublicService {
 		);
 	}
 
-	async getProductDetail(productParamDto: ProductParamDto) {
+	async getProductDetail(
+		productParamDto: ProductParamDto,
+		productDetailQueryDto: ProductDetailQueryDto,
+	) {
 		const product = await this.productPublicRepository.findOne({
 			where: {
 				id: productParamDto.productId,
@@ -84,15 +90,33 @@ export class ProductPublicService {
 				},
 			},
 		});
-		const productDetails = await this.productDetailRepository.findMany({
+		const branch = await this.branchPublicRepository.findOne({
 			where: {
-				quantity: MoreThan(0),
-				product: {
-					id: productParamDto.productId,
-				},
+				id: productDetailQueryDto.branchId,
 			},
 		});
-		product.productDetails = productDetails;
+		if (product && branch) {
+			const detail = await this.productDetailRepository.findOne({
+				where: {
+					product: {
+						id: product.id,
+					},
+					branch: {
+						id: branch.id,
+					},
+				},
+			});
+			return {
+				...product,
+				quantity: detail ? detail.quantity : 0,
+			};
+		}
+		if (!product) {
+			throw new NotFoundException({
+				statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.PRODUCT_NOT_FOUND,
+				message: 'product.error.productNotFound',
+			});
+		}
 		return product;
 	}
 }

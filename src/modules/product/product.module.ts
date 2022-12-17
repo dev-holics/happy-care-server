@@ -17,9 +17,11 @@ import {
 	ProductService,
 } from 'src/modules/product/services';
 import { CategoryModule } from 'src/modules/category/category.module';
+import { LocationModule } from 'src/modules/location/location.module';
 
 @Module({
 	imports: [
+		LocationModule,
 		TypeOrmModule.forFeature([
 			ProductEntity,
 			ProductLogEntity,

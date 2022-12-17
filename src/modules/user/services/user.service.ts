@@ -114,6 +114,7 @@ export class UserService {
 			options: {
 				relations: {
 					role: true,
+					branch: true,
 				},
 				page: userGetListDto.page,
 				limit: userGetListDto.limit,
@@ -135,7 +136,7 @@ export class UserService {
 				id: userGetDto.userId,
 			},
 			options: {
-				relations: ['role'],
+				relations: ['role', 'branch'],
 			},
 		});
 
