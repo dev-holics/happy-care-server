@@ -25,6 +25,7 @@ import { MessageService } from 'src/common/message/services/message.service';
 import { IRequestApp } from 'src/common/request/interfaces/request.interface';
 import { QueryFailedError } from 'typeorm';
 import * as Sentry from '@sentry/node';
+import { ConfigService } from '@nestjs/config';
 
 // If we throw error with HttpException, there will always return object
 // The exception filter only catch HttpException
@@ -34,13 +35,14 @@ export class ErrorHttpFilter implements ExceptionFilter {
 		private readonly messageService: MessageService,
 		private readonly debuggerService: DebuggerService,
 		private readonly httpAdapterHost: HttpAdapterHost,
+		private readonly configService: ConfigService,
 	) {}
 
 	async catch(exception: unknown, host: ArgumentsHost): Promise<void> {
 		const ctx: HttpArgumentsHost = host.switchToHttp();
 
 		Sentry.init({
-			dsn: 'https://7a15b0bde0034bdcbe1c6aebe693fbc0@o4504327762280448.ingest.sentry.io/4504328450932736',
+			dsn: this.configService.get<string>('app.dns'),
 			tracesSampleRate: 1.0,
 		});
 
