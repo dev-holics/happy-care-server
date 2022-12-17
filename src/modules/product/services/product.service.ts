@@ -178,7 +178,7 @@ export class ProductService {
 						// If the quantity of product in this branch is not enough
 						throw new BadRequestException({
 							statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
-							message: 'productDetail.error.cannotUpdate',
+							message: 'productDetail.error.notEnoughProduct',
 						});
 					}
 					productDetail.quantity -= productLogCreateDto.quantity;
@@ -208,7 +208,7 @@ export class ProductService {
 				} else {
 					throw new BadRequestException({
 						statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
-						message: 'productDetail.error.cannotUpdate',
+						message: 'productDetail.error.doesNotHaveProduct',
 					});
 				}
 			}
