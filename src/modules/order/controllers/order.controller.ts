@@ -3,8 +3,8 @@ import {
 	IResponsePaging,
 } from 'src/common/response/interfaces/response.interface';
 import { OrderService } from 'src/modules/order/services';
-import { Body, Controller, Get, Ip, Post, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Ip, Param, Post, Query } from '@nestjs/common';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 import {
 	OrderCreateBodyDto,
 	OrderHistoryQueryDto,
@@ -17,6 +17,8 @@ import {
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
+import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
+import { OrderParamDto } from 'src/modules/order/dtos/order.param.dto';
 
 @ApiTags('Order')
 @Controller({
@@ -53,5 +55,20 @@ export class OrderController {
 		@Query() orderHistoryQueryDto: OrderHistoryQueryDto,
 	): Promise<IResponsePaging> {
 		return this.orderService.getOrderHistory(userId, orderHistoryQueryDto);
+	}
+
+	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.READ_ORDER])
+	@AuthApiKeyGuard()
+	@ApiParam({
+		name: 'orderCode',
+		type: 'string',
+	})
+	@Get('/:orderCode')
+	async getOrderById(
+		@GetUser('id') id: string,
+		@Param() orderParamDto: OrderParamDto,
+	) {
+		return this.orderService.getOrderById(id, orderParamDto);
 	}
 }
