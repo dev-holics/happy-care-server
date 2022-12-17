@@ -5,7 +5,11 @@ import {
 	OrderPaymentRepository,
 	OrderRepository,
 } from 'src/modules/order/repositories';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import * as qs from 'qs';
 import * as crypto from 'crypto';
 import { ConfigService } from '@nestjs/config';
@@ -25,6 +29,7 @@ import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { faker } from '@faker-js/faker';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { ILike } from 'typeorm';
+import { OrderParamDto } from 'src/modules/order/dtos/order.param.dto';
 
 @Injectable()
 export class OrderService {
@@ -297,5 +302,42 @@ export class OrderService {
 			null,
 			result,
 		);
+	}
+
+	async getOrderById(
+		userId: string,
+		orderParamDto: OrderParamDto,
+	): Promise<IResponse> {
+		const order = await this.orderRepository.findOne({
+			where: {
+				customer: {
+					id: userId,
+				},
+				orderCode: orderParamDto.orderCode,
+			},
+			options: {
+				relations: {
+					branch: true,
+					userSetting: true,
+					customer: true,
+					pharmacist: true,
+					orderDetails: {
+						product: {
+							images: true,
+						},
+					},
+					orderPayment: true,
+				},
+			},
+		});
+
+		if (!order) {
+			throw new NotFoundException({
+				statusCode: 404,
+				message: 'oder.error.notFound',
+			});
+		}
+
+		return order;
 	}
 }
