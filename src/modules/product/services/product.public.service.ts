@@ -118,10 +118,16 @@ export class ProductPublicService {
 
 			let quantity = 0;
 
-			productDetail.productConsignments.forEach(item => {
-				quantity += item.quantity;
-			});
-			return { ...product, quantity };
+			if (productDetail) {
+				productDetail.productConsignments.forEach(item => {
+					quantity += item.quantity;
+				});
+			}
+			if (product) {
+				return { ...product, quantity };
+			} else {
+				return null;
+			}
 		} else {
 			const [product, productDetail] = await Promise.all([
 				this.productPublicRepository.findOne({
@@ -146,11 +152,9 @@ export class ProductPublicService {
 					where: {
 						product: {
 							id: productParamDto.productId,
-							productDetails: {
-								branch: {
-									id: productDetailQueryDto.branchId,
-								},
-							},
+						},
+						branch: {
+							id: productDetailQueryDto.branchId,
 						},
 						productConsignments: {
 							expired: MoreThanOrEqual(
@@ -168,10 +172,17 @@ export class ProductPublicService {
 
 			let quantity = 0;
 
-			productDetail.productConsignments.forEach(item => {
-				quantity += item.quantity;
-			});
-			return { ...product, quantity };
+			if (productDetail) {
+				productDetail.productConsignments.forEach(item => {
+					quantity += item.quantity;
+				});
+			}
+
+			if (product) {
+				return { ...product, quantity };
+			} else {
+				return null;
+			}
 		}
 	}
 }
