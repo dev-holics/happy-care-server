@@ -155,78 +155,79 @@ export class ProductService {
 	}
 
 	async updateStock(productLogCreateDto: ProductLogCreateDto) {
-		const queryRunner = await this.databaseTransactionService.getQueryRunner();
-		await queryRunner.startTransaction();
-		try {
-			const productDetail = await this.productDetailRepository.findOne({
-				where: {
-					product: {
-						id: productLogCreateDto.productId,
-					},
-					branch: {
-						id: productLogCreateDto.branchId,
-					},
-				},
-			});
+		// const queryRunner = await this.databaseTransactionService.getQueryRunner();
+		// await queryRunner.startTransaction();
+		// try {
+		// 	const productDetail = await this.productDetailRepository.findOne({
+		// 		where: {
+		// 			product: {
+		// 				id: productLogCreateDto.productId,
+		// 			},
+		// 			branch: {
+		// 				id: productLogCreateDto.branchId,
+		// 			},
+		// 		},
+		// 	});
 
-			if (productDetail) {
-				// If this branch has already had this product
-				if (productLogCreateDto.type === ENUM_TRANSACTION_TYPES.IMPORT) {
-					productDetail.quantity += productLogCreateDto.quantity;
-				} else {
-					if (productDetail.quantity < productLogCreateDto.quantity) {
-						// If the quantity of product in this branch is not enough
-						throw new BadRequestException({
-							statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
-							message: 'productDetail.error.notEnoughProduct',
-						});
-					}
-					productDetail.quantity -= productLogCreateDto.quantity;
-				}
-				await this.productDetailRepository.updateOne({
-					criteria: {
-						id: productDetail.id,
-					},
-					data: {
-						quantity: productDetail.quantity,
-					},
-				});
-			} else {
-				// If this branch has not had this product
-				if (productLogCreateDto.type === ENUM_TRANSACTION_TYPES.IMPORT) {
-					await this.productDetailRepository.createOne({
-						data: {
-							quantity: productLogCreateDto.quantity,
-							product: {
-								id: productLogCreateDto.productId,
-							},
-							branch: {
-								id: productLogCreateDto.branchId,
-							},
-						},
-					});
-				} else {
-					throw new BadRequestException({
-						statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
-						message: 'productDetail.error.doesNotHaveProduct',
-					});
-				}
-			}
+		// 	if (productDetail) {
+		// 		// If this branch has already had this product
+		// 		if (productLogCreateDto.type === ENUM_TRANSACTION_TYPES.IMPORT) {
+		// 			productDetail.quantity += productLogCreateDto.quantity;
+		// 		} else {
+		// 			if (productDetail.quantity < productLogCreateDto.quantity) {
+		// 				// If the quantity of product in this branch is not enough
+		// 				throw new BadRequestException({
+		// 					statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
+		// 					message: 'productDetail.error.notEnoughProduct',
+		// 				});
+		// 			}
+		// 			productDetail.quantity -= productLogCreateDto.quantity;
+		// 		}
+		// 		await this.productDetailRepository.updateOne({
+		// 			criteria: {
+		// 				id: productDetail.id,
+		// 			},
+		// 			data: {
+		// 				quantity: productDetail.quantity,
+		// 			},
+		// 		});
+		// 	} else {
+		// 		// If this branch has not had this product
+		// 		if (productLogCreateDto.type === ENUM_TRANSACTION_TYPES.IMPORT) {
+		// 			await this.productDetailRepository.createOne({
+		// 				data: {
+		// 					quantity: productLogCreateDto.quantity,
+		// 					product: {
+		// 						id: productLogCreateDto.productId,
+		// 					},
+		// 					branch: {
+		// 						id: productLogCreateDto.branchId,
+		// 					},
+		// 				},
+		// 			});
+		// 		} else {
+		// 			throw new BadRequestException({
+		// 				statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
+		// 				message: 'productDetail.error.doesNotHaveProduct',
+		// 			});
+		// 		}
+		// 	}
 
-			await this.productLogRepository.createOne({
-				data: {
-					...productLogCreateDto,
-					branch: {
-						id: productLogCreateDto.branchId,
-					},
-					product: {
-						id: productLogCreateDto.productId,
-					},
-				},
-			});
-		} catch (e) {
-			await queryRunner.rollbackTransaction();
-			throw e;
-		}
+		// 	await this.productLogRepository.createOne({
+		// 		data: {
+		// 			...productLogCreateDto,
+		// 			branch: {
+		// 				id: productLogCreateDto.branchId,
+		// 			},
+		// 			product: {
+		// 				id: productLogCreateDto.productId,
+		// 			},
+		// 		},
+		// 	});
+		// } catch (e) {
+		// 	await queryRunner.rollbackTransaction();
+		// 	throw e;
+		// }
+		return;
 	}
 }

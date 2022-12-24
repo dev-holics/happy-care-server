@@ -1,8 +1,11 @@
-import { ProductEntity } from 'src/modules/product/entities';
+import {
+	ProductConsignmentEntity,
+	ProductEntity,
+} from 'src/modules/product/entities';
 import { BranchEntity } from 'src/modules/location/entities';
 
 export interface IProductDetailEntity {
-	quantity: number;
+	productConsignments: ProductConsignmentEntity[];
 	product: ProductEntity;
 	branch: BranchEntity;
 }

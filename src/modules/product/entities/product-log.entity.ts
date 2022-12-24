@@ -22,6 +22,9 @@ export class ProductLogEntity
 	})
 	type: string;
 
+	@Column()
+	expired: Date;
+
 	@ManyToOne(() => BranchEntity, branch => branch.productLogs)
 	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })
 	branch: BranchEntity;

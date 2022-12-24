@@ -6,11 +6,16 @@ import {
 } from 'src/modules/product/repositories';
 import { ProductGetListDto, ProductParamDto } from 'src/modules/product/dtos';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IResponsePaging } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponse,
+	IResponsePaging,
+} from 'src/common/response/interfaces/response.interface';
 import { isEmpty } from 'radash';
 import { BranchPublicRepository } from 'src/modules/location/repositories';
 import { ENUM_PRODUCT_STATUS_CODE_ERROR } from 'src/modules/product/constants';
 import { ProductDetailQueryDto } from 'src/modules/product/dtos/product.detail.query.dto';
+import { MoreThanOrEqual } from 'typeorm';
+import moment from 'moment';
 
 @Injectable()
 export class ProductPublicService {
@@ -76,47 +81,97 @@ export class ProductPublicService {
 	async getProductDetail(
 		productParamDto: ProductParamDto,
 		productDetailQueryDto: ProductDetailQueryDto,
-	) {
-		const product = await this.productPublicRepository.findOne({
-			where: {
-				id: productParamDto.productId,
-			},
-			options: {
-				relations: {
-					images: true,
-					category: true,
-					trademark: true,
-					origin: true,
-				},
-			},
-		});
-		const branch = await this.branchPublicRepository.findOne({
-			where: {
-				id: productDetailQueryDto.branchId,
-			},
-		});
-		if (product && branch) {
-			const detail = await this.productDetailRepository.findOne({
-				where: {
-					product: {
-						id: product.id,
+	): Promise<IResponse> {
+		if (!productDetailQueryDto.branchId) {
+			const [product, productDetail] = await Promise.all([
+				this.productPublicRepository.findOne({
+					where: {
+						id: productParamDto.productId,
 					},
-					branch: {
-						id: branch.id,
+					options: {
+						relations: {
+							images: true,
+							category: true,
+							trademark: true,
+							origin: true,
+						},
 					},
-				},
+				}),
+				this.productDetailRepository.findOne({
+					where: {
+						product: {
+							id: productParamDto.productId,
+						},
+						productConsignments: {
+							expired: MoreThanOrEqual(
+								moment().add(6, 'months').format('"YYYY-MM-DD"'),
+							),
+						},
+					},
+					options: {
+						relations: {
+							productConsignments: true,
+						},
+					},
+				}),
+			]);
+
+			let quantity = 0;
+
+			productDetail.productConsignments.forEach(item => {
+				quantity += item.quantity;
 			});
-			return {
-				...product,
-				quantity: detail ? detail.quantity : 0,
-			};
-		}
-		if (!product) {
-			throw new NotFoundException({
-				statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.PRODUCT_NOT_FOUND,
-				message: 'product.error.productNotFound',
+			return { ...product, quantity };
+		} else {
+			const [product, productDetail] = await Promise.all([
+				this.productPublicRepository.findOne({
+					where: {
+						id: productParamDto.productId,
+						productDetails: {
+							branch: {
+								id: productDetailQueryDto.branchId,
+							},
+						},
+					},
+					options: {
+						relations: {
+							images: true,
+							category: true,
+							trademark: true,
+							origin: true,
+						},
+					},
+				}),
+				this.productDetailRepository.findOne({
+					where: {
+						product: {
+							id: productParamDto.productId,
+							productDetails: {
+								branch: {
+									id: productDetailQueryDto.branchId,
+								},
+							},
+						},
+						productConsignments: {
+							expired: MoreThanOrEqual(
+								moment().add(6, 'months').format('"YYYY-MM-DD"'),
+							),
+						},
+					},
+					options: {
+						relations: {
+							productConsignments: true,
+						},
+					},
+				}),
+			]);
+
+			let quantity = 0;
+
+			productDetail.productConsignments.forEach(item => {
+				quantity += item.quantity;
 			});
+			return { ...product, quantity };
 		}
-		return product;
 	}
 }

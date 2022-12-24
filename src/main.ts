@@ -124,18 +124,19 @@ async function bootstrap() {
 		useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
 		// Morgan Http
-		app.use(
-			morgan(morganJSONFormat(), {
-				stream: {
-					write: message => {
-						const data = JSON.parse(message);
-						parseUserAgent(data);
-						sanitizeUrl(data);
-						return logger.info(message, data);
-					},
-				},
-			}),
-		);
+		// app.use(
+		// 	morgan(morganJSONFormat(), {
+		// 		stream: {
+		// 			write: message => {
+		// 				const data = JSON.parse(message);
+		// 				parseUserAgent(data);
+		// 				sanitizeUrl(data);
+		// 				return logger.info(message, data);
+		// 			},
+		// 		},
+		// 	}),
+		// );
+		app.use(morgan());
 
 		// Versioning
 		if (versioning) {
@@ -245,7 +246,7 @@ async function bootstrap() {
 			`==========================================================`,
 		);
 
-		logger.info(`Server running on ${await app.getUrl()}`, 'NestApplication');
+		// logger.info(`Server running on ${await app.getUrl()}`, 'NestApplication');
 	} catch (error) {
 		Sentry.captureException(error);
 		Sentry.captureMessage(`${error.message}`);

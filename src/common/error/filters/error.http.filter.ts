@@ -139,15 +139,15 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				data,
 			};
 
-			Sentry.captureException({
-				id: request && request.id ? request.id : ErrorHttpFilter.name,
-				description: exception.message,
-				class: __class,
-				function: __function,
-				path: __path,
-				exception: exception,
-			});
-			Sentry.captureMessage(`${exception.message}`);
+			// Sentry.captureException({
+			// 	id: request && request.id ? request.id : ErrorHttpFilter.name,
+			// 	description: exception.message,
+			// 	class: __class,
+			// 	function: __function,
+			// 	path: __path,
+			// 	exception: exception,
+			// });
+			// Sentry.captureMessage(`${exception.message}`);
 
 			responseExpress
 				.setHeader('x-custom-lang', reqCustomLang)
@@ -166,8 +166,8 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				message: (exception as QueryFailedError).message,
 			};
 
-			Sentry.captureException(responseBody);
-			Sentry.captureMessage((exception as QueryFailedError).message);
+			// Sentry.captureException(responseBody);
+			// Sentry.captureMessage((exception as QueryFailedError).message);
 
 			httpAdapter.reply(
 				ctx.getResponse(),
@@ -200,14 +200,14 @@ export class ErrorHttpFilter implements ExceptionFilter {
 				message,
 			};
 
-			Sentry.captureException(responseBody);
-			Sentry.captureMessage(message);
+			// Sentry.captureException(responseBody);
+			// Sentry.captureMessage(message);
 
-			httpAdapter.reply(
-				ctx.getResponse(),
-				responseBody,
-				HttpStatus.INTERNAL_SERVER_ERROR,
-			);
+			// httpAdapter.reply(
+			// 	ctx.getResponse(),
+			// 	responseBody,
+			// 	HttpStatus.INTERNAL_SERVER_ERROR,
+			// );
 		}
 
 		return;
