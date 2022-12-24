@@ -17,7 +17,7 @@ import * as Sentry from '@sentry/node';
 
 async function bootstrap() {
 	Sentry.init({
-		dsn: 'https://7a15b0bde0034bdcbe1c6aebe693fbc0@o4504327762280448.ingest.sentry.io/4504328450932736',
+		dsn: process.env.DNS,
 		tracesSampleRate: 1.0,
 	});
 
@@ -115,7 +115,6 @@ async function bootstrap() {
 			'app.versioning.prefix',
 		);
 		const version: string = configService.get<string>('app.version');
-		// const logger = new Logger();
 		process.env.TZ = tz;
 		process.env.NODE_ENV = env;
 

@@ -1,9 +1,8 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class ProductParamDto {
 	@IsNotEmpty()
 	@IsUUID()
-	@Type(() => String)
+	@IsString()
 	productId: string;
 }
