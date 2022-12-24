@@ -340,4 +340,67 @@ export class OrderService {
 
 		return order;
 	}
+
+	async updateOrderStatus(
+		orderId: string,
+		status: ENUM_ORDER_STATUS,
+		userId: string,
+	): Promise<IResponse> {
+		const order = await this.orderRepository.findOne({
+			where: {
+				id: orderId,
+				customer: {
+					id: userId,
+				},
+			},
+		});
+
+		if (!order) {
+			throw new NotFoundException({
+				statusCode: 404,
+				message: 'oder.error.notFound',
+			});
+		}
+
+		switch (status) {
+			case ENUM_ORDER_STATUS.CANCELED:
+				if (
+					order.status === ENUM_ORDER_STATUS.DELIVERING ||
+					order.status === ENUM_ORDER_STATUS.RECEIVED
+				) {
+					throw new BadRequestException({
+						statusCode: 400,
+						message: 'order.error.cannotCancel',
+					});
+				}
+				order.status = ENUM_ORDER_STATUS.CANCELED;
+				break;
+			case ENUM_ORDER_STATUS.RECEIVED:
+				if (
+					order.status === ENUM_ORDER_STATUS.DELIVERING ||
+					order.status === ENUM_ORDER_STATUS.CANCELED
+				) {
+					throw new BadRequestException({
+						statusCode: 400,
+						message: 'order.error.cannotReceived',
+					});
+				}
+				order.status = ENUM_ORDER_STATUS.RECEIVED;
+				break;
+			default:
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'order.error.invalidStatus',
+				});
+		}
+
+		return this.orderRepository.updateOne({
+			criteria: {
+				id: orderId,
+			},
+			data: {
+				status: order.status,
+			},
+		});
+	}
 }

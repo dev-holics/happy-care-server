@@ -3,7 +3,16 @@ import {
 	IResponsePaging,
 } from 'src/common/response/interfaces/response.interface';
 import { OrderService } from 'src/modules/order/services';
-import { Body, Controller, Get, Ip, Param, Post, Query } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Get,
+	Ip,
+	Param,
+	Post,
+	Put,
+	Query,
+} from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import {
 	OrderCreateBodyDto,
@@ -19,6 +28,7 @@ import { PERMISSIONS } from 'src/common/auth/constants';
 import { AuthJwtGuard } from 'src/common/auth/decorators/auth.jwt.decorator';
 import { AuthApiKeyGuard } from 'src/common/auth/decorators/auth.api-key.decorator';
 import { OrderParamDto } from 'src/modules/order/dtos/order.param.dto';
+import { UpdateOrderStatusDto } from 'src/modules/order/dtos/update-order-status.dto';
 
 @ApiTags('Order')
 @Controller({
@@ -70,5 +80,24 @@ export class OrderController {
 		@Param() orderParamDto: OrderParamDto,
 	) {
 		return this.orderService.getOrderById(id, orderParamDto);
+	}
+
+	@Response('order.updatedStatus')
+	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.UPDATE_ORDER_STATUS])
+	@AuthApiKeyGuard()
+	@ApiParam({
+		name: 'orderId',
+		type: 'string',
+	})
+	@Put('/:orderId/status')
+	async updateOrderStatus(
+		@Param('orderId') orderId: string,
+		@Body() updateStatusDto: UpdateOrderStatusDto,
+		@GetUser('id') userId: string,
+	): Promise<IResponse> {
+		const { status } = updateStatusDto;
+		console.log('status', status);
+		return this.orderService.updateOrderStatus(orderId, status, userId);
 	}
 }
