@@ -272,4 +272,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_read_order',
 		module: ENUM_PERMISSION_MODULE.ORDER,
 	},
+	UPDATE_ORDER_STATUS: {
+		code: 450,
+		name: 'update_order_status',
+		description: 'can_update_order_status',
+		module: ENUM_PERMISSION_MODULE.ORDER,
+	},
 });
