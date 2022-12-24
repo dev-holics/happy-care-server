@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import {
 	OrderAdminRepository,
 	OrderDetailRepository,
@@ -24,6 +28,7 @@ import {
 import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { ProductService } from 'src/modules/product/services';
+import { IResponse } from 'src/common/response/interfaces/response.interface';
 
 @Injectable()
 export class OrderAdminService {
@@ -247,5 +252,63 @@ export class OrderAdminService {
 		return {
 			total: result,
 		};
+	}
+
+	async updateOrderStatus(
+		orderId: string,
+		status: ENUM_ORDER_STATUS,
+		userId: string,
+	): Promise<IResponse> {
+		const order = await this.orderAdminRepository.findOne({
+			where: {
+				id: orderId,
+			},
+		});
+
+		if (!order) {
+			throw new NotFoundException({
+				statusCode: 404,
+				message: 'oder.error.notFound',
+			});
+		}
+
+		switch (`${order.status} to ${status}`) {
+			case `${ENUM_ORDER_STATUS.PROCESSING} to ${ENUM_ORDER_STATUS.CONFIRMED}`:
+				const pharmacist = await this.userRepository.findOne({
+					where: {
+						id: userId,
+					},
+					options: {
+						relations: {
+							branch: true,
+						},
+					},
+				});
+				order.pharmacist = pharmacist;
+				order.branch = pharmacist.branch;
+				order.status = status;
+				break;
+			case `${ENUM_ORDER_STATUS.CONFIRMED} to ${ENUM_ORDER_STATUS.DELIVERING}`:
+				order.status = status;
+				break;
+			case `${ENUM_ORDER_STATUS.DELIVERING} to ${ENUM_ORDER_STATUS.DELIVERED}`:
+				order.status = status;
+				break;
+			case `${ENUM_ORDER_STATUS.PROCESSING} to ${ENUM_ORDER_STATUS.CANCELED}`:
+				order.status = status;
+				break;
+			default:
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'order.error.invalidStatus',
+				});
+		}
+
+		return this.orderAdminRepository.updateOne({
+			criteria: {
+				id: orderId,
+			},
+			data: order,
+		});
 	}
 }
