@@ -22,13 +22,14 @@ import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { Between, ILike } from 'typeorm';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import {
+	ProductConsignmentRepository,
 	ProductDetailRepository,
 	ProductLogRepository,
 } from 'src/modules/product/repositories';
-import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
 import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
 import { ProductService } from 'src/modules/product/services';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
+import { ProductLogExportDto } from 'src/modules/product/dtos';
 
 @Injectable()
 export class OrderAdminService {
@@ -41,28 +42,17 @@ export class OrderAdminService {
 		private readonly productLogRepository: ProductLogRepository,
 		private readonly productDetailRepository: ProductDetailRepository,
 		private readonly productService: ProductService,
+		private readonly productConsignmentRepository: ProductConsignmentRepository,
 	) {}
 
 	async createOrder(
-		userId: string,
+		user: any,
 		orderAdminCreateBodyDto: OrderAdminCreateBodyDto,
 	) {
 		const queryRunner = await this.databaseTransactionService.getQueryRunner();
 		await queryRunner.startTransaction();
 
 		try {
-			const pharmacist = await this.userRepository.findOne({
-				where: {
-					id: userId,
-				},
-				options: {
-					relations: {
-						branch: true,
-						role: true,
-					},
-				},
-			});
-
 			// create new order
 			const newOrder = await this.orderAdminRepository.createOne({
 				data: {
@@ -80,38 +70,48 @@ export class OrderAdminService {
 						id: orderAdminCreateBodyDto.customerId,
 					},
 					pharmacist: {
-						id: userId,
+						id: user.id,
 					},
 					branch: {
-						id: pharmacist.branch.id,
+						id: user.branch.id,
 					},
 				},
 			});
 
-			// create order detail
-			await this.orderDetailRepository.createMany({
-				data: orderAdminCreateBodyDto.products.map(orderDetail => {
-					return {
-						quantity: orderDetail.quantity,
+			// create order detail, export product consignment
+			for (const item of orderAdminCreateBodyDto.products) {
+				const productConsignment =
+					await this.productConsignmentRepository.findOne({
+						where: {
+							id: item.productConsignmentId,
+						},
+						options: {
+							relations: {
+								productDetail: {
+									product: true,
+								},
+							},
+						},
+					});
+				await this.orderDetailRepository.createOne({
+					data: {
+						quantity: item.quantity,
 						product: {
-							id: orderDetail.productId,
+							id: productConsignment.productDetail.product.id,
 						},
 						order: {
 							id: newOrder.id,
 						},
-					};
-				}),
-			});
-
-			// create product log & update product detail quantity
-			for (const product of orderAdminCreateBodyDto.products) {
-				await this.productService.updateStock({
-					quantity: product.quantity,
-					transactionDate: newOrder.createdAt,
-					type: ENUM_TRANSACTION_TYPES.EXPORT,
-					branchId: pharmacist.branch.id,
-					productId: product.productId,
+					},
 				});
+				const productLogDto = new ProductLogExportDto(
+					item.quantity,
+					item.productConsignmentId,
+					user.branch.id,
+					productConsignment.productDetail.product.id,
+				);
+
+				await this.productService.exportProductLog(productLogDto);
 			}
 		} catch (error: any) {
 			await queryRunner.rollbackTransaction();

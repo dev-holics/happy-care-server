@@ -1,6 +1,5 @@
 import {
 	ProductCreateDto,
-	ProductLogCreateDto,
 	ProductLogExportDto,
 	ProductLogImportDto,
 	ProductLogListQueryDto,
@@ -95,14 +94,5 @@ export class ProductAdminController {
 	@Post('logs-export')
 	exportProductLog(@Body() productLogExportDto: ProductLogExportDto) {
 		return this.productService.exportProductLog(productLogExportDto);
-	}
-
-	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
-	@AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT_LOG])
-	@AuthApiKeyGuard()
-	@RequestBodyDtoGuard(ProductLogCreateDto)
-	@Post('/update-stock')
-	updateStock(@Body() productLogCreateDto: ProductLogCreateDto) {
-		return this.productService.updateStock(productLogCreateDto);
 	}
 }

@@ -44,10 +44,10 @@ export class OrderAdminController {
 	@AuthApiKeyGuard()
 	@Post()
 	async createOrder(
-		@GetUser('id') userId: string,
+		@GetUser() user: any,
 		@Body() orderCreateBodyDto: OrderAdminCreateBodyDto,
 	) {
-		return this.orderAdminService.createOrder(userId, orderCreateBodyDto);
+		return this.orderAdminService.createOrder(user, orderCreateBodyDto);
 	}
 
 	@ResponsePagingBase('order.getList')

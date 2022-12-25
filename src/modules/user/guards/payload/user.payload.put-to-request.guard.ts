@@ -16,6 +16,7 @@ export class UserPayloadPutToRequestGuard implements CanActivate {
 					role: {
 						permissions: true,
 					},
+					branch: true,
 				},
 			},
 		});
