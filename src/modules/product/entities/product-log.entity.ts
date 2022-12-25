@@ -14,7 +14,7 @@ export class ProductLogEntity
 	@Column()
 	quantity: number;
 
-	@Column({ type: 'date' })
+	@Column()
 	transactionDate: Date;
 
 	@Column({
@@ -22,7 +22,7 @@ export class ProductLogEntity
 	})
 	type: string;
 
-	@Column({ type: 'date' })
+	@Column({ type: 'date', nullable: true })
 	expired: Date;
 
 	@ManyToOne(() => BranchEntity, branch => branch.productLogs)

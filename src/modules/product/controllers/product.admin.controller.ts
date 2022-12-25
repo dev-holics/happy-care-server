@@ -1,6 +1,8 @@
 import {
 	ProductCreateDto,
 	ProductLogCreateDto,
+	ProductLogExportDto,
+	ProductLogImportDto,
 	ProductLogListQueryDto,
 	ProductParamDto,
 	ProductUpdateDto,
@@ -40,7 +42,7 @@ export class ProductAdminController {
 	@AuthApiKeyGuard()
 	@RequestBodyDtoGuard(ProductCreateDto)
 	@Post('')
-	async createProduct(@Body() productCreateDto: ProductCreateDto) {
+	createProduct(@Body() productCreateDto: ProductCreateDto) {
 		return this.productService.createProduct(productCreateDto);
 	}
 
@@ -53,7 +55,7 @@ export class ProductAdminController {
 		type: 'string',
 	})
 	@Put('/:productId')
-	async updateProduct(
+	updateProduct(
 		@Param() productParamDto: ProductParamDto,
 		@Body() productUpdateDto: ProductUpdateDto,
 	) {
@@ -67,10 +69,32 @@ export class ProductAdminController {
 	@AuthJwtGuard([PERMISSIONS.READ_PRODUCT_LOG])
 	@AuthApiKeyGuard()
 	@Get('/logs')
-	async getProducts(
+	getProducts(
 		@Query() productLogListQueryDto: ProductLogListQueryDto,
 	): Promise<IResponsePaging> {
 		return this.productService.getProductLogs(productLogListQueryDto);
+	}
+
+	@Response('create product log import successfully', {
+		doc: { httpStatus: HttpStatus.CREATED },
+	})
+	@AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT_LOG])
+	@AuthApiKeyGuard()
+	@RequestBodyDtoGuard(ProductLogImportDto)
+	@Post('logs-import')
+	importProductLog(@Body() productLogImportDto: ProductLogImportDto) {
+		return this.productService.importProductLog(productLogImportDto);
+	}
+
+	@Response('create product log export successfully', {
+		doc: { httpStatus: HttpStatus.CREATED },
+	})
+	@AuthJwtGuard([PERMISSIONS.CREATE_PRODUCT_LOG])
+	@AuthApiKeyGuard()
+	@RequestBodyDtoGuard(ProductLogExportDto)
+	@Post('logs-export')
+	exportProductLog(@Body() productLogExportDto: ProductLogExportDto) {
+		return this.productService.exportProductLog(productLogExportDto);
 	}
 
 	@Response('updated successfully', { doc: { httpStatus: HttpStatus.OK } })
@@ -78,7 +102,7 @@ export class ProductAdminController {
 	@AuthApiKeyGuard()
 	@RequestBodyDtoGuard(ProductLogCreateDto)
 	@Post('/update-stock')
-	async updateStock(@Body() productLogCreateDto: ProductLogCreateDto) {
+	updateStock(@Body() productLogCreateDto: ProductLogCreateDto) {
 		return this.productService.updateStock(productLogCreateDto);
 	}
 }
