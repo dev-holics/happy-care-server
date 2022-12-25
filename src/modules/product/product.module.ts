@@ -1,4 +1,5 @@
 import {
+	ProductConsignmentEntity,
 	ProductDetailEntity,
 	ProductEntity,
 	ProductLogEntity,
@@ -6,6 +7,7 @@ import {
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
+	ProductConsignmentRepository,
 	ProductDetailRepository,
 	ProductLogRepository,
 	ProductPublicRepository,
@@ -26,6 +28,7 @@ import { LocationModule } from 'src/modules/location/location.module';
 			ProductEntity,
 			ProductLogEntity,
 			ProductDetailEntity,
+			ProductConsignmentEntity,
 		]),
 		forwardRef(() => CategoryModule),
 	],
@@ -37,6 +40,7 @@ import { LocationModule } from 'src/modules/location/location.module';
 		ProductDetailRepository,
 		ProductDetailPublicService,
 		ProductLogRepository,
+		ProductConsignmentRepository,
 	],
 	exports: [
 		ProductRepository,
@@ -46,6 +50,7 @@ import { LocationModule } from 'src/modules/location/location.module';
 		ProductDetailRepository,
 		ProductDetailPublicService,
 		ProductLogRepository,
+		ProductConsignmentRepository,
 	],
 })
 export class ProductModule {}

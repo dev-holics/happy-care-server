@@ -17,11 +17,13 @@ import { OrderAdminService, OrderService } from 'src/modules/order/services';
 import { UserEntity } from 'src/modules/user/entities';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import {
+	ProductConsignmentEntity,
 	ProductDetailEntity,
 	ProductEntity,
 	ProductLogEntity,
 } from 'src/modules/product/entities';
 import {
+	ProductConsignmentRepository,
 	ProductDetailRepository,
 	ProductLogRepository,
 	ProductRepository,
@@ -39,6 +41,7 @@ import { ProductService } from 'src/modules/product/services';
 			ProductLogEntity,
 			ProductDetailEntity,
 			ProductEntity,
+			ProductConsignmentEntity,
 		]),
 	],
 	providers: [
@@ -54,6 +57,7 @@ import { ProductService } from 'src/modules/product/services';
 		ProductDetailRepository,
 		ProductRepository,
 		ProductService,
+		ProductConsignmentRepository,
 	],
 	exports: [
 		OrderAdminRepository,

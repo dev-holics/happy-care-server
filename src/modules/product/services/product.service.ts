@@ -3,10 +3,13 @@ import { ImageService } from 'src/common/media/services/image.service';
 import {
 	ProductCreateDto,
 	ProductLogCreateDto,
+	ProductLogExportDto,
+	ProductLogImportDto,
 	ProductLogListQueryDto,
 	ProductUpdateDto,
 } from 'src/modules/product/dtos';
 import {
+	ProductConsignmentRepository,
 	ProductDetailRepository,
 	ProductLogRepository,
 	ProductRepository,
@@ -18,6 +21,7 @@ import {
 	ENUM_TRANSACTION_TYPES,
 } from 'src/modules/product/constants';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
+import moment from 'moment';
 
 @Injectable()
 export class ProductService {
@@ -28,6 +32,7 @@ export class ProductService {
 		private readonly productLogRepository: ProductLogRepository,
 		private readonly databaseTransactionService: DatabaseTransactionService,
 		private readonly paginationService: PaginationService,
+		private readonly productConsignmentRepository: ProductConsignmentRepository,
 	) {}
 
 	async createProduct(productCreateDto: ProductCreateDto) {
@@ -152,6 +157,64 @@ export class ProductService {
 			null,
 			productLogs,
 		);
+	}
+
+	async importProductLog(productLogImportDto: ProductLogImportDto) {
+		return;
+	}
+
+	async exportProductLog(productLogExportDto: ProductLogExportDto) {
+		const productConsignment = await this.productConsignmentRepository.findOne({
+			where: {
+				id: productLogExportDto.productConsignmentId,
+			},
+		});
+
+		if (!productConsignment) {
+			throw new BadRequestException({
+				statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
+				message: 'productDetail.error.doesNotHaveProductConsignment',
+			});
+		}
+
+		if (productConsignment.quantity < productLogExportDto.quantity) {
+			throw new BadRequestException({
+				statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
+				message: 'productDetail.error.quantityProductConsignNotEnough',
+			});
+		}
+
+		const productConsignmentUpdate =
+			await this.productConsignmentRepository.updateOne({
+				criteria: {
+					id: productLogExportDto.productConsignmentId,
+				},
+				data: {
+					quantity: productConsignment.quantity - productLogExportDto.quantity,
+				},
+			});
+
+		if (!productConsignmentUpdate) {
+			throw new BadRequestException();
+		}
+
+		const productLogCreate = await this.productLogRepository.createOne({
+			data: {
+				transactionDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+				quantity: productLogExportDto.quantity,
+				type: ENUM_TRANSACTION_TYPES.EXPORT,
+				branch: {
+					id: productLogExportDto.branchId,
+				},
+				product: {
+					id: productLogExportDto.productId,
+				},
+			},
+		});
+
+		if (!productLogCreate) {
+			throw new BadRequestException();
+		}
 	}
 
 	async updateStock(productLogCreateDto: ProductLogCreateDto) {
