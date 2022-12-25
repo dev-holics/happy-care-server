@@ -36,6 +36,7 @@ export class ProductDetailPublicService {
 				relations: {
 					branch: true,
 					product: true,
+					productConsignments: true,
 				},
 				order: {
 					updatedAt: 'DESC',
