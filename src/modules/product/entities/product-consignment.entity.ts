@@ -9,7 +9,7 @@ export class ProductConsignmentEntity
 	extends DatabaseEntityAbstract
 	implements IProductConsignment
 {
-	@Column()
+	@Column({ default: 0 })
 	quantity: number;
 
 	@Column({ type: 'date' })

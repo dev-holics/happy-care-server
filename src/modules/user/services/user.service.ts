@@ -160,6 +160,7 @@ export class UserService {
 					role: {
 						permissions: true,
 					},
+					branch: true,
 				},
 			},
 		});
@@ -231,6 +232,7 @@ export class UserService {
 			options: {
 				relations: {
 					role: true,
+					branch: true,
 				},
 			},
 		});
