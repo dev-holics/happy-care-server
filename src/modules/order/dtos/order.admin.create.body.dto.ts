@@ -4,6 +4,7 @@ import { shuffle } from 'radash';
 import { ENUM_PAYMENT_TYPES } from 'src/modules/order/constants/order.constant';
 import { Type } from 'class-transformer';
 import { ProductInputDto } from 'src/modules/order/dtos/product.input.dto';
+import { ProductConsignmentDto } from 'src/modules/product/dtos/product-consignment.dto';
 
 export class OrderAdminCreateBodyDto {
 	@ApiProperty({
@@ -25,7 +26,7 @@ export class OrderAdminCreateBodyDto {
 		required: true,
 	})
 	@Type(() => ProductInputDto)
-	products: ProductInputDto[];
+	products: ProductConsignmentDto[];
 
 	@ApiProperty({
 		example: '',

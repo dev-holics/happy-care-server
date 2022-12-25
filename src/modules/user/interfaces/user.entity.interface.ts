@@ -1,6 +1,7 @@
 import { TokenEntity } from 'src/common/auth/entities/auth.token.entity';
 import { IRoleEntity } from 'src/modules/role/interfaces/role.entity.interface';
 import { ImageEntity } from 'src/common/media/entities/image.entity';
+import { BranchEntity } from 'src/modules/location/entities';
 
 export interface IUserEntity {
 	phoneNumber: string;
@@ -20,4 +21,6 @@ export interface IUserEntity {
 	photos: ImageEntity[];
 
 	role: IRoleEntity;
+
+	branch: BranchEntity;
 }

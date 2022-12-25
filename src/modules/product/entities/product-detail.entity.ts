@@ -1,13 +1,6 @@
 import { BranchEntity } from 'src/modules/location/entities';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
-import {
-	Column,
-	Entity,
-	JoinColumn,
-	ManyToOne,
-	OneToMany,
-	Unique,
-} from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToMany, Unique } from 'typeorm';
 import { IProductDetailEntity } from 'src/modules/product/interfaces/product-detail.interface';
 import { snakeCase } from 'change-case';
 import { ProductConsignmentEntity, ProductEntity } from '.';

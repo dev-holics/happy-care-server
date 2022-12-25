@@ -2,7 +2,6 @@ import { DatabaseTransactionService } from 'src/common/database/services/databas
 import { ImageService } from 'src/common/media/services/image.service';
 import {
 	ProductCreateDto,
-	ProductLogCreateDto,
 	ProductLogExportDto,
 	ProductLogImportDto,
 	ProductLogListQueryDto,
@@ -23,7 +22,6 @@ import {
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import moment from 'moment';
 import { Equal } from 'typeorm';
-import { BranchEntity } from 'src/modules/location/entities';
 
 @Injectable()
 export class ProductService {
@@ -327,82 +325,5 @@ export class ProductService {
 		}
 
 		return productLogCreate;
-	}
-
-	async updateStock(productLogCreateDto: ProductLogCreateDto) {
-		// const queryRunner = await this.databaseTransactionService.getQueryRunner();
-		// await queryRunner.startTransaction();
-		// try {
-		// 	const productDetail = await this.productDetailRepository.findOne({
-		// 		where: {
-		// 			product: {
-		// 				id: productLogCreateDto.productId,
-		// 			},
-		// 			branch: {
-		// 				id: productLogCreateDto.branchId,
-		// 			},
-		// 		},
-		// 	});
-
-		// 	if (productDetail) {
-		// 		// If this branch has already had this product
-		// 		if (productLogCreateDto.type === ENUM_TRANSACTION_TYPES.IMPORT) {
-		// 			productDetail.quantity += productLogCreateDto.quantity;
-		// 		} else {
-		// 			if (productDetail.quantity < productLogCreateDto.quantity) {
-		// 				// If the quantity of product in this branch is not enough
-		// 				throw new BadRequestException({
-		// 					statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
-		// 					message: 'productDetail.error.notEnoughProduct',
-		// 				});
-		// 			}
-		// 			productDetail.quantity -= productLogCreateDto.quantity;
-		// 		}
-		// 		await this.productDetailRepository.updateOne({
-		// 			criteria: {
-		// 				id: productDetail.id,
-		// 			},
-		// 			data: {
-		// 				quantity: productDetail.quantity,
-		// 			},
-		// 		});
-		// 	} else {
-		// 		// If this branch has not had this product
-		// 		if (productLogCreateDto.type === ENUM_TRANSACTION_TYPES.IMPORT) {
-		// 			await this.productDetailRepository.createOne({
-		// 				data: {
-		// 					quantity: productLogCreateDto.quantity,
-		// 					product: {
-		// 						id: productLogCreateDto.productId,
-		// 					},
-		// 					branch: {
-		// 						id: productLogCreateDto.branchId,
-		// 					},
-		// 				},
-		// 			});
-		// 		} else {
-		// 			throw new BadRequestException({
-		// 				statusCode: ENUM_PRODUCT_STATUS_CODE_ERROR.CANNOT_EXPORT_PRODUCT,
-		// 				message: 'productDetail.error.doesNotHaveProduct',
-		// 			});
-		// 		}
-		// 	}
-
-		// 	await this.productLogRepository.createOne({
-		// 		data: {
-		// 			...productLogCreateDto,
-		// 			branch: {
-		// 				id: productLogCreateDto.branchId,
-		// 			},
-		// 			product: {
-		// 				id: productLogCreateDto.productId,
-		// 			},
-		// 		},
-		// 	});
-		// } catch (e) {
-		// 	await queryRunner.rollbackTransaction();
-		// 	throw e;
-		// }
-		return;
 	}
 }

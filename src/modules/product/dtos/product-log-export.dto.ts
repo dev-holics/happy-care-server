@@ -1,10 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IProductLogExport } from 'src/modules/product/interfaces';
 
 export class ProductLogExportDto implements IProductLogExport {
+	constructor(
+		quantity: number,
+		productConsignmentId: string,
+		branchId: string,
+		productId,
+	) {
+		this.quantity = quantity;
+		this.productConsignmentId = productConsignmentId;
+		this.branchId = branchId;
+		this.productId = productId;
+	}
+
 	@ApiProperty({
 		example: faker.random.numeric(2),
 		required: true,
