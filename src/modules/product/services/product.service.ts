@@ -22,6 +22,8 @@ import {
 } from 'src/modules/product/constants';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import moment from 'moment';
+import { Equal } from 'typeorm';
+import { BranchEntity } from 'src/modules/location/entities';
 
 @Injectable()
 export class ProductService {
@@ -160,7 +162,115 @@ export class ProductService {
 	}
 
 	async importProductLog(productLogImportDto: ProductLogImportDto) {
-		return;
+		if (
+			moment(productLogImportDto.expired).format('YYYY-MM-DD') <
+			moment().add(6, 'months').format('YYYY-MM-DD')
+		) {
+			throw new BadRequestException({
+				statusCode:
+					ENUM_PRODUCT_STATUS_CODE_ERROR.PRODUCT_EXPIRED_MORE_THAN_SIX_MONTH,
+				message: 'expired input more than six month',
+			});
+		}
+		const [productConsignment, productDetail] = await Promise.all([
+			this.productConsignmentRepository.findOne({
+				where: {
+					expired: Equal(
+						moment(productLogImportDto.expired).format('YYYY-MM-DD'),
+					),
+					productDetail: {
+						product: {
+							id: productLogImportDto.productId,
+						},
+						branch: {
+							id: productLogImportDto.branchId,
+						},
+					},
+				},
+			}),
+			this.productDetailRepository.findOne({
+				where: {
+					product: {
+						id: productLogImportDto.productId,
+					},
+					branch: {
+						id: productLogImportDto.branchId,
+					},
+				},
+			}),
+		]);
+
+		let newProductDetail;
+
+		if (!productDetail) {
+			newProductDetail = await this.productDetailRepository.createOne({
+				data: {
+					product: {
+						id: productLogImportDto.productId,
+					},
+					branch: {
+						id: productLogImportDto.branchId,
+					},
+				},
+			});
+		} else {
+			newProductDetail = productDetail;
+		}
+
+		if (!productConsignment) {
+			const newProductConsignment =
+				await this.productConsignmentRepository.createOne({
+					data: {
+						expired: moment(productLogImportDto.expired).format('YYYY-MM-DD'),
+						quantity: productLogImportDto.quantity,
+						productDetail: newProductDetail,
+					},
+				});
+			if (!newProductConsignment) {
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'product consignment update failed',
+				});
+			}
+		} else {
+			const updateProductConsignment =
+				await this.productConsignmentRepository.updateOne({
+					criteria: {
+						id: productConsignment.id,
+					},
+					data: {
+						quantity:
+							productLogImportDto.quantity + productConsignment.quantity,
+					},
+				});
+			if (!updateProductConsignment) {
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'product consignment update failed',
+				});
+			}
+		}
+
+		const productLogCreate = await this.productLogRepository.createOne({
+			data: {
+				transactionDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+				quantity: productLogImportDto.quantity,
+				expired: moment(productLogImportDto.expired).format('YYYY-MM-DD'),
+				type: ENUM_TRANSACTION_TYPES.IMPORT,
+				branch: {
+					id: productLogImportDto.branchId,
+				},
+				product: {
+					id: productLogImportDto.productId,
+				},
+			},
+		});
+
+		if (!productLogCreate) {
+			throw new BadRequestException();
+		}
+
+		return productLogCreate;
 	}
 
 	async exportProductLog(productLogExportDto: ProductLogExportDto) {
@@ -215,6 +325,8 @@ export class ProductService {
 		if (!productLogCreate) {
 			throw new BadRequestException();
 		}
+
+		return productLogCreate;
 	}
 
 	async updateStock(productLogCreateDto: ProductLogCreateDto) {
