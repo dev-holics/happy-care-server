@@ -133,11 +133,6 @@ export class ProductPublicService {
 				this.productPublicRepository.findOne({
 					where: {
 						id: productParamDto.productId,
-						productDetails: {
-							branch: {
-								id: productDetailQueryDto.branchId,
-							},
-						},
 					},
 					options: {
 						relations: {
