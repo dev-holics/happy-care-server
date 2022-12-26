@@ -43,6 +43,8 @@ export class ProductPublicService {
 						tags: true,
 						images: true,
 						category: true,
+						trademark: true,
+						origin: true,
 					},
 					page: productGetListDto.page,
 					limit: productGetListDto.limit,
