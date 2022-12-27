@@ -3,33 +3,18 @@ import {
 	Injectable,
 	NotFoundException,
 } from '@nestjs/common';
-import {
-	OrderAdminRepository,
-	OrderDetailRepository,
-} from 'src/modules/order/repositories';
+import { OrderAdminRepository } from 'src/modules/order/repositories';
 import {
 	OrderAdminCreateBodyDto,
 	OrderListQueryDto,
 	OrderTotalQueryDto,
 } from 'src/modules/order/dtos';
-import { faker } from '@faker-js/faker';
-import {
-	ENUM_ORDER_STATUS,
-	ENUM_ORDER_TYPES,
-} from 'src/modules/order/constants/order.constant';
-import moment from 'moment';
+import { ENUM_ORDER_STATUS } from 'src/modules/order/constants/order.constant';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { Between, ILike } from 'typeorm';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import {
-	ProductConsignmentRepository,
-	ProductDetailRepository,
-	ProductLogRepository,
-} from 'src/modules/product/repositories';
-import { DatabaseTransactionService } from 'src/common/database/services/database.transaction.service';
-import { ProductService } from 'src/modules/product/services';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
-import { ProductLogExportDto } from 'src/modules/product/dtos';
+import { OrderService } from './order.service';
 
 @Injectable()
 export class OrderAdminService {
@@ -37,85 +22,15 @@ export class OrderAdminService {
 		private readonly orderAdminRepository: OrderAdminRepository,
 		private readonly userRepository: UserRepository,
 		private readonly paginationService: PaginationService,
-		private readonly databaseTransactionService: DatabaseTransactionService,
-		private readonly orderDetailRepository: OrderDetailRepository,
-		private readonly productLogRepository: ProductLogRepository,
-		private readonly productDetailRepository: ProductDetailRepository,
-		private readonly productService: ProductService,
-		private readonly productConsignmentRepository: ProductConsignmentRepository,
+		private readonly orderService: OrderService,
 	) {}
 
 	async createOrder(
 		user: any,
 		orderAdminCreateBodyDto: OrderAdminCreateBodyDto,
 	) {
-		// const queryRunner = await this.databaseTransactionService.getQueryRunner();
-		// await queryRunner.startTransaction();
-		// try {
-		// 	// create new order
-		// 	const newOrder = await this.orderAdminRepository.createOne({
-		// 		data: {
-		// 			orderCode: faker.datatype.uuid(),
-		// 			paymentType: orderAdminCreateBodyDto.paymentType,
-		// 			orderType: ENUM_ORDER_TYPES.OFFLINE_STORE,
-		// 			status: ENUM_ORDER_STATUS.RECEIVED,
-		// 			freeShip: false,
-		// 			totalPrice: orderAdminCreateBodyDto.totalPrice,
-		// 			createDate: moment(new Date()).format('yyyyMMDDHHmmss'),
-		// 			orderPayment: {
-		// 				isPay: true,
-		// 			},
-		// 			customer: {
-		// 				id: orderAdminCreateBodyDto.customerId,
-		// 			},
-		// 			pharmacist: {
-		// 				id: user.id,
-		// 			},
-		// 			branch: {
-		// 				id: user.branch.id,
-		// 			},
-		// 		},
-		// 	});
-		// 	// create order detail, export product consignment
-		// 	for (const item of orderAdminCreateBodyDto.products) {
-		// 		const productConsignment =
-		// 			await this.productConsignmentRepository.findOne({
-		// 				where: {
-		// 					id: item.productConsignmentId,
-		// 				},
-		// 				options: {
-		// 					relations: {
-		// 						productDetail: {
-		// 							product: true,
-		// 						},
-		// 					},
-		// 				},
-		// 			});
-		// 		await this.orderDetailRepository.createOne({
-		// 			data: {
-		// 				quantity: item.quantity,
-		// 				product: {
-		// 					id: productConsignment.productDetail.product.id,
-		// 				},
-		// 				order: {
-		// 					id: newOrder.id,
-		// 				},
-		// 			},
-		// 		});
-		// 		const productLogDto = new ProductLogExportDto(
-		// 			item.quantity,
-		// 			item.productConsignmentId,
-		// 			user.branch.id,
-		// 			productConsignment.productDetail.product.id,
-		// 		);
-		// 		await this.productService.exportProductLog(productLogDto);
-		// 	}
-		// } catch (error: any) {
-		// 	await queryRunner.rollbackTransaction();
-		// 	throw error;
-		// } finally {
-		// 	await queryRunner.release();
-		// }
+		console.log(user);
+		return;
 	}
 
 	async getOrders(orderListQueryDto: OrderListQueryDto) {
