@@ -15,5 +15,5 @@ export interface IOrderPayment {
 
 	vnpTransactionNo: string;
 
-	orders: OrderEntity[];
+	order: OrderEntity;
 }

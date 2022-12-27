@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import { IOrderPayment } from 'src/modules/order/interfaces';
 import { OrderEntity } from './order.entity';
+import { snakeCase } from 'change-case';
 
 @Entity('order_payments')
 export class OrderPaymentEntity
@@ -29,6 +30,7 @@ export class OrderPaymentEntity
 	@Column({ nullable: true })
 	vnpTransactionNo: string;
 
-	@OneToMany(() => OrderEntity, order => order.orderPayment)
-	orders: OrderEntity[];
+	@OneToOne(() => OrderEntity, order => order.orderPayment)
+	@JoinColumn({ name: snakeCase('orderId'), referencedColumnName: 'id' })
+	order: OrderEntity;
 }

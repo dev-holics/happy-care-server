@@ -26,8 +26,9 @@ export class ProductLogEntity
 	@Column({ type: 'date', nullable: true })
 	expired: Date;
 
-	@OneToMany(() => OrderEntity, order => order.productLog, { nullable: true })
-	orders: OrderEntity[];
+	@ManyToOne(() => OrderEntity, order => order.productLogs, { nullable: true })
+	@JoinColumn({ name: snakeCase('orderId'), referencedColumnName: 'id' })
+	order: OrderEntity;
 
 	@ManyToOne(() => BranchEntity, branch => branch.productLogs)
 	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })

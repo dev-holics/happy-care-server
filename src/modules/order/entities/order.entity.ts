@@ -64,7 +64,12 @@ export class OrderEntity
 	})
 	orderDiscounts: OrderDiscountEntity[];
 
-	@ManyToOne(() => OrderPaymentEntity, orderPayment => orderPayment.orders)
+	@OneToMany(() => ProductLogEntity, productLog => productLog.order, {
+		nullable: true,
+	})
+	productLogs: ProductLogEntity[];
+
+	@OneToOne(() => OrderPaymentEntity, orderPayment => orderPayment.order)
 	@JoinColumn({ name: snakeCase('orderPaymentId'), referencedColumnName: 'id' })
 	orderPayment: OrderPaymentEntity;
 
@@ -87,10 +92,4 @@ export class OrderEntity
 	@ManyToOne(() => UserSettingEntity, userSetting => userSetting.orders)
 	@JoinColumn({ name: snakeCase('userSettingId'), referencedColumnName: 'id' })
 	userSetting: UserSettingEntity;
-
-	@ManyToOne(() => ProductLogEntity, productLog => productLog.orders, {
-		nullable: true,
-	})
-	@JoinColumn({ name: snakeCase('productLogId'), referencedColumnName: 'id' })
-	productLog: ProductLogEntity;
 }
