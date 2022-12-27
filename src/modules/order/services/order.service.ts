@@ -90,11 +90,8 @@ export class OrderService {
 
 		orderCreateBodyDto.products.forEach((item: any) => {
 			const order = new OrderEntity();
-			const product = new ProductEntity();
 			order.id = newOrder.id;
-			product.id = item.productId;
 			item.order = order;
-			item.product = product;
 		});
 
 		const orderDetails = await this.orderDetailRepository.createMany({

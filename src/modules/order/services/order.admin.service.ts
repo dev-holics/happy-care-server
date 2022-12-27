@@ -3,18 +3,30 @@ import {
 	Injectable,
 	NotFoundException,
 } from '@nestjs/common';
-import { OrderAdminRepository } from 'src/modules/order/repositories';
+import {
+	OrderAdminRepository,
+	OrderDetailRepository,
+	OrderPaymentRepository,
+} from 'src/modules/order/repositories';
 import {
 	OrderAdminCreateBodyDto,
 	OrderListQueryDto,
 	OrderTotalQueryDto,
 } from 'src/modules/order/dtos';
-import { ENUM_ORDER_STATUS } from 'src/modules/order/constants/order.constant';
+import {
+	ENUM_ORDER_STATUS,
+	ENUM_ORDER_TYPES,
+} from 'src/modules/order/constants/order.constant';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { Between, ILike } from 'typeorm';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
 import { OrderService } from './order.service';
+import { faker } from '@faker-js/faker';
+import moment from 'moment';
+import { OrderEntity } from 'src/modules/order/entities';
+import { ProductLogRepository } from 'src/modules/product/repositories';
+import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
 
 @Injectable()
 export class OrderAdminService {
@@ -23,14 +35,87 @@ export class OrderAdminService {
 		private readonly userRepository: UserRepository,
 		private readonly paginationService: PaginationService,
 		private readonly orderService: OrderService,
+		private readonly orderDetailRepository: OrderDetailRepository,
+		private readonly productLogRepository: ProductLogRepository,
+		private readonly orderPaymentRepository: OrderPaymentRepository,
 	) {}
 
 	async createOrder(
 		user: any,
 		orderAdminCreateBodyDto: OrderAdminCreateBodyDto,
 	) {
-		console.log(user);
-		return;
+		const branchId = user.branch.id;
+
+		await this.orderService.checkProductInBranch(
+			orderAdminCreateBodyDto.products,
+			branchId,
+		);
+
+		const newOrder = await this.orderAdminRepository.createOne({
+			data: {
+				orderCode: faker.datatype.uuid(),
+				status: ENUM_ORDER_STATUS.CONFIRMED,
+				paymentType: orderAdminCreateBodyDto.paymentType,
+				orderType: ENUM_ORDER_TYPES.OFFLINE_STORE,
+				totalPrice: orderAdminCreateBodyDto.totalPrice,
+				createDate: moment().format('yyyyMMDDHHmmss'),
+				freeShip: null,
+				branch: {
+					id: branchId,
+				},
+			},
+		});
+
+		await this.orderPaymentRepository.createOne({
+			data: {
+				isPay: true,
+				order: {
+					id: newOrder.id,
+				},
+			},
+		});
+
+		if (!newOrder) {
+			throw new BadRequestException({
+				statusCode: 400,
+				message: 'order.error.cannotCreate',
+			});
+		}
+
+		orderAdminCreateBodyDto.products.forEach((item: any) => {
+			const order = new OrderEntity();
+			order.id = newOrder.id;
+			item.order = order;
+		});
+
+		const orderDetails = await this.orderDetailRepository.createMany({
+			data: Object.values(orderAdminCreateBodyDto.products),
+		});
+
+		await this.orderService.exportProductConsignment(
+			orderAdminCreateBodyDto.products,
+			branchId,
+			orderDetails,
+		);
+
+		for (let i = 0; i < orderAdminCreateBodyDto.products.length; i++) {
+			await this.productLogRepository.createOne({
+				data: {
+					quantity: orderAdminCreateBodyDto.products[i].quantity,
+					transactionDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+					type: ENUM_TRANSACTION_TYPES.EXPORT,
+					product: {
+						id: orderAdminCreateBodyDto.products[i].productId,
+					},
+					branch: {
+						id: branchId,
+					},
+					order: {
+						id: newOrder.id,
+					},
+				},
+			});
+		}
 	}
 
 	async getOrders(orderListQueryDto: OrderListQueryDto) {

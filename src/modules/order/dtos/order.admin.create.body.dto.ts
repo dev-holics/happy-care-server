@@ -26,12 +26,4 @@ export class OrderAdminCreateBodyDto {
 	})
 	@Type(() => ProductInputDto)
 	products: ProductInputDto[];
-
-	@ApiProperty({
-		example: '',
-		required: false,
-	})
-	@IsUUID()
-	@IsOptional()
-	customerId: string;
 }
