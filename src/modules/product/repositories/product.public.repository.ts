@@ -16,7 +16,8 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 	}
 
 	async getProducts(ids: string[], query: ProductGetListDto, skip: number) {
-		const { sortOption, limit, page, trademarkId, originId } = query;
+		const { tag, search, sortOption, limit, page, trademarkId, originId } =
+			query;
 		const products = this.productPublicRepository
 			.createQueryBuilder('products')
 			.distinct(true)
@@ -31,8 +32,14 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 			.leftJoinAndSelect('products.images', 'images')
 			.leftJoinAndSelect('products.tags', 'tags')
 			.orderBy('products.id');
+		if (tag) {
+			products.where('tags.name = :tag');
+		}
+		if (search) {
+			products.andWhere('products.name = :search');
+		}
 		if (originId) {
-			products.where('origin.id = :originId');
+			products.andWhere('origin.id = :originId');
 		}
 		if (trademarkId) {
 			products.andWhere('trademark.id = :trademarkId');
@@ -68,6 +75,8 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 				ids,
 				trademarkId,
 				originId,
+				search,
+				tag,
 			})
 			.getMany();
 	}
