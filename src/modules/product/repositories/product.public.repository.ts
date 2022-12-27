@@ -56,10 +56,7 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 					products.orderBy('products.createdAt', 'DESC');
 					break;
 				case SORT_OPTION_ENUM.SELLWELL:
-					products.loadRelationCountAndMap(
-						'products.orderCount',
-						'products.orderDetails',
-					);
+					// products.leftJoinAndSelect('products.productLogs', 'productLogs');
 					break;
 				default:
 					break;

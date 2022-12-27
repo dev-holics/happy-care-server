@@ -32,7 +32,6 @@ export class ProductPublicService {
 		const totalData = await this.productPublicRepository.count({});
 		let products;
 		let availableSort;
-		console.log(productGetListDto.tag);
 
 		const skip = this.paginationService.skip(
 			+productGetListDto.page,
@@ -48,8 +47,6 @@ export class ProductPublicService {
 			productGetListDto,
 			skip,
 		);
-
-		products.sort((a, b) => b.orderCount - a.orderCount);
 
 		availableSort = [productGetListDto.sortOption];
 		return this.paginationService.formatPaginationResult(
