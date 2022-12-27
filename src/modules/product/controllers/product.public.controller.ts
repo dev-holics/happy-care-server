@@ -25,6 +25,7 @@ export class ProductPublicController {
 	async getProducts(
 		@Query() productGetListDto: ProductGetListDto,
 	): Promise<IResponsePaging> {
+		console.log(productGetListDto);
 		return this.productPublicService.getProducts(productGetListDto);
 	}
 
