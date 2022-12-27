@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { CategoryTreeRepository } from 'src/modules/category/repositories';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import {
@@ -5,14 +6,12 @@ import {
 	ProductPublicRepository,
 } from 'src/modules/product/repositories';
 import { ProductGetListDto, ProductParamDto } from 'src/modules/product/dtos';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
 	IResponse,
 	IResponsePaging,
 } from 'src/common/response/interfaces/response.interface';
-import { isEmpty } from 'radash';
 import { BranchPublicRepository } from 'src/modules/location/repositories';
-import { ENUM_PRODUCT_STATUS_CODE_ERROR } from 'src/modules/product/constants';
 import { ProductDetailQueryDto } from 'src/modules/product/dtos/product.detail.query.dto';
 import { MoreThanOrEqual } from 'typeorm';
 import moment from 'moment';
@@ -31,50 +30,33 @@ export class ProductPublicService {
 		productGetListDto: ProductGetListDto,
 	): Promise<IResponsePaging> {
 		const totalData = await this.productPublicRepository.count({});
-		let whereOptions: Record<string, any> | Record<string, any>[];
 		let products;
 		let availableSort;
-		if (!isEmpty(productGetListDto.search)) {
-			whereOptions = productGetListDto.search;
-			products = await this.productPublicRepository.findMany({
-				where: whereOptions[0],
-				options: {
-					relations: {
-						tags: true,
-						images: true,
-						category: true,
-						trademark: true,
-						origin: true,
-					},
-					page: productGetListDto.page,
-					limit: productGetListDto.limit,
-					order: {
-						createdAt: 'DESC',
-					},
-				},
-			});
-			availableSort = ['createdAt'];
-		} else {
-			const skip = this.paginationService.skip(
-				+productGetListDto.page,
-				+productGetListDto.limit,
-			);
-			const ids = await this.categoryTreeRepository.getCategoryIds(
-				productGetListDto.categoryId,
-			);
-			products = await this.productPublicRepository.getProducts(
-				ids,
-				productGetListDto,
-				skip,
-			);
-			products.sort((a, b) => b.orderCount - a.orderCount);
-			availableSort = [productGetListDto.sortOption];
-		}
+		console.log(productGetListDto.tag);
+
+		const skip = this.paginationService.skip(
+			+productGetListDto.page,
+			+productGetListDto.limit,
+		);
+
+		const ids = await this.categoryTreeRepository.getCategoryIds(
+			productGetListDto.categoryId,
+		);
+
+		products = await this.productPublicRepository.getProducts(
+			ids,
+			productGetListDto,
+			skip,
+		);
+
+		products.sort((a, b) => b.orderCount - a.orderCount);
+
+		availableSort = [productGetListDto.sortOption];
 		return this.paginationService.formatPaginationResult(
 			totalData,
 			productGetListDto.page,
 			productGetListDto.limit,
-			productGetListDto.availableSearch,
+			null,
 			availableSort,
 			products,
 		);
