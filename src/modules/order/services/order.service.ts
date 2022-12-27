@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-const */
 import {
+	OrderConsignmentRepository,
 	OrderDetailRepository,
 	OrderPaymentRepository,
 	OrderRepository,
@@ -17,6 +18,7 @@ import moment from 'moment';
 import {
 	OrderCreateBodyDto,
 	OrderHistoryQueryDto,
+	ProductInputDto,
 } from 'src/modules/order/dtos';
 import {
 	ENUM_ORDER_STATUS,
@@ -28,8 +30,9 @@ import { OrderEntity } from 'src/modules/order/entities';
 import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { faker } from '@faker-js/faker';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { ILike } from 'typeorm';
+import { ILike, MoreThanOrEqual } from 'typeorm';
 import { OrderParamDto } from 'src/modules/order/dtos/order.param.dto';
+import { ProductConsignmentRepository } from 'src/modules/product/repositories';
 
 @Injectable()
 export class OrderService {
@@ -39,6 +42,8 @@ export class OrderService {
 		private readonly orderPaymentRepository: OrderPaymentRepository,
 		private readonly configService: ConfigService,
 		private readonly paginationService: PaginationService,
+		private readonly productConsignmentRepository: ProductConsignmentRepository,
+		private readonly orderConsignmentRepository: OrderConsignmentRepository,
 	) {}
 
 	async createPaymentUrl(
@@ -48,6 +53,10 @@ export class OrderService {
 	): Promise<IResponse> {
 		let vnp_Params: any = {};
 		const date = new Date();
+		await this.checkProductInBranch(
+			orderCreateBodyDto.products,
+			orderCreateBodyDto.branchId,
+		);
 		const newOrder = await this.orderRepository.createOne({
 			data: {
 				orderCode: faker.datatype.uuid(),
@@ -88,9 +97,15 @@ export class OrderService {
 			item.product = product;
 		});
 
-		await this.orderDetailRepository.createMany({
+		const orderDetails = await this.orderDetailRepository.createMany({
 			data: Object.values(orderCreateBodyDto.products),
 		});
+
+		await this.exportProductConsignment(
+			orderCreateBodyDto.products,
+			orderCreateBodyDto.branchId,
+			orderDetails,
+		);
 
 		if (orderCreateBodyDto.paymentType === ENUM_PAYMENT_TYPES.TRANSFER) {
 			vnp_Params.vnp_Version = this.configService.get<string>(
@@ -215,15 +230,159 @@ export class OrderService {
 					id: order.id,
 				},
 				data: {
+					status: ENUM_ORDER_STATUS.CANCELED,
 					orderPayment: {
 						id: payment.id,
 					},
 				},
 			});
 
+			await this.importProduct(order.id);
+
 			return {
-				message: 'payment failed',
+				message: 'payment failed and order canceled',
 			};
+		}
+	}
+
+	async checkProductInBranch(
+		productInputDto: ProductInputDto[],
+		branchId: string,
+	) {
+		for (let i = 0; i < productInputDto.length; i++) {
+			const totalproductConsignments =
+				await this.productConsignmentRepository.totalProductInBranch(
+					productInputDto[i].productId,
+					branchId,
+				);
+			if (!totalproductConsignments) {
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'product is out of stock',
+				});
+			}
+			if (
+				totalproductConsignments.totalProductConsignment <
+				productInputDto[i].quantity
+			) {
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'product quantity is not enough',
+				});
+			}
+		}
+	}
+
+	async exportProductConsignment(
+		productInputDto: ProductInputDto[],
+		branchId: string,
+		orderDetails: any,
+	) {
+		for (let i = 0; i < productInputDto.length; i++) {
+			const productConsignments =
+				await this.productConsignmentRepository.findAll({
+					where: {
+						expired: MoreThanOrEqual(
+							moment().add(6, 'months').format('"YYYY-MM-DD"'),
+						),
+						productDetail: {
+							product: {
+								id: productInputDto[i].productId,
+							},
+							branch: {
+								id: branchId,
+							},
+						},
+					},
+					options: {
+						order: {
+							expired: 'ASC',
+						},
+					},
+				});
+			if (!productConsignments) {
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'product is out of stock',
+				});
+			}
+			let newQuantity = productInputDto[i].quantity;
+			let index = 0;
+			for (let i = 0; i <= productConsignments.length; i++) {
+				if (productConsignments[i].quantity >= newQuantity) {
+					productConsignments[i].quantity =
+						productConsignments[i].quantity - newQuantity;
+					newQuantity = 0;
+					index = i;
+					break;
+				} else {
+					productConsignments[i].quantity = 0;
+					newQuantity = newQuantity - productConsignments[i].quantity;
+				}
+			}
+			if (newQuantity !== 0) {
+				throw new BadRequestException({
+					statusCode: 400,
+					message: 'product quantity is not enough',
+				});
+			}
+			for (let i = 0; i <= index; i++) {
+				await this.productConsignmentRepository.updateOne({
+					criteria: {
+						id: productConsignments[i].id,
+					},
+					data: productConsignments[i],
+				});
+
+				await this.orderConsignmentRepository.createOne({
+					data: {
+						quantity: productInputDto[i].quantity,
+						orderDetail: {
+							id: orderDetails[i].id,
+						},
+						productConsignment: {
+							id: productConsignments[i].id,
+						},
+					},
+				});
+			}
+		}
+	}
+
+	async importProduct(orderId: string) {
+		const orderConsignments = await this.orderConsignmentRepository.findAll({
+			where: {
+				orderDetail: {
+					order: {
+						id: orderId,
+					},
+				},
+			},
+			options: {
+				relations: {
+					productConsignment: true,
+				},
+			},
+		});
+
+		if (!orderConsignments.length) {
+			throw new BadRequestException({
+				statusCode: 404,
+				message: 'order consignment not found',
+			});
+		}
+
+		for (let i = 0; i < orderConsignments.length; i++) {
+			await this.productConsignmentRepository.updateOne({
+				criteria: {
+					id: orderConsignments[i].productConsignment.id,
+				},
+				data: {
+					quantity:
+						orderConsignments[i].productConsignment.quantity +
+						orderConsignments[i].quantity,
+				},
+			});
 		}
 	}
 

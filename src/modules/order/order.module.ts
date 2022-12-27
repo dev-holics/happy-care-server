@@ -1,6 +1,7 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import {
+	OrderConsignmentEntity,
 	OrderDetailEntity,
 	OrderDiscountEntity,
 	OrderEntity,
@@ -8,6 +9,7 @@ import {
 } from 'src/modules/order/entities';
 import {
 	OrderAdminRepository,
+	OrderConsignmentRepository,
 	OrderDetailRepository,
 	OrderDiscountRepository,
 	OrderPaymentRepository,
@@ -37,6 +39,7 @@ import { ProductService } from 'src/modules/product/services';
 			OrderDiscountEntity,
 			OrderEntity,
 			OrderPaymentEntity,
+			OrderConsignmentEntity,
 			UserEntity,
 			ProductLogEntity,
 			ProductDetailEntity,
@@ -52,6 +55,7 @@ import { ProductService } from 'src/modules/product/services';
 		OrderRepository,
 		OrderPaymentRepository,
 		OrderService,
+		OrderConsignmentRepository,
 		UserRepository,
 		ProductLogRepository,
 		ProductDetailRepository,
@@ -67,6 +71,7 @@ import { ProductService } from 'src/modules/product/services';
 		OrderRepository,
 		OrderPaymentRepository,
 		OrderService,
+		OrderConsignmentRepository,
 	],
 })
 export class OrderModule {}

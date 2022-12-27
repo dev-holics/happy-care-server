@@ -276,6 +276,14 @@ export class ProductService {
 			where: {
 				id: productLogExportDto.productConsignmentId,
 			},
+			options: {
+				relations: {
+					productDetail: {
+						product: true,
+						branch: true,
+					},
+				},
+			},
 		});
 
 		if (!productConsignment) {
@@ -311,11 +319,12 @@ export class ProductService {
 				transactionDate: moment().format('YYYY-MM-DD HH:mm:ss'),
 				quantity: productLogExportDto.quantity,
 				type: ENUM_TRANSACTION_TYPES.EXPORT,
+				expired: productConsignment.expired,
 				branch: {
-					id: productLogExportDto.branchId,
+					id: productConsignment.productDetail.branch.id,
 				},
 				product: {
-					id: productLogExportDto.productId,
+					id: productConsignment.productDetail.product.id,
 				},
 			},
 		});

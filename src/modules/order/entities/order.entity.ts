@@ -18,6 +18,7 @@ import { OrderDetailEntity, OrderDiscountEntity, OrderPaymentEntity } from '.';
 import { BranchEntity } from 'src/modules/location/entities';
 import { snakeCase } from 'change-case';
 import { UserSettingEntity } from 'src/modules/user/entities';
+import { ProductLogEntity } from 'src/modules/product/entities';
 
 @Entity('orders')
 export class OrderEntity
@@ -55,10 +56,6 @@ export class OrderEntity
 	@Column()
 	createDate: string;
 
-	@OneToOne(() => OrderPaymentEntity)
-	@JoinColumn()
-	orderPayment: OrderPaymentEntity;
-
 	@OneToMany(() => OrderDetailEntity, orderDetail => orderDetail.order)
 	orderDetails: OrderDetailEntity[];
 
@@ -66,6 +63,10 @@ export class OrderEntity
 		nullable: true,
 	})
 	orderDiscounts: OrderDiscountEntity[];
+
+	@ManyToOne(() => OrderPaymentEntity, orderPayment => orderPayment.orders)
+	@JoinColumn({ name: snakeCase('orderPaymentId'), referencedColumnName: 'id' })
+	orderPayment: OrderPaymentEntity;
 
 	@ManyToOne(() => UserEntity, user => user.orderCustomers)
 	@JoinColumn({ name: snakeCase('customerId'), referencedColumnName: 'id' })
@@ -86,4 +87,10 @@ export class OrderEntity
 	@ManyToOne(() => UserSettingEntity, userSetting => userSetting.orders)
 	@JoinColumn({ name: snakeCase('userSettingId'), referencedColumnName: 'id' })
 	userSetting: UserSettingEntity;
+
+	@ManyToOne(() => ProductLogEntity, productLog => productLog.orders, {
+		nullable: true,
+	})
+	@JoinColumn({ name: snakeCase('productLogId'), referencedColumnName: 'id' })
+	productLog: ProductLogEntity;
 }

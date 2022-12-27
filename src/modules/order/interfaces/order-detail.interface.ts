@@ -1,6 +1,10 @@
-import { ProductEntity } from 'src/modules/product/entities/product.entity';
+import {
+	OrderConsignmentEntity,
+	OrderEntity,
+} from 'src/modules/order/entities';
 
 export interface IOrderDetailEntity {
 	quantity: number;
-	product: ProductEntity;
+	orderConsignments: OrderConsignmentEntity[];
+	order: OrderEntity;
 }

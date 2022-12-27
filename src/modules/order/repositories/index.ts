@@ -3,3 +3,4 @@ export * from './order.repository';
 export * from './order-detail.repository';
 export * from './order-discount.repository';
 export * from './order-payment.repository';
+export * from './order-consignment.repository';
