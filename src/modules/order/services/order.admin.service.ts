@@ -49,76 +49,73 @@ export class OrderAdminService {
 		user: any,
 		orderAdminCreateBodyDto: OrderAdminCreateBodyDto,
 	) {
-		const queryRunner = await this.databaseTransactionService.getQueryRunner();
-		await queryRunner.startTransaction();
-
-		try {
-			// create new order
-			const newOrder = await this.orderAdminRepository.createOne({
-				data: {
-					orderCode: faker.datatype.uuid(),
-					paymentType: orderAdminCreateBodyDto.paymentType,
-					orderType: ENUM_ORDER_TYPES.OFFLINE_STORE,
-					status: ENUM_ORDER_STATUS.RECEIVED,
-					freeShip: false,
-					totalPrice: orderAdminCreateBodyDto.totalPrice,
-					createDate: moment(new Date()).format('yyyyMMDDHHmmss'),
-					orderPayment: {
-						isPay: true,
-					},
-					customer: {
-						id: orderAdminCreateBodyDto.customerId,
-					},
-					pharmacist: {
-						id: user.id,
-					},
-					branch: {
-						id: user.branch.id,
-					},
-				},
-			});
-
-			// create order detail, export product consignment
-			for (const item of orderAdminCreateBodyDto.products) {
-				const productConsignment =
-					await this.productConsignmentRepository.findOne({
-						where: {
-							id: item.productConsignmentId,
-						},
-						options: {
-							relations: {
-								productDetail: {
-									product: true,
-								},
-							},
-						},
-					});
-				await this.orderDetailRepository.createOne({
-					data: {
-						quantity: item.quantity,
-						product: {
-							id: productConsignment.productDetail.product.id,
-						},
-						order: {
-							id: newOrder.id,
-						},
-					},
-				});
-				const productLogDto = new ProductLogExportDto(
-					item.quantity,
-					item.productConsignmentId,
-					user.branch.id,
-					productConsignment.productDetail.product.id,
-				);
-
-				await this.productService.exportProductLog(productLogDto);
-			}
-		} catch (error: any) {
-			await queryRunner.rollbackTransaction();
-			throw error;
-		} finally {
-			await queryRunner.release();
-		}
+		// const queryRunner = await this.databaseTransactionService.getQueryRunner();
+		// await queryRunner.startTransaction();
+		// try {
+		// 	// create new order
+		// 	const newOrder = await this.orderAdminRepository.createOne({
+		// 		data: {
+		// 			orderCode: faker.datatype.uuid(),
+		// 			paymentType: orderAdminCreateBodyDto.paymentType,
+		// 			orderType: ENUM_ORDER_TYPES.OFFLINE_STORE,
+		// 			status: ENUM_ORDER_STATUS.RECEIVED,
+		// 			freeShip: false,
+		// 			totalPrice: orderAdminCreateBodyDto.totalPrice,
+		// 			createDate: moment(new Date()).format('yyyyMMDDHHmmss'),
+		// 			orderPayment: {
+		// 				isPay: true,
+		// 			},
+		// 			customer: {
+		// 				id: orderAdminCreateBodyDto.customerId,
+		// 			},
+		// 			pharmacist: {
+		// 				id: user.id,
+		// 			},
+		// 			branch: {
+		// 				id: user.branch.id,
+		// 			},
+		// 		},
+		// 	});
+		// 	// create order detail, export product consignment
+		// 	for (const item of orderAdminCreateBodyDto.products) {
+		// 		const productConsignment =
+		// 			await this.productConsignmentRepository.findOne({
+		// 				where: {
+		// 					id: item.productConsignmentId,
+		// 				},
+		// 				options: {
+		// 					relations: {
+		// 						productDetail: {
+		// 							product: true,
+		// 						},
+		// 					},
+		// 				},
+		// 			});
+		// 		await this.orderDetailRepository.createOne({
+		// 			data: {
+		// 				quantity: item.quantity,
+		// 				product: {
+		// 					id: productConsignment.productDetail.product.id,
+		// 				},
+		// 				order: {
+		// 					id: newOrder.id,
+		// 				},
+		// 			},
+		// 		});
+		// 		const productLogDto = new ProductLogExportDto(
+		// 			item.quantity,
+		// 			item.productConsignmentId,
+		// 			user.branch.id,
+		// 			productConsignment.productDetail.product.id,
+		// 		);
+		// 		await this.productService.exportProductLog(productLogDto);
+		// 	}
+		// } catch (error: any) {
+		// 	await queryRunner.rollbackTransaction();
+		// 	throw error;
+		// } finally {
+		// 	await queryRunner.release();
+		// }
 	}
 
 	async getOrders(orderListQueryDto: OrderListQueryDto) {

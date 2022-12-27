@@ -1,10 +1,11 @@
 import { BranchEntity } from 'src/modules/location/entities';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
 import { snakeCase } from 'change-case';
 import { IProductLogEntity } from 'src/modules/product/interfaces';
 import { ProductEntity } from '.';
+import { OrderEntity } from 'src/modules/order/entities';
 
 @Entity('product_logs')
 export class ProductLogEntity
@@ -24,6 +25,9 @@ export class ProductLogEntity
 
 	@Column({ type: 'date', nullable: true })
 	expired: Date;
+
+	@OneToMany(() => OrderEntity, order => order.productLog, { nullable: true })
+	orders: OrderEntity[];
 
 	@ManyToOne(() => BranchEntity, branch => branch.productLogs)
 	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })

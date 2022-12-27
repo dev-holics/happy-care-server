@@ -21,11 +21,11 @@ export class OrderCreateBodyDto {
 		required: false,
 	})
 	@IsNumber()
-	shipPrice!: number;
+	shipPrice: number;
 
 	@ApiProperty({
 		example: '',
-		required: false,
+		required: true,
 	})
 	@IsUUID()
 	@IsOptional()
