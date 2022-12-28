@@ -1,4 +1,4 @@
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
 	Body,
 	Controller,
@@ -20,15 +20,18 @@ import {
 } from 'src/modules/order/dtos';
 import {
 	Response,
+	ResponseBase,
 	ResponsePagingBase,
 } from 'src/common/response/decorators/response.decorator';
 import { UserProfileGuard } from 'src/modules/user/decorators/user.public.decorator';
 import { GetUser } from 'src/modules/user/decorators/user.decorator';
 import {
 	IResponse,
+	IResponseBase,
 	IResponsePaging,
 } from 'src/common/response/interfaces/response.interface';
 import { UpdateOrderStatusDto } from 'src/modules/order/dtos/update-order-status.dto';
+import { number } from 'joi';
 
 @ApiTags('Admin.Order')
 @Controller({
@@ -37,18 +40,6 @@ import { UpdateOrderStatusDto } from 'src/modules/order/dtos/update-order-status
 })
 export class OrderAdminController {
 	constructor(private readonly orderAdminService: OrderAdminService) {}
-
-	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
-	@UserProfileGuard()
-	@AuthJwtGuard([PERMISSIONS.CREATE_ORDER])
-	@AuthApiKeyGuard()
-	@Post()
-	async createOrder(
-		@GetUser() user: any,
-		@Body() orderCreateBodyDto: OrderAdminCreateBodyDto,
-	) {
-		return this.orderAdminService.createOrder(user, orderCreateBodyDto);
-	}
 
 	@ResponsePagingBase('order.getList')
 	@AuthJwtGuard([PERMISSIONS.READ_ALL_ORDERS])
@@ -68,6 +59,31 @@ export class OrderAdminController {
 		@Query() orderTotalQueryDto: OrderTotalQueryDto,
 	): Promise<IResponse> {
 		return this.orderAdminService.getTotalOrders(orderTotalQueryDto);
+	}
+
+	@ApiQuery({
+		name: 'year',
+		required: false,
+		type: 'number',
+	})
+	@ResponseBase('totalRevenue.Year')
+	@AuthJwtGuard([PERMISSIONS.READ_REVENUE_YEAR])
+	@AuthApiKeyGuard()
+	@Get('revenue')
+	getTotalPriceInYear(@Query('year') year): Promise<IResponseBase> {
+		return this.orderAdminService.getTotalPriceInYear(year);
+	}
+
+	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })
+	@UserProfileGuard()
+	@AuthJwtGuard([PERMISSIONS.CREATE_ORDER])
+	@AuthApiKeyGuard()
+	@Post()
+	async createOrder(
+		@GetUser() user: any,
+		@Body() orderCreateBodyDto: OrderAdminCreateBodyDto,
+	) {
+		return this.orderAdminService.createOrder(user, orderCreateBodyDto);
 	}
 
 	@Response('order.updatedStatus')
