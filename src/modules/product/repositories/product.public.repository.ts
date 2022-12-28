@@ -40,7 +40,9 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 			products.where('tags.name = :tag');
 		}
 		if (search) {
-			products.andWhere('products.name = :search');
+			products.andWhere('products.name like :name', {
+				name: `%${search}%`,
+			});
 		}
 		if (originId) {
 			products.andWhere('origin.id = :originId');
@@ -78,7 +80,6 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 				ids,
 				trademarkId,
 				originId,
-				search,
 				tag,
 			})
 			.getMany();
