@@ -356,16 +356,19 @@ export class OrderService {
 			}
 			let newQuantity = productInputDto[i].quantity;
 			let index = 0;
-			for (let i = 0; i <= productConsignments.length; i++) {
-				if (productConsignments[i].quantity >= newQuantity) {
-					productConsignments[i].quantity =
-						productConsignments[i].quantity - newQuantity;
+			const listQuantity = [];
+			for (let j = 0; j <= productConsignments.length; j++) {
+				if (productConsignments[j].quantity >= newQuantity) {
+					listQuantity.push(newQuantity);
+					productConsignments[j].quantity =
+						productConsignments[j].quantity - newQuantity;
 					newQuantity = 0;
-					index = i;
+					index = j;
 					break;
 				} else {
-					productConsignments[i].quantity = 0;
-					newQuantity = newQuantity - productConsignments[i].quantity;
+					listQuantity.push(productConsignments[j].quantity);
+					newQuantity = newQuantity - productConsignments[j].quantity;
+					productConsignments[j].quantity = 0;
 				}
 			}
 			if (newQuantity !== 0) {
@@ -374,22 +377,23 @@ export class OrderService {
 					message: 'product quantity is not enough',
 				});
 			}
-			for (let i = 0; i <= index; i++) {
+
+			for (let z = 0; z <= index; z++) {
 				await this.productConsignmentRepository.updateOne({
 					criteria: {
-						id: productConsignments[i].id,
+						id: productConsignments[z].id,
 					},
-					data: productConsignments[i],
+					data: productConsignments[z],
 				});
 
 				await this.orderConsignmentRepository.createOne({
 					data: {
-						quantity: productInputDto[i].quantity,
+						quantity: listQuantity[z],
 						orderDetail: {
 							id: orderDetails[i].id,
 						},
 						productConsignment: {
-							id: productConsignments[i].id,
+							id: productConsignments[z].id,
 						},
 					},
 				});
