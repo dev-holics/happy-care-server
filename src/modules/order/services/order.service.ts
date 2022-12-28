@@ -573,6 +573,7 @@ export class OrderService {
 						message: 'order.error.cannotCancel',
 					});
 				}
+				//xoa log, cong hang , neu da thanh toan thi hoan tien
 				order.status = ENUM_ORDER_STATUS.CANCELED;
 				break;
 			case ENUM_ORDER_STATUS.RECEIVED:
@@ -585,6 +586,7 @@ export class OrderService {
 						message: 'order.error.cannotReceived',
 					});
 				}
+				// chuyen isPay sang true,
 				order.status = ENUM_ORDER_STATUS.RECEIVED;
 				break;
 			default:

@@ -22,7 +22,7 @@ export class OrderTotalQueryDto {
 
 	@ApiProperty({
 		example: faker.date.past(),
-		required: true,
+		required: false,
 	})
 	@IsDate()
 	@Type(() => Date)
@@ -31,7 +31,7 @@ export class OrderTotalQueryDto {
 
 	@ApiProperty({
 		example: faker.date.recent(),
-		required: true,
+		required: false,
 	})
 	@IsDate()
 	@Type(() => Date)

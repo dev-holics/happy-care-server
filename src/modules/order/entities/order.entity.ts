@@ -69,7 +69,7 @@ export class OrderEntity
 	})
 	productLogs: ProductLogEntity[];
 
-	@OneToOne(() => OrderPaymentEntity, orderPayment => orderPayment.order)
+	@OneToOne(() => OrderPaymentEntity)
 	@JoinColumn({ name: snakeCase('orderPaymentId'), referencedColumnName: 'id' })
 	orderPayment: OrderPaymentEntity;
 

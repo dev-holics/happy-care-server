@@ -54,7 +54,7 @@ export class OrderAdminService {
 		const newOrder = await this.orderAdminRepository.createOne({
 			data: {
 				orderCode: faker.datatype.uuid(),
-				status: ENUM_ORDER_STATUS.CONFIRMED,
+				status: ENUM_ORDER_STATUS.RECEIVED,
 				paymentType: orderAdminCreateBodyDto.paymentType,
 				orderType: ENUM_ORDER_TYPES.OFFLINE_STORE,
 				totalPrice: orderAdminCreateBodyDto.totalPrice,
@@ -66,11 +66,19 @@ export class OrderAdminService {
 			},
 		});
 
-		await this.orderPaymentRepository.createOne({
+		const payment = await this.orderPaymentRepository.createOne({
 			data: {
 				isPay: true,
-				order: {
-					id: newOrder.id,
+			},
+		});
+
+		await this.orderAdminRepository.updateOne({
+			criteria: {
+				id: newOrder.id,
+			},
+			data: {
+				orderPayment: {
+					id: payment.id,
 				},
 			},
 		});
@@ -136,7 +144,12 @@ export class OrderAdminService {
 					paymentType: paymentType || undefined,
 					status: status || undefined,
 					createDate:
-						startDate && endDate ? Between(startDate, endDate) : undefined,
+						startDate && endDate
+							? Between(
+									moment(startDate).format('yyyyMMDDHHmmss'),
+									moment(endDate).format('yyyyMMDDHHmmss'),
+							  )
+							: undefined,
 					branch: {
 						id: branchId || undefined,
 					},
@@ -175,7 +188,12 @@ export class OrderAdminService {
 					paymentType: paymentType || undefined,
 					status: status || undefined,
 					createDate:
-						startDate && endDate ? Between(startDate, endDate) : undefined,
+						startDate && endDate
+							? Between(
+									moment(startDate).format('yyyyMMDDHHmmss'),
+									moment(endDate).format('yyyyMMDDHHmmss'),
+							  )
+							: undefined,
 					branch: {
 						id: branchId || undefined,
 					},
@@ -236,7 +254,12 @@ export class OrderAdminService {
 		const result = await this.orderAdminRepository.count({
 			where: {
 				createDate:
-					startDate && endDate ? Between(startDate, endDate) : undefined,
+					startDate && endDate
+						? Between(
+								moment(startDate).format('yyyyMMDDHHmmss'),
+								moment(endDate).format('yyyyMMDDHHmmss'),
+						  )
+						: undefined,
 				branch: {
 					id: branchId || undefined,
 				},
@@ -289,9 +312,11 @@ export class OrderAdminService {
 				order.status = status;
 				break;
 			case `${ENUM_ORDER_STATUS.DELIVERING} to ${ENUM_ORDER_STATUS.DELIVERED}`:
+				// tao product log
 				order.status = status;
 				break;
 			case `${ENUM_ORDER_STATUS.PROCESSING} to ${ENUM_ORDER_STATUS.CANCELED}`:
+				//xoa log, cong hang , neu da thanh toan thi hoan tien
 				order.status = status;
 				break;
 			default:
