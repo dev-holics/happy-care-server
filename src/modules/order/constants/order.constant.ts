@@ -14,6 +14,11 @@ export enum ENUM_ORDER_STATUS {
 	CANCELED = 'CANCELED', // Order has been canceled or Pharmacist has canceled the order
 }
 
+export enum ENUM_DELIVERY_METHOD {
+	SHIP = 'SHIP',
+	PICK_UP = 'PICK_UP',
+}
+
 export enum ENUM_ORDER_TYPES {
 	ONLINE_STORE = 'ONLINE_STORE',
 	OFFLINE_STORE = 'OFFLINE_STORE',

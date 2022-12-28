@@ -4,6 +4,7 @@ import { IsEnum, IsNumber, IsOptional, IsUUID } from 'class-validator';
 import { shuffle } from 'radash';
 import { ProductInputDto } from '.';
 import {
+	ENUM_DELIVERY_METHOD,
 	ENUM_ORDER_TYPES,
 	ENUM_PAYMENT_TYPES,
 } from 'src/modules/order/constants/order.constant';
@@ -45,6 +46,14 @@ export class OrderCreateBodyDto {
 	})
 	@IsEnum(ENUM_PAYMENT_TYPES)
 	paymentType: string;
+
+	@ApiProperty({
+		example: shuffle(Object.values(ENUM_DELIVERY_METHOD))[0],
+		required: true,
+		enum: ENUM_DELIVERY_METHOD,
+	})
+	@IsEnum(ENUM_PAYMENT_TYPES)
+	delivery: string;
 
 	@ApiProperty({
 		example: shuffle(Object.values(ENUM_ORDER_TYPES))[0],

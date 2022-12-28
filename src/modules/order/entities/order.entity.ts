@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { DatabaseEntityAbstract } from 'src/common/database/abstracts/database.entity.abstract';
 import {
+	ENUM_DELIVERY_METHOD,
 	ENUM_ORDER_STATUS,
 	ENUM_ORDER_TYPES,
 	ENUM_PAYMENT_TYPES,
@@ -46,6 +47,12 @@ export class OrderEntity
 	status: string;
 
 	@Column({
+		enum: ENUM_DELIVERY_METHOD,
+		nullable: true,
+	})
+	delivery: string;
+
+	@Column({
 		nullable: true,
 	})
 	freeShip: boolean;
@@ -73,7 +80,7 @@ export class OrderEntity
 	@JoinColumn({ name: snakeCase('orderPaymentId'), referencedColumnName: 'id' })
 	orderPayment: OrderPaymentEntity;
 
-	@ManyToOne(() => UserEntity, user => user.orderCustomers)
+	@ManyToOne(() => UserEntity, user => user.orderCustomers, { nullable: true })
 	@JoinColumn({ name: snakeCase('customerId'), referencedColumnName: 'id' })
 	customer: UserEntity;
 
@@ -89,7 +96,9 @@ export class OrderEntity
 	@JoinColumn({ name: snakeCase('branchId'), referencedColumnName: 'id' })
 	branch: BranchEntity;
 
-	@ManyToOne(() => UserSettingEntity, userSetting => userSetting.orders)
+	@ManyToOne(() => UserSettingEntity, userSetting => userSetting.orders, {
+		nullable: true,
+	})
 	@JoinColumn({ name: snakeCase('userSettingId'), referencedColumnName: 'id' })
 	userSetting: UserSettingEntity;
 }

@@ -70,6 +70,7 @@ export class OrderService {
 				orderType: orderCreateBodyDto.orderType,
 				totalPrice: orderCreateBodyDto.totalPrice,
 				createDate: moment(date).format('yyyyMMDDHHmmss'),
+				delivery: orderCreateBodyDto.delivery,
 				freeShip:
 					orderCreateBodyDto.shipPrice && orderCreateBodyDto.shipPrice > 0
 						? false
