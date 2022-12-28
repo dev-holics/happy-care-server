@@ -11,6 +11,7 @@ export interface IOrderEntity {
 	orderType: string;
 	status: string;
 	totalPrice: number;
+	delivery: string;
 	createDate: string;
 	orderDetails: OrderDetailEntity[];
 	orderDiscounts: OrderDiscountEntity[];
