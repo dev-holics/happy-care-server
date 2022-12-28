@@ -16,14 +16,6 @@ import { ENUM_ORDER_STATUS } from 'src/modules/order/constants/order.constant';
 
 export class OrderHistoryQueryDto implements PaginationSimpleListAbstract {
 	@ApiProperty({
-		example: faker.datatype.uuid(),
-		required: false,
-	})
-	@IsUUID()
-	@IsOptional()
-	readonly branchId?: string;
-
-	@ApiProperty({
 		example: shuffle(Object.values(ENUM_ORDER_STATUS))[0],
 		required: false,
 		enum: ENUM_ORDER_STATUS,

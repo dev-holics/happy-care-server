@@ -433,7 +433,7 @@ export class OrderService {
 				page: page,
 				limit: limit,
 				order: {
-					createdAt: 'DESC',
+					id: 'ASC',
 				},
 				relations: {
 					branch: true,
@@ -441,13 +441,40 @@ export class OrderService {
 					customer: true,
 					pharmacist: true,
 					orderDetails: {
-						product: {
-							images: true,
+						orderConsignments: {
+							productConsignment: {
+								productDetail: {
+									product: {
+										images: true,
+									},
+								},
+							},
 						},
 					},
 					orderPayment: true,
 				},
 			},
+		});
+
+		if (!result.length) {
+			throw new NotFoundException({
+				statusCode: 404,
+				message: 'oder.error.notFound',
+			});
+		}
+
+		result.forEach((item: any) => {
+			const products = [];
+			item.orderDetails.forEach(orderDetail => {
+				products.push({
+					quantity: orderDetail.quantity,
+					product:
+						orderDetail.orderConsignments[0].productConsignment.productDetail
+							.product,
+				});
+			});
+			item.products = products;
+			delete item.orderDetails;
 		});
 
 		return this.paginationService.formatPaginationResult(
@@ -464,7 +491,7 @@ export class OrderService {
 		userId: string,
 		orderParamDto: OrderParamDto,
 	): Promise<IResponse> {
-		const order = await this.orderRepository.findOne({
+		const order: any = await this.orderRepository.findOne({
 			where: {
 				id: orderParamDto.orderId,
 				customer: {
@@ -478,8 +505,14 @@ export class OrderService {
 					customer: true,
 					pharmacist: true,
 					orderDetails: {
-						product: {
-							images: true,
+						orderConsignments: {
+							productConsignment: {
+								productDetail: {
+									product: {
+										images: true,
+									},
+								},
+							},
 						},
 					},
 					orderPayment: true,
@@ -494,6 +527,17 @@ export class OrderService {
 			});
 		}
 
+		const products = [];
+		order.orderDetails.forEach(orderDetail => {
+			products.push({
+				quantity: orderDetail.quantity,
+				product:
+					orderDetail.orderConsignments[0].productConsignment.productDetail
+						.product,
+			});
+		});
+		order.products = products;
+		delete order.orderDetails;
 		return order;
 	}
 
