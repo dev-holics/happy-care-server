@@ -317,6 +317,16 @@ export class OrderAdminService {
 			case `${ENUM_ORDER_STATUS.CONFIRMED} to ${ENUM_ORDER_STATUS.DELIVERING}`:
 				order.status = status;
 				break;
+			case `${ENUM_ORDER_STATUS.CONFIRMED} to ${ENUM_ORDER_STATUS.RECEIVED}`:
+				if (order.delivery === 'PICK_UP') {
+					order.status = status;
+				} else {
+					throw new NotFoundException({
+						statusCode: 400,
+						message: 'status.order.error',
+					});
+				}
+				break;
 			case `${ENUM_ORDER_STATUS.DELIVERING} to ${ENUM_ORDER_STATUS.DELIVERED}`:
 				order.status = status;
 				break;
