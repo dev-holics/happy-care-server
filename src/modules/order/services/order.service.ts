@@ -27,7 +27,6 @@ import {
 } from 'src/modules/order/constants/order.constant';
 import { IResponse } from 'src/common/response/interfaces/response.interface';
 import { OrderEntity } from 'src/modules/order/entities';
-import { ProductEntity } from 'src/modules/product/entities/product.entity';
 import { faker } from '@faker-js/faker';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { ILike, MoreThanOrEqual } from 'typeorm';
