@@ -31,4 +31,8 @@ export class ProductConsignmentRepository extends DatabaseRepositoryAbstract<Pro
 			.addSelect('SUM(productConsignments.quantity)', 'totalProductConsignment')
 			.getRawOne();
 	}
+
+	async saveProductConsignment(productConsignment: any) {
+		return this.productConsignmentRepository.save(productConsignment);
+	}
 }

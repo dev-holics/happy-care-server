@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import {
 	OrderAdminRepository,
+	OrderConsignmentRepository,
 	OrderDetailRepository,
 	OrderPaymentRepository,
 } from 'src/modules/order/repositories';
@@ -25,7 +26,10 @@ import { OrderService } from './order.service';
 import { faker } from '@faker-js/faker';
 import moment from 'moment';
 import { OrderEntity } from 'src/modules/order/entities';
-import { ProductLogRepository } from 'src/modules/product/repositories';
+import {
+	ProductConsignmentRepository,
+	ProductLogRepository,
+} from 'src/modules/product/repositories';
 import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
 
 @Injectable()
@@ -38,6 +42,8 @@ export class OrderAdminService {
 		private readonly orderDetailRepository: OrderDetailRepository,
 		private readonly productLogRepository: ProductLogRepository,
 		private readonly orderPaymentRepository: OrderPaymentRepository,
+		private readonly orderConsignmentRepository: OrderConsignmentRepository,
+		private readonly productConsignmentRepository: ProductConsignmentRepository,
 	) {}
 
 	async createOrder(
@@ -312,11 +318,51 @@ export class OrderAdminService {
 				order.status = status;
 				break;
 			case `${ENUM_ORDER_STATUS.DELIVERING} to ${ENUM_ORDER_STATUS.DELIVERED}`:
-				// tao product log
 				order.status = status;
 				break;
 			case `${ENUM_ORDER_STATUS.PROCESSING} to ${ENUM_ORDER_STATUS.CANCELED}`:
 				//xoa log, cong hang , neu da thanh toan thi hoan tien
+				const [deleteLog, orderConsignment] = await Promise.all([
+					this.productLogRepository.updateMany({
+						criteria: {
+							order: {
+								id: orderId,
+							},
+						},
+						data: {
+							deletedAt: moment(),
+						},
+					}),
+					this.orderConsignmentRepository.findAll({
+						where: {
+							orderDetail: {
+								order: {
+									id: orderId,
+								},
+							},
+						},
+						options: {
+							relations: {
+								productConsignment: true,
+							},
+						},
+					}),
+				]);
+
+				const productConsignment = [];
+
+				for (let i = 0; i < orderConsignment.length; i++) {
+					orderConsignment[i].productConsignment.quantity =
+						orderConsignment[i].productConsignment.quantity +
+						orderConsignment[i].quantity;
+
+					productConsignment.push(orderConsignment[i].productConsignment);
+				}
+
+				await this.productConsignmentRepository.saveProductConsignment(
+					productConsignment,
+				);
+
 				order.status = status;
 				break;
 			default:
