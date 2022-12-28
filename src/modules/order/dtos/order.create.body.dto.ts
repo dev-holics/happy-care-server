@@ -52,7 +52,7 @@ export class OrderCreateBodyDto {
 		required: true,
 		enum: ENUM_DELIVERY_METHOD,
 	})
-	@IsEnum(ENUM_PAYMENT_TYPES)
+	@IsEnum(ENUM_DELIVERY_METHOD)
 	delivery: string;
 
 	@ApiProperty({
