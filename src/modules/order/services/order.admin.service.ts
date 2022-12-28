@@ -17,6 +17,7 @@ import {
 import {
 	ENUM_ORDER_STATUS,
 	ENUM_ORDER_TYPES,
+	ENUM_PAYMENT_TYPES,
 } from 'src/modules/order/constants/order.constant';
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { Between, ILike } from 'typeorm';
@@ -49,13 +50,63 @@ export class OrderAdminService {
 		private readonly productConsignmentRepository: ProductConsignmentRepository,
 	) {}
 
+	async getTotalPriceInDay(date: string): Promise<IResponse> {
+		if (!date) date = moment().format('YYYY-MM-DD');
+		const [orderTransfer, orderCash] = await Promise.all([
+			this.orderAdminRepository.findAll({
+				where: {
+					status: ENUM_ORDER_STATUS.RECEIVED,
+					paymentType: ENUM_PAYMENT_TYPES.TRANSFER,
+				},
+			}),
+			this.orderAdminRepository.findAll({
+				where: {
+					status: ENUM_ORDER_STATUS.RECEIVED,
+					paymentType: ENUM_PAYMENT_TYPES.CASH,
+				},
+			}),
+		]);
+
+		const result = {
+			day: date,
+			totalTransfer: 0,
+			totalCash: 0,
+		};
+
+		if (orderTransfer.length) {
+			orderTransfer.forEach(item => {
+				if (
+					moment(item.updatedAt)
+						.add(7, 'hours')
+						.format('YYYY-MM-DD')
+						.localeCompare(date)
+				) {
+					result.totalTransfer += item.totalPrice;
+				}
+			});
+		}
+		if (orderCash.length) {
+			orderCash.forEach(item => {
+				if (
+					moment(item.updatedAt)
+						.add(7, 'hours')
+						.format('YYYY-MM-DD')
+						.localeCompare(date)
+				) {
+					console.log('locx');
+					result.totalCash += item.totalPrice;
+				}
+			});
+		}
+		return result;
+	}
+
 	async getTotalPriceInYear(year: number): Promise<IResponseBase> {
-		console.log(year);
 		if (!year) year = moment().year();
 		const orders = await this.orderAdminRepository.findAll({
 			where: {
 				status: ENUM_ORDER_STATUS.RECEIVED,
-				createdAt: Between(
+				updatedAt: Between(
 					`${year}-01-01T00:00:00.000Z`,
 					`${year}-12-31T00:00:00.000Z`,
 				),
@@ -113,7 +164,7 @@ export class OrderAdminService {
 		];
 		if (orders.length) {
 			orders.forEach(item => {
-				switch (moment(item.createdAt).format('MM')) {
+				switch (moment(item.updatedAt).format('MM')) {
 					case '1':
 						result[0].totalPrice += item.totalPrice;
 						break;

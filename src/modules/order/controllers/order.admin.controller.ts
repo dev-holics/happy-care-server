@@ -69,9 +69,23 @@ export class OrderAdminController {
 	@ResponseBase('totalRevenue.Year')
 	@AuthJwtGuard([PERMISSIONS.READ_REVENUE_YEAR])
 	@AuthApiKeyGuard()
-	@Get('revenue')
+	@Get('revenue-year')
 	getTotalPriceInYear(@Query('year') year): Promise<IResponseBase> {
 		return this.orderAdminService.getTotalPriceInYear(year);
+	}
+
+	@ApiQuery({
+		name: 'date',
+		required: false,
+		type: 'string',
+		example: '2022-12-29',
+	})
+	@Response('totalRevenue.Date')
+	@AuthJwtGuard([PERMISSIONS.READ_REVENUE_YEAR])
+	@AuthApiKeyGuard()
+	@Get('revenue-date')
+	getTotalPriceInDay(@Query('date') date): Promise<IResponse> {
+		return this.orderAdminService.getTotalPriceInDay(date);
 	}
 
 	@Response('created successfully', { doc: { httpStatus: HttpStatus.CREATED } })

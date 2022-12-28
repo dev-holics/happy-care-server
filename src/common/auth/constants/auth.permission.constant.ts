@@ -284,4 +284,10 @@ export const PERMISSIONS = Object.freeze({
 		description: 'can_read_revenue_year',
 		module: ENUM_PERMISSION_MODULE.ORDER,
 	},
+	READ_REVENUE_DAY: {
+		code: 520,
+		name: 'read_revenue_day',
+		description: 'can_read_revenue_day',
+		module: ENUM_PERMISSION_MODULE.ORDER,
+	},
 });
