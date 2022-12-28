@@ -29,8 +29,4 @@ export class OrderPaymentEntity
 
 	@Column({ nullable: true })
 	vnpTransactionNo: string;
-
-	@OneToOne(() => OrderEntity, order => order.orderPayment)
-	@JoinColumn({ name: snakeCase('orderId'), referencedColumnName: 'id' })
-	order: OrderEntity;
 }

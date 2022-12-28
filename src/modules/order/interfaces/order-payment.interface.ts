@@ -1,5 +1,3 @@
-import { OrderEntity } from 'src/modules/order/entities';
-
 export interface IOrderPayment {
 	isPay: boolean;
 
@@ -14,6 +12,4 @@ export interface IOrderPayment {
 	vnpOrderInfo: string;
 
 	vnpTransactionNo: string;
-
-	order: OrderEntity;
 }
