@@ -15,6 +15,8 @@ import { BranchPublicRepository } from 'src/modules/location/repositories';
 import { ProductDetailQueryDto } from 'src/modules/product/dtos/product.detail.query.dto';
 import { MoreThanOrEqual } from 'typeorm';
 import moment from 'moment';
+import { SORT_OPTION_ENUM } from 'src/common/pagination/constants';
+import { OrderConsignmentRepository } from 'src/modules/order/repositories';
 
 @Injectable()
 export class ProductPublicService {
@@ -23,7 +25,7 @@ export class ProductPublicService {
 		private readonly categoryTreeRepository: CategoryTreeRepository,
 		private readonly paginationService: PaginationService,
 		private readonly productDetailRepository: ProductDetailRepository,
-		private readonly branchPublicRepository: BranchPublicRepository,
+		private readonly orderConsignmentRepository: OrderConsignmentRepository,
 	) {}
 
 	async getProducts(
@@ -47,6 +49,23 @@ export class ProductPublicService {
 			productGetListDto,
 			skip,
 		);
+
+		if (productGetListDto.sortOption === SORT_OPTION_ENUM.SELLWELL) {
+			products.forEach((item: any) => {
+				let count = 0;
+				item.productLogs.forEach(log => {
+					if (log.order && log.type === 'EXPORT') {
+						count++;
+					}
+				});
+				item.count = count;
+				delete item.productLogs;
+			});
+
+			products.sort((a, b) => {
+				return b.count - a.count;
+			});
+		}
 
 		availableSort = [productGetListDto.sortOption];
 		return this.paginationService.formatPaginationResult(

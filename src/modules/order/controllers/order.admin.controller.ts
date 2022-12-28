@@ -85,7 +85,6 @@ export class OrderAdminController {
 		@GetUser('id') userId: string,
 	): Promise<IResponse> {
 		const { status } = updateStatusDto;
-		console.log('status', status);
 		return this.orderAdminService.updateOrderStatus(orderId, status, userId);
 	}
 }
