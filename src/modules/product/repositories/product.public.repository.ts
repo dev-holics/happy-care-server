@@ -15,7 +15,11 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 		super(productPublicRepository);
 	}
 
-	async getProducts(ids: string[], query: ProductGetListDto, skip: number) {
+	async getProducts(
+		ids: string[],
+		query: ProductGetListDto,
+		skip: number,
+	): Promise<any> {
 		const { tag, search, sortOption, limit, page, trademarkId, originId } =
 			query;
 		const products = this.productPublicRepository
@@ -56,7 +60,9 @@ export class ProductPublicRepository extends DatabaseRepositoryAbstract<ProductE
 					products.orderBy('products.createdAt', 'DESC');
 					break;
 				case SORT_OPTION_ENUM.SELLWELL:
-					// products.leftJoinAndSelect('products.productLogs', 'productLogs');
+					products
+						.leftJoinAndSelect('products.productLogs', 'productLogs')
+						.leftJoinAndSelect('productLogs.order', 'order');
 					break;
 				default:
 					break;

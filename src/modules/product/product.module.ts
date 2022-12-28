@@ -20,6 +20,8 @@ import {
 } from 'src/modules/product/services';
 import { CategoryModule } from 'src/modules/category/category.module';
 import { LocationModule } from 'src/modules/location/location.module';
+import { OrderConsignmentRepository } from 'src/modules/order/repositories';
+import { OrderConsignmentEntity } from 'src/modules/order/entities';
 
 @Module({
 	imports: [
@@ -29,6 +31,7 @@ import { LocationModule } from 'src/modules/location/location.module';
 			ProductLogEntity,
 			ProductDetailEntity,
 			ProductConsignmentEntity,
+			OrderConsignmentEntity,
 		]),
 		forwardRef(() => CategoryModule),
 	],
@@ -41,6 +44,7 @@ import { LocationModule } from 'src/modules/location/location.module';
 		ProductDetailPublicService,
 		ProductLogRepository,
 		ProductConsignmentRepository,
+		OrderConsignmentRepository,
 	],
 	exports: [
 		ProductRepository,
@@ -51,6 +55,7 @@ import { LocationModule } from 'src/modules/location/location.module';
 		ProductDetailPublicService,
 		ProductLogRepository,
 		ProductConsignmentRepository,
+		OrderConsignmentRepository,
 	],
 })
 export class ProductModule {}
