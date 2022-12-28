@@ -32,7 +32,11 @@ import { faker } from '@faker-js/faker';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
 import { ILike, MoreThanOrEqual } from 'typeorm';
 import { OrderParamDto } from 'src/modules/order/dtos/order.param.dto';
-import { ProductConsignmentRepository } from 'src/modules/product/repositories';
+import {
+	ProductConsignmentRepository,
+	ProductLogRepository,
+} from 'src/modules/product/repositories';
+import { ENUM_TRANSACTION_TYPES } from 'src/modules/product/constants';
 
 @Injectable()
 export class OrderService {
@@ -44,6 +48,7 @@ export class OrderService {
 		private readonly paginationService: PaginationService,
 		private readonly productConsignmentRepository: ProductConsignmentRepository,
 		private readonly orderConsignmentRepository: OrderConsignmentRepository,
+		private readonly productLogRepository: ProductLogRepository,
 	) {}
 
 	async createPaymentUrl(
@@ -104,6 +109,25 @@ export class OrderService {
 			orderDetails,
 		);
 
+		for (let i = 0; i < orderCreateBodyDto.products.length; i++) {
+			await this.productLogRepository.createOne({
+				data: {
+					quantity: orderCreateBodyDto.products[i].quantity,
+					transactionDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+					type: ENUM_TRANSACTION_TYPES.EXPORT,
+					product: {
+						id: orderCreateBodyDto.products[i].productId,
+					},
+					branch: {
+						id: orderCreateBodyDto.branchId,
+					},
+					order: {
+						id: newOrder.id,
+					},
+				},
+			});
+		}
+
 		if (orderCreateBodyDto.paymentType === ENUM_PAYMENT_TYPES.TRANSFER) {
 			vnp_Params.vnp_Version = this.configService.get<string>(
 				'vnpay.payment.vnp_Version',
@@ -149,6 +173,24 @@ export class OrderService {
 
 			return { vnpUrl };
 		}
+
+		const payment = await this.orderPaymentRepository.createOne({
+			data: {
+				isPay: false,
+			},
+		});
+
+		await this.orderRepository.updateOne({
+			criteria: {
+				id: newOrder.id,
+			},
+			data: {
+				orderPayment: {
+					id: payment.id,
+				},
+			},
+		});
+
 		return {
 			message: 'create order success',
 		};
@@ -220,6 +262,11 @@ export class OrderService {
 				where: {
 					orderCode: vnp_Params.vnp_TxnRef,
 				},
+				options: {
+					relations: {
+						productLogs: true,
+					},
+				},
 			});
 
 			await this.orderRepository.updateOne({
@@ -233,6 +280,10 @@ export class OrderService {
 					},
 				},
 			});
+
+			for (let i = 0; i < order.productLogs.length; i++) {
+				await this.productLogRepository.delete({ id: order.productLogs[i].id });
+			}
 
 			await this.importProduct(order.id);
 
@@ -553,6 +604,11 @@ export class OrderService {
 					id: userId,
 				},
 			},
+			options: {
+				relations: {
+					orderPayment: true,
+				},
+			},
 		});
 
 		if (!order) {
@@ -574,6 +630,48 @@ export class OrderService {
 					});
 				}
 				//xoa log, cong hang , neu da thanh toan thi hoan tien
+
+				const [deleteLog, orderConsignment] = await Promise.all([
+					this.productLogRepository.updateMany({
+						criteria: {
+							order: {
+								id: orderId,
+							},
+						},
+						data: {
+							deletedAt: moment(),
+						},
+					}),
+					this.orderConsignmentRepository.findAll({
+						where: {
+							orderDetail: {
+								order: {
+									id: orderId,
+								},
+							},
+						},
+						options: {
+							relations: {
+								productConsignment: true,
+							},
+						},
+					}),
+				]);
+
+				const productConsignment = [];
+
+				for (let i = 0; i < orderConsignment.length; i++) {
+					orderConsignment[i].productConsignment.quantity =
+						orderConsignment[i].productConsignment.quantity +
+						orderConsignment[i].quantity;
+
+					productConsignment.push(orderConsignment[i].productConsignment);
+				}
+
+				await this.productConsignmentRepository.saveProductConsignment(
+					productConsignment,
+				);
+
 				order.status = ENUM_ORDER_STATUS.CANCELED;
 				break;
 			case ENUM_ORDER_STATUS.RECEIVED:
@@ -586,7 +684,16 @@ export class OrderService {
 						message: 'order.error.cannotReceived',
 					});
 				}
-				// chuyen isPay sang true,
+				if (order.paymentType === ENUM_PAYMENT_TYPES.CASH) {
+					await this.orderPaymentRepository.updateOne({
+						criteria: {
+							id: order.orderPayment.id,
+						},
+						data: {
+							isPay: true,
+						},
+					});
+				}
 				order.status = ENUM_ORDER_STATUS.RECEIVED;
 				break;
 			default:
