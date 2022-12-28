@@ -401,8 +401,40 @@ export class OrderAdminService {
 					customer: true,
 					branch: true,
 					pharmacist: true,
+					orderDetails: {
+						orderConsignments: {
+							productConsignment: {
+								productDetail: {
+									product: {
+										images: true,
+									},
+								},
+							},
+						},
+					},
 				},
 			},
+		});
+
+		if (!result.length) {
+			throw new NotFoundException({
+				statusCode: 404,
+				message: 'oder.error.notFound',
+			});
+		}
+
+		result.forEach((item: any) => {
+			const products = [];
+			item.orderDetails.forEach(orderDetail => {
+				products.push({
+					quantity: orderDetail.quantity,
+					product:
+						orderDetail.orderConsignments[0].productConsignment.productDetail
+							.product,
+				});
+			});
+			item.products = products;
+			delete item.orderDetails;
 		});
 
 		return this.paginationService.formatPaginationResult(
