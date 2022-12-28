@@ -21,7 +21,10 @@ import {
 import { UserRepository } from 'src/modules/user/repositories/user.repository';
 import { Between, ILike } from 'typeorm';
 import { PaginationService } from 'src/common/pagination/services/pagination.service';
-import { IResponse } from 'src/common/response/interfaces/response.interface';
+import {
+	IResponse,
+	IResponseBase,
+} from 'src/common/response/interfaces/response.interface';
 import { OrderService } from './order.service';
 import { faker } from '@faker-js/faker';
 import moment from 'moment';
@@ -45,6 +48,113 @@ export class OrderAdminService {
 		private readonly orderConsignmentRepository: OrderConsignmentRepository,
 		private readonly productConsignmentRepository: ProductConsignmentRepository,
 	) {}
+
+	async getTotalPriceInYear(year: number): Promise<IResponseBase> {
+		console.log(year);
+		if (!year) year = moment().year();
+		const orders = await this.orderAdminRepository.findAll({
+			where: {
+				status: ENUM_ORDER_STATUS.RECEIVED,
+				createdAt: Between(
+					`${year}-01-01T00:00:00.000Z`,
+					`${year}-12-31T00:00:00.000Z`,
+				),
+			},
+		});
+		const result = [
+			{
+				month: 1,
+				totalPrice: 0,
+			},
+			{
+				month: 2,
+				totalPrice: 0,
+			},
+			{
+				month: 3,
+				totalPrice: 0,
+			},
+			{
+				month: 4,
+				totalPrice: 0,
+			},
+			{
+				month: 5,
+				totalPrice: 0,
+			},
+			{
+				month: 6,
+				totalPrice: 0,
+			},
+			{
+				month: 7,
+				totalPrice: 0,
+			},
+			{
+				month: 8,
+				totalPrice: 0,
+			},
+			{
+				month: 9,
+				totalPrice: 0,
+			},
+			{
+				month: 10,
+				totalPrice: 0,
+			},
+			{
+				month: 11,
+				totalPrice: 0,
+			},
+			{
+				month: 12,
+				totalPrice: 0,
+			},
+		];
+		if (orders.length) {
+			orders.forEach(item => {
+				switch (moment(item.createdAt).format('MM')) {
+					case '1':
+						result[0].totalPrice += item.totalPrice;
+						break;
+					case '2':
+						result[1].totalPrice += item.totalPrice;
+						break;
+					case '3':
+						result[2].totalPrice += item.totalPrice;
+						break;
+					case '4':
+						result[3].totalPrice += item.totalPrice;
+						break;
+					case '5':
+						result[4].totalPrice += item.totalPrice;
+						break;
+					case '6':
+						result[5].totalPrice += item.totalPrice;
+						break;
+					case '7':
+						result[6].totalPrice += item.totalPrice;
+						break;
+					case '8':
+						result[7].totalPrice += item.totalPrice;
+						break;
+					case '9':
+						result[8].totalPrice += item.totalPrice;
+						break;
+					case '10':
+						result[9].totalPrice += item.totalPrice;
+						break;
+					case '11':
+						result[10].totalPrice += item.totalPrice;
+						break;
+					case '12':
+						result[11].totalPrice += item.totalPrice;
+						break;
+				}
+			});
+		}
+		return this.paginationService.formatResult(result);
+	}
 
 	async createOrder(
 		user: any,
